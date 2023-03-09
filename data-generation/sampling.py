@@ -5,16 +5,98 @@ Defines samples points on the input space for the expensive simulation to be run
 @author: François Straet
 """
 
-import sys
+import os, sys
 
+import numpy as np
 import pandas as pd
 
 from pyDOE import lhs
 
+sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
+
+import dispaset as ds
+
+# Wether or not we build test simulations
+TESTING = True
+
 CRITERION = "maximin"
 N_SAMPLES = 10
 
-OUT_NAME = "samples.csv"
+WRITE_POINTS_TO_CSV = False
+CSV_OUT_NAME = "samples.csv"
+
+# Base directory for the simulation
+SIMULATIONS_FOLDER = "simulations"
+# Where simulation will actually be written
+SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test0"
+# Where to write reference simulation
+REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
+
+config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest.xlsx")
+config["SimulationDirectory"] = REFERENCE_SIMULATION_FOLDER 
+
+if TESTING:
+    config["StartDate"] = (2022, 1, 1, 0, 0, 0)
+    config["StopDate"] = (2022, 1, 2, 0, 0, 0)
+
+
+# Build base simulation directory
+sim_data = ds.build_simulation(config)
+
+# Extract some significant values from the config:
+peak_load = sim_data["parameters"]["Demand"]["val"][0].sum(axis=0).max()
+
+availability_factors = sim_data["parameters"]["AvailabilityFactor"]["val"].mean(axis=1)
+af_df = pd.DataFrame(availability_factors, index=sim_data["sets"]["au"], columns=["availability_factor_avg"])
+
+print(availability_factors)
+print(f"Simdata[sets][au]: {sim_data['sets']['au']}")
+print(af_df)
+CF_pv = af_df.filter(like="PHOT", axis=0).mean().loc["availability_factor_avg"]
+print(af_df.filter(like="PHOT", axis=0))
+CF_wton_list0 = af_df.filter(like="WindOn", axis=0)
+CF_wton_list1 = af_df.filter(like="WTON", axis=0)
+CF_wton_list = pd.concat([CF_wton_list0, CF_wton_list1])
+CF_wton = CF_wton_list.mean().loc["availability_factor_avg"]
+print(af_df.filter(like="WTON", axis=0))
+
+units = sim_data["units"]
+flex_units = units[ units.Fuel.isin( ['GAS','HRD','OIL','BIO','LIG','PEA','NUC','GEO'] ) & (units.PartLoadMin < 0.5) & (units.TimeUpMinimum <5)  & (units.RampUpRate > 0.01)  ].index
+slow_units = units[ units.Fuel.isin( ['GAS','HRD','OIL','BIO','LIG','PEA','NUC','GEO'] ) & ((units.PartLoadMin >= 0.5) | (units.TimeUpMinimum >=5)  | (units.RampUpRate <= 0.01)   )  ].index
+sto_units  = units[ units.Fuel.isin( ['OTH'] ) ].index
+wind_units = units[ units.Fuel.isin( ['WIN'] ) ].index 
+pv_units   = units[ units.Technology == 'PHOT'].index   
+hror_units = units[ units.Technology == 'HROR'].index   
+
+ref = {}
+ref['overcapacity'] = (units.PowerCapacity[flex_units].sum() + units.PowerCapacity[slow_units].sum() + units.PowerCapacity[sto_units].sum()) / peak_load
+ref['share_flex'] =   units.PowerCapacity[flex_units].sum() / (units.PowerCapacity[flex_units].sum() + units.PowerCapacity[slow_units].sum())
+ref['share_sto'] =    units.PowerCapacity[sto_units].sum() / peak_load
+ref['share_wind'] =   units.PowerCapacity[wind_units].sum() / peak_load * CF_wton
+ref['share_pv'] =     units.PowerCapacity[pv_units].sum() / peak_load * CF_pv
+
+
+# Computing rNTCs
+h_mean = sim_data['parameters']['FlowMaximum']['val'].mean(axis=1)
+NTC = pd.DataFrame(h_mean, index=sim_data['sets']['l'], columns=['FlowMax_hmean']).groupby(level=0).sum()
+
+countries = sim_data['sets']['n']
+max_load = sim_data['parameters']['Demand']['val'][0].max(axis=1)
+    
+peak_load_df = pd.DataFrame(max_load, index=countries, columns=['max_load'])
+    
+for c in countries:
+    ntc = 0
+    for l in NTC.index:
+        if c in l: 
+            ntc += NTC.loc[l,'FlowMax_hmean']
+    peak_load_df.loc[c,'rNTC'] = ntc / 2 / peak_load_df.loc[c,'max_load']
+
+peak_load_df['weigthed'] = peak_load_df['max_load'] * peak_load_df['rNTC'] / peak_load_df['max_load'].sum()
+
+ref['rNTC'] = peak_load_df['weigthed'].sum()     
+
+
 
 # from Carla's work
 capacity_ratio_range = (0.5, 1.8)
@@ -35,6 +117,8 @@ ranges_name = ["Capacity ratio", "Share flexible",
 N_DIMS = len(ranges)
 
 def main():
+    print(f"Reference simulation: {ref}")
+    print(f"CF pv: {CF_pv}, CF wton: {CF_wton}, peak_load: {peak_load}")
     print(f"Generating samples in ranges {ranges}")
     # samples is numpy array
     samples = lhs(N_DIMS, samples=N_SAMPLES, criterion=CRITERION)
@@ -46,16 +130,51 @@ def main():
         samples[:,i] *= max - min
         samples[:,i] += min
     
-    df = pd.DataFrame(samples, columns=ranges_name)
+    if WRITE_POINTS_TO_CSV:
+        df = pd.DataFrame(samples, columns=ranges_name)
 
-    try:
-        out_name = sys.argv[1]
-    except IndexError:
-        out_name = OUT_NAME
+        try:
+            out_name = sys.argv[1]
+        except IndexError:
+            out_name = CSV_OUT_NAME
 
-    print(f"Output samples to file: {out_name}")
+        print(f"Output samples to file: {out_name}")
 
-    df.to_csv(out_name, index_label="Index")
+        df.to_csv(out_name, index_label="Index")
+    
+    build_simulations(samples)
+
+
+def build_simulations(samples):
+    nb = len(samples)
+    for i, sample in enumerate(samples):
+        print(f"Simulation {i} / {nb}, {sample}")
+        capacity_ratio, share_flex, share_sto, share_wind, share_pv, rNTC = sample
+        
+        name = "sim-" + np.array2string(sample, separator="-", formatter={'float_kind': lambda x: f"{x:.2f}" })[1:-1]
+        cur_folder = SIMULATIONS_SUBFOLDER + os.sep + name
+
+        
+        # in the first iteration, we load the input data from the original simulation directory:
+        data = ds.adjust_capacity(REFERENCE_SIMULATION_FOLDER, ('BATS','OTH'), singleunit=True, 
+                                     value=peak_load*share_sto)
+        
+        # then we use the dispa-set fuction to adjust the installed capacities:
+        data = ds.adjust_flexibility(data, flex_units, slow_units, share_flex, singleunit=True)
+        #SimData = ds.adjust_capacity(SimData,('COMC','GAS'),singleunit=True,value=load_max*cap*flex)
+        #SimData = ds.adjust_capacity(SimData,('STUR','NUC'),singleunit=True,value=load_max*cap*(1-flex))
+        
+        # dispa-set function to adjust the ntc:
+        data = ds.adjust_ntc(data, value=rNTC)
+        
+        # For wind and PV, the units should be lumped into a single unit:
+        data = ds.adjust_capacity(data, ('WTON','WIN'),
+                                  value=peak_load*capacity_ratio*share_wind/CF_wton, singleunit=True)
+        
+        # In this last iteration, the new gdx file is written to the simulation folder:
+        data = ds.adjust_capacity(data, ('PHOT','SUN'),
+                                  value=peak_load*capacity_ratio*share_pv/CF_pv, singleunit=True,
+                                  write_gdx=True, dest_path=cur_folder)
         
 
 if __name__ == "__main__":
