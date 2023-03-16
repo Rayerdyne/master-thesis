@@ -1,0 +1,3572 @@
+[WARNING ] (<module>): Cartopy module not found. The geoplot functions will not be available
+[WARNING ] (load_config_excel): No value was provided in config file for PriceOfAmmonia. Will use 0
+[INFO    ] (load_config_excel): Using config file (v20.02) ConfigFiles/ConfigTest_Matijs_MILP.xlsx to build the simulation environment
+[INFO    ] (load_config_excel): Using /home/f/Unif/tfe/work/data-generation/ as simulation folder
+[INFO    ] (load_config_excel): Description of the simulation: Dummy configuration file for testing purposes. Two fictitious zones (Z1 and Z2) are simulated. The simulated period is only 7 days. There is a CHP unit in zone 1
+[INFO    ] (mid_term_scheduling): Hydro scheduling is performed for the period between 01.01.2022 and 12.31.2022
+[INFO    ] (mid_term_scheduling): 
+
+Launching regional Mid-Term Scheduling 
+
+[INFO    ] (build_single_run): New build started. DispaSET version: 2.5.0.post19+g0820c6d
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/AT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/AT/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/BE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/BE/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/BG/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/BG/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/CH/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/CH/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/CZ/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/CZ/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/DE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/DE/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/DK/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/DK/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/EE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/EE/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/EL/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/EL/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/ES/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/ES/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/FI/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/FI/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/FR/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/FR/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/HR/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/HR/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/HU/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/HU/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/IE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/IE/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/IT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/IT/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/LT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/LT/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/LV/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/LV/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/NL/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/NL/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/NO/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/NO/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/PL/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/PL/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/PT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/PT/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/RO/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/RO/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/SE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/SE/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/SI/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/SI/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/SK/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/SK/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/UK/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/TotalLoadValue_def/UK/2019.csv: there is one data point missing in the time series. It will be filled with the nearest data
+[WARNING ] (build_single_run): No historical flows will be considered (no valid file provided)
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/DayAheadNTC/NTC_Matijs.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[INFO    ] (NodeBasedTable): No data file specified for the table LoadShedding. Using default value 0.15
+[INFO    ] (NodeBasedTable): No data file specified for the table CostLoadShedding. Using default value 1000.0
+[INFO    ] (NodeBasedTable): No data file specified for the table ShareOfFlexibleDemand. Using default value 0.0
+[INFO    ] (NodeBasedTable): No data file specified for the table Reserve2D. Using default value None
+[INFO    ] (NodeBasedTable): No data file specified for the table Reserve2U. Using default value None
+[INFO    ] (NodeBasedTable): No data file specified for the table CostCurtailment. Using default value 0.0
+[WARNING ] (select_units): Removed Unit LT_BATS_OTH since it has a null capacity
+[INFO    ] (build_single_run): No "Zone_h2" header was found in the units table. One individual zone is defined per power plant
+[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
+[ERROR   ] (check_units): Non-null value(s) have been found for key MinEfficiency in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
+[ERROR   ] (check_units): Non-null value(s) have been found for key StartUpTime in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
+[ERROR   ] (check_sto): The Storage capacity for unit DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
+[WARNING ] (check_sto): The Storage capacity for unit FI_HDAM_WAT is very high.
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit AT_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit AT_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit BE_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit BG_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit CZ_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit DE_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit DE_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit DK_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit DK_STUR_WST_CHP is 0.9777777777777776, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit DK_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit EE_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit EL_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit ES_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit FI_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit FI_STUR_WST_CHP is 0.9777777777777776, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit FI_COMC_GAS_CHP is 0.9557179707652624, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit HR_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit HR_COMC_GAS_CHP is 0.955717970765262, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit HU_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit HU_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit IT_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit IT_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit LT_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit LV_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit NL_COMC_GAS_CHP is 0.9557179707652623, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit NO_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit PL_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit PL_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit PT_COMC_GAS_CHP is 0.9557179707652623, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit RO_COMC_GAS_CHP is 0.955717970765262, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit SE_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit SE_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit SK_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit UK_STUR_OIL_CHP is 1.1392857142857145, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit UK_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[INFO    ] (UnitBasedTable): No data file specified for the table Outages. Using default value None
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/AT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/BE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/BG/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/CH/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/CZ/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/DE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/DK/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/EE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/EL/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/ES/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/FI/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/FR/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/HR/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/HU/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/IE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/IT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/LT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/LV/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/NL/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/NO/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/PL/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/PT/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/RO/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/SE/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/SI/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/SK/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/AvailabilityFactors/UK/2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (UnitBasedTable): No specific information was found for unit AT_HROR_WAT in table RenewablesAF. The generic information for ('AT', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit AT_WTOF_WIN in table RenewablesAF. The generic information for ('AT', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit AT_PHOT_SUN in table RenewablesAF. The generic information for ('AT', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BE_HROR_WAT in table RenewablesAF. The generic information for ('BE', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BE_WTOF_WIN in table RenewablesAF. The generic information for ('BE', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BE_WTON_WIN in table RenewablesAF. The generic information for ('BE', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BE_PHOT_SUN in table RenewablesAF. The generic information for ('BE', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BG_HROR_WAT in table RenewablesAF. The generic information for ('BG', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BG_WTOF_WIN in table RenewablesAF. The generic information for ('BG', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit BG_PHOT_SUN in table RenewablesAF. The generic information for ('BG', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit CH_HROR_WAT in table RenewablesAF. The generic information for ('CH', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit CH_WTOF_WIN in table RenewablesAF. The generic information for ('CH', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit CH_PHOT_SUN in table RenewablesAF. The generic information for ('CH', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit CZ_HROR_WAT in table RenewablesAF. The generic information for ('CZ', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit CZ_WTOF_WIN in table RenewablesAF. The generic information for ('CZ', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit CZ_PHOT_SUN in table RenewablesAF. The generic information for ('CZ', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DE_HROR_WAT in table RenewablesAF. The generic information for ('DE', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DE_WTOF_WIN in table RenewablesAF. The generic information for ('DE', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DE_WTON_WIN in table RenewablesAF. The generic information for ('DE', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DE_PHOT_SUN in table RenewablesAF. The generic information for ('DE', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DK_WTOF_WIN in table RenewablesAF. The generic information for ('DK', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DK_WTON_WIN in table RenewablesAF. The generic information for ('DK', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit DK_PHOT_SUN in table RenewablesAF. The generic information for ('DK', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit EE_WTOF_WIN in table RenewablesAF. The generic information for ('EE', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit EE_PHOT_SUN in table RenewablesAF. The generic information for ('EE', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit EL_HROR_WAT in table RenewablesAF. The generic information for ('EL', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit EL_WTOF_WIN in table RenewablesAF. The generic information for ('EL', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit EL_PHOT_SUN in table RenewablesAF. The generic information for ('EL', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit ES_HROR_WAT in table RenewablesAF. The generic information for ('ES', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit ES_WTOF_WIN in table RenewablesAF. The generic information for ('ES', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit ES_PHOT_SUN in table RenewablesAF. The generic information for ('ES', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FI_HROR_WAT in table RenewablesAF. The generic information for ('FI', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FI_WTOF_WIN in table RenewablesAF. The generic information for ('FI', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FI_WTON_WIN in table RenewablesAF. The generic information for ('FI', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FI_PHOT_SUN in table RenewablesAF. The generic information for ('FI', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FR_HROR_WAT in table RenewablesAF. The generic information for ('FR', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FR_WTOF_WIN in table RenewablesAF. The generic information for ('FR', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit FR_PHOT_SUN in table RenewablesAF. The generic information for ('FR', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit HR_HROR_WAT in table RenewablesAF. The generic information for ('HR', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit HR_WTOF_WIN in table RenewablesAF. The generic information for ('HR', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit HR_PHOT_SUN in table RenewablesAF. The generic information for ('HR', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit HU_HROR_WAT in table RenewablesAF. The generic information for ('HU', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit HU_WTOF_WIN in table RenewablesAF. The generic information for ('HU', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit HU_PHOT_SUN in table RenewablesAF. The generic information for ('HU', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IE_HROR_WAT in table RenewablesAF. The generic information for ('IE', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IE_WTOF_WIN in table RenewablesAF. The generic information for ('IE', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IE_WTON_WIN in table RenewablesAF. The generic information for ('IE', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IE_PHOT_SUN in table RenewablesAF. The generic information for ('IE', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IT_HROR_WAT in table RenewablesAF. The generic information for ('IT', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IT_WTOF_WIN in table RenewablesAF. The generic information for ('IT', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit IT_PHOT_SUN in table RenewablesAF. The generic information for ('IT', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit LT_WTOF_WIN in table RenewablesAF. The generic information for ('LT', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit LT_PHOT_SUN in table RenewablesAF. The generic information for ('LT', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit LV_HROR_WAT in table RenewablesAF. The generic information for ('LV', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit LV_WTOF_WIN in table RenewablesAF. The generic information for ('LV', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit LV_PHOT_SUN in table RenewablesAF. The generic information for ('LV', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit NL_WTOF_WIN in table RenewablesAF. The generic information for ('NL', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit NL_WTON_WIN in table RenewablesAF. The generic information for ('NL', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit NL_PHOT_SUN in table RenewablesAF. The generic information for ('NL', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit NO_WTOF_WIN in table RenewablesAF. The generic information for ('NO', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit NO_PHOT_SUN in table RenewablesAF. The generic information for ('NO', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit PL_WTOF_WIN in table RenewablesAF. The generic information for ('PL', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit PL_PHOT_SUN in table RenewablesAF. The generic information for ('PL', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit PT_HROR_WAT in table RenewablesAF. The generic information for ('PT', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit PT_WTOF_WIN in table RenewablesAF. The generic information for ('PT', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit PT_PHOT_SUN in table RenewablesAF. The generic information for ('PT', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit RO_HROR_WAT in table RenewablesAF. The generic information for ('RO', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit RO_WTOF_WIN in table RenewablesAF. The generic information for ('RO', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit RO_PHOT_SUN in table RenewablesAF. The generic information for ('RO', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SE_HROR_WAT in table RenewablesAF. The generic information for ('SE', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SE_WTOF_WIN in table RenewablesAF. The generic information for ('SE', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SE_WTON_WIN in table RenewablesAF. The generic information for ('SE', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SE_PHOT_SUN in table RenewablesAF. The generic information for ('SE', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SI_HROR_WAT in table RenewablesAF. The generic information for ('SI', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SI_WTOF_WIN in table RenewablesAF. The generic information for ('SI', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SI_PHOT_SUN in table RenewablesAF. The generic information for ('SI', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SK_HROR_WAT in table RenewablesAF. The generic information for ('SK', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit SK_PHOT_SUN in table RenewablesAF. The generic information for ('SK', 'PHOT') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit UK_HROR_WAT in table RenewablesAF. The generic information for ('UK', 'HROR') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit UK_WTOF_WIN in table RenewablesAF. The generic information for ('UK', 'WTOF') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit UK_WTON_WIN in table RenewablesAF. The generic information for ('UK', 'WTON') has been used
+[WARNING ] (UnitBasedTable): No specific information was found for unit UK_PHOT_SUN in table RenewablesAF. The generic information for ('UK', 'PHOT') has been used
+[INFO    ] (UnitBasedTable): No data file specified for the table ReservoirLevels. Using default value 0
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/AT/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/BE/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/BG/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/CH/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/CZ/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/DE/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/DK/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/EE/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/EL/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/ES/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/FI/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/FR/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/HR/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/HU/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/IE/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/IT/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/LT/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/LV/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/NL/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/NO/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/PL/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/PT/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/RO/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/SE/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/SI/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/SK/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/ScaledInflows/UK/lisflood_scaled_inflow_2015.csv: data for year 2016 is used instead of year 2022
+[WARNING ] (UnitBasedTable): No specific information was found for unit AT_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('AT', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit AT_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit AT_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit BE_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit BE_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit BG_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('BG', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit BG_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit BG_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit CH_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('CH', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit CH_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit CH_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit CZ_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('CZ', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit CZ_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit CZ_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit DE_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('DE', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit DE_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit DE_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit DK_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit EE_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit EL_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('EL', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit EL_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit EL_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit ES_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('ES', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit ES_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit ES_SCSP_SUN in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit ES_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit FI_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('FI', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit FI_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit FR_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('FR', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit FR_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit FR_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit HR_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('HR', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit HR_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit HR_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit HU_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('HU', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit HU_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit IE_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit IE_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit IT_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('IT', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit IT_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit IT_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit LT_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('LT', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit LT_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit LV_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('LV', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit LV_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit NL_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit NO_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('NO', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit NO_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit NO_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit PL_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('PL', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit PL_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit PL_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit PT_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('PT', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit PT_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit PT_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit RO_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('RO', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit RO_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit SE_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('SE', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit SE_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit SE_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit SI_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('SI', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit SI_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit SI_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit SK_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('SK', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit SK_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit SK_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (UnitBasedTable): No specific information was found for unit UK_HDAM_WAT in table ReservoirScaledInflows. The generic information for ('UK', 'HDAM') has been used
+[INFO    ] (UnitBasedTable): No specific information was found for unit UK_HPHS_WAT in table ReservoirScaledInflows. Using default value 0
+[INFO    ] (UnitBasedTable): No specific information was found for unit UK_BATS_OTH in table ReservoirScaledInflows. Using default value 0
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/Temperatures/Temps_2019.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[WARNING ] (load_time_series): File /home/f/Unif/tfe/work/data-generation/Database-matijs/HeatDemandTotal/HeatDemand_TOTAL.csv: data for year 2019 is used instead of year 2022. Leap year date is removed from the original DataFrame.
+[INFO    ] (GenericTable): No data file specified for the table CostHeatSlack. Using default value 84.2105263157895
+[INFO    ] (GenericTable): No data file specified for the table H2RigidDemand. Using default value 0
+[INFO    ] (GenericTable): No data file specified for the table H2FlexibleDemand. Using default value 0
+[INFO    ] (GenericTable): No data file specified for the table CostH2Slack. Using default value 75.0
+[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit ES_HROR_WAT for technology HROR should be between 0 and 1. There are 24 values above 1.0 and 0 below 0.0
+[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit SE_HROR_WAT for technology HROR should be between 0 and 1. There are 1632 values above 1.0 and 0 below 0.0
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone AT. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone AT. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone BE. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone BE. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone BG. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone BG. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone CH. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone CH. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone CZ. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone CZ. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone DE. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone DE. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone DK. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone DK. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone EE. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone EE. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone EL. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone EL. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone ES. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone ES. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone FI. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone FI. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone FR. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone FR. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone HR. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone HR. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone HU. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone HU. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone IE. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone IE. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone IT. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone IT. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone LT. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone LT. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone LV. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone LV. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone NL. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone NL. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone NO. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone NO. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone PL. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone PL. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone PT. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone PT. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone RO. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone RO. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone SE. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone SE. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone SI. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone SI. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone SK. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone SK. Using the standard formula
+[WARNING ] (check_reserves): No 2U reserve requirement data has been found for zone UK. Using the standard formula
+[WARNING ] (check_reserves): No 2D reserve requirement data has been found for zone UK. Using the standard formula
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfNuclear. Using default value 3.0
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfBlackCoal. Using default value 10.0
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfGas. Using default value 80.0
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfFuelOil. Using default value 65.0
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfBiomass. Using default value 10.08
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfCO2. Using default value 25.0
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfLignite. Using default value 7.23
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfPeat. Using default value 9.36
+[INFO    ] (NodeBasedTable): No data file specified for the table PriceOfAmmonia. Using default value 0
+[INFO    ] (interconnections): Detected interconnection EL -> IT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection RO -> HU. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection AT -> IT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection IT -> AT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection IT -> EL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SK -> HU. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection RO -> BG. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FR -> IT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NO -> NL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CZ -> AT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection BG -> EL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection EL -> BG. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection IT -> SI. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection HR -> HU. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CH -> AT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CH -> IT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SI -> IT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> DK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection UK -> IE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection UK -> NL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CZ -> PL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection BG -> RO. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection AT -> HU. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NL -> NO. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection PL -> SK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection HU -> RO. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SK -> PL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection AT -> SI. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection HU -> SK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CZ -> SK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection ES -> PT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection HR -> SI. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection HU -> AT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection AT -> CH. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SI -> AT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FR -> CH. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> CH. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection IT -> CH. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection PL -> CZ. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection AT -> CZ. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> CZ. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SK -> CZ. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FR -> ES. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CZ -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CH -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DK -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection CH -> FR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection ES -> FR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection UK -> FR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection IT -> FR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NL -> UK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FR -> UK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection IE -> UK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection PT -> ES. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection HU -> HR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SI -> HR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection BE -> NL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NL -> BE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection AT -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> AT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection BE -> FR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DK -> NO. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SE -> PL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FI -> SE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection LT -> PL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> PL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NO -> FI. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NL -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SE -> LT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NO -> DK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection PL -> SE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection PL -> LT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SE -> FI. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SE -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection LT -> SE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> FR. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> SE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FR -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SE -> NO. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection NO -> SE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FI -> NO. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection SE -> DK. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FR -> BE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection PL -> DE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DE -> NL. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection DK -> SE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection LT -> LV. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection EE -> FI. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection LV -> LT. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection LV -> EE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection FI -> EE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection EE -> LV. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection UK -> BE. The historical NTCs will be imposed as maximum flow value
+[INFO    ] (interconnections): Detected interconnection BE -> UK. The historical NTCs will be imposed as maximum flow value
+[WARNING ] (clustering): The LP clustering method aggregates all the units of the same type. Individual units are not considered
+[WARNING ] (clustering): Did not cluster any unit
+[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
+[WARNING ] (check_sto): The Storage capacity for unit [159] - FI_HDAM_WAT is very high.
+[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
+[WARNING ] (check_sto): The Storage capacity for unit [159] - FI_HDAM_WAT is very high.
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [11] - AT_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [10] - AT_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [28] - BE_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [43] - BG_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [67] - CZ_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [89] - DE_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [88] - DE_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [108] - DK_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [105] - DK_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [107] - DK_STUR_WST_CHP is 0.9777777777777779, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [118] - EE_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [131] - EL_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [148] - ES_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [171] - FI_COMC_GAS_CHP is 0.9557179707652624, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [168] - FI_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [170] - FI_STUR_WST_CHP is 0.9777777777777776, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [206] - HR_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [205] - HR_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [223] - HU_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [222] - HU_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [263] - IT_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [261] - IT_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [274] - LT_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [283] - LV_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [297] - NL_COMC_GAS_CHP is 0.9557179707652623, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [307] - NO_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [321] - PL_COMC_GAS_CHP is 0.955717970765262, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [320] - PL_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [333] - PT_COMC_GAS_CHP is 0.9557179707652623, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [347] - RO_COMC_GAS_CHP is 0.955717970765262, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [368] - SE_COMC_GAS_CHP is 0.9557179707652622, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [367] - SE_STUR_OIL_CHP is 1.1392857142857142, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [393] - SK_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [416] - UK_COMC_GAS_CHP is 0.9557179707652621, which is very high!
+[WARNING ] (check_chp): The calculated value of the total CHP efficiency for unit [415] - UK_STUR_OIL_CHP is 1.1392857142857145, which is very high!
+[INFO    ] (build_single_run): Using generic reserve calculation for zone AT
+[INFO    ] (build_single_run): Using generic reserve calculation for zone BE
+[INFO    ] (build_single_run): Using generic reserve calculation for zone BG
+[INFO    ] (build_single_run): Using generic reserve calculation for zone CH
+[INFO    ] (build_single_run): Using generic reserve calculation for zone CZ
+[INFO    ] (build_single_run): Using generic reserve calculation for zone DE
+[INFO    ] (build_single_run): Using generic reserve calculation for zone DK
+[INFO    ] (build_single_run): Using generic reserve calculation for zone EE
+[INFO    ] (build_single_run): Using generic reserve calculation for zone EL
+[INFO    ] (build_single_run): Using generic reserve calculation for zone ES
+[INFO    ] (build_single_run): Using generic reserve calculation for zone FI
+[INFO    ] (build_single_run): Using generic reserve calculation for zone FR
+[INFO    ] (build_single_run): Using generic reserve calculation for zone HR
+[INFO    ] (build_single_run): Using generic reserve calculation for zone HU
+[INFO    ] (build_single_run): Using generic reserve calculation for zone IE
+[INFO    ] (build_single_run): Using generic reserve calculation for zone IT
+[INFO    ] (build_single_run): Using generic reserve calculation for zone LT
+[INFO    ] (build_single_run): Using generic reserve calculation for zone LV
+[INFO    ] (build_single_run): Using generic reserve calculation for zone NL
+[INFO    ] (build_single_run): Using generic reserve calculation for zone NO
+[INFO    ] (build_single_run): Using generic reserve calculation for zone PL
+[INFO    ] (build_single_run): Using generic reserve calculation for zone PT
+[INFO    ] (build_single_run): Using generic reserve calculation for zone RO
+[INFO    ] (build_single_run): Using generic reserve calculation for zone SE
+[INFO    ] (build_single_run): Using generic reserve calculation for zone SI
+[INFO    ] (build_single_run): Using generic reserve calculation for zone SK
+[INFO    ] (build_single_run): Using generic reserve calculation for zone UK
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [15] - AT_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [4] - AT_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [5] - AT_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [32] - BE_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [22] - BE_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [47] - BG_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [37] - BG_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [38] - BG_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [54] - CH_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [49] - CH_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [50] - CH_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [71] - CZ_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [61] - CZ_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [62] - CZ_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [93] - DE_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [81] - DE_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [82] - DE_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [112] - DK_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [121] - EE_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [135] - EL_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [126] - EL_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [127] - EL_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [151] - ES_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [142] - ES_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [143] - ES_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [147] - ES_SCSP_SUN. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [175] - FI_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [159] - FI_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [193] - FR_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [184] - FR_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [185] - FR_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [208] - HR_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [199] - HR_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [200] - HR_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [227] - HU_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [217] - HU_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [241] - IE_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [234] - IE_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [267] - IT_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [253] - IT_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [254] - IT_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [270] - LT_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [271] - LT_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [287] - LV_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [279] - LV_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [301] - NL_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [309] - NO_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [303] - NO_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [304] - NO_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [325] - PL_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [314] - PL_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [315] - PL_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [337] - PT_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [328] - PT_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [329] - PT_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [351] - RO_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [342] - RO_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [371] - SE_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [358] - SE_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [359] - SE_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [382] - SI_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [375] - SI_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [376] - SI_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [396] - SK_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [388] - SK_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [389] - SK_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [420] - UK_BATS_OTH. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [406] - UK_HDAM_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): Could not find reservoir level data for storage plant [407] - UK_HPHS_WAT. Using the provided default initial and final values
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [15] - AT_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [4] - AT_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [5] - AT_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [6] - AT_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [8] - AT_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [7] - AT_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [32] - BE_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [22] - BE_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [23] - BE_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [26] - BE_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [24] - BE_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [25] - BE_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [47] - BG_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [37] - BG_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [38] - BG_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [39] - BG_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [41] - BG_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [40] - BG_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [54] - CH_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [49] - CH_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [50] - CH_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [51] - CH_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [53] - CH_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [52] - CH_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [71] - CZ_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [61] - CZ_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [62] - CZ_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [63] - CZ_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [65] - CZ_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [64] - CZ_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [93] - DE_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [81] - DE_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [82] - DE_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [83] - DE_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [86] - DE_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [84] - DE_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [85] - DE_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [112] - DK_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [103] - DK_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [101] - DK_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [102] - DK_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WST in unit [106] - DK_COMC_WST_CHP. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WST in unit [107] - DK_STUR_WST_CHP. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [121] - EE_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [117] - EE_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [116] - EE_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [135] - EL_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [126] - EL_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [127] - EL_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [128] - EL_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [130] - EL_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [129] - EL_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [151] - ES_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [142] - ES_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [143] - ES_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [144] - ES_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [146] - ES_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [147] - ES_SCSP_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [145] - ES_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [175] - FI_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [159] - FI_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [160] - FI_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [163] - FI_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [161] - FI_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [162] - FI_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WST in unit [169] - FI_COMC_WST_CHP. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WST in unit [170] - FI_STUR_WST_CHP. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [193] - FR_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [184] - FR_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [185] - FR_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [186] - FR_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [188] - FR_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [187] - FR_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [208] - HR_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [199] - HR_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [200] - HR_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [201] - HR_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [203] - HR_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [202] - HR_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [227] - HU_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [217] - HU_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [218] - HU_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [220] - HU_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [219] - HU_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [241] - IE_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [234] - IE_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [235] - IE_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [238] - IE_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [236] - IE_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [237] - IE_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [267] - IT_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [253] - IT_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [254] - IT_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [255] - IT_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [257] - IT_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel GEO in unit [242] - IT_STUR_GEO. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [256] - IT_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WST in unit [262] - IT_COMC_WST_CHP. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [270] - LT_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [271] - LT_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [273] - LT_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [272] - LT_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [287] - LV_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [279] - LV_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [280] - LV_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [282] - LV_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [281] - LV_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [301] - NL_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [295] - NL_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [293] - NL_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [294] - NL_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [309] - NO_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [303] - NO_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [304] - NO_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [306] - NO_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [305] - NO_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [325] - PL_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [314] - PL_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [315] - PL_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [317] - PL_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [316] - PL_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [337] - PT_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [328] - PT_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [329] - PT_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [330] - PT_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [332] - PT_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [331] - PT_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [351] - RO_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [342] - RO_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [343] - RO_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [345] - RO_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [344] - RO_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [371] - SE_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [358] - SE_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [359] - SE_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [360] - SE_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [363] - SE_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [361] - SE_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [362] - SE_WTON_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [382] - SI_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [375] - SI_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [376] - SI_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [377] - SI_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [379] - SI_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [378] - SI_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [396] - SK_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [388] - SK_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [389] - SK_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [390] - SK_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [391] - SK_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel OTH in unit [420] - UK_BATS_OTH. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [406] - UK_HDAM_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [407] - UK_HPHS_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WAT in unit [408] - UK_HROR_WAT. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel SUN in unit [411] - UK_PHOT_SUN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [409] - UK_WTOF_WIN. A null variable cost has been assigned
+[WARNING ] (build_single_run): No fuel price value has been found for fuel WIN in unit [410] - UK_WTON_WIN. A null variable cost has been assigned
+[ERROR   ] (build_single_run): In zone: NO there is insufficient conventional + renewable generation capacity of: 9939.360228868842. If NTC + storage is not sufficient ShedLoad in NO is likely to occour. Check the inputs!
+[WARNING ] (get_gams_path): The provided path for GAMS () does not exist. Trying to locate...
+[INFO    ] (write_variables): Data Successfully written to Inputs.gdx
+[INFO    ] (build_single_run): Build finished
+[INFO    ] (solve_GAMS): Using the high-level gams api
+---- Entering GamsWorkspace constructor ----
+---- Entering GamsJob constructor ----
+---- Entering GamsOptions constructor ----
+---- Entering GamsOptions constructor ----
+--- Job UCM_h.gms Start 03/16/23 10:06:11 37.1.0 r07954d5 LEX-LEG x86 64bit/Linux
+--- Applying:
+    /home/f/Unif/tfe/gams37.1_linux_x64_64_sfx/gmsprmun.txt
+--- GAMS Parameters defined
+    LP CPLEX
+    MIP CPLEX
+    RMIP CPLEX
+    NLP CONOPT
+    MCP PATH
+    MPEC NLPEC
+    RMPEC NLPEC
+    CNS CONOPT
+    DNLP CONOPT
+    RMINLP CONOPT
+    MINLP DICOPT
+    QCP CONOPT
+    MIQCP SBB
+    RMIQCP CONOPT
+    EMP JAMS
+    Input /tmp/tmpvhpvhm46/UCM_h.gms
+    Output /tmp/tmpvhpvhm46/_gams_py_gjo0.lst
+    ScrDir /tmp/tmpvhpvhm46/225a/
+    SysDir /home/f/Unif/tfe/gams37.1_linux_x64_64_sfx/
+    CurDir /tmp/tmpvhpvhm46/
+    LogOption 3
+    LogFile /tmp/tmpvhpvhm46/_gams_py_gjo0.log
+    GDX /tmp/tmpvhpvhm46/_gams_py_gdb0.gdx
+Licensee: Sylvain Quoilin, Single User License           S220126|0002AO-LNX
+          KU Leuven, TME                                            DC16081
+          /home/f/.local/share/GAMS/gamslice.txt
+          sylvain.quoilin@kuleuven.be                                      
+Processor information: 1 socket(s), 2 core(s), and 4 thread(s) available
+GAMS 37.1.0   Copyright (C) 1987-2021 GAMS Development. All rights reserved
+--- Starting compilation
+--- GDXin=/tmp/tmpvhpvhm46/Inputs.gdx
+--- GDX File ($gdxIn) /tmp/tmpvhpvhm46/Inputs.gdx
+--- UCM_h.gms(1615) 21 Mb
+--- Starting execution: elapsed 0:00:00.099
+--- UCM_h.gms(363) 41 Mb--- UCM_h.gms(366) 49 Mb--- UCM_h.gms(367) 51 Mb--- UCM_h.gms(1158) 51 Mb
+--- Generating LP model UCM_SIMPLE
+--- UCM_h.gms(655) 62 Mb--- UCM_h.gms(655) 65 Mb--- UCM_h.gms(945) 83 Mb--- UCM_h.gms(904) 91 Mb--- UCM_h.gms(498) 135 Mb--- UCM_h.gms(498) 148 Mb--- UCM_h.gms(498) 210 Mb--- UCM_h.gms(521) 215 Mb--- UCM_h.gms(521) 252 Mb--- UCM_h.gms(521) 267 Mb--- UCM_h.gms(531) 276 Mb--- UCM_h.gms(531) 281 Mb--- UCM_h.gms(531) 301 Mb--- UCM_h.gms(531) 312 Mb--- UCM_h.gms(531) 327 Mb--- UCM_h.gms(567) 339 Mb--- UCM_h.gms(567) 339 Mb--- UCM_h.gms(567) 342 Mb--- UCM_h.gms(619) 347 Mb--- UCM_h.gms(619) 348 Mb--- UCM_h.gms(631) 355 Mb--- UCM_h.gms(631) 358 Mb--- UCM_h.gms(911) 360 Mb--- UCM_h.gms(750) 361 Mb--- UCM_h.gms(750) 374 Mb--- UCM_h.gms(750) 375 Mb--- UCM_h.gms(750) 378 Mb--- UCM_h.gms(979) 381 Mb--- UCM_h.gms(979) 385 Mb--- UCM_h.gms(662) 403 Mb--- UCM_h.gms(662) 417 Mb--- UCM_h.gms(662) 428 Mb--- UCM_h.gms(669) 457 Mb--- UCM_h.gms(676) 460 Mb--- UCM_h.gms(676) 464 Mb--- UCM_h.gms(721) 471 Mb--- UCM_h.gms(777) 479 Mb--- UCM_h.gms(820) 486 Mb--- UCM_h.gms(820) 487 Mb--- UCM_h.gms(810) 492 Mb--- UCM_h.gms(810) 492 Mb--- UCM_h.gms(468) 498 Mb--- UCM_h.gms(468) 499 Mb--- UCM_h.gms(468) 531 Mb--- UCM_h.gms(468) 539 Mb--- UCM_h.gms(468) 564 Mb--- UCM_h.gms(468) 566 Mb--- UCM_h.gms(468) 566 Mb--- UCM_h.gms(468) 569 Mb--- UCM_h.gms(468) 574 Mb--- UCM_h.gms(468) 575 Mb--- UCM_h.gms(468) 579 Mb--- UCM_h.gms(468) 579 Mb--- UCM_h.gms(1034) 589 Mb--- UCM_h.gms(1175) 589 Mb--- UCM_h.gms(1175) 600 Mb--- UCM_h.gms(1175) 603 Mb
+--- LOOPS FOR/WHILE = 1
+---   1,777,969 rows  2,157,936 columns  6,509,367 non-zeroes
+--- Executing CPLEX (Solvelink=2): elapsed 0:00:12.046
+
+IBM ILOG CPLEX   37.1.0 r07954d5 Released Nov 11, 2021 LEG x86 64bit/Linux    
+
+--- GAMS/Cplex licensed for continuous and discrete problems.
+
+Reading parameter(s) from "/tmp/tmpvhpvhm46/cplex.opt"
+>>  epgap 0.0005
+>>  numericalemphasis 0
+>>  mipdisplay 4
+>>  scaind 1
+>>  lpmethod 0
+>>  relaxfixedinfeas 0
+>>  mipstart 1
+>>  mircuts 1
+>>  quality True
+>>  bardisplay 2
+>>  epint 0
+>>  lbheur 1
+Finished reading from "/tmp/tmpvhpvhm46/cplex.opt"
+
+--- GMO setup time: 0.00s
+--- Space for names approximately 181.69 Mb
+--- Use option 'names no' to turn use of names off
+--- GMO memory 763.44 Mb (peak 770.23 Mb)
+--- Dictionary memory 0.00 Mb
+--- Cplex 20.1.0.1 link memory 60.96 Mb (peak 366.19 Mb)
+--- Starting Cplex
+
+Version identifier: 20.1.0.1 | 2021-04-07 | 3a818710c
+CPXPARAM_Advance                                 0
+CPXPARAM_Read_Scale                              1
+CPXPARAM_Threads                                 16
+CPXPARAM_Parallel                                1
+CPXPARAM_MIP_Display                             4
+CPXPARAM_MIP_Cuts_MIRCut                         1
+CPXPARAM_MIP_Strategy_LBHeur                     1
+CPXPARAM_MIP_Pool_Capacity                       0
+CPXPARAM_Barrier_Display                         2
+CPXPARAM_Simplex_Limits_Iterations               1000000000
+CPXPARAM_MIP_Tolerances_AbsMIPGap                0
+CPXPARAM_MIP_Tolerances_MIPGap                   0.00050000000000000001
+CPXPARAM_MIP_Tolerances_Integrality              0
+Parallel mode: deterministic, using up to 16 threads for concurrent optimization:
+ * Starting dual Simplex on 1 thread...
+ * Starting Barrier on 14 threads...
+ * Starting primal Simplex on 1 thread...
+Tried aggregator 1 time.
+--- Reading solution for model UCM_SIMPLE
+--- UCM_h.gms(1175) 603 Mb  19 secs
+--- Executing after solve: elapsed 0:00:28.994
+--- UCM_h.gms(1158) 603 Mb
+--- GDX File (execute_unload) /tmp/tmpvhpvhm46/debug.gdx
+--- UCM_h.gms(1383) 603 Mb
+*** Error at line 1383: division by zero (0)
+--- UCM_h.gms(1387) 603 Mb 1 Error--- UCM_h.gms(1417) 603 Mb 1 Error--- UCM_h.gms(1419) 603 Mb 1 Error
+--- GDX File (execute_unload) /tmp/tmpvhpvhm46/Results.gdx
+--- UCM_h.gms(1500) 603 Mb
+--- GDX File /tmp/tmpvhpvhm46/_gams_py_gdb0.gdx
+--- UCM_h.gms(1500) 603 Mb 1 Error
+*** Status: Execution error(s)
+--- Job UCM_h.gms Stop 03/16/23 10:06:40 elapsed 0:00:29.603
+---- Entering GamsDatabase constructor ----
+gmdSetSpecialValues
+gmdSetSpecialValuesX
+gmdInitFromGDX
+---- Entering InitFromGDX ----
+Open gdx file for reading
+Opening gdx file was successful
+  using special values from GMD
+Start loading string table
+loading strings
+loading strings done
+start loading uels
+  Get uel
+  Uel loaded: DA
+  Get uel
+  Uel loaded: 2U
+  Get uel
+  Uel loaded: 2D
+  Get uel
+  Uel loaded: Flex
+  Get uel
+  Uel loaded: AT
+  Get uel
+  Uel loaded: BE
+  Get uel
+  Uel loaded: BG
+  Get uel
+  Uel loaded: CH
+  Get uel
+  Uel loaded: CZ
+  Get uel
+  Uel loaded: DE
+  Get uel
+  Uel loaded: DK
+  Get uel
+  Uel loaded: EE
+  Get uel
+  Uel loaded: EL
+  Get uel
+  Uel loaded: ES
+  Get uel
+  Uel loaded: FI
+  Get uel
+  Uel loaded: FR
+  Get uel
+  Uel loaded: HR
+  Get uel
+  Uel loaded: HU
+  Get uel
+  Uel loaded: IE
+  Get uel
+  Uel loaded: IT
+  Get uel
+  Uel loaded: LT
+  Get uel
+  Uel loaded: LV
+  Get uel
+  Uel loaded: NL
+  Get uel
+  Uel loaded: NO
+  Get uel
+  Uel loaded: PL
+  Get uel
+  Uel loaded: PT
+  Get uel
+  Uel loaded: RO
+  Get uel
+  Uel loaded: SE
+  Get uel
+  Uel loaded: SI
+  Get uel
+  Uel loaded: SK
+  Get uel
+  Uel loaded: UK
+  Get uel
+  Uel loaded: AT_th
+  Get uel
+  Uel loaded: BE_th
+  Get uel
+  Uel loaded: BG_th
+  Get uel
+  Uel loaded: CZ_th
+  Get uel
+  Uel loaded: DE_th
+  Get uel
+  Uel loaded: DK_th
+  Get uel
+  Uel loaded: EE_th
+  Get uel
+  Uel loaded: EL_th
+  Get uel
+  Uel loaded: ES_th
+  Get uel
+  Uel loaded: FI_th
+  Get uel
+  Uel loaded: FR_th
+  Get uel
+  Uel loaded: HR_th
+  Get uel
+  Uel loaded: HU_th
+  Get uel
+  Uel loaded: IE_th
+  Get uel
+  Uel loaded: IT_th
+  Get uel
+  Uel loaded: LT_th
+  Get uel
+  Uel loaded: LV_th
+  Get uel
+  Uel loaded: NL_th
+  Get uel
+  Uel loaded: NO_th
+  Get uel
+  Uel loaded: PL_th
+  Get uel
+  Uel loaded: PT_th
+  Get uel
+  Uel loaded: RO_th
+  Get uel
+  Uel loaded: SE_th
+  Get uel
+  Uel loaded: SI_th
+  Get uel
+  Uel loaded: SK_th
+  Get uel
+  Uel loaded: UK_th
+  Get uel
+  Uel loaded: EL -> IT
+  Get uel
+  Uel loaded: RO -> HU
+  Get uel
+  Uel loaded: AT -> IT
+  Get uel
+  Uel loaded: IT -> AT
+  Get uel
+  Uel loaded: IT -> EL
+  Get uel
+  Uel loaded: SK -> HU
+  Get uel
+  Uel loaded: RO -> BG
+  Get uel
+  Uel loaded: FR -> IT
+  Get uel
+  Uel loaded: NO -> NL
+  Get uel
+  Uel loaded: CZ -> AT
+  Get uel
+  Uel loaded: BG -> EL
+  Get uel
+  Uel loaded: EL -> BG
+  Get uel
+  Uel loaded: IT -> SI
+  Get uel
+  Uel loaded: HR -> HU
+  Get uel
+  Uel loaded: CH -> AT
+  Get uel
+  Uel loaded: CH -> IT
+  Get uel
+  Uel loaded: SI -> IT
+  Get uel
+  Uel loaded: DE -> DK
+  Get uel
+  Uel loaded: UK -> IE
+  Get uel
+  Uel loaded: UK -> NL
+  Get uel
+  Uel loaded: CZ -> PL
+  Get uel
+  Uel loaded: BG -> RO
+  Get uel
+  Uel loaded: AT -> HU
+  Get uel
+  Uel loaded: NL -> NO
+  Get uel
+  Uel loaded: PL -> SK
+  Get uel
+  Uel loaded: HU -> RO
+  Get uel
+  Uel loaded: SK -> PL
+  Get uel
+  Uel loaded: AT -> SI
+  Get uel
+  Uel loaded: HU -> SK
+  Get uel
+  Uel loaded: CZ -> SK
+  Get uel
+  Uel loaded: ES -> PT
+  Get uel
+  Uel loaded: HR -> SI
+  Get uel
+  Uel loaded: HU -> AT
+  Get uel
+  Uel loaded: AT -> CH
+  Get uel
+  Uel loaded: SI -> AT
+  Get uel
+  Uel loaded: FR -> CH
+  Get uel
+  Uel loaded: DE -> CH
+  Get uel
+  Uel loaded: IT -> CH
+  Get uel
+  Uel loaded: PL -> CZ
+  Get uel
+  Uel loaded: AT -> CZ
+  Get uel
+  Uel loaded: DE -> CZ
+  Get uel
+  Uel loaded: SK -> CZ
+  Get uel
+  Uel loaded: FR -> ES
+  Get uel
+  Uel loaded: CZ -> DE
+  Get uel
+  Uel loaded: CH -> DE
+  Get uel
+  Uel loaded: DK -> DE
+  Get uel
+  Uel loaded: CH -> FR
+  Get uel
+  Uel loaded: ES -> FR
+  Get uel
+  Uel loaded: UK -> FR
+  Get uel
+  Uel loaded: IT -> FR
+  Get uel
+  Uel loaded: NL -> UK
+  Get uel
+  Uel loaded: FR -> UK
+  Get uel
+  Uel loaded: IE -> UK
+  Get uel
+  Uel loaded: PT -> ES
+  Get uel
+  Uel loaded: HU -> HR
+  Get uel
+  Uel loaded: SI -> HR
+  Get uel
+  Uel loaded: BE -> NL
+  Get uel
+  Uel loaded: NL -> BE
+  Get uel
+  Uel loaded: AT -> DE
+  Get uel
+  Uel loaded: DE -> AT
+  Get uel
+  Uel loaded: BE -> FR
+  Get uel
+  Uel loaded: DK -> NO
+  Get uel
+  Uel loaded: SE -> PL
+  Get uel
+  Uel loaded: FI -> SE
+  Get uel
+  Uel loaded: LT -> PL
+  Get uel
+  Uel loaded: DE -> PL
+  Get uel
+  Uel loaded: NO -> FI
+  Get uel
+  Uel loaded: NL -> DE
+  Get uel
+  Uel loaded: SE -> LT
+  Get uel
+  Uel loaded: NO -> DK
+  Get uel
+  Uel loaded: PL -> SE
+  Get uel
+  Uel loaded: PL -> LT
+  Get uel
+  Uel loaded: SE -> FI
+  Get uel
+  Uel loaded: SE -> DE
+  Get uel
+  Uel loaded: LT -> SE
+  Get uel
+  Uel loaded: DE -> FR
+  Get uel
+  Uel loaded: DE -> SE
+  Get uel
+  Uel loaded: FR -> DE
+  Get uel
+  Uel loaded: SE -> NO
+  Get uel
+  Uel loaded: NO -> SE
+  Get uel
+  Uel loaded: FI -> NO
+  Get uel
+  Uel loaded: SE -> DK
+  Get uel
+  Uel loaded: FR -> BE
+  Get uel
+  Uel loaded: PL -> DE
+  Get uel
+  Uel loaded: DE -> NL
+  Get uel
+  Uel loaded: DK -> SE
+  Get uel
+  Uel loaded: LT -> LV
+  Get uel
+  Uel loaded: EE -> FI
+  Get uel
+  Uel loaded: LV -> LT
+  Get uel
+  Uel loaded: LV -> EE
+  Get uel
+  Uel loaded: FI -> EE
+  Get uel
+  Uel loaded: EE -> LV
+  Get uel
+  Uel loaded: UK -> BE
+  Get uel
+  Uel loaded: BE -> UK
+  Get uel
+  Uel loaded: [15] - AT_BATS_OTH
+  Get uel
+  Uel loaded: [0] - AT_COMC_GAS
+  Get uel
+  Uel loaded: [1] - AT_GTUR_GAS
+  Get uel
+  Uel loaded: [4] - AT_HDAM_WAT
+  Get uel
+  Uel loaded: [5] - AT_HPHS_WAT
+  Get uel
+  Uel loaded: [6] - AT_HROR_WAT
+  Get uel
+  Uel loaded: [8] - AT_PHOT_SUN
+  Get uel
+  Uel loaded: [2] - AT_STUR_GAS
+  Get uel
+  Uel loaded: [3] - AT_STUR_HRD
+  Get uel
+  Uel loaded: [7] - AT_WTOF_WIN
+  Get uel
+  Uel loaded: [11] - AT_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [12] - AT_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [13] - AT_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [14] - AT_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [9] - AT_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [10] - AT_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [32] - BE_BATS_OTH
+  Get uel
+  Uel loaded: [17] - BE_COMC_GAS
+  Get uel
+  Uel loaded: [18] - BE_GTUR_GAS
+  Get uel
+  Uel loaded: [22] - BE_HPHS_WAT
+  Get uel
+  Uel loaded: [23] - BE_HROR_WAT
+  Get uel
+  Uel loaded: [20] - BE_ICEN_BIO
+  Get uel
+  Uel loaded: [26] - BE_PHOT_SUN
+  Get uel
+  Uel loaded: [21] - BE_STUR_BIO
+  Get uel
+  Uel loaded: [19] - BE_STUR_GAS
+  Get uel
+  Uel loaded: [16] - BE_STUR_NUC
+  Get uel
+  Uel loaded: [24] - BE_WTOF_WIN
+  Get uel
+  Uel loaded: [25] - BE_WTON_WIN
+  Get uel
+  Uel loaded: [28] - BE_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [29] - BE_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [30] - BE_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [27] - BE_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [31] - BE_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [47] - BG_BATS_OTH
+  Get uel
+  Uel loaded: [37] - BG_HDAM_WAT
+  Get uel
+  Uel loaded: [38] - BG_HPHS_WAT
+  Get uel
+  Uel loaded: [39] - BG_HROR_WAT
+  Get uel
+  Uel loaded: [41] - BG_PHOT_SUN
+  Get uel
+  Uel loaded: [35] - BG_STUR_GAS
+  Get uel
+  Uel loaded: [36] - BG_STUR_HRD
+  Get uel
+  Uel loaded: [33] - BG_STUR_LIG
+  Get uel
+  Uel loaded: [34] - BG_STUR_NUC
+  Get uel
+  Uel loaded: [40] - BG_WTOF_WIN
+  Get uel
+  Uel loaded: [43] - BG_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [44] - BG_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [45] - BG_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [46] - BG_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [42] - BG_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [54] - CH_BATS_OTH
+  Get uel
+  Uel loaded: [49] - CH_HDAM_WAT
+  Get uel
+  Uel loaded: [50] - CH_HPHS_WAT
+  Get uel
+  Uel loaded: [51] - CH_HROR_WAT
+  Get uel
+  Uel loaded: [53] - CH_PHOT_SUN
+  Get uel
+  Uel loaded: [48] - CH_STUR_NUC
+  Get uel
+  Uel loaded: [52] - CH_WTOF_WIN
+  Get uel
+  Uel loaded: [71] - CZ_BATS_OTH
+  Get uel
+  Uel loaded: [57] - CZ_COMC_GAS
+  Get uel
+  Uel loaded: [59] - CZ_COMC_HRD
+  Get uel
+  Uel loaded: [58] - CZ_GTUR_GAS
+  Get uel
+  Uel loaded: [61] - CZ_HDAM_WAT
+  Get uel
+  Uel loaded: [62] - CZ_HPHS_WAT
+  Get uel
+  Uel loaded: [63] - CZ_HROR_WAT
+  Get uel
+  Uel loaded: [65] - CZ_PHOT_SUN
+  Get uel
+  Uel loaded: [60] - CZ_STUR_HRD
+  Get uel
+  Uel loaded: [55] - CZ_STUR_LIG
+  Get uel
+  Uel loaded: [56] - CZ_STUR_NUC
+  Get uel
+  Uel loaded: [64] - CZ_WTOF_WIN
+  Get uel
+  Uel loaded: [67] - CZ_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [68] - CZ_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [69] - CZ_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [70] - CZ_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [66] - CZ_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [93] - DE_BATS_OTH
+  Get uel
+  Uel loaded: [74] - DE_COMC_GAS
+  Get uel
+  Uel loaded: [75] - DE_GTUR_GAS
+  Get uel
+  Uel loaded: [79] - DE_GTUR_OIL
+  Get uel
+  Uel loaded: [81] - DE_HDAM_WAT
+  Get uel
+  Uel loaded: [82] - DE_HPHS_WAT
+  Get uel
+  Uel loaded: [83] - DE_HROR_WAT
+  Get uel
+  Uel loaded: [76] - DE_ICEN_GAS
+  Get uel
+  Uel loaded: [86] - DE_PHOT_SUN
+  Get uel
+  Uel loaded: [77] - DE_STUR_GAS
+  Get uel
+  Uel loaded: [78] - DE_STUR_HRD
+  Get uel
+  Uel loaded: [72] - DE_STUR_LIG
+  Get uel
+  Uel loaded: [73] - DE_STUR_NUC
+  Get uel
+  Uel loaded: [80] - DE_STUR_OIL
+  Get uel
+  Uel loaded: [84] - DE_WTOF_WIN
+  Get uel
+  Uel loaded: [85] - DE_WTON_WIN
+  Get uel
+  Uel loaded: [89] - DE_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [90] - DE_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [91] - DE_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [92] - DE_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [87] - DE_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [88] - DE_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [112] - DK_BATS_OTH
+  Get uel
+  Uel loaded: [94] - DK_COMC_GAS
+  Get uel
+  Uel loaded: [95] - DK_GTUR_GAS
+  Get uel
+  Uel loaded: [98] - DK_GTUR_OIL
+  Get uel
+  Uel loaded: [99] - DK_ICEN_OIL
+  Get uel
+  Uel loaded: [103] - DK_PHOT_SUN
+  Get uel
+  Uel loaded: [96] - DK_STUR_GAS
+  Get uel
+  Uel loaded: [97] - DK_STUR_HRD
+  Get uel
+  Uel loaded: [100] - DK_STUR_OIL
+  Get uel
+  Uel loaded: [101] - DK_WTOF_WIN
+  Get uel
+  Uel loaded: [102] - DK_WTON_WIN
+  Get uel
+  Uel loaded: [108] - DK_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [106] - DK_COMC_WST_CHP
+  Get uel
+  Uel loaded: [109] - DK_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [110] - DK_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [111] - DK_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [104] - DK_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [105] - DK_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [107] - DK_STUR_WST_CHP
+  Get uel
+  Uel loaded: [121] - EE_BATS_OTH
+  Get uel
+  Uel loaded: [113] - EE_ICEN_GAS
+  Get uel
+  Uel loaded: [114] - EE_ICEN_OIL
+  Get uel
+  Uel loaded: [117] - EE_PHOT_SUN
+  Get uel
+  Uel loaded: [115] - EE_STUR_OIL
+  Get uel
+  Uel loaded: [116] - EE_WTOF_WIN
+  Get uel
+  Uel loaded: [119] - EE_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [120] - EE_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [118] - EE_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [135] - EL_BATS_OTH
+  Get uel
+  Uel loaded: [123] - EL_COMC_GAS
+  Get uel
+  Uel loaded: [124] - EL_GTUR_GAS
+  Get uel
+  Uel loaded: [126] - EL_HDAM_WAT
+  Get uel
+  Uel loaded: [127] - EL_HPHS_WAT
+  Get uel
+  Uel loaded: [128] - EL_HROR_WAT
+  Get uel
+  Uel loaded: [130] - EL_PHOT_SUN
+  Get uel
+  Uel loaded: [125] - EL_STUR_GAS
+  Get uel
+  Uel loaded: [122] - EL_STUR_LIG
+  Get uel
+  Uel loaded: [129] - EL_WTOF_WIN
+  Get uel
+  Uel loaded: [131] - EL_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [132] - EL_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [133] - EL_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [134] - EL_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [151] - ES_BATS_OTH
+  Get uel
+  Uel loaded: [137] - ES_COMC_GAS
+  Get uel
+  Uel loaded: [138] - ES_GTUR_GAS
+  Get uel
+  Uel loaded: [142] - ES_HDAM_WAT
+  Get uel
+  Uel loaded: [143] - ES_HPHS_WAT
+  Get uel
+  Uel loaded: [144] - ES_HROR_WAT
+  Get uel
+  Uel loaded: [139] - ES_ICEN_GAS
+  Get uel
+  Uel loaded: [146] - ES_PHOT_SUN
+  Get uel
+  Uel loaded: [147] - ES_SCSP_SUN
+  Get uel
+  Uel loaded: [140] - ES_STUR_GAS
+  Get uel
+  Uel loaded: [141] - ES_STUR_HRD
+  Get uel
+  Uel loaded: [136] - ES_STUR_NUC
+  Get uel
+  Uel loaded: [145] - ES_WTOF_WIN
+  Get uel
+  Uel loaded: [148] - ES_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [149] - ES_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [150] - ES_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [175] - FI_BATS_OTH
+  Get uel
+  Uel loaded: [153] - FI_COMC_GAS
+  Get uel
+  Uel loaded: [154] - FI_GTUR_GAS
+  Get uel
+  Uel loaded: [156] - FI_GTUR_OIL
+  Get uel
+  Uel loaded: [159] - FI_HDAM_WAT
+  Get uel
+  Uel loaded: [160] - FI_HROR_WAT
+  Get uel
+  Uel loaded: [157] - FI_ICEN_OIL
+  Get uel
+  Uel loaded: [163] - FI_PHOT_SUN
+  Get uel
+  Uel loaded: [155] - FI_STUR_HRD
+  Get uel
+  Uel loaded: [152] - FI_STUR_NUC
+  Get uel
+  Uel loaded: [158] - FI_STUR_OIL
+  Get uel
+  Uel loaded: [161] - FI_WTOF_WIN
+  Get uel
+  Uel loaded: [162] - FI_WTON_WIN
+  Get uel
+  Uel loaded: [171] - FI_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [169] - FI_COMC_WST_CHP
+  Get uel
+  Uel loaded: [172] - FI_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [167] - FI_GTUR_OIL_CHP
+  Get uel
+  Uel loaded: [165] - FI_ICEN_BIO_CHP
+  Get uel
+  Uel loaded: [173] - FI_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [166] - FI_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [174] - FI_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [164] - FI_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [168] - FI_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [170] - FI_STUR_WST_CHP
+  Get uel
+  Uel loaded: [193] - FR_BATS_OTH
+  Get uel
+  Uel loaded: [177] - FR_COMC_GAS
+  Get uel
+  Uel loaded: [178] - FR_GTUR_GAS
+  Get uel
+  Uel loaded: [181] - FR_GTUR_OIL
+  Get uel
+  Uel loaded: [184] - FR_HDAM_WAT
+  Get uel
+  Uel loaded: [185] - FR_HPHS_WAT
+  Get uel
+  Uel loaded: [186] - FR_HROR_WAT
+  Get uel
+  Uel loaded: [182] - FR_ICEN_OIL
+  Get uel
+  Uel loaded: [188] - FR_PHOT_SUN
+  Get uel
+  Uel loaded: [179] - FR_STUR_GAS
+  Get uel
+  Uel loaded: [180] - FR_STUR_HRD
+  Get uel
+  Uel loaded: [176] - FR_STUR_NUC
+  Get uel
+  Uel loaded: [183] - FR_STUR_OIL
+  Get uel
+  Uel loaded: [187] - FR_WTOF_WIN
+  Get uel
+  Uel loaded: [190] - FR_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [191] - FR_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [192] - FR_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [189] - FR_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [208] - HR_BATS_OTH
+  Get uel
+  Uel loaded: [194] - HR_COMC_GAS
+  Get uel
+  Uel loaded: [195] - HR_GTUR_GAS
+  Get uel
+  Uel loaded: [199] - HR_HDAM_WAT
+  Get uel
+  Uel loaded: [200] - HR_HPHS_WAT
+  Get uel
+  Uel loaded: [201] - HR_HROR_WAT
+  Get uel
+  Uel loaded: [197] - HR_ICEN_OIL
+  Get uel
+  Uel loaded: [203] - HR_PHOT_SUN
+  Get uel
+  Uel loaded: [196] - HR_STUR_HRD
+  Get uel
+  Uel loaded: [198] - HR_STUR_OIL
+  Get uel
+  Uel loaded: [202] - HR_WTOF_WIN
+  Get uel
+  Uel loaded: [206] - HR_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [207] - HR_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [204] - HR_GTUR_OIL_CHP
+  Get uel
+  Uel loaded: [205] - HR_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [227] - HU_BATS_OTH
+  Get uel
+  Uel loaded: [211] - HU_COMC_GAS
+  Get uel
+  Uel loaded: [212] - HU_GTUR_GAS
+  Get uel
+  Uel loaded: [215] - HU_GTUR_OIL
+  Get uel
+  Uel loaded: [217] - HU_HDAM_WAT
+  Get uel
+  Uel loaded: [218] - HU_HROR_WAT
+  Get uel
+  Uel loaded: [216] - HU_ICEN_OIL
+  Get uel
+  Uel loaded: [220] - HU_PHOT_SUN
+  Get uel
+  Uel loaded: [214] - HU_STUR_BIO
+  Get uel
+  Uel loaded: [213] - HU_STUR_GAS
+  Get uel
+  Uel loaded: [209] - HU_STUR_LIG
+  Get uel
+  Uel loaded: [210] - HU_STUR_NUC
+  Get uel
+  Uel loaded: [219] - HU_WTOF_WIN
+  Get uel
+  Uel loaded: [223] - HU_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [224] - HU_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [225] - HU_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [221] - HU_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [226] - HU_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [222] - HU_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [241] - IE_BATS_OTH
+  Get uel
+  Uel loaded: [228] - IE_COMC_GAS
+  Get uel
+  Uel loaded: [229] - IE_GTUR_GAS
+  Get uel
+  Uel loaded: [232] - IE_GTUR_OIL
+  Get uel
+  Uel loaded: [234] - IE_HPHS_WAT
+  Get uel
+  Uel loaded: [235] - IE_HROR_WAT
+  Get uel
+  Uel loaded: [238] - IE_PHOT_SUN
+  Get uel
+  Uel loaded: [230] - IE_STUR_GAS
+  Get uel
+  Uel loaded: [231] - IE_STUR_HRD
+  Get uel
+  Uel loaded: [233] - IE_STUR_OIL
+  Get uel
+  Uel loaded: [236] - IE_WTOF_WIN
+  Get uel
+  Uel loaded: [237] - IE_WTON_WIN
+  Get uel
+  Uel loaded: [239] - IE_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [240] - IE_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [267] - IT_BATS_OTH
+  Get uel
+  Uel loaded: [247] - IT_COMC_BIO
+  Get uel
+  Uel loaded: [243] - IT_COMC_GAS
+  Get uel
+  Uel loaded: [250] - IT_COMC_OIL
+  Get uel
+  Uel loaded: [244] - IT_GTUR_GAS
+  Get uel
+  Uel loaded: [251] - IT_GTUR_OIL
+  Get uel
+  Uel loaded: [253] - IT_HDAM_WAT
+  Get uel
+  Uel loaded: [254] - IT_HPHS_WAT
+  Get uel
+  Uel loaded: [255] - IT_HROR_WAT
+  Get uel
+  Uel loaded: [245] - IT_ICEN_GAS
+  Get uel
+  Uel loaded: [257] - IT_PHOT_SUN
+  Get uel
+  Uel loaded: [248] - IT_STUR_BIO
+  Get uel
+  Uel loaded: [246] - IT_STUR_GAS
+  Get uel
+  Uel loaded: [242] - IT_STUR_GEO
+  Get uel
+  Uel loaded: [249] - IT_STUR_HRD
+  Get uel
+  Uel loaded: [252] - IT_STUR_OIL
+  Get uel
+  Uel loaded: [256] - IT_WTOF_WIN
+  Get uel
+  Uel loaded: [263] - IT_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [262] - IT_COMC_WST_CHP
+  Get uel
+  Uel loaded: [264] - IT_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [259] - IT_ICEN_BIO_CHP
+  Get uel
+  Uel loaded: [265] - IT_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [260] - IT_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [266] - IT_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [258] - IT_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [261] - IT_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [268] - LT_COMC_GAS
+  Get uel
+  Uel loaded: [270] - LT_HDAM_WAT
+  Get uel
+  Uel loaded: [271] - LT_HPHS_WAT
+  Get uel
+  Uel loaded: [273] - LT_PHOT_SUN
+  Get uel
+  Uel loaded: [269] - LT_STUR_GAS
+  Get uel
+  Uel loaded: [272] - LT_WTOF_WIN
+  Get uel
+  Uel loaded: [274] - LT_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [275] - LT_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [276] - LT_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [277] - LT_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [287] - LV_BATS_OTH
+  Get uel
+  Uel loaded: [278] - LV_COMC_GAS
+  Get uel
+  Uel loaded: [279] - LV_HDAM_WAT
+  Get uel
+  Uel loaded: [280] - LV_HROR_WAT
+  Get uel
+  Uel loaded: [282] - LV_PHOT_SUN
+  Get uel
+  Uel loaded: [281] - LV_WTOF_WIN
+  Get uel
+  Uel loaded: [283] - LV_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [284] - LV_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [285] - LV_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [286] - LV_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [301] - NL_BATS_OTH
+  Get uel
+  Uel loaded: [289] - NL_COMC_GAS
+  Get uel
+  Uel loaded: [290] - NL_GTUR_GAS
+  Get uel
+  Uel loaded: [295] - NL_PHOT_SUN
+  Get uel
+  Uel loaded: [291] - NL_STUR_GAS
+  Get uel
+  Uel loaded: [292] - NL_STUR_HRD
+  Get uel
+  Uel loaded: [288] - NL_STUR_NUC
+  Get uel
+  Uel loaded: [293] - NL_WTOF_WIN
+  Get uel
+  Uel loaded: [294] - NL_WTON_WIN
+  Get uel
+  Uel loaded: [297] - NL_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [298] - NL_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [299] - NL_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [300] - NL_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [296] - NL_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [309] - NO_BATS_OTH
+  Get uel
+  Uel loaded: [302] - NO_GTUR_GAS
+  Get uel
+  Uel loaded: [303] - NO_HDAM_WAT
+  Get uel
+  Uel loaded: [304] - NO_HPHS_WAT
+  Get uel
+  Uel loaded: [306] - NO_PHOT_SUN
+  Get uel
+  Uel loaded: [305] - NO_WTOF_WIN
+  Get uel
+  Uel loaded: [307] - NO_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [308] - NO_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [325] - PL_BATS_OTH
+  Get uel
+  Uel loaded: [311] - PL_COMC_GAS
+  Get uel
+  Uel loaded: [314] - PL_HDAM_WAT
+  Get uel
+  Uel loaded: [315] - PL_HPHS_WAT
+  Get uel
+  Uel loaded: [317] - PL_PHOT_SUN
+  Get uel
+  Uel loaded: [312] - PL_STUR_BIO
+  Get uel
+  Uel loaded: [313] - PL_STUR_HRD
+  Get uel
+  Uel loaded: [310] - PL_STUR_LIG
+  Get uel
+  Uel loaded: [316] - PL_WTOF_WIN
+  Get uel
+  Uel loaded: [321] - PL_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [322] - PL_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [323] - PL_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [319] - PL_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [324] - PL_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [318] - PL_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [320] - PL_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [337] - PT_BATS_OTH
+  Get uel
+  Uel loaded: [326] - PT_COMC_GAS
+  Get uel
+  Uel loaded: [328] - PT_HDAM_WAT
+  Get uel
+  Uel loaded: [329] - PT_HPHS_WAT
+  Get uel
+  Uel loaded: [330] - PT_HROR_WAT
+  Get uel
+  Uel loaded: [332] - PT_PHOT_SUN
+  Get uel
+  Uel loaded: [327] - PT_STUR_HRD
+  Get uel
+  Uel loaded: [331] - PT_WTOF_WIN
+  Get uel
+  Uel loaded: [333] - PT_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [334] - PT_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [335] - PT_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [336] - PT_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [351] - RO_BATS_OTH
+  Get uel
+  Uel loaded: [342] - RO_HDAM_WAT
+  Get uel
+  Uel loaded: [343] - RO_HROR_WAT
+  Get uel
+  Uel loaded: [345] - RO_PHOT_SUN
+  Get uel
+  Uel loaded: [340] - RO_STUR_GAS
+  Get uel
+  Uel loaded: [341] - RO_STUR_HRD
+  Get uel
+  Uel loaded: [338] - RO_STUR_LIG
+  Get uel
+  Uel loaded: [339] - RO_STUR_NUC
+  Get uel
+  Uel loaded: [344] - RO_WTOF_WIN
+  Get uel
+  Uel loaded: [347] - RO_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [348] - RO_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [349] - RO_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [350] - RO_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [346] - RO_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [371] - SE_BATS_OTH
+  Get uel
+  Uel loaded: [353] - SE_GTUR_GAS
+  Get uel
+  Uel loaded: [355] - SE_GTUR_OIL
+  Get uel
+  Uel loaded: [358] - SE_HDAM_WAT
+  Get uel
+  Uel loaded: [359] - SE_HPHS_WAT
+  Get uel
+  Uel loaded: [360] - SE_HROR_WAT
+  Get uel
+  Uel loaded: [356] - SE_ICEN_OIL
+  Get uel
+  Uel loaded: [363] - SE_PHOT_SUN
+  Get uel
+  Uel loaded: [354] - SE_STUR_GAS
+  Get uel
+  Uel loaded: [352] - SE_STUR_NUC
+  Get uel
+  Uel loaded: [357] - SE_STUR_OIL
+  Get uel
+  Uel loaded: [361] - SE_WTOF_WIN
+  Get uel
+  Uel loaded: [362] - SE_WTON_WIN
+  Get uel
+  Uel loaded: [368] - SE_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [369] - SE_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [366] - SE_GTUR_OIL_CHP
+  Get uel
+  Uel loaded: [365] - SE_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [370] - SE_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [364] - SE_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [367] - SE_STUR_OIL_CHP
+  Get uel
+  Uel loaded: [382] - SI_BATS_OTH
+  Get uel
+  Uel loaded: [374] - SI_GTUR_GAS
+  Get uel
+  Uel loaded: [375] - SI_HDAM_WAT
+  Get uel
+  Uel loaded: [376] - SI_HPHS_WAT
+  Get uel
+  Uel loaded: [377] - SI_HROR_WAT
+  Get uel
+  Uel loaded: [379] - SI_PHOT_SUN
+  Get uel
+  Uel loaded: [372] - SI_STUR_LIG
+  Get uel
+  Uel loaded: [373] - SI_STUR_NUC
+  Get uel
+  Uel loaded: [378] - SI_WTOF_WIN
+  Get uel
+  Uel loaded: [380] - SI_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [381] - SI_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [396] - SK_BATS_OTH
+  Get uel
+  Uel loaded: [385] - SK_COMC_GAS
+  Get uel
+  Uel loaded: [386] - SK_GTUR_GAS
+  Get uel
+  Uel loaded: [388] - SK_HDAM_WAT
+  Get uel
+  Uel loaded: [389] - SK_HPHS_WAT
+  Get uel
+  Uel loaded: [390] - SK_HROR_WAT
+  Get uel
+  Uel loaded: [391] - SK_PHOT_SUN
+  Get uel
+  Uel loaded: [387] - SK_STUR_HRD
+  Get uel
+  Uel loaded: [383] - SK_STUR_LIG
+  Get uel
+  Uel loaded: [384] - SK_STUR_NUC
+  Get uel
+  Uel loaded: [393] - SK_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [394] - SK_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [395] - SK_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [392] - SK_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [420] - UK_BATS_OTH
+  Get uel
+  Uel loaded: [398] - UK_COMC_GAS
+  Get uel
+  Uel loaded: [399] - UK_GTUR_GAS
+  Get uel
+  Uel loaded: [404] - UK_GTUR_OIL
+  Get uel
+  Uel loaded: [406] - UK_HDAM_WAT
+  Get uel
+  Uel loaded: [407] - UK_HPHS_WAT
+  Get uel
+  Uel loaded: [408] - UK_HROR_WAT
+  Get uel
+  Uel loaded: [400] - UK_ICEN_GAS
+  Get uel
+  Uel loaded: [405] - UK_ICEN_OIL
+  Get uel
+  Uel loaded: [411] - UK_PHOT_SUN
+  Get uel
+  Uel loaded: [402] - UK_STUR_BIO
+  Get uel
+  Uel loaded: [401] - UK_STUR_GAS
+  Get uel
+  Uel loaded: [403] - UK_STUR_HRD
+  Get uel
+  Uel loaded: [397] - UK_STUR_NUC
+  Get uel
+  Uel loaded: [409] - UK_WTOF_WIN
+  Get uel
+  Uel loaded: [410] - UK_WTON_WIN
+  Get uel
+  Uel loaded: [416] - UK_COMC_GAS_CHP
+  Get uel
+  Uel loaded: [417] - UK_GTUR_GAS_CHP
+  Get uel
+  Uel loaded: [413] - UK_ICEN_BIO_CHP
+  Get uel
+  Uel loaded: [418] - UK_ICEN_GAS_CHP
+  Get uel
+  Uel loaded: [414] - UK_STUR_BIO_CHP
+  Get uel
+  Uel loaded: [419] - UK_STUR_GAS_CHP
+  Get uel
+  Uel loaded: [412] - UK_STUR_HRD_CHP
+  Get uel
+  Uel loaded: [415] - UK_STUR_OIL_CHP
+  Get uel
+  Uel loaded: HDAM
+  Get uel
+  Uel loaded: HROR
+  Get uel
+  Uel loaded: HPHS
+  Get uel
+  Uel loaded: PHOT
+  Get uel
+  Uel loaded: WAVE
+  Get uel
+  Uel loaded: WHEN
+  Get uel
+  Uel loaded: WTOF
+  Get uel
+  Uel loaded: WTON
+  Get uel
+  Uel loaded: COMC
+  Get uel
+  Uel loaded: GTUR
+  Get uel
+  Uel loaded: ICEN
+  Get uel
+  Uel loaded: SCSP
+  Get uel
+  Uel loaded: STUR
+  Get uel
+  Uel loaded: BATS
+  Get uel
+  Uel loaded: BEVS
+  Get uel
+  Uel loaded: CAES
+  Get uel
+  Uel loaded: THMS
+  Get uel
+  Uel loaded: H2ST
+  Get uel
+  Uel loaded: ABHP
+  Get uel
+  Uel loaded: ASHP
+  Get uel
+  Uel loaded: GETH
+  Get uel
+  Uel loaded: GSHP
+  Get uel
+  Uel loaded: HOBO
+  Get uel
+  Uel loaded: HYHP
+  Get uel
+  Uel loaded: P2HT
+  Get uel
+  Uel loaded: REHE
+  Get uel
+  Uel loaded: SOTH
+  Get uel
+  Uel loaded: WSHP
+  Get uel
+  Uel loaded: PEFC
+  Get uel
+  Uel loaded: DMFC
+  Get uel
+  Uel loaded: ALFC
+  Get uel
+  Uel loaded: PAFC
+  Get uel
+  Uel loaded: MCFC
+  Get uel
+  Uel loaded: SOFC
+  Get uel
+  Uel loaded: REFC
+  Get uel
+  Uel loaded: P2GS
+  Get uel
+  Uel loaded: ALKE
+  Get uel
+  Uel loaded: PEME
+  Get uel
+  Uel loaded: SOXE
+  Get uel
+  Uel loaded: AIR
+  Get uel
+  Uel loaded: AMO
+  Get uel
+  Uel loaded: BIO
+  Get uel
+  Uel loaded: GAS
+  Get uel
+  Uel loaded: HRD
+  Get uel
+  Uel loaded: LIG
+  Get uel
+  Uel loaded: NUC
+  Get uel
+  Uel loaded: OIL
+  Get uel
+  Uel loaded: PEA
+  Get uel
+  Uel loaded: SUN
+  Get uel
+  Uel loaded: WAT
+  Get uel
+  Uel loaded: WIN
+  Get uel
+  Uel loaded: WST
+  Get uel
+  Uel loaded: OTH
+  Get uel
+  Uel loaded: GEO
+  Get uel
+  Uel loaded: HYD
+  Get uel
+  Uel loaded: WHT
+  Get uel
+  Uel loaded: ELE
+  Get uel
+  Uel loaded: THE
+  Get uel
+  Uel loaded: CO2
+  Get uel
+  Uel loaded: 1
+  Get uel
+  Uel loaded: 2
+  Get uel
+  Uel loaded: 3
+  Get uel
+  Uel loaded: 4
+  Get uel
+  Uel loaded: 5
+  Get uel
+  Uel loaded: 6
+  Get uel
+  Uel loaded: 7
+  Get uel
+  Uel loaded: 8
+  Get uel
+  Uel loaded: 9
+  Get uel
+  Uel loaded: 10
+  Get uel
+  Uel loaded: 11
+  Get uel
+  Uel loaded: 12
+  Get uel
+  Uel loaded: 13
+  Get uel
+  Uel loaded: 14
+  Get uel
+  Uel loaded: 15
+  Get uel
+  Uel loaded: 16
+  Get uel
+  Uel loaded: 17
+  Get uel
+  Uel loaded: 18
+  Get uel
+  Uel loaded: 19
+  Get uel
+  Uel loaded: 20
+  Get uel
+  Uel loaded: 21
+  Get uel
+  Uel loaded: 22
+  Get uel
+  Uel loaded: 23
+  Get uel
+  Uel loaded: 24
+  Get uel
+  Uel loaded: 25
+  Get uel
+  Uel loaded: 26
+  Get uel
+  Uel loaded: 27
+  Get uel
+  Uel loaded: 28
+  Get uel
+  Uel loaded: 29
+  Get uel
+  Uel loaded: 30
+  Get uel
+  Uel loaded: 31
+  Get uel
+  Uel loaded: 32
+  Get uel
+  Uel loaded: 33
+  Get uel
+  Uel loaded: 34
+  Get uel
+  Uel loaded: 35
+  Get uel
+  Uel loaded: 36
+  Get uel
+  Uel loaded: 37
+  Get uel
+  Uel loaded: 38
+  Get uel
+  Uel loaded: 39
+  Get uel
+  Uel loaded: 40
+  Get uel
+  Uel loaded: 41
+  Get uel
+  Uel loaded: 42
+  Get uel
+  Uel loaded: 43
+  Get uel
+  Uel loaded: 44
+  Get uel
+  Uel loaded: 45
+  Get uel
+  Uel loaded: 46
+  Get uel
+  Uel loaded: 47
+  Get uel
+  Uel loaded: 48
+  Get uel
+  Uel loaded: 49
+  Get uel
+  Uel loaded: 50
+  Get uel
+  Uel loaded: 51
+  Get uel
+  Uel loaded: 52
+  Get uel
+  Uel loaded: 53
+  Get uel
+  Uel loaded: 54
+  Get uel
+  Uel loaded: 55
+  Get uel
+  Uel loaded: 56
+  Get uel
+  Uel loaded: 57
+  Get uel
+  Uel loaded: 58
+  Get uel
+  Uel loaded: 59
+  Get uel
+  Uel loaded: 60
+  Get uel
+  Uel loaded: 61
+  Get uel
+  Uel loaded: 62
+  Get uel
+  Uel loaded: 63
+  Get uel
+  Uel loaded: 64
+  Get uel
+  Uel loaded: 65
+  Get uel
+  Uel loaded: 66
+  Get uel
+  Uel loaded: 67
+  Get uel
+  Uel loaded: 68
+  Get uel
+  Uel loaded: 69
+  Get uel
+  Uel loaded: 70
+  Get uel
+  Uel loaded: 71
+  Get uel
+  Uel loaded: 72
+  Get uel
+  Uel loaded: 73
+  Get uel
+  Uel loaded: 74
+  Get uel
+  Uel loaded: 75
+  Get uel
+  Uel loaded: 76
+  Get uel
+  Uel loaded: 77
+  Get uel
+  Uel loaded: 78
+  Get uel
+  Uel loaded: 79
+  Get uel
+  Uel loaded: 80
+  Get uel
+  Uel loaded: 81
+  Get uel
+  Uel loaded: 82
+  Get uel
+  Uel loaded: 83
+  Get uel
+  Uel loaded: 84
+  Get uel
+  Uel loaded: 85
+  Get uel
+  Uel loaded: 86
+  Get uel
+  Uel loaded: 87
+  Get uel
+  Uel loaded: 88
+  Get uel
+  Uel loaded: 89
+  Get uel
+  Uel loaded: 90
+  Get uel
+  Uel loaded: 91
+  Get uel
+  Uel loaded: 92
+  Get uel
+  Uel loaded: 93
+  Get uel
+  Uel loaded: 94
+  Get uel
+  Uel loaded: 95
+  Get uel
+  Uel loaded: 96
+  Get uel
+  Uel loaded: 97
+  Get uel
+  Uel loaded: 98
+  Get uel
+  Uel loaded: 99
+  Get uel
+  Uel loaded: 100
+  Get uel
+  Uel loaded: 101
+  Get uel
+  Uel loaded: 102
+  Get uel
+  Uel loaded: 103
+  Get uel
+  Uel loaded: 104
+  Get uel
+  Uel loaded: 105
+  Get uel
+  Uel loaded: 106
+  Get uel
+  Uel loaded: 107
+  Get uel
+  Uel loaded: 108
+  Get uel
+  Uel loaded: 109
+  Get uel
+  Uel loaded: 110
+  Get uel
+  Uel loaded: 111
+  Get uel
+  Uel loaded: 112
+  Get uel
+  Uel loaded: 113
+  Get uel
+  Uel loaded: 114
+  Get uel
+  Uel loaded: 115
+  Get uel
+  Uel loaded: 116
+  Get uel
+  Uel loaded: 117
+  Get uel
+  Uel loaded: 118
+  Get uel
+  Uel loaded: 119
+  Get uel
+  Uel loaded: 120
+  Get uel
+  Uel loaded: 121
+  Get uel
+  Uel loaded: 122
+  Get uel
+  Uel loaded: 123
+  Get uel
+  Uel loaded: 124
+  Get uel
+  Uel loaded: 125
+  Get uel
+  Uel loaded: 126
+  Get uel
+  Uel loaded: 127
+  Get uel
+  Uel loaded: 128
+  Get uel
+  Uel loaded: 129
+  Get uel
+  Uel loaded: 130
+  Get uel
+  Uel loaded: 131
+  Get uel
+  Uel loaded: 132
+  Get uel
+  Uel loaded: 133
+  Get uel
+  Uel loaded: 134
+  Get uel
+  Uel loaded: 135
+  Get uel
+  Uel loaded: 136
+  Get uel
+  Uel loaded: 137
+  Get uel
+  Uel loaded: 138
+  Get uel
+  Uel loaded: 139
+  Get uel
+  Uel loaded: 140
+  Get uel
+  Uel loaded: 141
+  Get uel
+  Uel loaded: 142
+  Get uel
+  Uel loaded: 143
+  Get uel
+  Uel loaded: 144
+  Get uel
+  Uel loaded: 145
+  Get uel
+  Uel loaded: 146
+  Get uel
+  Uel loaded: 147
+  Get uel
+  Uel loaded: 148
+  Get uel
+  Uel loaded: 149
+  Get uel
+  Uel loaded: 150
+  Get uel
+  Uel loaded: 151
+  Get uel
+  Uel loaded: 152
+  Get uel
+  Uel loaded: 153
+  Get uel
+  Uel loaded: 154
+  Get uel
+  Uel loaded: 155
+  Get uel
+  Uel loaded: 156
+  Get uel
+  Uel loaded: 157
+  Get uel
+  Uel loaded: 158
+  Get uel
+  Uel loaded: 159
+  Get uel
+  Uel loaded: 160
+  Get uel
+  Uel loaded: 161
+  Get uel
+  Uel loaded: 162
+  Get uel
+  Uel loaded: 163
+  Get uel
+  Uel loaded: 164
+  Get uel
+  Uel loaded: 165
+  Get uel
+  Uel loaded: 166
+  Get uel
+  Uel loaded: 167
+  Get uel
+  Uel loaded: 168
+  Get uel
+  Uel loaded: 169
+  Get uel
+  Uel loaded: 170
+  Get uel
+  Uel loaded: 171
+  Get uel
+  Uel loaded: 172
+  Get uel
+  Uel loaded: 173
+  Get uel
+  Uel loaded: 174
+  Get uel
+  Uel loaded: 175
+  Get uel
+  Uel loaded: 176
+  Get uel
+  Uel loaded: 177
+  Get uel
+  Uel loaded: 178
+  Get uel
+  Uel loaded: 179
+  Get uel
+  Uel loaded: 180
+  Get uel
+  Uel loaded: 181
+  Get uel
+  Uel loaded: 182
+  Get uel
+  Uel loaded: 183
+  Get uel
+  Uel loaded: 184
+  Get uel
+  Uel loaded: 185
+  Get uel
+  Uel loaded: 186
+  Get uel
+  Uel loaded: 187
+  Get uel
+  Uel loaded: 188
+  Get uel
+  Uel loaded: 189
+  Get uel
+  Uel loaded: 190
+  Get uel
+  Uel loaded: 191
+  Get uel
+  Uel loaded: 192
+  Get uel
+  Uel loaded: 193
+  Get uel
+  Uel loaded: 194
+  Get uel
+  Uel loaded: 195
+  Get uel
+  Uel loaded: 196
+  Get uel
+  Uel loaded: 197
+  Get uel
+  Uel loaded: 198
+  Get uel
+  Uel loaded: 199
+  Get uel
+  Uel loaded: 200
+  Get uel
+  Uel loaded: 201
+  Get uel
+  Uel loaded: 202
+  Get uel
+  Uel loaded: 203
+  Get uel
+  Uel loaded: 204
+  Get uel
+  Uel loaded: 205
+  Get uel
+  Uel loaded: 206
+  Get uel
+  Uel loaded: 207
+  Get uel
+  Uel loaded: 208
+  Get uel
+  Uel loaded: 209
+  Get uel
+  Uel loaded: 210
+  Get uel
+  Uel loaded: 211
+  Get uel
+  Uel loaded: 212
+  Get uel
+  Uel loaded: 213
+  Get uel
+  Uel loaded: 214
+  Get uel
+  Uel loaded: 215
+  Get uel
+  Uel loaded: 216
+  Get uel
+  Uel loaded: 217
+  Get uel
+  Uel loaded: 218
+  Get uel
+  Uel loaded: 219
+  Get uel
+  Uel loaded: 220
+  Get uel
+  Uel loaded: 221
+  Get uel
+  Uel loaded: 222
+  Get uel
+  Uel loaded: 223
+  Get uel
+  Uel loaded: 224
+  Get uel
+  Uel loaded: 225
+  Get uel
+  Uel loaded: 226
+  Get uel
+  Uel loaded: 227
+  Get uel
+  Uel loaded: 228
+  Get uel
+  Uel loaded: 229
+  Get uel
+  Uel loaded: 230
+  Get uel
+  Uel loaded: 231
+  Get uel
+  Uel loaded: 232
+  Get uel
+  Uel loaded: 233
+  Get uel
+  Uel loaded: 234
+  Get uel
+  Uel loaded: 235
+  Get uel
+  Uel loaded: 236
+  Get uel
+  Uel loaded: 237
+  Get uel
+  Uel loaded: 238
+  Get uel
+  Uel loaded: 239
+  Get uel
+  Uel loaded: 240
+  Get uel
+  Uel loaded: 241
+  Get uel
+  Uel loaded: 242
+  Get uel
+  Uel loaded: 243
+  Get uel
+  Uel loaded: 244
+  Get uel
+  Uel loaded: 245
+  Get uel
+  Uel loaded: 246
+  Get uel
+  Uel loaded: 247
+  Get uel
+  Uel loaded: 248
+  Get uel
+  Uel loaded: 249
+  Get uel
+  Uel loaded: 250
+  Get uel
+  Uel loaded: 251
+  Get uel
+  Uel loaded: 252
+  Get uel
+  Uel loaded: 253
+  Get uel
+  Uel loaded: 254
+  Get uel
+  Uel loaded: 255
+  Get uel
+  Uel loaded: 256
+  Get uel
+  Uel loaded: 257
+  Get uel
+  Uel loaded: 258
+  Get uel
+  Uel loaded: 259
+  Get uel
+  Uel loaded: 260
+  Get uel
+  Uel loaded: 261
+  Get uel
+  Uel loaded: 262
+  Get uel
+  Uel loaded: 263
+  Get uel
+  Uel loaded: 264
+  Get uel
+  Uel loaded: 265
+  Get uel
+  Uel loaded: 266
+  Get uel
+  Uel loaded: 267
+  Get uel
+  Uel loaded: 268
+  Get uel
+  Uel loaded: 269
+  Get uel
+  Uel loaded: 270
+  Get uel
+  Uel loaded: 271
+  Get uel
+  Uel loaded: 272
+  Get uel
+  Uel loaded: 273
+  Get uel
+  Uel loaded: 274
+  Get uel
+  Uel loaded: 275
+  Get uel
+  Uel loaded: 276
+  Get uel
+  Uel loaded: 277
+  Get uel
+  Uel loaded: 278
+  Get uel
+  Uel loaded: 279
+  Get uel
+  Uel loaded: 280
+  Get uel
+  Uel loaded: 281
+  Get uel
+  Uel loaded: 282
+  Get uel
+  Uel loaded: 283
+  Get uel
+  Uel loaded: 284
+  Get uel
+  Uel loaded: 285
+  Get uel
+  Uel loaded: 286
+  Get uel
+  Uel loaded: 287
+  Get uel
+  Uel loaded: 288
+  Get uel
+  Uel loaded: 289
+  Get uel
+  Uel loaded: 290
+  Get uel
+  Uel loaded: 291
+  Get uel
+  Uel loaded: 292
+  Get uel
+  Uel loaded: 293
+  Get uel
+  Uel loaded: 294
+  Get uel
+  Uel loaded: 295
+  Get uel
+  Uel loaded: 296
+  Get uel
+  Uel loaded: 297
+  Get uel
+  Uel loaded: 298
+  Get uel
+  Uel loaded: 299
+  Get uel
+  Uel loaded: 300
+  Get uel
+  Uel loaded: 301
+  Get uel
+  Uel loaded: 302
+  Get uel
+  Uel loaded: 303
+  Get uel
+  Uel loaded: 304
+  Get uel
+  Uel loaded: 305
+  Get uel
+  Uel loaded: 306
+  Get uel
+  Uel loaded: 307
+  Get uel
+  Uel loaded: 308
+  Get uel
+  Uel loaded: 309
+  Get uel
+  Uel loaded: 310
+  Get uel
+  Uel loaded: 311
+  Get uel
+  Uel loaded: 312
+  Get uel
+  Uel loaded: 313
+  Get uel
+  Uel loaded: 314
+  Get uel
+  Uel loaded: 315
+  Get uel
+  Uel loaded: 316
+  Get uel
+  Uel loaded: 317
+  Get uel
+  Uel loaded: 318
+  Get uel
+  Uel loaded: 319
+  Get uel
+  Uel loaded: 320
+  Get uel
+  Uel loaded: 321
+  Get uel
+  Uel loaded: 322
+  Get uel
+  Uel loaded: 323
+  Get uel
+  Uel loaded: 324
+  Get uel
+  Uel loaded: 325
+  Get uel
+  Uel loaded: 326
+  Get uel
+  Uel loaded: 327
+  Get uel
+  Uel loaded: 328
+  Get uel
+  Uel loaded: 329
+  Get uel
+  Uel loaded: 330
+  Get uel
+  Uel loaded: 331
+  Get uel
+  Uel loaded: 332
+  Get uel
+  Uel loaded: 333
+  Get uel
+  Uel loaded: 334
+  Get uel
+  Uel loaded: 335
+  Get uel
+  Uel loaded: 336
+  Get uel
+  Uel loaded: 337
+  Get uel
+  Uel loaded: 338
+  Get uel
+  Uel loaded: 339
+  Get uel
+  Uel loaded: 340
+  Get uel
+  Uel loaded: 341
+  Get uel
+  Uel loaded: 342
+  Get uel
+  Uel loaded: 343
+  Get uel
+  Uel loaded: 344
+  Get uel
+  Uel loaded: 345
+  Get uel
+  Uel loaded: 346
+  Get uel
+  Uel loaded: 347
+  Get uel
+  Uel loaded: 348
+  Get uel
+  Uel loaded: 349
+  Get uel
+  Uel loaded: 350
+  Get uel
+  Uel loaded: 351
+  Get uel
+  Uel loaded: 352
+  Get uel
+  Uel loaded: 353
+  Get uel
+  Uel loaded: 354
+  Get uel
+  Uel loaded: 355
+  Get uel
+  Uel loaded: 356
+  Get uel
+  Uel loaded: 357
+  Get uel
+  Uel loaded: 358
+  Get uel
+  Uel loaded: 359
+  Get uel
+  Uel loaded: 360
+  Get uel
+  Uel loaded: 361
+  Get uel
+  Uel loaded: 362
+  Get uel
+  Uel loaded: 363
+  Get uel
+  Uel loaded: 364
+  Get uel
+  Uel loaded: 365
+  Get uel
+  Uel loaded: Extraction
+  Get uel
+  Uel loaded: Back-Pressure
+  Get uel
+  Uel loaded: FirstDay
+  Get uel
+  Uel loaded: year
+  Get uel
+  Uel loaded: month
+  Get uel
+  Uel loaded: day
+  Get uel
+  Uel loaded: LastDay
+  Get uel
+  Uel loaded: RollingHorizon Length
+  Get uel
+  Uel loaded: RollingHorizon LookAhead
+  Get uel
+  Uel loaded: SimulationTimeStep
+  Get uel
+  Uel loaded: val
+  Get uel
+  Uel loaded: ValueOfLostLoad
+  Get uel
+  Uel loaded: QuickStartShare
+  Get uel
+  Uel loaded: CostOfSpillage
+  Get uel
+  Uel loaded: WaterValue
+  Get uel
+  Uel loaded: DemandFlexibility
+  Get uel
+  Uel loaded: P2H
+  Get uel
+  Uel loaded: model
+  Get uel
+  Uel loaded: solver
+  Get uel
+  Uel loaded: ndays
+loading uels done
+creating symbols
+  creating symbol
+  symbol created: mk
+  creating symbol
+  symbol created: n
+  creating symbol
+  symbol created: n_th
+  creating symbol
+  symbol created: n_h2
+  creating symbol
+  symbol created: l
+  creating symbol
+  symbol created: au
+  creating symbol
+  symbol created: u
+  creating symbol
+  symbol created: t
+  creating symbol
+  symbol created: tr
+  creating symbol
+  symbol created: tc
+  creating symbol
+  symbol created: f
+  creating symbol
+  symbol created: p
+  creating symbol
+  symbol created: s
+  creating symbol
+  symbol created: chp
+  creating symbol
+  symbol created: p2h
+  creating symbol
+  symbol created: p2h2
+  creating symbol
+  symbol created: th
+  creating symbol
+  symbol created: hu
+  creating symbol
+  symbol created: thms
+  creating symbol
+  symbol created: h
+  creating symbol
+  symbol created: i
+  creating symbol
+  symbol created: wat
+  creating symbol
+  symbol created: z
+  creating symbol
+  symbol created: mkmk
+  creating symbol
+  symbol created: nn
+  creating symbol
+  symbol created: ll
+  creating symbol
+  symbol created: uu
+  creating symbol
+  symbol created: tt
+  creating symbol
+  symbol created: ff
+  creating symbol
+  symbol created: pp
+  creating symbol
+  symbol created: ss
+  creating symbol
+  symbol created: hh
+  creating symbol
+  symbol created: ii
+  creating symbol
+  symbol created: AvailabilityFactor
+  creating symbol
+  symbol created: CHPPowerLossFactor
+  creating symbol
+  symbol created: CHPPowerToHeat
+  creating symbol
+  symbol created: CHPMaxHeat
+  creating symbol
+  symbol created: CHPType
+  creating symbol
+  symbol created: CommittedInitial
+  creating symbol
+  symbol created: Config
+  creating symbol
+  symbol created: CostFixed
+  creating symbol
+  symbol created: CostRampUp
+  creating symbol
+  symbol created: CostRampDown
+  creating symbol
+  symbol created: CostShutDown
+  creating symbol
+  symbol created: CostStartUp
+  creating symbol
+  symbol created: CostVariable
+  creating symbol
+  symbol created: CostHeatSlack
+  creating symbol
+  symbol created: CostH2Slack
+  creating symbol
+  symbol created: H2Demand
+  creating symbol
+  symbol created: CostLoadShedding
+  creating symbol
+  symbol created: Curtailment
+  creating symbol
+  symbol created: CostCurtailment
+  creating symbol
+  symbol created: Demand
+  creating symbol
+  symbol created: Efficiency
+  creating symbol
+  symbol created: EmissionMaximum
+  creating symbol
+  symbol created: EmissionRate
+  creating symbol
+  symbol created: FlowMaximum
+  creating symbol
+  symbol created: FlowMinimum
+  creating symbol
+  symbol created: Fuel
+  creating symbol
+  symbol created: HeatDemand
+  creating symbol
+  symbol created: LineNode
+  creating symbol
+  symbol created: LoadShedding
+  creating symbol
+  symbol created: Location
+  creating symbol
+  symbol created: Location_th
+  creating symbol
+  symbol created: Location_h2
+  creating symbol
+  symbol created: Markup
+  creating symbol
+  symbol created: OutageFactor
+  creating symbol
+  symbol created: PartLoadMin
+  creating symbol
+  symbol created: PowerCapacity
+  creating symbol
+  symbol created: PowerInitial
+  creating symbol
+  symbol created: PowerMinStable
+  creating symbol
+  symbol created: PriceTransmission
+  creating symbol
+  symbol created: StorageChargingCapacity
+  creating symbol
+  symbol created: StorageChargingEfficiency
+  creating symbol
+  symbol created: StorageSelfDischarge
+  creating symbol
+  symbol created: RampDownMaximum
+  creating symbol
+  symbol created: RampShutDownMaximum
+  creating symbol
+  symbol created: RampStartUpMaximum
+  creating symbol
+  symbol created: RampStartUpMaximumH
+  creating symbol
+  symbol created: RampShutDownMaximumH
+  creating symbol
+  symbol created: RampUpMaximum
+  creating symbol
+  symbol created: Reserve
+  creating symbol
+  symbol created: StorageCapacity
+  creating symbol
+  symbol created: StorageDischargeEfficiency
+  creating symbol
+  symbol created: StorageOutflow
+  creating symbol
+  symbol created: StorageInflow
+  creating symbol
+  symbol created: StorageInitial
+  creating symbol
+  symbol created: StorageProfile
+  creating symbol
+  symbol created: StorageMinimum
+  creating symbol
+  symbol created: Technology
+  creating symbol
+  symbol created: TimeDownMinimum
+  creating symbol
+  symbol created: TimeUpMinimum
+  creating symbol
+  symbol created: PtLDemandInput
+  creating symbol
+  symbol created: MaxCapacityPtL
+  creating symbol
+  symbol created: Nunits
+  creating symbol
+  symbol created: K_QuickStart
+  creating symbol
+  symbol created: QuickStartPower
+  creating symbol
+  symbol created: LoadMaximum
+  creating symbol
+  symbol created: PowerMustRun
+  creating symbol
+  symbol created: StorageFinalMin
+  creating symbol
+  symbol created: MaxFlexDemand
+  creating symbol
+  symbol created: MaxOverSupply
+  creating symbol
+  symbol created: AccumulatedOverSupply_inital
+  creating symbol
+  symbol created: FirstHour
+  creating symbol
+  symbol created: LastHour
+  creating symbol
+  symbol created: LastKeptHour
+  creating symbol
+  symbol created: day
+  creating symbol
+  symbol created: ndays
+  creating symbol
+  symbol created: failed
+  creating symbol
+  symbol created: srp
+  creating symbol
+  symbol created: nsrp
+  creating symbol
+  symbol created: TimeStep
+  creating symbol
+  symbol created: Committed
+  creating symbol
+  symbol created: StartUp
+  creating symbol
+  symbol created: ShutDown
+  creating symbol
+  symbol created: AccumulatedOverSupply
+  creating symbol
+  symbol created: CostStartUpH
+  creating symbol
+  symbol created: CostShutDownH
+  creating symbol
+  symbol created: CostRampUpH
+  creating symbol
+  symbol created: CostRampDownH
+  creating symbol
+  symbol created: CurtailedPower
+  creating symbol
+  symbol created: CurtailmentReserve_2U
+  creating symbol
+  symbol created: CurtailmentReserve_3U
+  creating symbol
+  symbol created: CurtailedHeat
+  creating symbol
+  symbol created: CurtailedH2
+  creating symbol
+  symbol created: Flow
+  creating symbol
+  symbol created: Power
+  creating symbol
+  symbol created: PowerConsumption
+  creating symbol
+  symbol created: PowerMaximum
+  creating symbol
+  symbol created: PowerMinimum
+  creating symbol
+  symbol created: ShedLoad
+  creating symbol
+  symbol created: StorageInput
+  creating symbol
+  symbol created: StorageLevel
+  creating symbol
+  symbol created: LL_MaxPower
+  creating symbol
+  symbol created: LL_RampUp
+  creating symbol
+  symbol created: LL_RampDown
+  creating symbol
+  symbol created: LL_MinPower
+  creating symbol
+  symbol created: LL_2U
+  creating symbol
+  symbol created: LL_3U
+  creating symbol
+  symbol created: LL_2D
+  creating symbol
+  symbol created: spillage
+  creating symbol
+  symbol created: SystemCost
+  creating symbol
+  symbol created: Reserve_2U
+  creating symbol
+  symbol created: Reserve_2D
+  creating symbol
+  symbol created: Reserve_3U
+  creating symbol
+  symbol created: Heat
+  creating symbol
+  symbol created: HeatSlack
+  creating symbol
+  symbol created: H2Slack
+  creating symbol
+  symbol created: WaterSlack
+  creating symbol
+  symbol created: StorageSlack
+  creating symbol
+  symbol created: H2Output
+  creating symbol
+  symbol created: PtLDemand
+  creating symbol
+  symbol created: SystemCostD
+  creating symbol
+  symbol created: DemandModulation
+  creating symbol
+  symbol created: ObjectiveFunction
+  creating symbol
+  symbol created: OptimalityGap
+  creating symbol
+  symbol created: OptimizationError
+  creating symbol
+  symbol created: Error
+  creating symbol
+  symbol created: EQ_Objective_function
+  creating symbol
+  symbol created: EQ_CHP_extraction_Pmax
+  creating symbol
+  symbol created: EQ_CHP_extraction
+  creating symbol
+  symbol created: EQ_CHP_backpressure
+  creating symbol
+  symbol created: EQ_Heat_Demand_balance
+  creating symbol
+  symbol created: EQ_H2_Demand_balance
+  creating symbol
+  symbol created: EQ_CHP_max_heat
+  creating symbol
+  symbol created: EQ_Heat_Storage_balance
+  creating symbol
+  symbol created: EQ_Heat_Storage_minimum
+  creating symbol
+  symbol created: EQ_Heat_Storage_level
+  creating symbol
+  symbol created: EQ_Heat_Storage_input
+  creating symbol
+  symbol created: EQ_Heat_Storage_MaxDischarge
+  creating symbol
+  symbol created: EQ_Heat_Storage_MaxCharge
+  creating symbol
+  symbol created: EQ_Heat_Storage_boundaries
+  creating symbol
+  symbol created: EQ_Commitment
+  creating symbol
+  symbol created: EQ_MinUpTime
+  creating symbol
+  symbol created: EQ_MinDownTime
+  creating symbol
+  symbol created: EQ_RampUp_TC
+  creating symbol
+  symbol created: EQ_RampDown_TC
+  creating symbol
+  symbol created: EQ_CostStartUp
+  creating symbol
+  symbol created: EQ_CostShutDown
+  creating symbol
+  symbol created: EQ_CostRampUp
+  creating symbol
+  symbol created: EQ_CostRampDown
+  creating symbol
+  symbol created: EQ_Demand_balance_DA
+  creating symbol
+  symbol created: EQ_Demand_balance_2U
+  creating symbol
+  symbol created: EQ_Demand_balance_3U
+  creating symbol
+  symbol created: EQ_Demand_balance_2D
+  creating symbol
+  symbol created: EQ_P2H
+  creating symbol
+  symbol created: EQ_Max_P2H
+  creating symbol
+  symbol created: EQ_P2H2
+  creating symbol
+  symbol created: EQ_Max_P2H2
+  creating symbol
+  symbol created: EQ_Power_must_run
+  creating symbol
+  symbol created: EQ_Power_available
+  creating symbol
+  symbol created: EQ_Heat_available
+  creating symbol
+  symbol created: EQ_thms_Heat_available
+  creating symbol
+  symbol created: EQ_Reserve_2U_capability
+  creating symbol
+  symbol created: EQ_Reserve_2D_capability
+  creating symbol
+  symbol created: EQ_Reserve_3U_capability
+  creating symbol
+  symbol created: EQ_p2h_Reserve_2U_capability
+  creating symbol
+  symbol created: EQ_p2h_Reserve_2D_capability
+  creating symbol
+  symbol created: EQ_p2h_Reserve_3U_capability
+  creating symbol
+  symbol created: EQ_2U_limit_p2h
+  creating symbol
+  symbol created: EQ_2D_limit_p2h
+  creating symbol
+  symbol created: EQ_3U_limit_p2h
+  creating symbol
+  symbol created: EQ_2U_limit_chp
+  creating symbol
+  symbol created: EQ_2D_limit_chp
+  creating symbol
+  symbol created: EQ_3U_limit_chp
+  creating symbol
+  symbol created: EQ_Storage_minimum
+  creating symbol
+  symbol created: EQ_Storage_level
+  creating symbol
+  symbol created: EQ_Storage_input
+  creating symbol
+  symbol created: EQ_Storage_MaxDischarge
+  creating symbol
+  symbol created: EQ_Storage_MaxCharge
+  creating symbol
+  symbol created: EQ_Storage_balance
+  creating symbol
+  symbol created: EQ_Storage_boundaries
+  creating symbol
+  symbol created: EQ_SystemCost
+  creating symbol
+  symbol created: EQ_Emission_limits
+  creating symbol
+  symbol created: EQ_Flow_limits_lower
+  creating symbol
+  symbol created: EQ_Flow_limits_upper
+  creating symbol
+  symbol created: EQ_Force_Commitment
+  creating symbol
+  symbol created: EQ_Force_DeCommitment
+  creating symbol
+  symbol created: EQ_LoadShedding
+  creating symbol
+  symbol created: EQ_Flexible_Demand
+  creating symbol
+  symbol created: EQ_Flexible_Demand_Max
+  creating symbol
+  symbol created: EQ_Flexible_Demand_Modulation_Min
+  creating symbol
+  symbol created: EQ_Flexible_Demand_Modulation_Max
+  creating symbol
+  symbol created: EQ_No_Flexible_Demand
+  creating symbol
+  symbol created: EQ_Tot_DemandPtL
+  creating symbol
+  symbol created: EQ_Max_Capacity_PtL
+  creating symbol
+  symbol created: EQ_PtL_Demand
+  creating symbol
+  symbol created: EQ_Curtailed_Power
+  creating symbol
+  symbol created: CommittedInitial_dbg
+  creating symbol
+  symbol created: PowerInitial_dbg
+  creating symbol
+  symbol created: StorageInitial_dbg
+  creating symbol
+  symbol created: StorageFinalMin_dbg
+  creating symbol
+  symbol created: AccumulatedOverSupply_inital_dbg
+  creating symbol
+  symbol created: tmp
+  creating symbol
+  symbol created: status
+  creating symbol
+  symbol created: starttime
+  creating symbol
+  symbol created: days
+  creating symbol
+  symbol created: elapsed
+  creating symbol
+  symbol created: OutputDemand_2U
+  creating symbol
+  symbol created: OutputDemand_3U
+  creating symbol
+  symbol created: OutputDemand_2D
+  creating symbol
+  symbol created: OutputMaxOutageUp
+  creating symbol
+  symbol created: OutputMaxOutageDown
+  creating symbol
+  symbol created: OutputCommitted
+  creating symbol
+  symbol created: OutputFlow
+  creating symbol
+  symbol created: OutputPower
+  creating symbol
+  symbol created: OutputPowerConsumption
+  creating symbol
+  symbol created: OutputStorageInput
+  creating symbol
+  symbol created: OutputStorageLevel
+  creating symbol
+  symbol created: OutputStorageSlack
+  creating symbol
+  symbol created: OutputH2Output
+  creating symbol
+  symbol created: OutputSystemCost
+  creating symbol
+  symbol created: OutputSpillage
+  creating symbol
+  symbol created: OutputShedLoad
+  creating symbol
+  symbol created: OutputCurtailedPower
+  creating symbol
+  symbol created: OutputCurtailmentReserve_2U
+  creating symbol
+  symbol created: OutputCurtailmentReserve_3U
+  creating symbol
+  symbol created: OutputCurtailedHeat
+  creating symbol
+  symbol created: OutputDemandModulation
+  creating symbol
+  symbol created: ShadowPrice
+  creating symbol
+  symbol created: HeatShadowPrice
+  creating symbol
+  symbol created: H2ShadowPrice
+  creating symbol
+  symbol created: LostLoad_MaxPower
+  creating symbol
+  symbol created: LostLoad_MinPower
+  creating symbol
+  symbol created: LostLoad_2D
+  creating symbol
+  symbol created: LostLoad_2U
+  creating symbol
+  symbol created: LostLoad_3U
+  creating symbol
+  symbol created: OutputGenMargin
+  creating symbol
+  symbol created: OutputHeat
+  creating symbol
+  symbol created: OutputHeatSlack
+  creating symbol
+  symbol created: OutputH2Slack
+  creating symbol
+  symbol created: LostLoad_WaterSlack
+  creating symbol
+  symbol created: StorageShadowPrice
+  creating symbol
+  symbol created: OutputPtLDemand
+  creating symbol
+  symbol created: OutputPowerMustRun
+  creating symbol
+  symbol created: ShadowPrice_2U
+  creating symbol
+  symbol created: ShadowPrice_2D
+  creating symbol
+  symbol created: ShadowPrice_3U
+  creating symbol
+  symbol created: OutputReserve_2U
+  creating symbol
+  symbol created: OutputReserve_2D
+  creating symbol
+  symbol created: OutputReserve_3U
+  creating symbol
+  symbol created: ShadowPrice_RampUp_TC
+  creating symbol
+  symbol created: ShadowPrice_RampDown_TC
+  creating symbol
+  symbol created: OutputRampRate
+  creating symbol
+  symbol created: OutputStartUp
+  creating symbol
+  symbol created: OutputShutDown
+  creating symbol
+  symbol created: OutputEmissions
+  creating symbol
+  symbol created: CapacityMargin
+  creating symbol
+  symbol created: OutputSystemCostD
+  creating symbol
+  symbol created: OutputOptimalityGap
+  creating symbol
+  symbol created: OutputOptimizationError
+  creating symbol
+  symbol created: OutputOptimizationCheck
+  creating symbol
+  symbol created: UnitHourlyPowerRevenue
+  creating symbol
+  symbol created: UnitHourly2URevenue
+  creating symbol
+  symbol created: UnitHourly2DRevenue
+  creating symbol
+  symbol created: UnitHourly3URevenue
+  creating symbol
+  symbol created: UnitHourlyHeatRevenue
+  creating symbol
+  symbol created: UnitHourlyRevenue
+  creating symbol
+  symbol created: UnitHourlyFixedCost
+  creating symbol
+  symbol created: UnitHourlyVariableCost
+  creating symbol
+  symbol created: UnitHourlyStartUpCost
+  creating symbol
+  symbol created: UnitHourlyShutDownCost
+  creating symbol
+  symbol created: UnitHourlyRampingCost
+  creating symbol
+  symbol created: UnitHourlyProductionCost
+  creating symbol
+  symbol created: UnitHourlyProfit
+---- Leaving InitFromGDX ----
+[ERROR   ] (solve_high_level): The following error occured when trying to solve the model in gams: GAMS return code not 0 (3), check /tmp/tmpvhpvhm46/_gams_py_gjo0.lst for more details
+---- Entering GamsOptions destructor ----
+[INFO    ] (solve_high_level): Completed simulation in 29.76 seconds
+---- Entering GamsJob destructor ----
+---- Entering GamsDatabase destructor ----
+gmdFree
+---- Entering GamsOptions destructor ----
+---- Entering GamsWorkspace destructor ----
+[WARNING ] (solve_GAMS): A debug file was created. There has probably been an optimization error
+[INFO    ] (gdx_to_list): Loading gdx file simulations/test-Matijs1/reference/Results.gdx took 0.35684800148010254s
+Traceback (most recent call last):
+  File "/home/f/Unif/tfe/work/data-generation/sampling.py", line 45, in <module>
+    sim_data = ds.build_simulation(config)
+  File "/home/f/Unif/tfe/Dispa-SET/dispaset/preprocessing/preprocessing.py", line 54, in build_simulation
+    new_profiles = mid_term_scheduling(config, mts_plot=mts_plot, TimeStep=MTSTimeStep)
+  File "/home/f/Unif/tfe/Dispa-SET/dispaset/preprocessing/preprocessing.py", line 228, in mid_term_scheduling
+    temp_results = gdx_to_dataframe(
+  File "/home/f/Unif/tfe/Dispa-SET/dispaset/misc/gdx_handler.py", line 324, in gdx_to_dataframe
+    out[symbol] = pd.DataFrame(columns=pd_index, index=out['OutputPower'].index)
+KeyError: 'OutputPower'

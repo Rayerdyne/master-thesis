@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --main-user=f.straet@student.uliege.be
+#SBATCH --mail-user=f.straet@student.uliege.be
 #SBATCH --mail-type=BEGIN,END
 #SBATCH --job-name=Dispa-SET data generation
 #SBATCH --time=1-05:00:00 # days-hh:mm:ss
@@ -18,8 +18,17 @@
 
 F_HOME="/home/ulg/thermlab/fstraet"
 
-FILES=($F_HOME/.../*)
-CUR_FILE=${FILES[$SLURM_ARRAY_TASK_ID]}
+if [ -z "$1" ]; then
+    echo "Missing argument"
+    echo "Usage:"
+    echo "    $0 <path-to-simulation-dirs>"
+    exit
+else
+    BASE_DIR=$(cd $1; pwd)
+    SIM_DIRS="$BASE_DIR/*"
+fi
+
+CUR_DIR=${SIM_DIRS[$SLURM_ARRAY_TASK_ID]}
 
 # Load Python 3.9 and environment
 module load Python/3.9.6-GCCcore-11.2.0
@@ -30,9 +39,11 @@ export GAMSPATH=$F_HOME/gams37.1_linux_x64_64_sfx
 
 echo "Job ID: $SLURM_JOBID"
 echo "Job dir: $SLURM_SUBMIT_DIR"
-echo "Running on file $CUR_FILE"
+echo "Running simulation dir: $CUR_DIR"
+cd $CUR_DIR
 
-srun thing
+# srun $GAMSPATH/gams UCM_h.gms > $CUR_DIR/gamsrun.log
+srun pwd > "gamsrun$SLURM_SUBMIT_DIR.log"
 
 echo "Job ID $SLURM_JOBID is finished"
 

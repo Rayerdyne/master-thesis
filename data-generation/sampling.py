@@ -19,6 +19,7 @@ import dispaset as ds
 # Wether or not we build test simulations
 TESTING = True
 
+# Latin Hypercube parameters
 CRITERION = "maximin"
 N_SAMPLES = 10
 
@@ -28,11 +29,11 @@ CSV_OUT_NAME = "samples.csv"
 # Base directory for the simulation
 SIMULATIONS_FOLDER = "simulations"
 # Where simulation will actually be written
-SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test0"
+SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-Matijs1"
 # Where to write reference simulation
 REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
 
-config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest.xlsx")
+config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest_Matijs_MILP.xlsx")
 config["SimulationDirectory"] = REFERENCE_SIMULATION_FOLDER 
 
 if TESTING:
