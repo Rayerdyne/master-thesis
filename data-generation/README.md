@@ -89,7 +89,8 @@ Fails with the same error than ConfigTest_Matijs
 ### ConfigFile: ConfigTest_Matijs2
 
 Errors: 
-```[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
+```
+[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
 [ERROR   ] (check_units): Non-null value(s) have been found for key MinEfficiency in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
 [ERROR   ] (check_units): Non-null value(s) have been found for key StartUpTime in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
 [ERROR   ] (check_sto): The Storage capacity for unit DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
