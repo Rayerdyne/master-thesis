@@ -29,11 +29,11 @@ CSV_OUT_NAME = "samples.csv"
 # Base directory for the simulation
 SIMULATIONS_FOLDER = "simulations"
 # Where simulation will actually be written
-SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-Matijs1"
+SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-Matijs"
 # Where to write reference simulation
 REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
 
-config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest_Matijs_MILP.xlsx")
+config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest_Francois.xlsx")
 config["SimulationDirectory"] = REFERENCE_SIMULATION_FOLDER 
 
 if TESTING:
@@ -42,7 +42,9 @@ if TESTING:
 
 
 # Build base simulation directory
+print("#-#-#-#-#-#-# Build simulation")
 sim_data = ds.build_simulation(config)
+print("#-#-#-#-#-#-# Build simulation end")
 
 # Extract some significant values from the config:
 peak_load = sim_data["parameters"]["Demand"]["val"][0].sum(axis=0).max()
