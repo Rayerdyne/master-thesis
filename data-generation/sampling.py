@@ -120,6 +120,14 @@ ranges_name = ["Capacity ratio", "Share flexible",
 N_DIMS = len(ranges)
 
 def main():
+    if len(sys.argv) >= 2:
+        SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + sys.argv[1]
+        print(f"Found subfolder name {sys.argv[1]}")
+    else:
+        print("No subfolder name given as argument, using default value")
+    
+    print(f"Writing simulations in {SIMULATIONS_SUBFOLDER}")
+
     print(f"Reference simulation: {ref}")
     print(f"CF pv: {CF_pv}, CF wton: {CF_wton}, peak_load: {peak_load}")
     print(f"Generating samples in ranges {ranges}")
@@ -154,7 +162,7 @@ def build_simulations(samples):
         print(f"Simulation {i} / {nb}, {sample}")
         capacity_ratio, share_flex, share_sto, share_wind, share_pv, rNTC = sample
         
-        name = "sim-" + np.array2string(sample, separator="-", formatter={'float_kind': lambda x: f"{x:.2f}" })[1:-1]
+        name = f"sim-{i}_" + np.array2string(sample, separator="-", formatter={'float_kind': lambda x: f"{x:.2f}" })[1:-1]
         cur_folder = SIMULATIONS_SUBFOLDER + os.sep + name
 
         
