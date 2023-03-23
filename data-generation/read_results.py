@@ -89,18 +89,7 @@ def read_data(path, inputs, results, data, i):
 
 
 def main():
-    if len(sys.argv) >= 2:
-        SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + sys.argv[1]
-        print(f"Found subfolder name {sys.argv[1]}")
-    else:
-        print("No subfolder name given as argument, using default value")
-    
     print(f"Reading simulations in {SIMULATIONS_SUBFOLDER}")
-
-    if len(sys.argv) >= 3:
-        output_file = SIMULATIONS_SUBFOLDER + os.sep + sys.argv[2]
-    else:
-        output_file = SIMULATIONS_SUBFOLDER + os.sep + "results.csv"
 
     paths = get_simulation_dirs(SIMULATIONS_SUBFOLDER)
     print(f"Paths found: {paths}")

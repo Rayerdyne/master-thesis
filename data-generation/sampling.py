@@ -105,12 +105,6 @@ ranges_name = ["Capacity ratio", "Share flexible",
 N_DIMS = len(ranges)
 
 def main():
-    if len(sys.argv) >= 2:
-        SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + sys.argv[1]
-        print(f"Found subfolder name {sys.argv[1]}")
-    else:
-        print("No subfolder name given as argument, using default value")
-    
     print(f"Writing simulations in {SIMULATIONS_SUBFOLDER}")
 
     print(f"Reference simulation: {ref}")
@@ -139,6 +133,7 @@ def main():
         df.to_csv(out_name, index_label="Index")
     
     build_simulations(samples)
+    print(f"Simulations successfully written in {SIMULATIONS_SUBFOLDER}")
 
 
 def build_simulations(samples):
