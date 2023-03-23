@@ -103,6 +103,7 @@ def main():
         data = read_data(path, inputs, results, data, i)
     
     data.fillna(0, inplace=True)
+    output_file = SIMULATIONS_SUBFOLDER + SAMPLE_CSV_NAME
     data.to_csv(output_file, index=False)
     print(f"Wrote {output_file}")
         
