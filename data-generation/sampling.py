@@ -32,6 +32,8 @@ SIMULATIONS_FOLDER = "simulations"
 SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-Matijs"
 # Where to write reference simulation
 REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
+# Where to write the sample point in the simulation directory
+SAMPLE_CSV_NAME = "sample.csv"
 
 config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest_Francois.xlsx")
 config["SimulationDirectory"] = REFERENCE_SIMULATION_FOLDER 
@@ -165,6 +167,10 @@ def build_simulations(samples):
         name = f"sim-{i}_" + np.array2string(sample, separator="-", formatter={'float_kind': lambda x: f"{x:.2f}" })[1:-1]
         cur_folder = SIMULATIONS_SUBFOLDER + os.sep + name
 
+        # Needed because the directory name is rounded
+        coordinates = pd.Series(sample, index=["CapacityRatio", "ShareFlex", "ShareStorage", "ShareWind", "SharePV", "rNTC"])
+        coordinates.name = "LHS-sample"
+        coordinates.to_csv(SIMULATIONS_SUBFOLDER + os.sep + SAMPLE_CSV_NAME)
         
         # in the first iteration, we load the input data from the original simulation directory:
         data = ds.adjust_capacity(REFERENCE_SIMULATION_FOLDER, ('BATS','OTH'), singleunit=True, 
