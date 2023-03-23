@@ -11,7 +11,7 @@
 #SBATCH --mem-per-cpu=8000 # megabytes
 #SBATCH --partition=batch
 #
-#SBATCH --array=0-10
+#SBATCH --array=0-9
 
 # Adapted from LaunchParallelJobs_carla.sh
 

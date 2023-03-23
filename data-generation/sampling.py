@@ -37,16 +37,11 @@ peak_load = sim_data["parameters"]["Demand"]["val"][0].sum(axis=0).max()
 availability_factors = sim_data["parameters"]["AvailabilityFactor"]["val"].mean(axis=1)
 af_df = pd.DataFrame(availability_factors, index=sim_data["sets"]["au"], columns=["availability_factor_avg"])
 
-print(availability_factors)
-print(f"Simdata[sets][au]: {sim_data['sets']['au']}")
-print(af_df)
 CF_pv = af_df.filter(like="PHOT", axis=0).mean().loc["availability_factor_avg"]
-print(af_df.filter(like="PHOT", axis=0))
 CF_wton_list0 = af_df.filter(like="WindOn", axis=0)
 CF_wton_list1 = af_df.filter(like="WTON", axis=0)
 CF_wton_list = pd.concat([CF_wton_list0, CF_wton_list1])
 CF_wton = CF_wton_list.mean().loc["availability_factor_avg"]
-print(af_df.filter(like="WTON", axis=0))
 
 units = sim_data["units"]
 flex_units = units[ units.Fuel.isin( ['GAS','HRD','OIL','BIO','LIG','PEA','NUC','GEO'] ) & (units.PartLoadMin < 0.5) & (units.TimeUpMinimum <5)  & (units.RampUpRate > 0.01)  ].index
@@ -55,6 +50,12 @@ sto_units  = units[ units.Fuel.isin( ['OTH'] ) ].index
 wind_units = units[ units.Fuel.isin( ['WIN'] ) ].index 
 pv_units   = units[ units.Technology == 'PHOT'].index   
 hror_units = units[ units.Technology == 'HROR'].index   
+coal_units = units[units.Fuel.isin(["HRD"])].index
+variable_costs = sim_data["parameters"]["CostVariable"]["val"]
+for u in coal_units:
+    idx = coal_units.get_loc(u)
+    variable_cost = variable_costs[idx].mean()
+    print(f"Variable cost for {u} (idx: {idx}): {variable_cost}")
 
 ref = {}
 ref['overcapacity'] = (units.PowerCapacity[flex_units].sum() + units.PowerCapacity[slow_units].sum() + units.PowerCapacity[sto_units].sum()) / peak_load
@@ -144,11 +145,6 @@ def build_simulations(samples):
         
         name = f"sim-{i}_" + np.array2string(sample, separator="-", formatter={'float_kind': lambda x: f"{x:.2f}" })[1:-1]
         cur_folder = SIMULATIONS_SUBFOLDER + os.sep + name
-
-        # Needed because the directory name is rounded
-        coordinates = pd.Series(sample, index=["CapacityRatio", "ShareFlex", "ShareStorage", "ShareWind", "SharePV", "rNTC"])
-        coordinates.name = "LHS-sample"
-        coordinates.to_csv(SIMULATIONS_SUBFOLDER + os.sep + SAMPLE_CSV_NAME)
         
         # in the first iteration, we load the input data from the original simulation directory:
         data = ds.adjust_capacity(REFERENCE_SIMULATION_FOLDER, ('BATS','OTH'), singleunit=True, 
@@ -170,6 +166,11 @@ def build_simulations(samples):
         data = ds.adjust_capacity(data, ('PHOT','SUN'),
                                   value=peak_load*capacity_ratio*share_pv/CF_pv, singleunit=True,
                                   write_gdx=True, dest_path=cur_folder)
+
+        # Needed because the directory name is rounded
+        coordinates = pd.Series(sample, index=["CapacityRatio", "ShareFlex", "ShareStorage", "ShareWind", "SharePV", "rNTC"])
+        coordinates.name = "LHS-sample"
+        coordinates.to_csv(cur_folder + os.sep + SAMPLE_CSV_NAME)
         
 
 if __name__ == "__main__":
