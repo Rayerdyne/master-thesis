@@ -16,24 +16,7 @@ sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
 
 import dispaset as ds
 
-# Wether or not we build test simulations
-TESTING = True
-
-# Latin Hypercube parameters
-CRITERION = "maximin"
-N_SAMPLES = 10
-
-WRITE_POINTS_TO_CSV = False
-CSV_OUT_NAME = "samples.csv"
-
-# Base directory for the simulation
-SIMULATIONS_FOLDER = "simulations"
-# Where simulation will actually be written
-SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-Matijs"
-# Where to write reference simulation
-REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
-# Where to write the sample point in the simulation directory
-SAMPLE_CSV_NAME = "sample.csv"
+from config import *
 
 config = ds.load_config_excel("ConfigFiles" + os.sep + "ConfigTest_Francois.xlsx")
 config["SimulationDirectory"] = REFERENCE_SIMULATION_FOLDER 

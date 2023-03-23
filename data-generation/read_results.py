@@ -15,7 +15,7 @@ sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
 
 import dispaset as ds
 
-from sampling import SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
+from config import SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
 
 def get_simulation_dirs(path):
     """
