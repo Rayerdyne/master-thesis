@@ -1,3 +1,5 @@
+import os
+
 # Wether or not we build test simulations
 TESTING = True
 

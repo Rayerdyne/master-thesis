@@ -11,21 +11,33 @@ import os, sys
 
 import pandas as pd
 
+from config import SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
+
 sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
 
 import dispaset as ds
 
-from config import SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
 
-def get_simulation_dirs(path):
+def get_simulation_dirs(parent):
     """
     Returns a list of all the subdirectories of `path` that contain the results
     of a simulation
     """
-    paths = os.listdir(path)
-    paths = list(filter(lambda x: os.path.isfile(path + os.sep + "Results.gdx"), paths))
-    paths = list(filter(lambda x: not os.path.isfile(path + os.sep + "debug.gdx"), paths))
-    paths.remove("reference")
+    def is_valid_path(path):
+        path = parent + os.sep + path
+        b1 = os.path.isfile(path + os.sep + "Results.gdx")
+        if not b1:
+            print(f"Refusing {path} because no results")
+        b2 = not os.path.isfile(path + os.sep + "debug.gdx")
+        if not b2:
+            print(f"Refusing {path} because debug")
+        b3 = not path.endswith("reference")
+        if not b3:
+            print(f"Refusing {path} because reference")
+        return b1 and b2 and b3
+
+    paths = os.listdir(parent)
+    return list(filter(is_valid_path, paths))
 
 def read_data(path, inputs, results, data, i):
     """
@@ -77,9 +89,6 @@ def read_data(path, inputs, results, data, i):
 
 
 def main():
-    if len(sys.argv) >= 3:
-        output_file = SIMULATIONS_SUBFOLDER + os.sep + sys.argv[2]
-
     if len(sys.argv) >= 2:
         SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + sys.argv[1]
         print(f"Found subfolder name {sys.argv[1]}")
@@ -88,13 +97,19 @@ def main():
     
     print(f"Reading simulations in {SIMULATIONS_SUBFOLDER}")
 
+    if len(sys.argv) >= 3:
+        output_file = SIMULATIONS_SUBFOLDER + os.sep + sys.argv[2]
+    else:
+        output_file = SIMULATIONS_SUBFOLDER + os.sep + "results.csv"
+
     paths = get_simulation_dirs(SIMULATIONS_SUBFOLDER)
+    print(f"Paths found: {paths}")
     n = len(paths)
     data = pd.DataFrame(index=range(n))
 
     for i, path in enumerate(paths):
         current = SIMULATIONS_SUBFOLDER + os.sep + path
-        inputs, results = ds.get_sim_resuts(path=current, cache=True)
+        inputs, results = ds.get_sim_results(path=current, cache=True)
 
         data = read_data(path, inputs, results, data, i)
     
