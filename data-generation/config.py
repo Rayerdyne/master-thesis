@@ -13,7 +13,7 @@ CSV_OUT_NAME = "samples.csv"
 # Base directory for the simulation
 SIMULATIONS_FOLDER = "simulations"
 # Where simulation will actually be written
-SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-1"
+SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "test-365"
 # Where to write reference simulation
 REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
 # Where to write the sample point in the simulation directory

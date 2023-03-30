@@ -23,7 +23,7 @@ config["SimulationDirectory"] = REFERENCE_SIMULATION_FOLDER
 
 if TESTING:
     config["StartDate"] = (2022, 1, 1, 0, 0, 0)
-    config["StopDate"] = (2022, 1, 2, 0, 0, 0)
+    config["StopDate"] = (2022, 12, 31, 0, 0, 0)
 
 
 # Build base simulation directory

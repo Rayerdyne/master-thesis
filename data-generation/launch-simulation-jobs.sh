@@ -5,7 +5,7 @@
 #SBATCH --job-name=Dispa-SET-data-generation
 #SBATCH --time=1-05:00:00 # days-hh:mm:ss
 #
-#SBATCH --output=res_array_%A_%a.txt
+#SBATCH --output=res_array365_%A_%a.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=8000 # megabytes
@@ -25,7 +25,7 @@ if [ -z "$1" ]; then
     exit
 else
     BASE_DIR=$(cd $1; pwd)
-    SIM_DIRS="$BASE_DIR/*"
+    SIM_DIRS=($BASE_DIR/sim*)
 fi
 
 CUR_DIR=${SIM_DIRS[$SLURM_ARRAY_TASK_ID]}

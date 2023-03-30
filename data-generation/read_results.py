@@ -30,25 +30,25 @@ def get_simulation_dirs(parent):
             print(f"Refusing {path} because no results")
         b2 = not os.path.isfile(path + os.sep + "debug.gdx")
         if not b2:
-            print(f"Refusing {path} because debug")
+            print(f"Should be refusing {path} because debug")
         b3 = not path.endswith("reference")
         if not b3:
             print(f"Refusing {path} because reference")
-        return b1 and b2 and b3
+        # return b1 and b2 and b3
+        return b1 and b3
 
     paths = os.listdir(parent)
     return list(filter(is_valid_path, paths))
 
 def read_data(path, inputs, results, data, i):
     """
-    Reads the data related to one simulation and add it to a DataFrame
+    Reads the data related to one simulation and returns it as a row
 
     :path:       path to the simulation directory to be read
     :inputs:     the inputs dict of the simulation
     :results:    the results dict of the simulation
-    :data:       the DataFrame to be filled
-    :i:          the row of the DataFrame to write at
     """
+    print(f"Reading data from path: {path} -> {SIMULATIONS_SUBFOLDER + os.sep + path}")
     fuel_power = ds.aggregate_by_fuel(results["OutputPower"], inputs, SpecifyFuels=None)
     capacities = ds.plot_zone_capacities(inputs, results, plot=False)
 
@@ -60,33 +60,43 @@ def read_data(path, inputs, results, data, i):
             lost_load += results[key].sum().sum()
     
     # read pd.Series from csv
-    sample = pd.read_csv(SIMULATIONS_SUBFOLDER + os.sep + SAMPLE_CSV_NAME).squeeze("columns")
+    # then add elements to the row
+    row = pd.read_csv(SIMULATIONS_SUBFOLDER + os.sep + path + os.sep + SAMPLE_CSV_NAME, index_col=1).squeeze("columns")
 
-    data.loc[i, :] = sample
+    row.loc["Cost_[E/MWh]"] = zone_results["Cost_kwh"]
+    row.loc["Congestion_[h]"] = sum(zone_results["Congestion"].values())
 
-    data.loc[i, "Cost_[E/MWh]"] = zone_results["Cost_kwh"]
-    data.loc[i, "Congestion_[h]"] = sum(zone_results["Congestion"].values())
+    row.loc["PeakLoad_[MW]"] = zone_results["PeakLoad"]
 
-    data.loc[i, "PeakLoad_[MW]"] = zone_results["PeakLoad"]
-
-    data.loc[i,'MaxCurtailment_[MW]'] = zone_results['MaxCurtailment']
-    data.loc[i,'MaxLoadShedding_[MW]'] = zone_results['MaxShedLoad']
+    row.loc['MaxCurtailment_[MW]'] = zone_results['MaxCurtailment']
+    row.loc['MaxLoadShedding_[MW]'] = zone_results['MaxShedLoad']
     
-    data.loc[i,'Demand_[TWh]'] = zone_results['TotalLoad']/1E6
-    data.loc[i,'NetImports_[TWh]']= zone_results['NetImports']/1E6
+    row.loc['Demand_[TWh]'] = zone_results['TotalLoad']/1E6
+    row.loc['NetImports_[TWh]']= zone_results['NetImports']/1E6
     
-    data.loc[i,'Curtailment_[TWh]'] = zone_results['Curtailment']
-    data.loc[i,'Shedding_[TWh]'] = zone_results['ShedLoad']
-    
-    data.loc[i,'LostLoad_[TWh]'] = lost_load / 1E6
+    row.loc['Curtailment_[TWh]'] = zone_results['Curtailment']
+    row.loc['Shedding_[TWh]'] = zone_results['ShedLoad']
+    row.loc['LostLoad_[TWh]'] = lost_load / 1E6
 
     cf = {}
     for fuel in ["GAS", "NUC", "WAT", "WIN", "SUN"]:
         cf[fuel] = fuel_power[fuel].sum() / (capacities["PowerCapacity"][fuel].sum() * 8760)
         keyname = "CF_" + fuel.lower()
-        data.loc[i, keyname] = cf[fuel]
+        row.loc[keyname] = cf[fuel]
+
+    return row
 
 
+def foo(path):
+    row = pd.read_csv(SIMULATIONS_SUBFOLDER + os.sep + path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
+    a = path[:3]
+    b = path[3:6]
+    c = path[6:9]
+    row.loc["aa"] = a
+    row.loc["bb"] = b
+    row.loc["cc"] = c
+    return row
+    
 
 def main():
     print(f"Reading simulations in {SIMULATIONS_SUBFOLDER}")
@@ -94,13 +104,16 @@ def main():
     paths = get_simulation_dirs(SIMULATIONS_SUBFOLDER)
     print(f"Paths found: {paths}")
     n = len(paths)
-    data = pd.DataFrame(index=range(n))
-
+    
     for i, path in enumerate(paths):
         current = SIMULATIONS_SUBFOLDER + os.sep + path
         inputs, results = ds.get_sim_results(path=current, cache=True)
 
-        data = read_data(path, inputs, results, data, i)
+        row = read_data(path, inputs, results, data, i)
+        if i == 0:
+            data = pd.DataFrame(index=range(n), columns=row.index, dtype=float)
+            
+        data.loc[i,:] = row
     
     data.fillna(0, inplace=True)
     output_file = SIMULATIONS_SUBFOLDER + SAMPLE_CSV_NAME

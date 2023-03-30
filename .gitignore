@@ -136,3 +136,6 @@ data-generation/Database
 data-generation/Database-matijs
 # forget about test simulations
 data-generation/simulations/test*
+# Slurm output files 
+data-generation/res*
+data-generation/slurm*.out
