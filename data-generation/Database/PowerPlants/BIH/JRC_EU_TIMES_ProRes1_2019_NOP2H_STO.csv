@@ -1,0 +1,6 @@
+,Unit,PowerCapacity,Nunits,Zone,Zone_th,Technology,Fuel,Efficiency,MinUpTime,MinDownTime,RampUpRate,RampDownRate,StartUpCost_pu,NoLoadCost_pu,RampingCost,PartLoadMin,MinEfficiency,StartUpTime,CO2Intensity,CHPType,CHPPowerToHeat,CHPPowerLossFactor,COP,Tnominal,coef_COP_a,coef_COP_b,STOCapacity,STOSelfDischarge,STOMaxChargingPower,STOChargingEfficiency,WaterWithdrawal,WaterConsumption
+BIH_STUR_LIG,BIH_STUR_LIG,300.0,1.0,BIH,,STUR,LIG,0.4,8,8,0.02,0.23,49,0,1.8,0.4,0.395,10,0.848,,,,,,,,,,,,0,0
+BIH_STUR_HRD,BIH_STUR_HRD,544.0423344473977,2.0,BIH,,STUR,HRD,0.43,8,8,0.02,0.23,50,0,1.8,0.38,0.46,6,0.788,,,,,,,,,,,,0,0
+BIH_WTOF_WIN,BIH_WTOF_WIN,50.9,1,BIH,,WTOF,WIN,1.0,0,0,0.02,0.1,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+BIH_PHOT_SUN,BIH_PHOT_SUN,18.15,1,BIH,,PHOT,SUN,1.0,0,0,0.02,0.12,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+BIH_STUR_HRD_CHP,BIH_STUR_HRD_CHP,595.9153311052046,1.0,BIH,BIH_th,STUR,HRD,0.43,8,8,0.02,0.23,50,0,1.8,0.38,0.46,6,0.788,Extraction,0.45,0.256,,,,,,,,,0,0

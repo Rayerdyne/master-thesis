@@ -1,0 +1,8 @@
+,Unit,PowerCapacity,Nunits,Zone,Zone_th,Technology,Fuel,Efficiency,MinUpTime,MinDownTime,RampUpRate,RampDownRate,StartUpCost_pu,NoLoadCost_pu,RampingCost,PartLoadMin,MinEfficiency,StartUpTime,CO2Intensity,CHPType,CHPPowerToHeat,CHPPowerLossFactor,COP,Tnominal,coef_COP_a,coef_COP_b,STOCapacity,STOSelfDischarge,STOMaxChargingPower,STOChargingEfficiency,WaterWithdrawal,WaterConsumption
+CH_STUR_NUC,CH_STUR_NUC,843.25,4.0,CH,,STUR,NUC,0.44,24,10,0.05,0.05,198,0,1.8,0.9,0.34,40,0.0,,,,,,,,,,,,0,0
+CH_HDAM_WAT,CH_HDAM_WAT,9531.230000000005,1,CH,,HDAM,WAT,0.8,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,5732197.1,,,,0,0
+CH_HPHS_WAT,CH_HPHS_WAT,4082.65,1,CH,,HPHS,WAT,0.8,0,0,0.067,0.067,1,0,0.0,0.0,1.0,0,0.0,,,,,,,,20413.25,0.0,4082.65,0.8,0,0
+CH_HROR_WAT,CH_HROR_WAT,4844.819800000002,1,CH,,HROR,WAT,1.0,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+CH_WTOF_WIN,CH_WTOF_WIN,75.0,1,CH,,WTOF,WIN,1.0,0,0,0.02,0.1,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+CH_PHOT_SUN,CH_PHOT_SUN,2171.0,1,CH,,PHOT,SUN,1.0,0,0,0.02,0.12,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+CH_BATS_OTH,CH_BATS_OTH,5737.0,1,CH,,BATS,OTH,0.95,0,0,1.0,1.0,0,0,0.0,0.0,0.95,0,0.0,,,,,,,,6374444.444444445,0.0,5737.0,0.95,0,0
