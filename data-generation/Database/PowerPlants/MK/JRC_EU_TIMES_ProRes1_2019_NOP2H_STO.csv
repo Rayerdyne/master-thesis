@@ -1,9 +1,9 @@
 ,Unit,PowerCapacity,Nunits,Zone,Zone_th,Technology,Fuel,Efficiency,MinUpTime,MinDownTime,RampUpRate,RampDownRate,StartUpCost_pu,NoLoadCost_pu,RampingCost,PartLoadMin,MinEfficiency,StartUpTime,CO2Intensity,CHPType,CHPPowerToHeat,CHPPowerLossFactor,COP,Tnominal,coef_COP_a,coef_COP_b,STOCapacity,STOSelfDischarge,STOMaxChargingPower,STOChargingEfficiency,WaterWithdrawal,WaterConsumption
 MK_STUR_LIG,MK_STUR_LIG,412.0,2.0,MK,,STUR,LIG,0.4,8,8,0.02,0.23,49,0,1.8,0.4,0.395,10,0.848,,,,,,,,,,,,0,0
-MK_HDAM_WAT,MK_HDAM_WAT,533.0,1,MK,,HDAM,WAT,0.8,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,2665.0,,,,0,0
-MK_HROR_WAT,MK_HROR_WAT,41.6,1,MK,,HROR,WAT,1.0,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
-MK_WTOF_WIN,MK_WTOF_WIN,37.0,1,MK,,WTOF,WIN,1.0,0,0,0.02,0.1,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
-MK_PHOT_SUN,MK_PHOT_SUN,20.599,1,MK,,PHOT,SUN,1.0,0,0,0.02,0.12,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+MK_HDAM_WAT,MK_HDAM_WAT,533.0,1.0,MK,,HDAM,WAT,0.8,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,2665.0,,,,0,0
+MK_HROR_WAT,MK_HROR_WAT,41.6,1.0,MK,,HROR,WAT,1.0,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+MK_WTOF_WIN,MK_WTOF_WIN,37.0,1.0,MK,,WTOF,WIN,1.0,0,0,0.02,0.1,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+MK_PHOT_SUN,MK_PHOT_SUN,20.599,1.0,MK,,PHOT,SUN,1.0,0,0,0.02,0.12,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
 MK_COMC_GAS_CHP,MK_COMC_GAS_CHP,187.93677204658903,1.0,MK,MK_th,COMC,GAS,0.57,4,2,0.05,0.25,60,0,0.5,0.35,0.57,2,0.353,Extraction,0.95,0.213,,,,,,,,,0,0
 MK_ICEN_GAS_CHP,MK_ICEN_GAS_CHP,7.935108153078203,4.0,MK,MK_th,ICEN,GAS,0.46,0,0,0.167,0.367,8,0,0.8,0.15,0.49,0,0.457,back-pressure,0.75,0.0,,,,,,,,,0,0
 MK_STUR_GAS_CHP,MK_STUR_GAS_CHP,31.32279534109817,1.0,MK,MK_th,STUR,GAS,0.43,1,2,0.05,0.23,57,0,1.4,0.38,0.38,2,0.457,Extraction,0.4666,0.23,,,,,,,,,0,0
