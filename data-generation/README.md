@@ -17,107 +17,17 @@ I think the best option is maximin, as it has better coverage of the input space
 
 ## Files
 
-- `sampling.py` runs the LHS, and scales it to the input ranges
-- `split-samples.sh` splits the csv containing the samples into one sample per file (for simulations on the cluster)
+- `config.py` holds the data about the simulation to be set up and run, most importantly:
+    - the number of simulations (points on the LHS)
+    - the output folder for the simulations
+    - and the names of other files
 
+    The other files make reference to this one (`python -c "import x; print(x)"`) to set their variables.
+- `Makefile` well, a Makefile. It defines the following targets:
+    - `inputs`: only sample and prepare GAMS files
+    - `simulations`: run GAMS based on prepared files
 
-## Runs of sampling.py
-
-### ConfigFile: ConfigEU
-
-NB: this config file looks outdated, there is no line: "this is the end of the config file, this should be line 325"
-
-```
-Traceback (most recent call last):
-  File "/home/f/Unif/tfe/work/data-generation/sampling.py", line 45, in <module>
-    sim_data = ds.build_simulation(config)
-  File "/home/f/Unif/tfe/Dispa-SET/dispaset/preprocessing/preprocessing.py", line 46, in build_simulation
-    SimData = build_single_run(config)
-  File "/home/f/Unif/tfe/Dispa-SET/dispaset/preprocessing/build.py", line 132, in build_single_run
-    CostCurtailment = NodeBasedTable('CostCurtailment', config, default=config['default']['CostCurtailment'])
-KeyError: 'CostCurtailment'
-```
-
-### ConfigFile: ConfigTest_Matijs
-
-Builds successfully, but with warnings and error in output creation:
-
-```
-[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key MinEfficiency in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key StartUpTime in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_sto): The Storage capacity for unit DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit ES_HROR_WAT for technology HROR should be between 0 and 1. There are 24 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit SE_HROR_WAT for technology HROR should be between 0 and 1. There are 1632 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (build_single_run): In zone: NO there is insufficient conventional + renewable generation capacity of: 9939.360228868842. If NTC + storage is not sufficient ShedLoad in NO is likely to occour. Check the inputs!
-[ERROR   ] (solve_high_level): The following error occured when trying to solve the model in gams: GAMS return code not 0 (3), check /tmp/tmpm1izlixz/_gams_py_gjo0.lst for more details
-```
-
-```
-Traceback (most recent call last):
-  File "/home/f/Unif/tfe/work/data-generation/sampling.py", line 45, in <module>
-    sim_data = ds.build_simulation(config)
-  File "/home/f/Unif/tfe/Dispa-SET/dispaset/preprocessing/preprocessing.py", line 54, in build_simulation
-    new_profiles = mid_term_scheduling(config, mts_plot=mts_plot, TimeStep=MTSTimeStep)
-  File "/home/f/Unif/tfe/Dispa-SET/dispaset/preprocessing/preprocessing.py", line 228, in mid_term_scheduling
-    temp_results = gdx_to_dataframe(
-  File "/home/f/Unif/tfe/Dispa-SET/dispaset/misc/gdx_handler.py", line 324, in gdx_to_dataframe
-    out[symbol] = pd.DataFrame(columns=pd_index, index=out['OutputPower'].index)
-KeyError: 'OutputPower'
-```
-
-### ConfigFile: ConfigTest_Matijs1
-
-Errors:
-```
-[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key MinEfficiency in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key StartUpTime in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_sto): The Storage capacity for unit DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit ES_HROR_WAT for technology HROR should be between 0 and 1. There are 24 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit SE_HROR_WAT for technology HROR should be between 0 and 1. There are 1632 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (build_single_run): In zone: NO there is insufficient conventional + renewable generation capacity of: 9939.360228868842. If NTC + storage is not sufficient ShedLoad in NO is likely to occour. Check the inputs!
-[ERROR   ] (solve_high_level): The following error occured when trying to solve the model in gams: GAMS return code not 0 (3), check /tmp/tmpsd363sf8/_gams_py_gjo0.lst for more details
-```
-
-Fails with the same error than ConfigTest_Matijs
-
-### ConfigFile: ConfigTest_Matijs2
-
-Errors: 
-```
-[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key MinEfficiency in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key StartUpTime in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_sto): The Storage capacity for unit DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit ES_HROR_WAT for technology HROR should be between 0 and 1. There are 24 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit SE_HROR_WAT for technology HROR should be between 0 and 1. There are 1632 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (build_single_run): In zone: NO there is insufficient conventional + renewable generation capacity of: 9939.360228868842. If NTC + storage is not sufficient ShedLoad in NO is likely to occour. Check the inputs!
-[ERROR   ] (solve_high_level): The following error occured when trying to solve the model in gams: GAMS return code not 0 (3), check /tmp/tmpn5tc61vt/_gams_py_gjo0.lst for more details
-```
-
-Fails with the same error than ConfigTest_Matijs
-
-### ConfigFile: ConfigTest_Matijs_MILP
-
-Errors: 
-```
-[ERROR   ] (check_units): Non-null value(s) have been found for key PartLoadMin in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key MinEfficiency in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_units): Non-null value(s) have been found for key StartUpTime in the power plant list. This cannot be modelled with the LP clustered formulation and will therefore not be considered.
-[ERROR   ] (check_sto): The Storage capacity for unit DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit ES_HROR_WAT for technology HROR should be between 0 and 1. There are 24 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_AvailabilityFactors): The Availability factor of unit SE_HROR_WAT for technology HROR should be between 0 and 1. There are 1632 values above 1.0 and 0 below 0.0
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (check_sto): The Storage capacity for unit [81] - DE_HDAM_WAT is prohibitively high. More than one year at full power is required to discharge the reservoir
-[ERROR   ] (build_single_run): In zone: NO there is insufficient conventional + renewable generation capacity of: 9939.360228868842. If NTC + storage is not sufficient ShedLoad in NO is likely to occour. Check the inputs!
-[ERROR   ] (solve_high_level): The following error occured when trying to solve the model in gams: GAMS return code not 0 (3), check /tmp/tmpvhpvhm46/_gams_py_gjo0.lst for more details
-```
-
-Fails with same error than ConfigTest_Matijs
+    NB: It uses a file `$SIMULATION_FOLDER/sentinel.txt`, to avoid having a directory as a make dependency
+- `sampling.py` runs the LHS, and scales it to the input ranges, and prepares the GAMS file for the simulation
+- `launch-simulation-jobs.sh` starts one job per simulation to be run, then one to call `read_results.py --single` to fetch its results. Finally, removes large simulations files to avoid exceeding the storage limit.
+- `read_results.py` fetches the outputs of the GAMS run. If called with no arguments, fetches all the results from each simulation, if called with `--single folder` only fetches the results in that folder.

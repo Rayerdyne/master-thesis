@@ -2,6 +2,10 @@
 """
 Reads the outputs of the simulations.
 
+Usage: 
+    python read_results.py
+            Reads all the results
+
 Copied from the Read_batch_simulation.py script from Carla's work.
 
 @author: François Straet
@@ -11,7 +15,7 @@ import os, sys
 
 import pandas as pd
 
-from config import SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
+from config import DATASET_NAME, SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
 
 sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
 
@@ -40,15 +44,15 @@ def get_simulation_dirs(parent):
     paths = os.listdir(parent)
     return list(filter(is_valid_path, paths))
 
-def read_data(path, inputs, results, data, i):
+def read_data(path):
     """
     Reads the data related to one simulation and returns it as a row
 
     :path:       path to the simulation directory to be read
-    :inputs:     the inputs dict of the simulation
-    :results:    the results dict of the simulation
     """
-    print(f"Reading data from path: {path} -> {SIMULATIONS_SUBFOLDER + os.sep + path}")
+    print(f"Reading data from path: {path}")
+    inputs, results = ds.get_sim_results(path=path, cache=True)
+
     fuel_power = ds.aggregate_by_fuel(results["OutputPower"], inputs, SpecifyFuels=None)
     capacities = ds.plot_zone_capacities(inputs, results, plot=False)
 
@@ -61,7 +65,7 @@ def read_data(path, inputs, results, data, i):
     
     # read pd.Series from csv
     # then add elements to the row
-    row = pd.read_csv(SIMULATIONS_SUBFOLDER + os.sep + path + os.sep + SAMPLE_CSV_NAME, index_col=1).squeeze("columns")
+    row = pd.read_csv(path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
 
     row.loc["Cost_[E/MWh]"] = zone_results["Cost_kwh"]
     row.loc["Congestion_[h]"] = sum(zone_results["Congestion"].values())
@@ -87,39 +91,46 @@ def read_data(path, inputs, results, data, i):
     return row
 
 
-def foo(path):
-    row = pd.read_csv(SIMULATIONS_SUBFOLDER + os.sep + path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
-    a = path[:3]
-    b = path[3:6]
-    c = path[6:9]
-    row.loc["aa"] = a
-    row.loc["bb"] = b
-    row.loc["cc"] = c
-    return row
-    
-
-def main():
+def read_all():
     print(f"Reading simulations in {SIMULATIONS_SUBFOLDER}")
 
-    paths = get_simulation_dirs(SIMULATIONS_SUBFOLDER)
-    print(f"Paths found: {paths}")
-    n = len(paths)
+    dirs = get_simulation_dirs(SIMULATIONS_SUBFOLDER)
+    print(f"Directories found: {dirs}")
+    n = len(dirs)
     
-    for i, path in enumerate(paths):
-        current = SIMULATIONS_SUBFOLDER + os.sep + path
-        inputs, results = ds.get_sim_results(path=current, cache=True)
+    for i, cur_dir in enumerate(dirs):
+        path = SIMULATIONS_SUBFOLDER + os.sep + cur_dir
+        row = read_data(path)
 
-        row = read_data(path, inputs, results, data, i)
         if i == 0:
             data = pd.DataFrame(index=range(n), columns=row.index, dtype=float)
             
         data.loc[i,:] = row
     
     data.fillna(0, inplace=True)
-    output_file = SIMULATIONS_SUBFOLDER + SAMPLE_CSV_NAME
+    output_file = SIMULATIONS_SUBFOLDER + DATASET_NAME
     data.to_csv(output_file, index=False)
     print(f"Wrote {output_file}")
-        
+
+def read_single(path):
+    row = read_data(path)
+    # output via stdout
+    # if there were header, it would be:
+    # CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun
+    dataset_path = SIMULATIONS_SUBFOLDER + os.sep + DATASET_NAME
+    pd.DataFrame(row).T.to_csv(dataset_path, index=False, header=False, mode="a")
+
+def main():
+    try:
+        #                                 v-- non empty strings truthy
+        if sys.argv[1] == "--single" and sys.argv[2]:
+            read_single(sys.argv[2])
+            return
+
+    except IndexError:
+        pass
+    
+    read_all()
 
 if __name__ == "__main__":
     main()
