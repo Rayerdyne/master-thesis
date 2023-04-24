@@ -5,17 +5,19 @@ TESTING = True
 
 # Latin Hypercube parameters
 CRITERION = "maximin"
-N_SAMPLES = 1000
+N_SAMPLES = 2
 
-WRITE_POINTS_TO_CSV = False
-CSV_OUT_NAME = "samples.csv"
+START_DATE = (2022, 1, 1, 0, 0, 0)
+STOP_DATE = (2022, 12, 31, 0, 0, 0)
 
-# Base directory for the simulation
-SIMULATIONS_FOLDER = "simulations"
+WRITE_POINTS_TO_CSV = True
+SAMPLES_CSV_NAME = "samples.csv"
+
 # Where simulation will actually be written
-SIMULATIONS_SUBFOLDER = SIMULATIONS_FOLDER + os.sep + "go1000"
+SIMULATIONS_DIR = "simulations" + os.sep + "test"
 # Where to write reference simulation
-REFERENCE_SIMULATION_FOLDER = SIMULATIONS_SUBFOLDER + os.sep + "reference"
+REFERENCE_SIMULATION_DIR = SIMULATIONS_DIR + os.sep + "reference"
+REFERENCE_INFO_FILE = SIMULATIONS_DIR + os.sep + "reference-info.json"
 # Where to write the sample point in the simulation directory
 SAMPLE_CSV_NAME = "sample.csv"
 

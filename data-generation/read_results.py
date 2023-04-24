@@ -15,7 +15,7 @@ import os, sys
 
 import pandas as pd
 
-from config import DATASET_NAME, SIMULATIONS_FOLDER, SIMULATIONS_SUBFOLDER, SAMPLE_CSV_NAME
+from config import DATASET_NAME, SIMULATIONS_DIR, SAMPLE_CSV_NAME
 
 sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
 
@@ -92,14 +92,14 @@ def read_data(path):
 
 
 def read_all():
-    print(f"Reading simulations in {SIMULATIONS_SUBFOLDER}")
+    print(f"Reading simulations in {SIMULATIONS_DIR}")
 
-    dirs = get_simulation_dirs(SIMULATIONS_SUBFOLDER)
+    dirs = get_simulation_dirs(SIMULATIONS_DIR)
     print(f"Directories found: {dirs}")
     n = len(dirs)
     
     for i, cur_dir in enumerate(dirs):
-        path = SIMULATIONS_SUBFOLDER + os.sep + cur_dir
+        path = SIMULATIONS_DIR + os.sep + cur_dir
         row = read_data(path)
 
         if i == 0:
@@ -108,7 +108,7 @@ def read_all():
         data.loc[i,:] = row
     
     data.fillna(0, inplace=True)
-    output_file = SIMULATIONS_SUBFOLDER + DATASET_NAME
+    output_file = SIMULATIONS_DIR + DATASET_NAME
     data.to_csv(output_file, index=False)
     print(f"Wrote {output_file}")
 
@@ -117,7 +117,7 @@ def read_single(path):
     # output via stdout
     # if there were header, it would be:
     # CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun
-    dataset_path = SIMULATIONS_SUBFOLDER + os.sep + DATASET_NAME
+    dataset_path = SIMULATIONS_DIR + os.sep + DATASET_NAME
     pd.DataFrame(row).T.to_csv(dataset_path, index=False, header=False, mode="a")
 
 def main():
