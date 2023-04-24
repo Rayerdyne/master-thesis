@@ -1,0 +1,12 @@
+,Unit,PowerCapacity,Nunits,Zone,Zone_th,Technology,Fuel,Efficiency,MinUpTime,MinDownTime,RampUpRate,RampDownRate,StartUpCost_pu,NoLoadCost_pu,RampingCost,PartLoadMin,MinEfficiency,StartUpTime,CO2Intensity,CHPType,CHPPowerToHeat,CHPPowerLossFactor,COP,Tnominal,coef_COP_a,coef_COP_b,STOCapacity,STOSelfDischarge,STOMaxChargingPower,STOChargingEfficiency,WaterWithdrawal,WaterConsumption
+SI_STUR_LIG,SI_STUR_LIG,450.3333333333333,3.0,SI,,STUR,LIG,0.4,8,8,0.02,0.23,49,0,1.8,0.4,0.395,10,0.848,,,,,,,,,,,,0,0
+SI_STUR_NUC,SI_STUR_NUC,696.0,1.0,SI,,STUR,NUC,0.44,24,10,0.05,0.05,198,0,1.8,0.9,0.34,40,0.0,,,,,,,,,,,,0,0
+SI_GTUR_GAS,SI_GTUR_GAS,52.189187069091496,5.0,SI,,GTUR,GAS,0.35,0,0,0.21,0.41,25,0,0.8,0.15,0.33,0,0.574,,,,,,,,,,,,0,0
+SI_HDAM_WAT,SI_HDAM_WAT,602.1899999999999,1.0,SI,,HDAM,WAT,0.8,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,2600.0,,,,0,0
+SI_HPHS_WAT,SI_HPHS_WAT,185.0,1.0,SI,,HPHS,WAT,0.8,0,0,0.067,0.067,1,0,0.0,0.0,1.0,0,0.0,,,,,,,,925.0,0.0,185.0,0.8,0,0
+SI_HROR_WAT,SI_HROR_WAT,451.415,1.0,SI,,HROR,WAT,1.0,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+SI_WTOF_WIN,SI_WTOF_WIN,5.238,1.0,SI,,WTOF,WIN,1.0,0,0,0.02,0.1,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+SI_PHOT_SUN,SI_PHOT_SUN,221.33,1.0,SI,,PHOT,SUN,1.0,0,0,0.02,0.12,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+SI_GTUR_GAS_CHP,SI_GTUR_GAS_CHP,5.826154668982672,1.0,SI,SI_th,GTUR,GAS,0.35,0,0,0.21,0.41,25,0,0.8,0.15,0.33,0,0.574,back-pressure,0.55,0.0,,,,,,,,,0,0
+SI_ICEN_GAS_CHP,SI_ICEN_GAS_CHP,7.556977496389976,4.0,SI,SI_th,ICEN,GAS,0.46,0,0,0.167,0.367,8,0,0.8,0.15,0.49,0,0.457,back-pressure,0.75,0.0,,,,,,,,,0,0
+SI_BATS_OTH,SI_BATS_OTH,1133.0,1.0,SI,,BATS,OTH,0.95,0,0,1.0,1.0,0,0,0.0,0.0,0.95,0,0.0,,,,,,,,4532.0,0.0,1133.0,0.95,0,0

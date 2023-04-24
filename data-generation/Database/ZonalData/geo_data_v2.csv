@@ -1,0 +1,58 @@
+CountryName,CapitalName,Latitude,Longitude,CountryCode,ContinentName
+Andorra,Andorra la Vella,42.5,1.516667,AD,Europe
+Albania,Tirana,41.31666667,19.816667,AL,Europe
+Armenia,Yerevan,40.16666667,44.5,AM,Europe
+Austria,Vienna,48.2,16.366667,AT,Europe
+Aland Islands,Mariehamn,60.116667,19.9,AX,Europe
+Azerbaijan,Baku,40.38333333,49.866667,AZ,Europe
+Bosnia and Herzegovina,Sarajevo,43.86666667,18.416667,BA,Europe
+Belgium,Brussels,50.83333333,4.333333,BE,Europe
+Bulgaria,Sofia,42.68333333,23.316667,BG,Europe
+Belarus,Minsk,53.9,27.566667,BY,Europe
+Switzerland,Bern,46.91666667,7.466667,CH,Europe
+Cyprus,Nicosia,35.16666667,33.366667,CY,Europe
+Czech Republic,Prague,50.08333333,14.466667,CZ,Europe
+Germany,Berlin,52.51666667,13.4,DE,Europe
+Denmark,Copenhagen,55.66666667,12.583333,DK,Europe
+Estonia,Tallinn,59.43333333,24.716667,EE,Europe
+Spain,Madrid,40.4,-3.683333,ES,Europe
+Finland,Helsinki,60.16666667,24.933333,FI,Europe
+Faroe Islands,Torshavn,62,-6.766667,FO,Europe
+France,Paris,48.86666667,2.333333,FR,Europe
+United Kingdom,London,51.5,-0.083333,UK,Europe
+Georgia,Tbilisi,41.68333333,44.833333,GE,Europe
+Guernsey,Saint Peter Port,49.45,-2.533333,GG,Europe
+Gibraltar,Gibraltar,36.13333333,-5.35,GI,Europe
+Greece,Athens,37.98333333,23.733333,EL,Europe
+Croatia,Zagreb,45.8,16,HR,Europe
+Hungary,Budapest,47.5,19.083333,HU,Europe
+Ireland,Dublin,53.31666667,-6.233333,IE,Europe
+Isle of Man,Douglas,54.15,-4.483333,IM,Europe
+Iceland,Reykjavik,64.15,-21.95,IS,Europe
+Italy,Rome,41.9,12.483333,IT,Europe
+Jersey,Saint Helier,49.18333333,-2.1,JE,Europe
+Kosovo,Pristina,42.66666667,21.166667,XK,Europe
+Liechtenstein,Vaduz,47.13333333,9.516667,LI,Europe
+Lithuania,Vilnius,54.68333333,25.316667,LT,Europe
+Luxembourg,Luxembourg,49.6,6.116667,LU,Europe
+Latvia,Riga,56.95,24.1,LV,Europe
+Monaco,Monaco,43.73333333,7.416667,MC,Europe
+Moldova,Chisinau,47,28.85,MD,Europe
+Montenegro,Podgorica,42.43333333,19.266667,ME,Europe
+Macedonia,Skopje,42,21.433333,MK,Europe
+Malta,Valletta,35.88333333,14.5,MT,Europe
+Netherlands,Amsterdam,52.35,4.916667,NL,Europe
+Norway,Oslo,59.91666667,10.75,NO,Europe
+Poland,Warsaw,52.25,21,PL,Europe
+Portugal,Lisbon,38.71666667,-9.133333,PT,Europe
+Romania,Bucharest,44.43333333,26.1,RO,Europe
+Serbia,Belgrade,44.83333333,20.5,RS,Europe
+Russia,Moscow,55.75,37.6,RU,Europe
+Sweden,Stockholm,59.33333333,18.05,SE,Europe
+Slovenia,Ljubljana,46.05,14.516667,SI,Europe
+Svalbard,Longyearbyen,78.21666667,15.633333,SJ,Europe
+Slovakia,Bratislava,48.15,17.116667,SK,Europe
+San Marino,San Marino,43.93333333,12.416667,SM,Europe
+Turkey,Ankara,39.93333333,32.866667,TR,Europe
+Ukraine,Kyiv,50.43333333,30.516667,UA,Europe
+Vatican City,Vatican City,41.9,12.45,VA,Europe

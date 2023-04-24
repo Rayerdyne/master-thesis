@@ -1,0 +1,11 @@
+,Unit,PowerCapacity,Nunits,Zone,Zone_th,Technology,Fuel,Efficiency,MinUpTime,MinDownTime,RampUpRate,RampDownRate,StartUpCost_pu,NoLoadCost_pu,RampingCost,PartLoadMin,MinEfficiency,StartUpTime,CO2Intensity,CHPType,CHPPowerToHeat,CHPPowerLossFactor,COP,Tnominal,coef_COP_a,coef_COP_b,STOCapacity,STOSelfDischarge,STOMaxChargingPower,STOChargingEfficiency,WaterWithdrawal,WaterConsumption
+LV_COMC_GAS,LV_COMC_GAS,125.18213797758848,1.0,LV,,COMC,GAS,0.57,4,2,0.05,0.25,60,0,0.5,0.35,0.57,2,0.353,,,,,,,,,,,,0,0
+LV_HDAM_WAT,LV_HDAM_WAT,884.0,1.0,LV,,HDAM,WAT,0.8,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,11167.0,,,,0,0
+LV_HROR_WAT,LV_HROR_WAT,642.1,1.0,LV,,HROR,WAT,1.0,0,0,0.067,0.067,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+LV_WTOF_WIN,LV_WTOF_WIN,78.172,1.0,LV,,WTOF,WIN,1.0,0,0,0.02,0.1,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+LV_PHOT_SUN,LV_PHOT_SUN,1.962,1.0,LV,,PHOT,SUN,1.0,0,0,0.02,0.12,0,0,0.0,0.0,1.0,0,0.0,,,,,,,,,,,,0,0
+LV_COMC_GAS_CHP,LV_COMC_GAS_CHP,403.2856376891631,2.0,LV,LV_th,COMC,GAS,0.57,4,2,0.05,0.25,60,0,0.5,0.35,0.57,2,0.353,Extraction,0.95,0.213,,,,,,,,,0,0
+LV_GTUR_GAS_CHP,LV_GTUR_GAS_CHP,2.325827222651787,1.0,LV,LV_th,GTUR,GAS,0.35,0,0,0.21,0.41,25,0,0.8,0.15,0.33,0,0.574,back-pressure,0.55,0.0,,,,,,,,,0,0
+LV_ICEN_GAS_CHP,LV_ICEN_GAS_CHP,8.19802962495449,5.0,LV,LV_th,ICEN,GAS,0.46,0,0,0.167,0.367,8,0,0.8,0.15,0.49,0,0.457,back-pressure,0.75,0.0,,,,,,,,,0,0
+LV_STUR_GAS_CHP,LV_STUR_GAS_CHP,49.9306112966612,1.0,LV,LV_th,STUR,GAS,0.43,1,2,0.05,0.23,57,0,1.4,0.38,0.38,2,0.457,Extraction,0.4666,0.23,,,,,,,,,0,0
+LV_BATS_OTH,LV_BATS_OTH,1065.0,1.0,LV,,BATS,OTH,0.95,0,0,1.0,1.0,0,0,0.0,0.0,0.95,0,0.0,,,,,,,,4260.0,0.0,1065.0,0.95,0,0
