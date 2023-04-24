@@ -140,3 +140,6 @@ data-generation/slurm*.out
 integration/test
 # Executables...
 integration/*/*.out
+
+*.o
+*.exe
