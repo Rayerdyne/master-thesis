@@ -132,14 +132,15 @@ dmypy.json
 *.log
 
 # forget about test simulations
-data-generation/simulations/test*
+data-generation/test*
 # Slurm output files 
 data-generation/res*
-data-generation/slurm*.out
+data-generation/slurm-outputs
 
 integration/test
-# Executables...
-integration/*/*.out
+integration/tensorflow.dll
 
+# Executables...
 *.o
 *.exe
+*.out

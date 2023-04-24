@@ -22,8 +22,17 @@ I think the best option is maximin, as it has better coverage of the input space
 - `Database/rescale.py` rescale some variable in the database
 - `ConfigFiles/` folder containing the different Dispa-SET configuration files
 - `simulations/` folder containing the simulations outputs
-- `sampling.py` runs the LHS, and scales it to the input ranges
-- `config.py` stores variable that are accessed by different scripts
-- `read_results.py` fetches the ouptput of the execution of the model and output it in csv format
-- `utils_francois.py` holds the test version of my `adjust_capacity` function
-- `launch-simulation-jobs.sh`, and do it on slurm
+- `config.py` holds the data about the simulation to be set up and run, most importantly:
+    - the number of simulations (points on the LHS)
+    - the output folder for the simulations
+    - and the names of other files
+
+    The other files make reference to this one (`python -c "import x; print(x)"`) to set their variables.
+- `Makefile` well, a Makefile. It defines the following targets:
+    - `inputs`: only sample and prepare GAMS files
+    - `simulations`: run GAMS based on prepared files
+
+    NB: It uses a file `$SIMULATION_FOLDER/sentinel.txt`, to avoid having a directory as a make dependency
+- `sampling.py` runs the LHS, and scales it to the input ranges, and prepares the GAMS file for the simulation
+- `launch-simulation-jobs.sh` starts one job per simulation to be run, then one to call `read_results.py --single` to fetch its results. Finally, removes large simulations files to avoid exceeding the storage limit.
+- `read_results.py` fetches the outputs of the GAMS run. If called with no arguments, fetches all the results from each simulation, if called with `--single folder` only fetches the results in that folder.
