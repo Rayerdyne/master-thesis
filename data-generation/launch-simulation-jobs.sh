@@ -11,14 +11,13 @@
 #SBATCH --mem-per-cpu=8000 # megabytes
 #SBATCH --partition=batch
 #
-#SBATCH --array=0-9
+#-disable(use main.sh) SBATCH --array=0-9
 
 # Adapted from LaunchParallelJobs_carla.sh
 
-
 F_HOME="/home/ulg/thermlab/fstraet"
 
-BASE_DIR=$(python -c "from config import SIMULATIONS_SUBFOLDER; print(SIMULATIONS_SUBFOLDER)")
+BASE_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
 DATASET_NAME=$(python -c "from config import DATASET_NAME; print(DATASET_NAME)")
 
 SIM_DIRS=($BASE_DIR/sim*)
@@ -44,7 +43,9 @@ export GAMSPATH=$F_HOME/gams37.1_linux_x64_64_sfx
 echo "Job ID: $SLURM_JOBID"
 echo "Job dir: $SLURM_SUBMIT_DIR"
 echo "Running simulation dir: $CUR_DIR"
-cd $CUR_DIR
+
+# Prepare simulation files
+srun python sampling.py --prepare-one $CUR_DIR
 
 # Run the GAMS simulation
 srun $GAMSPATH/gams UCM_h.gms > $CUR_DIR/gamsrun.log
