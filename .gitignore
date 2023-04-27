@@ -131,17 +131,6 @@ dmypy.json
 # Customs...
 *.log
 
-<<<<<<< HEAD
-# Do not need to copy database... (that is actually a softlink)
-data-generation/Database
-data-generation/Database-matijs
-# forget simulations content
-data-generation/simulations/*
-# Slurm output files 
-data-generation/res*
-data-generation/slurm*.out
-data-generation/slurm-outputs
-=======
 # forget about test simulations
 data-generation/test*
 # Slurm output files 
@@ -155,4 +144,6 @@ integration/tensorflow.dll
 *.o
 *.exe
 *.out
->>>>>>> dc21631abccee3769489f211f379d24f0f76bd74
+
+# Neural net logs...
+nn/logs/**
