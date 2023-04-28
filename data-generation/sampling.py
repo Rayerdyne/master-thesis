@@ -50,10 +50,18 @@ N_DIMS = len(ranges)
 
 def main():
     if prepare_one:
-        cur_folder = sys.argv[2]
-        print(f"Preparing files in {cur_folder}")
-        sample_path = cur_folder + os.sep + SAMPLE_CSV_NAME
-        sample = pd.read_csv(sample_path, index_col=0).squeeze("columns")
+        try:
+            n = int(sys.argv[2])
+        except ValueError:
+            raise ValueError(f"Expected index (in [0-{N_SAMPLES-1}])")
+        if n < 0 or n >= N_SAMPLES:
+            raise ValueError(f"Index {n} out of range [0-{N_SAMPLES-1}]")
+
+        samples = pd.read_csv(SIMULATIONS_DIR + os.sep + SAMPLES_CSV_NAME, index_col=0)
+        # row = pd.read_csv(path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
+        sample = samples.loc[n,:]
+
+        cur_folder = SIMULATIONS_DIR + os.sep + format_folder_name(n, sample)
         prepare_simulation_files(sample, cur_folder)
         return
 
@@ -111,15 +119,12 @@ def build_simulations(samples, sample_only=False):
             # if we did not prepare simulation files, we need to create the folder
             pathlib.Path(cur_folder).mkdir(parents=True, exist_ok=True)
 
-        # Needed because the directory name is rounded
-        coordinates = pd.Series(sample, index=["CapacityRatio", "ShareFlex", "ShareStorage", "ShareWind", "SharePV", "rNTC"])
-        coordinates.name = "LHS-sample"
-        coordinates.to_csv(cur_folder + os.sep + SAMPLE_CSV_NAME)
-
 def prepare_simulation_files(sample, cur_folder):
     """
     Creates the files needed for the simulation to be run
     """
+    print(f"Preparing files in {cur_folder}")
+
     if not os.path.exists(REFERENCE_INFO_FILE):
         build_reference(REFERENCE_INFO_FILE)
 

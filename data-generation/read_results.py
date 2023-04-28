@@ -11,11 +11,11 @@ Copied from the Read_batch_simulation.py script from Carla's work.
 @author: François Straet
 """
 
-import os, sys
+import os, re, sys
 
 import pandas as pd
 
-from config import DATASET_NAME, SIMULATIONS_DIR, SAMPLE_CSV_NAME
+from config import DATASET_NAME, SIMULATIONS_DIR, SAMPLES_CSV_NAME
 
 sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
 
@@ -65,7 +65,13 @@ def read_data(path):
     
     # read pd.Series from csv
     # then add elements to the row
-    row = pd.read_csv(path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
+    m = re.search("/sim-(\d+)_", path)
+    # m[0]: entire match, m[1]: first group
+    sample_index = int(m[1])
+    samples = pd.read_csv(SIMULATIONS_DIR + os.sep + SAMPLES_CSV_NAME, index_col=0)
+    # row = pd.read_csv(path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
+    row = samples.loc[sample_index,:]
+    print(f"Read single index:  {sample_index}")
 
     row.loc["Cost_[E/MWh]"] = zone_results["Cost_kwh"]
     row.loc["Congestion_[h]"] = sum(zone_results["Congestion"].values())

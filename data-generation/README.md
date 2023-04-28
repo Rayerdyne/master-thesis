@@ -32,7 +32,7 @@ I think the best option is maximin, as it has better coverage of the input space
 - `reference.py` runs the reference simulation and writes necessary info to `$SIMULATION_FOLDER/reference-info.json`
 - `sampling.py` runs the LHS, and scales it to the input ranges, and prepares the GAMS file for the simulation
 - `launch-simulation-jobs.sh` starts jobs to do the simulations. 
-    1. Prepares the file (`sampling.py --prepare-one $CUR_DIR`)
+    1. Prepares the file (`sampling.py --prepare-one $i`), where `$i` refers to an index in [0, $N_SAMPLES-1]
     1. Run the simulation (call to GAMS)
     1. to be run, then one to call `read_results.py --single` to fetch its results. Finally, removes large simulations files to avoid exceeding the storage limit.
 - `read_results.py` fetches the outputs of the GAMS run. If called with no arguments, fetches all the results from each simulation, if called with `--single folder` only fetches the results in that folder.
