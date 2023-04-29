@@ -7,7 +7,6 @@ from keras.models import load_model
 from matplotlib import cm
 from matplotlib.widgets import Slider, Button
 from sklearn.metrics import mean_absolute_error, mean_squared_error
-from sklearn.preprocessing import MinMaxScaler
 
 from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES
 
@@ -26,17 +25,6 @@ ranges = [capacity_ratio_range, share_flex_range,
 ranges_name = ["Capacity ratio", "Share flexible",
                "Share storage",  "Share wind",
                "Share PV",       "rNTC"]
-
-def unscale_data(train, test):
-    """
-    Unscales the test set w.r.t. to a scaler fitting the train set
-    """
-    scaler = MinMaxScaler()
-
-    train_scaled = scaler.fit_transform(train)
-    test_unscaled = scaler.inverse_transform(test)
-
-    return test_unscaled
 
 
 def plot_loss(H, path):
@@ -85,7 +73,6 @@ def plot_surface(X, Y, Z, xlabel, ylabel, zlabel):
 def displays(model_path, x_train, y_train, x_test, y_test, history):
     model = load_model(model_path)
     y_test_pred = model.predict(x_test, batch_size=BATCH_SIZE)
-    y_test_pred = unscale_data(y_train, y_test_pred)
     print("Prediction against truth:")
     print(y_test_pred[:5])
     print(y_test[:5])
@@ -93,21 +80,13 @@ def displays(model_path, x_train, y_train, x_test, y_test, history):
     # Metrics...
     loss, mae, mse = model.evaluate(x_test, y_test, batch_size=BATCH_SIZE)
     max_difference = np.max(np.abs(y_test - y_test_pred))
-    print("---- Metrics (on scaled values) ----")
+    print("---- Metrics ----")
     print(f"Loss (scaled) {loss:.5f}")
     print(f"MAE (scaled) {mae:.5f}")
     print(f"MSE (scaled) {mse:.5f}")
     print(f"Maxdif (scaled) {max_difference:.5f}")
 
-    print("---- Metrics (on non scaled values) ----")
-    mae = mean_absolute_error(y_test, y_test_pred)
-    mse = mean_squared_error(y_test, y_test_pred)
-    max_difference = np.max(np.abs(y_test - y_test_pred))
-    print(f"MAE (scaled) {mae:.5f}")
-    print(f"MSE (scaled) {mse:.5f}")
-    print(f"Maxdif (scaled) {max_difference:.5f}")
-
-    plot_graph(y_test, y_test_pred, "Test, scaled values", LOGS_OUTPUT_PATH + os.sep + "test-scaled-values.png")
+    plot_graph(y_test, y_test_pred, "Test", LOGS_OUTPUT_PATH + os.sep + "test.png")
     plot_loss(history, LOGS_OUTPUT_PATH + os.sep + "losses-history.png")
 
 def compute_surface(model, X, Y, i_sliders, in1, in2, out):

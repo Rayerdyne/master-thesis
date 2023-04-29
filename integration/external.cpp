@@ -17,6 +17,7 @@
 #endif
 
 /* custom imports */
+#include <math.h>
 #include <array>
 #include <cstdio>
 #include <iomanip>
@@ -41,6 +42,7 @@ GLOB_VARS *VENGV = NULL; /* the value for this is set by set_gv below */
  *******************************************/
 
 #define COMPUTE_A_FUNC 0
+#define COMPUTE_DS_APPROX_FUNC 1
 
 /*******************************************
  2 - function prototypes
@@ -59,6 +61,7 @@ if you want to use compile simulations - since the calls in mdl.c will
 be upper case.  Our apologies to those this offends.
 *********************************************/
 double COMPUTE_A(double x, double y, double z);
+double COMPUTE_DS_APPROX(double CapacityRatio, double ShareFlex, double ShareStorage, double ShareWind, double SharePV, double rNTC, double output_idx);
 
 /****************************************************
  3 - Grouping of functions in a structure - see venext.h
@@ -66,6 +69,7 @@ double COMPUTE_A(double x, double y, double z);
 
 static FUNC_DESC Flist[] = {
 					{"COMPUTE_A"," {x} , {y} , {z} ",3,0,COMPUTE_A_FUNC,0,0,0,0},
+					{"DISPASET_APPROXIMATOR"," {CapacityRatio} , {ShareFlex} , {ShareStorage} , {ShareWind} , {SharePV} , {rNTC} , {out_idx} ",7,0,COMPUTE_DS_APPROX_FUNC,0,0,0,0},
 					{NULL,0,0,0} };
 
 
@@ -313,6 +317,10 @@ CFUNCTION int VEFCC vensim_external(VV *val, int nval, int funcid)
 	case COMPUTE_A_FUNC: /* simple function - call with double return double */
 		rval = compute_a(val[0].val, val[1].val, val[2].val);
 		break;
+    
+    case COMPUTE_DS_APPROX_FUNC:
+        rval = compute_ds_approx(val[0].val, val[1].val, val[2].val, val[3].val, val[4].val, val[5].val, val[6].val);
+        break;
 
 	default:
 		return(0); /* indicate an error condition to Vensim */
@@ -336,9 +344,29 @@ constexpr auto max_precision {std::numeric_limits<long double>::digits10 + 1};
 
 double compute_a(double a, double b, double c) {
 
-    std::vector<float> data = { a, b, c };
-    auto input = cppflow::tensor(data, {1, 3});
+
+    int aint = static_cast<int>(round(a));
+    if (aint == 0) {
+        VENGV->error_message(8, (unsigned char *) "Coucou ma poulette");
+    }
+
+    return a + b + c;
+}
+
+double compute_ds_approx(double CapacityRatio, double ShareFlex, double ShareStorage, double ShareWind, double SharePV, double rNTC, double output_idx) {
+    std::vector<float> data = { CapacityRatio, ShareFlex, ShareStorage, ShareWind, SharePV, rNTC };
+    auto input = cppflow::tensor(data, {1, 6});
     auto output = model_ptr->operator()(input);
+
+    // auto size1 = output.shape().get_data<int64_t>()[0];
+    // // auto size2 = output.shape().get_data<int64_t>()[1];
+    // auto size2 = 98;
+    // auto msg = std::string("coucou, c'est ") + std::to_string(size1) + std::string("  ") + std::to_string(size2) ;
+    // VENGV->error_message(8, (unsigned char *) msg.c_str());
+    // if (output_idx >= size1) {
+    //     VENGV->error_message(8, (unsigned char *) "Oh oh, bad stuff");
+    //     return 0.0F;
+    // }
 
     auto res = output.get_data<float>()[0];
 
