@@ -7,8 +7,8 @@
 #
 #SBATCH --output=slurm-outputs/res_365_%A_%a.txt
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
-#SBATCH --mem-per-cpu=8000 # megabytes
+#SBATCH --cpus-per-task=8
+#SBATCH --mem-per-cpu=1100 # megabytes
 #SBATCH --partition=batch
 #
 #-disable(use main.sh) SBATCH --array=0-9
@@ -48,7 +48,7 @@ echo "Running simulation dir: $CUR_DIR"
 srun python sampling.py --prepare-one $CUR_DIR
 
 # Run the GAMS simulation
-srun $GAMSPATH/gams UCM_h.gms > $CUR_DIR/gamsrun.log
+srun $GAMSPATH/gams UCM_h.gms --threads=8 --asyncThreads=8 > $CUR_DIR/gamsrun.log
 
 # Fetch the results
 srun python read_results.py --single $CUR_DIR 
