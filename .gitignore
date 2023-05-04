@@ -131,8 +131,9 @@ dmypy.json
 # Customs...
 *.log
 
-# forget about test simulations
-data-generation/test*
+# forget about tests & simulations
+data-generation/simulations/*
+data-generation/tests/*
 # Slurm output files 
 data-generation/res*
 data-generation/slurm-outputs
