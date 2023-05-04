@@ -45,7 +45,7 @@ CUR_DIR=${DIRS[0]}
 # Run the GAMS simulation
 cd $CUR_DIR
 echo "File prepared, starting simulation..."
-srun $GAMSPATH/gams UCM_h.gms --threads=8 --asyncThreads=8 > $CUR_DIR/gamsrun.log
+srun $GAMSPATH/gams UCM_h.gms --threads=8 --asyncThreads=8 --workSpace=1000 > $CUR_DIR/gamsrun.log
 cd $LAUNCH_DIR
 
 # Fetch the results
