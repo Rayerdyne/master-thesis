@@ -45,7 +45,7 @@ CUR_DIR=${DIRS[0]}
 # Run the GAMS simulation
 cd $CUR_DIR
 echo "File prepared, starting simulation..."
-srun $GAMSPATH/gams UCM_h.gms --threads=8 --asyncThreads=8 --workSpace=1000 > $CUR_DIR/gamsrun.log
+srun $GAMSPATH/gams UCM_h.gms --threads=8 --asyncThreads=8 --workSpace=8000 > $BASE_DIR/logs/gamsrun-$SLURM_ARRAY_TASK_ID.log
 cd $LAUNCH_DIR
 
 # Fetch the results
@@ -53,8 +53,9 @@ echo "Simulation ran, reading results..."
 srun python read_results.py --single $CUR_DIR 
 
 # do some cleaning...
-srun rm $CUR_DIR/temp_profiles.p $CUR_DIR/Inputs.p $CUR_DIR/Inputs.gdx $CUR_DIR/Results.gdx $CUR_DIR/Results_MTS.gdx $CUR_DIR/UCM_h.lst $CUR_DIR/Inputs_MTS.p $CUR_DIR/Inputs_MTS.gdx
+srun rm -rf $CUR_DIR/
 # srun pwd > "gamsrun$SLURM_SUBMIT_DIR.log"
 
+echo "Simulation $SLURM_ARRAY_TASK_ID is done (job id $SLURM_JOBID)" >> $BASE_DIR/logs/finished.txt
 echo "Job ID $SLURM_JOBID n°$SLURM_ARRAY_TASK_ID is finished"
 
