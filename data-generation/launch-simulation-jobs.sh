@@ -7,7 +7,7 @@
 #
 #SBATCH --output=slurm-outputs/res_365_%A_%a.txt
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=8
+#SBATCH --cpus-per-task=4
 #SBATCH --mem-per-cpu=600 # megabytes, 600*cpus=4800 = typical amount of memory required
 #SBATCH --partition=batch
 #
@@ -46,7 +46,7 @@ CUR_DIR=${DIRS[0]}
 cd $CUR_DIR
 echo "File prepared, starting simulation..."
 #                                                          from `seff`, one can see the memory used is typically around 4.5
-srun $GAMSPATH/gams UCM_h.gms --threads=8 --asyncThreads=8 --workSpace=4800 > $BASE_DIR/logs/gamsrun-$SLURM_ARRAY_TASK_ID.log
+srun $GAMSPATH/gams UCM_h.gms --threads=4 --asyncThreads=4 --workSpace=4800 > $BASE_DIR/logs/gamsrun-$SLURM_ARRAY_TASK_ID.log
 cd $LAUNCH_DIR
 
 # Fetch the results

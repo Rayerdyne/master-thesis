@@ -34,14 +34,15 @@ touch $SIM_DIR/logs/finished.txt
 # Due to the limitation of the number of jobs in the queue (500), one cannot launch them all at a time
 # So this master job will launch them 200 at a time and wait for them
 
-inc=200
-max=$((N_SAMPLES-1))
-for (( i=0 ; i <= $max ; i += $inc ));
-do
-    a=$(( $i + $inc - 1))
-    up=$(( $a < $max ? $a : $max))
-    echo "Starting jobs range [$i-$up]"
-    #                           v-- ensures max 100 jobs simultaneously
-    sbatch --wait --array=$i-$up%100 --output=$SIM_DIR/logs/res_%A_%a.txt launch-simulation-jobs.sh
-done
+echo "Done. Now use launch-job-series.sh"
+# inc=200
+# max=$((N_SAMPLES-1))
+# for (( i=0 ; i <= $max ; i += $inc ));
+# do
+#     a=$(( $i + $inc - 1))
+#     up=$(( $a < $max ? $a : $max))
+#     echo "Starting jobs range [$i-$up]"
+#     #                           v-- ensures max 100 jobs simultaneously
+#     sbatch --wait --array=$i-$up%100 --output=$SIM_DIR/logs/res_%A_%a.txt launch-simulation-jobs.sh
+# done
 
