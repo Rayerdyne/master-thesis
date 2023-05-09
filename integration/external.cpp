@@ -23,6 +23,7 @@
 #include <iomanip>
 #include <iterator>
 #include <limits>
+#include <math.h>
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -30,7 +31,7 @@
 
 #include <windows.h>
 
-static const std::string MODEL_DIR_NAME = "model";
+static const std::string MODEL_DIR_NAME = "model2";
 static std::unique_ptr<cppflow::model> model_ptr;
 
 std::string exec(const char *);
@@ -356,19 +357,13 @@ double compute_a(double a, double b, double c) {
 double compute_ds_approx(double CapacityRatio, double ShareFlex, double ShareStorage, double ShareWind, double SharePV, double rNTC, double output_idx) {
     std::vector<float> data = { CapacityRatio, ShareFlex, ShareStorage, ShareWind, SharePV, rNTC };
     auto input = cppflow::tensor(data, {1, 6});
-    auto output = model_ptr->operator()(input);
+    // auto output = model_ptr->operator()(input);
 
-    // auto size1 = output.shape().get_data<int64_t>()[0];
-    // // auto size2 = output.shape().get_data<int64_t>()[1];
-    // auto size2 = 98;
-    // auto msg = std::string("coucou, c'est ") + std::to_string(size1) + std::string("  ") + std::to_string(size2) ;
-    // VENGV->error_message(8, (unsigned char *) msg.c_str());
-    // if (output_idx >= size1) {
-    //     VENGV->error_message(8, (unsigned char *) "Oh oh, bad stuff");
-    //     return 0.0F;
-    // }
+    std::vector<cppflow::tensor> output = model_ptr->operator()({{"serving_default_dispaset_6-ins:0", input}}, 
+                                                                {"StatefulPartitionedCall:0"});
 
-    auto res = output.get_data<float>()[0];
+    int idx = (int) round(output_idx);
+    auto res = output[0].get_data<float>()[idx];
 
     return res;
 }

@@ -148,3 +148,10 @@ integration/tensorflow.dll
 
 # Neural net logs...
 nn/logs/**
+
+# report and tex shit
+report/**
+!report/main.tex
+!report/resources
+!report/resources/*.tex
+!report/resources/*.bib
