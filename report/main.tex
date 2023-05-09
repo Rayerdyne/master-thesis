@@ -1,0 +1,73 @@
+\documentclass[12pt]{article}
+
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage[margin=2cm]{geometry}
+
+\usepackage{biblatex} % bibliographie
+\addbibresource{resources/bibliography.bib} %Import the bibliography file
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\graphicspath{ {./images/} }
+
+
+\begin{document}%\layout
+
+\begin{titlepage}
+
+    \begin{center}
+
+    \begin{figure}[t]
+        \includegraphics{uliege-logo-couleurs-300.jpg}
+        \centering
+    \end{figure}
+    \large University of Liège - School of Engineering and Computer Science\\[0.5cm]
+
+    \rule{\linewidth}{0.5mm}\\[0.2cm]
+
+    \textsc{\Large MASTER'S THESIS}\\[0.5cm]
+
+    \textbf{\LARGE Improving the simulation of variable renewable energy in
+integrated assessment models}
+
+        \rule{\linewidth}{0.5mm}\\[2cm]
+
+        Master's thesis completed in order to obtain the degree of Master of Science in Computer Science Engineering by \textsc{Straet} François\\[5cm]
+
+    \end{center}
+
+    \textbf{Supervisors:}
+
+    Prof. S. Quoilin, Prof. B. Boigelot\\[2cm]
+    
+
+    \center
+
+    Academic year 2022-2023
+
+\end{titlepage}
+
+
+\pagenumbering{roman} 
+
+\include{resources/preamble}
+
+\pagenumbering{arabic}
+
+\include{resources/introduction}
+\include{resources/chapter1}
+
+
+\nocite{*}
+
+\printbibliography[heading=bibintoc]
+
+\end{document}
