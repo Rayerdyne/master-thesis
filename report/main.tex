@@ -2,21 +2,57 @@
 
 \usepackage[english]{babel}
 \usepackage{graphicx}
+\usepackage{csquotes}
 \usepackage[margin=2cm]{geometry}
 
-\usepackage{biblatex} % bibliographie
+\usepackage{amsmath,amsfonts,amssymb,amsthm, bm}
+\usepackage{hyperref}               % Hyperlinks
+\usepackage{totcount}               % Last value of counter
+\usepackage{pgffor}                 % For loop
+\usepackage[dvipsnames]{xcolor}     % Colors
+\usepackage{indentfirst}            % Indent paragraphs
+\usepackage{caption}
+\usepackage{multirow}
+
+\usepackage{biblatex}               % Bibliography
 \addbibresource{resources/bibliography.bib} %Import the bibliography file
 
-\usepackage{hyperref}
+\graphicspath{{resources/images}}
+
 \hypersetup{
     colorlinks,
     citecolor=black,
     filecolor=black,
     linkcolor=black,
-    urlcolor=black
+    urlcolor=Blue
 }
 
-\graphicspath{ {./images/} }
+
+% see https://tex.stackexchange.com/a/165688, counters adapted
+
+\newtotcounter{countWarnings}
+\setcounter{countWarnings}{0}
+\newcommand{\mywarningformat}[1]{\textit{\color{red}#1}}
+\newcommand*{\mywarning}[1]{
+    \addtocounter{countWarnings}{1}
+    \hypertarget{warning\thecountWarnings}{}
+    \mywarningformat{#1}
+}
+\newcommand{\mylistwarnings}[1]{
+    \foreach \i in {1,...,\totvalue{countWarnings}} {
+        #1\hyperlink{warning\i}{\texttt{Warning} No.\i}
+    }
+}
+
+\DeclareCaptionType{captionnable}[][]
+\newcommand{\equationcaption}[1]{\caption*{Equation \theequation: #1}}
+
+\graphicspath{ {./resources/images/} }
+
+
+
+
+
 
 
 \begin{document}%\layout
@@ -26,7 +62,7 @@
     \begin{center}
 
     \begin{figure}[t]
-        \includegraphics{uliege-logo-couleurs-300.jpg}
+        \includegraphics[width=0.7\textwidth]{uliege-logo-couleurs-300.jpg}
         \centering
     \end{figure}
     \large University of Liège - School of Engineering and Computer Science\\[0.5cm]
@@ -40,7 +76,7 @@ integrated assessment models}
 
         \rule{\linewidth}{0.5mm}\\[2cm]
 
-        Master's thesis completed in order to obtain the degree of Master of Science in Computer Science Engineering by \textsc{Straet} François\\[5cm]
+        Master's thesis completed in order to obtain the degree of Master of Science in Computer Science Engineering by \textsc{Straet} François\\[4cm]
 
     \end{center}
 
@@ -64,6 +100,7 @@ integrated assessment models}
 
 \include{resources/introduction}
 \include{resources/chapter1}
+\include{resources/chapter2}
 
 
 \nocite{*}

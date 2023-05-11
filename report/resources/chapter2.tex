@@ -1,0 +1,39 @@
+\section{Data generation}
+
+\subsection{Overview}
+
+This section aims at describing the process that lead to the creation of the dataset, required in order to train the neural network model.
+
+First, an input space is defined, on which will properly select points to form the dataset features. Then, computationally expensive simulation will be run on these points to obtain the desired predicted features for this dataset.
+
+This dataset will afterwards be used to train the surrogate model on \cite{surrogate_model}.
+
+\subsection{Preparatory work}
+
+As stated earlier, this setting only considers the european power system in Dispa-SET, then to create and validate our surrogate model. Each simulation is run over a period of 2019.
+
+In this context, the precise technology and fuel types of each plant is not relevant, as they won't influence the input features of our dataset. Hence, the units are grouped into five categories: flexible units, slow units, storage units, PV units and wind units.
+
+IRENA \cite{irena} describes flexible units as "units that can ramp up and down quickly, have a low minimum operating level and fast start-up and shutdown times", what criterion will be used to separate regular units into the slow and flexible units. This criterion is presented in Table \ref{table:flex-vs-slow-unit}.
+
+\begin{table}[h!]
+    \centering
+	\begin{tabular}{|l | l | p{8cm}|}
+		\hline
+		Units & Fuel & Condition \\
+		\hline
+		$Flexible_{units}$ & \multirow{2}{3cm}{GAS, HRD, OIL, BIO, LIG, PEA, NUC, GEO} & $PartLoadMin<0.5$ and $TimeUpMin<5$ and $RampUpRate>0.01$\\ \cline{1-1} \cline{3-3}
+		$Slow_{units}$ &  & $PartLoadMin\geq 0.5$ or $TimeUpMin \geq 5$ or $RampUpRate\leq 0.01$\\
+		\hline
+	\end{tabular}
+	\caption{Flexible and slow units classification criterion}
+	\label{table:flex-vs-slow-unit}
+\end{table}
+
+On-shore wind and off-shore wind are grouped together.
+
+Another consideration to have is the limit to the number of hydroelectric units that are possible to build given a geographical area. Given that EU is already almost at saturation, stationary batteries are considered, among other energy storage technology (e.g. compressed air, electric vehicles' battery grid).
+
+
+
+\mywarning{-warning cuz if none my beautiful warning list breaks-}
