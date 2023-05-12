@@ -9,7 +9,7 @@ Options:
 @author: François Straet
 """
 
-import json, os, sys, pathlib
+import json, os, sys, shutil, pathlib
 
 import numpy as np
 import pandas as pd
@@ -115,9 +115,6 @@ def build_simulations(samples, sample_only=False):
         
         if not sample_only:
             prepare_simulation_files(sample, cur_folder)
-        else:
-            # if we did not prepare simulation files, we need to create the folder
-            pathlib.Path(cur_folder).mkdir(parents=True, exist_ok=True)
 
 def prepare_simulation_files(sample, cur_folder):
     """
@@ -127,6 +124,10 @@ def prepare_simulation_files(sample, cur_folder):
 
     if not os.path.exists(REFERENCE_INFO_FILE):
         build_reference(REFERENCE_INFO_FILE)
+    
+    # make super sure the folder doesn't exist to ensure it'll actually write stuff
+    if os.path.exists(cur_folder):
+        shutil.rmtree(cur_folder)
 
     refinfo = ReferenceInfo.deserialize(REFERENCE_INFO_FILE)
     peak_load, flex_units, slow_units, CF_wton, CF_pv = refinfo.tolist()

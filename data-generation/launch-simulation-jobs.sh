@@ -8,7 +8,7 @@
 #SBATCH --output=slurm-outputs/res_365_%A_%a.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
-#SBATCH --mem-per-cpu=600 # megabytes, 600*cpus=4800 = typical amount of memory required
+#SBATCH --mem-per-cpu=1250 # megabytes, 1250*cpus=5000 = typical amount of memory required
 #SBATCH --partition=batch
 #
 # called via main.sh with
@@ -46,7 +46,7 @@ CUR_DIR=${DIRS[0]}
 cd $CUR_DIR
 echo "File prepared, starting simulation..."
 #                                                          from `seff`, one can see the memory used is typically around 4.5
-srun $GAMSPATH/gams UCM_h.gms --threads=4 --asyncThreads=4 --workSpace=4800 > $BASE_DIR/logs/gamsrun-$SLURM_ARRAY_TASK_ID.log
+srun $GAMSPATH/gams UCM_h.gms --threads=4 --asyncThreads=4 --workSpace=4800 > slurm-outputs/$BASE_DIR/gamsrun-$SLURM_ARRAY_TASK_ID.log
 cd $LAUNCH_DIR
 
 # Fetch the results
@@ -57,6 +57,6 @@ srun python read_results.py --single $CUR_DIR
 srun rm -rf $CUR_DIR/
 # srun pwd > "gamsrun$SLURM_SUBMIT_DIR.log"
 
-echo "Simulation $SLURM_ARRAY_TASK_ID is done (job id $SLURM_JOBID)" >> $BASE_DIR/logs/finished.txt
+echo "Simulation $SLURM_ARRAY_TASK_ID is done (job id $SLURM_JOBID)" >> slurm-outputs/$BASE_DIR/finished.txt
 echo "Job ID $SLURM_JOBID n°$SLURM_ARRAY_TASK_ID is finished"
 

@@ -36,7 +36,7 @@ I think the best option is maximin, as it has better coverage of the input space
 
 ### Scripts
 - `main.sh` sbatch-able script that prepares terrain for running simulations, configured in `config.py`. After executing it, you have to submit the actual simulation jobs with `launch-job-series.sh`
-- `launch-job-series.sh` slurm script. Adds a series of job to the queue, as it is not large enough to hold all the 
+- `launch-job-series.sh` shell script. Adds a series of job to the queue, as it is not large enough to hold all the 
 - `launch-simulation-jobs.sh` slurm script, starts jobs to do the simulations. 
     1. Prepares the file (`sampling.py --prepare-one $i`), where `$i` refers to an index in [0, $N_SAMPLES-1]
     1. Run the simulation (call to GAMS)

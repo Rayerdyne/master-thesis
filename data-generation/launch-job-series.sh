@@ -3,13 +3,14 @@
 serie_idx=$1
 N_SAMPLES=$(python -c "from config import N_SAMPLES; print(N_SAMPLES)")
 SIM_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
-LOG_FILE="$SIM_DIR/logs/series-submitted.txt"
+LOG_FILE="slurm-outputs/$SIM_DIR/series-submitted.txt"
 
-series_size=450
+series_size=400
 min=$((serie_idx*series_size))
 max=$(((serie_idx+1)*series_size-1))
 
 max=$(( $max < $N_SAMPLES ? $max : $N_SAMPLES ))
+total=$(( ($N_SAMPLES / $series_size) + 1 ))
 
 echo "min max: ($min, $max)"
 
@@ -18,12 +19,7 @@ if (($min > $max)); then
     exit
 fi
 
-for (( i=$min ; i <= $max ; i += $series_size ));
-do
-    a=$(( $i + $series_size - 1))
-    up=$(( $a < $max ? $a : $max))
-    echo "Starting jobs range [$i-$up]"
-    echo "Range [$i-$up] submitted" >> $LOG_FILE
-    #                           v-- ensures max 100 jobs simultaneously
-    sbatch --array=$i-$up%100 --output=$SIM_DIR/logs/res_%A_%a.txt launch-simulation-jobs.sh
-done
+echo "Starting jobs range [$min-$max], serie $serie_idx in [0-$((total-1))]"
+echo "Range [$min-$max] submitted" >> $LOG_FILE
+#                           v-- ensures max 100 jobs simultaneously
+sbatch --array=$min-$max%100 --output=slurm-outputs/$SIM_DIR/simulation_%a.log launch-simulation-jobs.sh
