@@ -12,6 +12,7 @@
 \usepackage[dvipsnames]{xcolor}     % Colors
 \usepackage{indentfirst}            % Indent paragraphs
 \usepackage{caption}
+\usepackage{subcaption}
 \usepackage{multirow}
 
 \usepackage{biblatex}               % Bibliography
@@ -44,8 +45,14 @@
     }
 }
 
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
 \DeclareCaptionType{captionnable}[][]
 \newcommand{\equationcaption}[1]{\caption*{Equation \theequation: #1}}
+
+\renewcommand{\labelitemi}{--}
 
 \graphicspath{ {./resources/images/} }
 
@@ -101,6 +108,7 @@ integrated assessment models}
 \include{resources/introduction}
 \include{resources/chapter1}
 \include{resources/chapter2}
+\include{resources/chapter3}
 
 
 \nocite{*}

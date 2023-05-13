@@ -152,6 +152,9 @@ nn/logs/**
 # report and tex shit
 report/**
 !report/main.tex
+!report/Makefile
 !report/resources
+!report/resources/images
+!report/resources/images/*
 !report/resources/*.tex
 !report/resources/*.bib

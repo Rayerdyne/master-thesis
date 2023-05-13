@@ -1,0 +1,44 @@
+\section{Surrogate model training}
+
+\subsection{Overview}
+
+This section presents the training process that lead to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
+
+This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and will be tackled as such.
+
+\subsection{Machine learning methods}
+
+In the following, some machine learning algorithms for regression problems \cite{machine-learning-class} are assessed.
+
+\subsubsection{K nearest neighbors}
+
+In this setting, the K-nearest neighbors (k-NN) methods would be one of the easiest to implement\footnote{Using for example \href{https://scikit-learn.org/stable/modules/neighbors.html\#nearest-neighbors-regression}{scikit-learn}\cite{scikit-learn} module in python}. Indeed, these simply require a single parameter value $k$ and output the average value of the output features of the $k$ nearest neighbors, computing a distance on the input features.
+
+This will come with the drawback of not being able to learn quick variations in the outputs. What is considered too problematic, as these critical points would need to be properly modelled for the reliability of the surrogate model.
+
+\subsubsection{Decision trees}
+
+Decision trees, and extremely randomized trees \cite{extremely-randomized-trees} another category of easy to implement\footnote{Again, using \href{https://scikit-learn.org/stable/modules/ensemble.html\#forests-of-randomized-trees}{scikit-learn}} machine learning methods, as they also come with a limited, fixed number design parameters.
+
+But these also come with the drawback of having a piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic with many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
+
+\subsubsection{Kernel-based methods\label{section:kernel-methods}}
+
+One may consider to apply a kernel method with one of the other method mentioned above. While this may indeed improve the quality of the resulting model, and also solve the issue that was representing fast changes in the output, there is a main, almost trivial issue with them. Obviously, one need a kernel, but what kernel?
+
+As there are no ready-to-use kernel for this specific case, and that finding such a kernel would be a hard task, kernel methods are abandonned.
+
+\subsubsection{Artificial neural network}
+
+Artificial neural networks (ANN) are used in this work to build our surrogate model. These kind of methods provide a large flexibility, due to their entirely customizable architecture, as well as a large learning capacity. This makes them able to modelize with good accuracy some complex, non-linear functions.
+
+In most recent applications of these ANNs, a lot of different strategies are used to process the data efficiently. For example, convolutional layers convey a lot of meaning in the context of image processing, or transformers are well suited to process sequences\cite{deep-learning-class}.
+
+In this case, the inputs boils down to the 6 variables values, listed in Table {table:reference-values}. There are no patterns in this data, because even if their actual values were correlated in some way, the simulations dataset we have as an input at this stages has its input features drawn from a latin hypercube sampling, meaning they have a fixed, very low correlation. This correlation originates from the fact that the sampling aims at optimizing the design space coverage, not from a meaningful, exploitable source.
+
+Thus, a simple multi-layer perceptron (MLP) architecture is chosen, and the next requirement is to describe the characteristics of that MLP, that are:
+\begin{itemize}
+    \item The number of layers
+    \item The numbers of neurons in each layers
+    \item The activation function at each layer
+\end{itemize}
