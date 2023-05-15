@@ -1,140 +1,68 @@
-\section{Integration}
+\section{Surrogate model training}
 
 \subsection{Overview}
 
-This section describes the process of integrating the trained surrogate model into the MEDEAS model.
+This section presents the training process that lead to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
 
-As the MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, this task is therefore splitted in two smaller steps:
-\begin{enumerate}
-    \item \textbf{Vensim integration}, that is to make the surrogate model, available as a Tensorflow model, callable from within a Vensim model
-    \item \textbf{Variable linking}, Link the input and output features of the surrogate model to the actual variables used in the MEDEAS model
-\end{enumerate}
+This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and will be tackled as such.
 
-\subsection{Vensim integration}
+\subsection{Machine learning methods}
 
-\subsubsection{The Vensim software}
+In the following, some machine learning algorithms for regression problems \cite{machine-learning-class} are assessed.
 
-\href{https://vensim.com/}{Vensim} is a system dynamics simulation software, developped by Ventana Systems, Inc. It primarily solves the system of differential equation represented by the user-defined model, and is mainly used, according to its description, "for developing, analyzing, and packaging dynamic feedback models" \cite{vensim-website}.
+\subsubsection{K nearest neighbors}
 
-Its most common application areas include \cite{wiki-vensim}:
+In this setting, the K-nearest neighbors (k-NN) methods would be one of the easiest to implement\footnote{Using for example \href{https://scikit-learn.org/stable/modules/neighbors.html\#nearest-neighbors-regression}{scikit-learn}\cite{scikit-learn} module in python}. Indeed, these simply require a single parameter value $k$ and output the average value of the output features of the $k$ nearest neighbors, computing a distance on the input features.
+
+This will come with the drawback of not being able to learn quick variations in the outputs. What is considered too problematic, as these critical points would need to be properly modelled for the reliability of the surrogate model.
+
+\subsubsection{Decision trees}
+
+Decision trees, and extremely randomized trees \cite{extremely-randomized-trees} another category of easy to implement\footnote{Again, using \href{https://scikit-learn.org/stable/modules/ensemble.html\#forests-of-randomized-trees}{scikit-learn}} machine learning methods, as they also come with a limited, fixed number design parameters.
+
+But these also come with the drawback of having a piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic with many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
+
+\subsubsection{Kernel-based methods\label{section:kernel-methods}}
+
+One may consider to apply a kernel method with one of the other method mentioned above. While this may indeed improve the quality of the resulting model, and also solve the issue that was representing fast changes in the output, there is a main, almost trivial issue with them. Obviously, one need a kernel, but what kernel?
+
+As there are no ready-to-use kernel for this specific case, and that finding such a kernel would be a hard task, kernel methods are abandonned.
+
+\subsubsection{Artificial neural network}
+
+Artificial neural networks (ANN) are used in this work to build our surrogate model. These kind of methods provide a large flexibility, due to their entirely customizable architecture, as well as a large learning capacity. This makes them able to modelize with good accuracy some complex, non-linear functions.
+
+In most recent applications of these ANNs, a lot of different strategies are used to process the data efficiently. For example, convolutional layers convey a lot of meaning in the context of image processing, or transformers are well suited to process sequences\cite{deep-learning-class}.
+
+In this case, the inputs boils down to the 6 variables values, listed in Table {table:reference-values}. There are no patterns in this data, because even if their actual values were correlated in some way, the simulations dataset we have as an input at this stages has its input features drawn from a latin hypercube sampling, meaning they have a fixed, very low correlation. This correlation originates from the fact that the sampling aims at optimizing the design space coverage, not from a meaningful, exploitable source.
+
+Thus, a simple multi-layer perceptron (MLP) architecture is chosen, and the next requirement is to describe the characteristics of that MLP, that are:
 \begin{itemize}
-    \item Transportation and energy,
-    \item Project management,
-    \item Environment.
+    \item The number of layers
+    \item The numbers of neurons in each layers
+    \item The activation function at each layer
 \end{itemize}
 
-Vensim also comes in different distribution, such as Vensim PLE that is the free, personal learning edition. In this work, Vensim DSS is used, with an academic license.
+These hyper-parameters values will be properly set in the following.
 
-Vensim provides a variety of tools to describe models, but at the end every model is an interconnection of variables, the math hiding in the connections between these. \mywarning{Split here into Vensim overview and Vensim models ?}
+\subsubsection{Overfitting and underfitting}
 
-Vensim provides the following types of variables:
-\begin{itemize}
-    \item \textbf{Auxiliary variables}, that are regular variable that have no memory, that is, are independent from their value at the previous time step and are computed from every type of variable.
+An inherent problem to machine learning methods is the overfitting, or its opposite, underfitting. These terms refer to the cases where the training is respectively too specific to the training data, and not enough specific.
 
-    For example, a $temperature$ variable that is computed from some $sunshine$ and $latitude$, that is used to compute the birth rate of $rabbits$ and $foxes$.
+Overfitting is thus a symptom of too much learning, leading to learning some noise or some particularities of the dataset, while underfitting means that there is not enough learning, so that the model is not able to represent all the cases, even the one that are well represented in the available data.
 
-    \item \textbf{Constant variables}, that hold one value.
-    
-    For example, a mathematical constant like $\pi$.
+These will have to be assessed during training to ensure the validity of the model.
 
-    \item \textbf{Data variables}, or exogenous variables, whose value evolve over time but is not dependent of the model.
+\subsubsection{Bias}
 
-    For example, typical $sunshine$ data over a year.
+An other source of imprecision in machine learning is the bias. This relates to the fact that there exist some noise in the data, that cannot be filtered out, or imprecisions in the assumptions, that inevitably conducts to noise in the output.
 
-    \item \textbf{Stock variables}, that change only over time as a function of the incoming rates, i.e., they integrates the rates.
+However, in this setting, there is very little one could do to reduce its significance. First, the data points have been drawn from a latin-hypercube sampling strategy, that precisely aims at spreading the samples equitably all over the input space. Then, the output features were computed from a Dispa-SET run on this sample.
 
-    For example, the population of some species at a given time.
+Thus, the main source of bias one may have an influence in is the bias originating from incorrectnesses during the model training, due to a poor model design.
 
-    \item \textbf{Rate variables}, or flows, that directly impact the Stock variables. 
+The other plausible source of bias is the simulation made in Dispa-SET. Of course, Dispa-SET is also itself a model, thus relying on some assumptions and subject to its own modelling of the reality. And as such, it may introduce a bias in its computations, that will necessarily be learned by the surrogate model. But there is no way to assess this bias, and obviouly Dispa-SET itself focuses on making that bias as negligible as possible.
 
-    For example, the birth or death rate of some population at a given time.
-\end{itemize}
+This consideration is of interest, as Dispa-SET has multiple formulations, namely LP and MILP, that then have different bias with respect to reality.
 
-The connections between the variables are virtually done by arrows. The only practical use of arrows is to make the variable at the origin appear in the selection of variables in the variable equation screen for the variable pointed by the arrow. But obviously they are of great utility in terms of visualization of the model.
-
-An example of a Vensim model is depicted on Figure \ref{fig:vensim-model-example}.
-
-\begin{figure}[h!]
-    \includegraphics[width=0.9\textwidth]{resources/images/vensim-model-example.png}
-    \caption{A model in Vensim: Lotka-Volterra predator-prey model.}
-    \label{fig:vensim-model-example}
-\end{figure}
-
-\subsubsection{Vensim external functions}
-
-This specific feature of the Vensim software is evidently of great interest for this work. It enables the user to provide and use any arbitrary function in Vensim models and simulations.
-
-To do so, the user needs to provide a dynamically linked library (DLL), packaged as a \texttt{dll} file, then provide its path in Vensim. These files are Windows specific (as Linux uses \texttt{so} files and macOS \texttt{dylib}), hence they have to be handled as such.
-
-Dynamically linked libraries are typically compiled from the C or C++ programming language. In this work, C++ has been chosen for its easiest way to load and call the models that will be created in Tensorflow.
-
-To be able to integrate the user-defined functions in its simulation environment, the user's library is expected to provide some functions, that are part of some interface that the Vensim software knows and can communicate with. This interface comprises of a set of functions that is described on Table \ref{table:vensim-interface}.
-\begin{table}[h]
-    \centering
-    \begin{tabular}{|m{4.1cm}|m{12cm}|}
-        \hline
-        Function name & Description \\ \hline
-        \texttt{version\_info} & Provide information about the Vensim version this library has been built for \\
-        \texttt{set\_gv} & Utility to set the global variable that depend on the Vensim simulation environment \\
-        \texttt{user\_definition} & Provide a way to get all the necessary information about each user-defined function, mostly their names, number of arguments and a identifier code \\
-        \texttt{simulation\_setup} & This function is called by Vensim on simulation startup, allowing the library to do some preparative work if needed, such as allocating memory \\
-        \texttt{simulation\_shutdown} & Same as \texttt{simulation\_setup}, but on simulation shutdown \\
-        \texttt{vensim\_external} & This function is expected to, given an array of input arguments, their number and a function code, call the function associated to that code and write its return value into the first input argument.\\
-        \hline
-    \end{tabular}
-    \caption{Description of the mandatory functions that a Vensim user library has to provide}
-    \label{table:vensim-interface}
-\end{table}
-
-Luckily, %I'm not afraid of the dark
-Vensim DSS ships with an example of such a library. As this file is not publicly disclosed, caution should be paid to keeping the library code private---actually, the external function capability is only available in Vensim DSS.
-
-In the implementation of the library, this file was copied then adapted, as suggested in Vensim's documentation.
-
-\subsubsection{Calling a Tensorflow model}
-
-It is thus needed to call our model, presented to as a Tensorflow model, from the C or C++ language.
-
-In order to do so, one basically needs two things:
-\begin{itemize}
-    \item the said model, saved in a directory from the Tensorflow python API.
-    \item the Tensorflow library, that is another DLL, to perform the actual computations from C/C++.
-\end{itemize}
-
-The complicated part being the linking between the two. In order to do so, the \href{https://serizba.github.io/cppflow/}{Cppflow} tool is used. It is an "in-between" layer from the C++ side and the Tensorflow model side.
-
-This tool is not available in C, that's why the library has been written in C++.
-
-The main purpose of Cppflow is precisely to run Tensorflow models from C++, and to acheive this it provides easy to use functions to load such a model, and to call it with some given intput data.
-
-To carry out all these operation in a library, it is thus required to link properly the library code to the two tools it uses, that are the Tensorflow DLL and Cppflow. Hence, using the GNU \texttt{make} facility to accomodate the compilation, a few \texttt{Makefile}s were written.
-
-On this, one thing is to be remembered: your code may compile and link successfully, but you also have to link properly the path to the DLL you linked to, that is, not only to the compiler.
-
-\subsubsection{A small detour...}
-
-At some time in the library developpement process, it was successfully managed to produce a standalone program loading the Tensorflow model, and calling it on some inputs, but this was not the case for the library, that was able to compile and link, but not to find the DLL, once called from Vensim.
-
-It has been thought it may not be possible, so a workaround was implemented.
-
-The idea was thus to make the library communicate with another program, that would be launched as a separate process. The library would thus start the other program as an external process, that will be waiting for computation queries, on simulation setup, and end it on simulation shutdown. Then, when the model is called from the library, it sends the input to the worker, the worker calls the model, and sends back the output to the library, that can return.
-
-As previously mentioned, DLL are specific to Windows, so the process management and inter-process commication had to be done in that context.
-
-\subsubsection{And a fix}
-
-But during some more testing, and adapting of \texttt{Makefile}s, the mistake was discovered: the compilation command used to produce the library missed the indication of the path to the DLL.
-
-With that fixed, the library can directly use the Cppflow utilities, what greatly simplifies its architecture and code.
-
-\subsection{Variable linking}
-
-In its inner workings, the MEDEAS model does not directly uses all the variables that appear in our surrogate models. What arises the need for some links to be drawn between the two.
-
-Hopefully, the desired values are often closely related to the other variables that are already present in the MEDEAS energy module, so these connection are expected to be as simple as linear rescalings or combinations, perhaps some more for the rNTC input.
-
-\subsubsection{Linking the input variables}
-
-The input variables, that are summarized on Table \ref{table:reference-values} ...
-
-\subsubsection{Linking the output variables}
+\subsection{}

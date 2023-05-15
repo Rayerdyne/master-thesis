@@ -110,7 +110,7 @@ To take this into account, the minimum storage level at the last optimization st
 
 \mywarning{Talk about MTS option}
 
-\subsection{Dispa-SET EU}
+\subsection{Dispa-SET components and representation}
 
 Dispa-SET provides us with several predefined configurations, each of these defining the zones and their units of interest, and linking to the relevant data (e.g. times series provided as \texttt{csv} files).
 
@@ -268,7 +268,65 @@ Some other price values are relevant, such as the price of the load shedding per
 
 \subsubsection{Power plants}
 
-\mywarning{TODO}
+As a dispatch model, Dispa-SET oviously has to model the units it dispatches, namley the power plants that are present in each of the modelled zones.
+
+For performance reasons, some of the units initially described are merged into clustered units at the pre-processing step. Thus, the amount of variable in the simulation is reduced, while the accuracy is not significantly impacted \cite{dispaset}.
+
+Dispa-SET disposes of utilities to do so, but also needs to craft the new, aggregated units properties table. These are defined by the set of feilds that are shown on Table \ref{table:plant-db}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l l l|}
+        \hline
+        Field           & Description                       & Type                    \\ \hline
+        Unit            & Unit name                         & string                  \\
+        PowerCapacity   & Maximum power output              & value in MW             \\
+        Nunits          & Number of initial units clustered & integer                 \\
+        Zones           & The unit's zone                   & string                  \\
+        Fuel            & The fuel used                     & string                  \\
+        Efficiency      & The unit's efficiency             & real in [0,1]           \\
+        MinEfficiency   & Efficiency at minimum load        & real in [0,1]           \\
+        MinUpTime       & Minimum up time                   & value in hours          \\
+        MinDownTime     & Minimum down time                 & value in hours          \\
+        RampUpRate      & Ramp up rate                      & value in minute$^{-1}$  \\
+        RampDownRate    & Ramp down rate                    & value in minute$^{-1}$  \\
+        RampingCost     & Cost of ramping up or down        & value in €/hour         \\
+        StartUpCost\_pu & Start up cost per clustered unit  & value in €              \\
+        NoLoadCost\_pu  & Cost of having no load on a unit  & value in €/hour         \\
+        PartLoadMin     & Ratio of the minimum nominal capacity & real in [0,1]       \\
+        StartUpTime     & Time to start up the plant        & value in hour           \\
+        CO2Intensity    & Amount of CO$_2$ emitted per MW   & value in €/MW           \\ \hline
+    \end{tabular}
+    \caption{The table fields used to describe a optionnally aggregated power plant unit}
+    \label{table:plant-db}
+\end{table}
+
+For the storage units, one needs some more parameters, given on Table \ref{table:plant-storage-db}. For the other unit types, these feilds will be left empty.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l l l|}
+        \hline
+        Field                 & Description                       & Type          \\ \hline
+        STOCapacity           & The total energy storage capacity & value in MWh  \\
+        STOSelfDischarge      & The discharge rate (w.r.t. to the total) & value in day$^{-1}$ \\
+        STOMaxChargingPower   & Maximum energy inflow             & value in MW   \\
+        STOChargingEfficiency & The unit's charging efficiency    & real in [0,1] \\ \hline
+    \end{tabular}
+    \caption{Fields describing the storage capabilities of the units}
+    \label{table:plant-storage-db}
+\end{table}
+
+
+Their discharge efficiency will be assigned to the common Efficiency field, and the PowerCapacity will be assigned the power output on discharge.
+
+For batteries units, the RampUpRate and RampDownRate fields are set to 1, while the others but efficiency are set to 0. In previous work in this context, the number of hours a unit can run at maximum output capacity is fixed as 4 hours, thus implicitly fixing a storage capacity given a power output.
+
+This choice is arbitrary and leads to a simplification of the reality, where one could find huge differences in this ratio. To remove this, an option is added in Dispa-SET's adjusting function, to be able to filter the adjustments by range, making it now able to discriminate the units based on the storage capacity over maximum output power ratio, enabling its use to adjust storage units with different "longevity" separately.
+
+However in reality, most of the difference comes from the pumped hydro storage, that can typically output their maximum power for a longer time than the other storage technologies, such as batteries.
+
+At the end, this differenciation is not done, as it would also require the inputs of the surrogate model to be changed, to take into account the share of "high-longevity" storage units with respect to the "low-lengevity" ones.
 
 \subsubsection{Notes on the other inputs}
 
