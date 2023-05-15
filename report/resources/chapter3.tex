@@ -42,3 +42,27 @@ Thus, a simple multi-layer perceptron (MLP) architecture is chosen, and the next
     \item The numbers of neurons in each layers
     \item The activation function at each layer
 \end{itemize}
+
+These hyper-parameters values will be properly set in the following.
+
+\subsubsection{Overfitting and underfitting}
+
+An inherent problem to machine learning methods is the overfitting, or its opposite, underfitting. These terms refer to the cases where the training is respectively too specific to the training data, and not enough specific.
+
+Overfitting is thus a symptom of too much learning, leading to learning some noise or some particularities of the dataset, while underfitting means that there is not enough learning, so that the model is not able to represent all the cases, even the one that are well represented in the available data.
+
+These will have to be assessed during training to ensure the validity of the model.
+
+\subsubsection{Bias}
+
+An other source of imprecision in machine learning is the bias. This relates to the fact that there exist some noise in the data, that cannot be filtered out, or imprecisions in the assumptions, that inevitably conducts to noise in the output.
+
+However, in this setting, there is very little one could do to reduce its significance. First, the data points have been drawn from a latin-hypercube sampling strategy, that precisely aims at spreading the samples equitably all over the input space. Then, the output features were computed from a Dispa-SET run on this sample.
+
+Thus, the main source of bias one may have an influence in is the bias originating from incorrectnesses during the model training, due to a poor model design.
+
+The other plausible source of bias is the simulation made in Dispa-SET. Of course, Dispa-SET is also itself a model, thus relying on some assumptions and subject to its own modelling of the reality. And as such, it may introduce a bias in its computations, that will necessarily be learned by the surrogate model. But there is no way to assess this bias, and obviouly Dispa-SET itself focuses on making that bias as negligible as possible.
+
+This consideration is of interest, as Dispa-SET has multiple formulations, namely LP and MILP, that then have different bias with respect to reality.
+
+\subsection{}
