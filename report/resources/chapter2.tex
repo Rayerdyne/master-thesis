@@ -4,7 +4,7 @@
 
 This sections aims at describing the main components of the MEDEAS model and its components, with a focus on the parts that are the most relevant in this context.
 
-The main flaw of MEDEAS, in its energy module, is its low temporal precision and poor assessment of the flexibility of the energy network. \mywarning{Missing quote} The solution that this work will provide is the integration of the surrogate model for that purpose, that will be in charge of computing better approximation of (mainly) curtailment and lost load.
+The flaw in MEDEAS energy module that will be addressed is its low temporal precision and poor assessment of the flexibility of the energy network. These estimations are based on study \cite{delarue}, that provide general approximations, not accurate prediction deduced from the simulation of the energy network, as done in Dispa-SET. The solution that this work will provide is the integration of the surrogate model for that purpose, that will be in charge of computing better approximation of (mainly) curtailment and lost load.
 
 For contextualisation, the following description of MEDEAS is written.
 
@@ -70,9 +70,18 @@ Equations \ref{equation:eroi} and \ref{equation:net-energy} summarize their defi
     \label{equation:net-energy}
 \end{equation}
 
+However, this also requires to set a definition on what exactly is the energy invested on the aquisition of an other resource. The MEDEAS model thus provides several EROI values relating to different approaches in this matter \cite{medeas-cost-of-transition}.
+\begin{itemize}
+    \item Standard EROI, that "includes the direct (i.e. on site) and indirect (i.e. offsite energy needed to make the products used on site) energy requirements to get the energy (e.g. build, operate and maintain a power plant)" \cite{medeas-cost-of-transition}.
+    \item Point of use EROI, that includes the energy cost of obtaining and transporting the fuel to the actual location where it will be used by society.
+    \item Extended EROI, that " considers the energy required to get, deliver and use a unit of energy, i.e. the energy required to produce the machinery and devices used to build, operate and maintain a power plant or a transportation facility (tank truck, pipeline, etc.) as well as the energy required for exploration, investment, communication, labour, etc. in the energy system" \cite{medeas-cost-of-transition}.
+\end{itemize}
+
+In this context, we will focus on the standard EROI.
+
 In MEDEAS, the EROI is dynamically computed, meaning it is an endogenous variable, as the ratio of the exploitable energy delivered to consumers, over the sum of the total energy costs required for operating the plant and the energy costs of handling the variability of the power output and the costs of operating the energy transportation network. The total costs for an operating plant include the building, maintenance and disposal costs.
 
-On Figure \ref{fig:eroi-energy-flows}, a depiction of a high-level energy flow is given. The exploitable energy delivered to consumers is the flow labelled (1), and the operating costs of the plants (2), whereas the costs accounting for the handling of variabilities is labelled (3) and for energy transportation (4). Equation \ref{equation:eroi-medeas} below shows the actual, MEDEAS' computation of the EROI based on these.
+On Figure \ref{fig:eroi-energy-flows}, a depiction of a high-level energy flow is given. The exploitable energy delivered to consumers is the flow labelled (1), and the operating costs of the plants (2), whereas the costs accounting for the handling of variabilities is labelled (3) and for energy transportation (4). Equation \ref{equation:eroist-medeas}, \ref{equation:eroipou-medeas} and \ref{equation:eroiext-medeas} below shows the MEDEAS' computation of the EROI based on these.
 
 \begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{resources/images/EROI.png}
@@ -81,9 +90,19 @@ On Figure \ref{fig:eroi-energy-flows}, a depiction of a high-level energy flow i
 \end{figure}
 
 \begin{equation}
-    EROI = \frac{(1)}{(2) + (3) + (4)}
-    \label{equation:eroi-medeas}
+    EROI_{st} = \frac{(1)}{(3) + (4)}
+    \label{equation:eroist-medeas}
 \end{equation}
+
+ \begin{equation}
+    EROI_{pou} = \frac{(1)}{(2) + (3) + (4)}
+    \label{equation:eroipou-medeas}
+ \end{equation}
+
+ \begin{equation}
+    EROI_{ext} = \frac{(1)}{(2) + (3) + (4) + (5)}
+    \label{equation:eroiext-medeas}
+ \end{equation}
 
 Furthermore, MEDEAS \cite{medeas-eroi}:
 \begin{itemize}
@@ -94,13 +113,21 @@ Furthermore, MEDEAS \cite{medeas-eroi}:
     \item Takes additional losses into account for the use of storage units.
 \end{itemize}
 
-\subsection{VRES modelling}
+\subsection{Modelling of RES}
 
 The impacts of the variability of electricity production technologies are tackled in the MEDEAS framework. Indeed, not as extensively as they are in Dispa-SET simulation, what is the whole point of the present work.
 
+\subsubsection{Limitation}
+
+First, it is recalled that the time step used by MEDEAS is quite significant. Is recommended value is 0.03125, expressed as a fraction of a month. This amounts to approximately a day: $0.03125 \times \frac{365.25}{12} = 0.951$.
+
+This value is obviously too high to model extensively daily variations of the power output of solar photovoltaic units, for example.
+
+In the following, the mechanisms implemented by MEDEAS in order to incorporate the RES variability are described.
+
 \subsubsection{Grid extension}
 
-MEDEAS estimates, per MW of VRES, the additional electricity grid extensions required in order to incorportate those in the existing network. The materials needed for these expansions are also computed, what ultimately affects the EROI.
+MEDEAS estimates, per MW of VRES, the additional electricity grid extensions required in order to incorporate those in the existing network. The materials needed for these expansions are also computed, what ultimately affects the EROI.
 
 \subsubsection{Storage units}
 
@@ -118,16 +145,11 @@ An estimation of the storage needs as a function of the VRES share is depicted o
 
 Here will be describe the evolution of the capacity factor (CF) as the RES share among the electricitym mix changes. The capacity factor is the ratio of the electricity produced by a unit over a period of time $\Delta t$ over the maximum amount of energy that could have been produced. This is represented on Equation \ref{equation:CF-definition}.
 
-The other meaningfull metric in this context is the overcapacity, that is, the ratio of the energy that could have been produced, over the energy actually produced, depicted on Equation \ref{equation:overcapacity}. \mywarning{Needs verification (I derived this from Carla, CF=1/(1+overcap))}
+The other meaningfull metric in this context is the overcapacity, that is, the ratio of the energy that could have been produced, over the energy actually produced. \mywarning{Where does the CF=1/(1+overcap) comes from in Carla's work ?}
 
 \begin{equation}
     CF = \frac{Energy_{produced}}{\Delta t \times PowerCapacity}
     \label{equation:CF-definition}
-\end{equation}
-
-\begin{equation}
-    overcapacity = \frac{\Delta t \times PowerCapacity - Energy_{produced}}{Energy_{produced}}
-    \label{equation:overcapacity}
 \end{equation}
 
 An estimate of the overcapacity of dipachable RES is provided in \cite{NREL}, the resulting capacity factor evolution is depicted as a function of the VRES share on Figure \ref{fig:cfres-vreshare}. It can be observed that capacity factor decreases quadratically in the VRES share in the electricity mix.

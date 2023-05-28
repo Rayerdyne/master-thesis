@@ -133,8 +133,52 @@ In its inner workings, the MEDEAS model does not directly uses all the variables
 
 Hopefully, the desired values are often closely related to the other variables that are already present in the MEDEAS energy module, so these connection are expected to be as simple as linear rescalings or combinations, perhaps some more for the rNTC input.
 
-\subsubsection{Linking the input variables}
+The input variables, that are summarized on Table \ref{table:reference-values}, do not map directly to already existing variables in the MEDEAS model. Thus, some mappings have to be made between the inputs and outputs of the surrogate model, the Dispa-SET side, and the MEDEAS side.
 
-The input variables, that are summarized on Table \ref{table:reference-values} ...
+This work has been done with the help of Jade Paris, a student making her master's stage thesis on this specific topic as well.
 
-\subsubsection{Linking the output variables}
+\subsubsection{Variables available in MEDEAS}
+
+The first step in this process is to list relevant variable appearing in MEDEAS, that will have to be exploited in order to do the linking.
+
+These variable are listed on Table \ref{tab:medeas-vars}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{5cm}|p{5cm}|p{1cm}|p{4cm}|} \hline 
+    MEDEAS variable name &  Description & Unit & Notation \\ \hline
+     FE elec generation from solar PV TWh & Total yearly production from solar photovoltaic units & TWh & $Generation_{PV}$\\ \hline 
+     Total FE Elec demand TWh & Yearly total electricity demand & TWh & $Demand_{tot}$ \\ \hline 
+     FE Elec generation from offshore wind TWh & Total yearly production from offshore wind turbines & TWh & $Generation_{wind-offshore}$ \\ \hline 
+     FE Elec generation from onshore wind TWh & Total yearly production from onshore wind turbines & TWh & $Generation_{wind-onshore}$ \\ \hline 
+     Total capacity elec storage TW & Total power output of storage units & TW & $Storage_{tot}$ \\ \hline 
+     Total FE Elec genetaion TWh EU & Total yearly electricity production from all units & TWh & $Generation_{tot}$ \\ \hline 
+     new capacity installed growth rate RES elec & Yearly growth rate of the electric network capacity & 1 & $Growth_{capacity}$ \\ \hline
+    \end{tabular}
+    \caption{Relevant variable in MEDEAS}
+    \label{tab:medeas-vars}
+\end{table}
+
+Unfortunately, some values are not present at all in MEDEAS, so that they can't be deduced from the model as is. But as these are mandatory to run the model, a value has to be provided imperatively. In this case, a constant value will be set.
+
+As a consequence, additional parameters of the MEDEAS have been introduced, and will from now on be handled adequately. That is, as these may have an influence on the results, this influence will have to be assessed.
+
+\subsubsection{Linkings}
+
+The relations drawn from MEDEAS' variables to the surrogate model's are shown on Table \ref{tab:linking-equations}.
+
+\begin{table}[htb]
+      \centering
+      \begin{tabular}{|m{3.6cm}|c|}
+      \hline 
+      Input variable & Linking equation \\ \hline
+       $share_{PV}$ & $share_{PV}=\dfrac{Generation_{PV}}{Demand_{tot}}$ \\ \hline 
+       $share_{wind}$ & $share_{wind}=\dfrac{Generation_{wind-onshore} + Generation_{wind-offshore}}{Demand_{tot}}$ \\ \hline 
+       $share_{flex}$ & $share_{flex}=40\%$ \\ \hline 
+       $share_{storage}$ & $share_{storage}=\dfrac{Storage_{tot}}{Demand_{tot}}\times 365\times 24$ \\ \hline 
+       $Capacity_{ratio}$ & $Capacity_{ratio}=\dfrac{Generation_{tot}}{Demand_{tot}}$ \\ \hline 
+       $rNTC$ & $rNTC= Growth_{capacity}$ \\ \hline 
+      \end{tabular}
+      \caption{Variable linking equations}
+      \label{tab:linking-equations}
+    \end{table}

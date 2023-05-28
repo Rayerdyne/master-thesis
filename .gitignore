@@ -149,9 +149,16 @@ integration/tensorflow.dll
 # Neural net logs...
 nn/logs/**
 
+medeas-runs/other-models
+medeas-runs/medeas/*.vpm
+medeas-runs/medeas/*.vdf
+medeas-runs/medeas/*.vmfx
+medeas-runs/medeas/*.vdfx
+
 # report and tex shit
 report/**
 !report/main.tex
+!report/main.pdf
 !report/Makefile
 !report/resources
 !report/resources/images

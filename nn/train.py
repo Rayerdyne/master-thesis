@@ -63,7 +63,7 @@ def fetch_data(dataset_path, train_size, test_size, validation_size):
     
     return x_train, y_train, x_test, y_test, x_val, y_val, denormalizer
 
-def get_tuner(tuner, denormalizer, callbacks):
+def get_tuner(tuner, callbacks):
     """
     Builds a tuner given its name, the normalizer to be inversed as the last step,
     with default configuration from config.py
@@ -85,22 +85,18 @@ def get_tuner(tuner, denormalizer, callbacks):
         args["executions_per_trial"] = TUNER_EXEC_PER_TRIAL
     elif tuner == "hyperband":
         factory = kt.Hyperband
-        args["max_epochs"] = N_EPOCHS + 15
+        args["max_epochs"] = N_TUNER_EPOCHS + 15
         callbacks.append(EarlyStopping(monitor="val_loss", patience=EARLY_STOPPING_PATIENCE))
     else:
         raise ValueError(f"Unknown tuner name {tuner}")
     
-    # Functional love
-    def build_model_with_normalizer(hp):
-        return build_model(hp, denormalizer)
-
-    return factory(build_model_with_normalizer, **args), callbacks
+    return factory(build_model, **args), callbacks
 
 
 
 def main():
     print("==== Loading data ====")
-    x_train, y_train, x_test, y_test, x_val, y_val, denormalizer = fetch_data(DATASET_PATH, TRAIN_SET_RATIO, TEST_SET_RATIO, VALIDATION_SET_RATIO)
+    x_train, y_train, x_test, y_test, x_val, y_val, normalizers = fetch_data(DATASET_PATH, TRAIN_SET_RATIO, TEST_SET_RATIO, VALIDATION_SET_RATIO)
 
     tensorboard = TensorBoard(LOGS_OUTPUT_PATH, histogram_freq=1)
     reduce_lr = ReduceLROnPlateau(monitor="val_loss", factor=0.1, patience=EARLY_STOPPING_PATIENCE, min_lr=1e-6, verbose=1)
@@ -108,12 +104,12 @@ def main():
 
     print("==== Tuning ====")
     tuner: kt.Tuner
-    tuner, callbacks = get_tuner(TUNER, denormalizer, callbacks)
+    tuner, callbacks = get_tuner(TUNER, callbacks)
     tuner.search(x=x_train, y=y_train, 
                  validation_data=(x_val, y_val),
                  batch_size=BATCH_SIZE,
                  callbacks=callbacks,
-                 epochs=N_EPOCHS)
+                 epochs=N_TUNER_EPOCHS)
     
     best_model = tuner.get_best_models(num_models=1)[0]
 
@@ -147,6 +143,12 @@ def main():
 
     print("==== Some displays ====")
     displays(model_path, x_train, y_train, x_test, y_test, history)
+
+    norm_model = tf.keras.Sequential()
+    norm_model.add(normalizers[0])
+    norm_model.add(model)
+    norm_model.add(normalizers[1])
+    norm_model.save(MODEL_OUTPUT_PATH, save_format="tf")
 
 
 if __name__ == "__main__":
