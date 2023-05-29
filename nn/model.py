@@ -5,11 +5,9 @@ from keras import layers
 from keras_tuner import HyperParameter
 from keras.optimizers import Adam, RMSprop
 
-from tensorflow.keras.layers import Normalization
-
 from config import N_INPUT_FEATURES, N_OUTPUTS
 
-def build_model(hp: HyperParameter, denormalizer: Normalization):
+def build_model(hp: HyperParameter):
     model = keras.Sequential()
 
     # Input layer
@@ -23,7 +21,6 @@ def build_model(hp: HyperParameter, denormalizer: Normalization):
         model.add(layers.Dropout(hp.Float('Dropout_value' + str(i + 1), min_value=0.25, max_value=0.75, step=0.1)))
 
     model.add(layers.Dense(N_OUTPUTS, name="dispaset_approx"))
-    model.add(denormalizer)
 
     hp_lr = hp.Float("lr", min_value=1e-4, max_value=1e-2, sampling="log")
     hp_optimizer = hp.Choice('optimizer', values=['rmsprop', 'adam'])

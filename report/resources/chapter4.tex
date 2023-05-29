@@ -1,0 +1,111 @@
+\section{The surrogate model}
+
+\subsection{Overview}
+
+This section presents the training process that lead to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
+
+This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and will be tackled as such.
+
+\subsection{Machine learning methods}
+
+In the following, some machine learning algorithms for regression problems \cite{machine-learning-class} are assessed.
+
+\subsubsection{K nearest neighbors}
+
+In this setting, the K-nearest neighbors (k-NN) methods would be one of the easiest to implement\footnote{Using for example \href{https://scikit-learn.org/stable/modules/neighbors.html\#nearest-neighbors-regression}{scikit-learn}\cite{scikit-learn} module in python}. Indeed, these simply require a single parameter value $k$ and output the average value of the output features of the $k$ nearest neighbors, computing a distance on the input features.
+
+This will come with the drawback of not being able to learn quick variations in the outputs. What is considered too problematic, as these critical points would need to be properly modelled for the reliability of the surrogate model.
+
+\subsubsection{Decision trees}
+
+Decision trees, and extremely randomized trees \cite{extremely-randomized-trees} another category of easy to implement\footnote{Again, using \href{https://scikit-learn.org/stable/modules/ensemble.html\#forests-of-randomized-trees}{scikit-learn}} machine learning methods, as they also come with a limited, fixed number design parameters.
+
+But these also come with the drawback of having a piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic with many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
+
+\subsubsection{Kernel-based methods\label{section:kernel-methods}}
+
+One may consider to apply a kernel method with one of the other method mentioned above. While this may indeed improve the quality of the resulting model, and also solve the issue that was representing fast changes in the output, there is a main, almost trivial issue with them. Obviously, one need a kernel, but what kernel?
+
+As there are no ready-to-use kernel for this specific case, and that finding such a kernel would be a hard task, kernel methods are abandonned.
+
+\subsubsection{Artificial neural network}
+
+Artificial neural networks (ANN) are used in this work to build our surrogate model. These kind of methods provide a large flexibility, due to their entirely customizable architecture, as well as a large learning capacity. This makes them able to modelize with good accuracy some complex, non-linear functions.
+
+In most recent applications of these ANNs, a lot of different strategies are used to process the data efficiently. For example, convolutional layers convey a lot of meaning in the context of image processing, or transformers are well suited to process sequences\cite{deep-learning-class}.
+
+In this case, the inputs boils down to the 6 variables values, listed in Table {table:reference-values}. There are no patterns in this data, because even if their actual values were correlated in some way, the simulations dataset we have as an input at this stages has its input features drawn from a latin hypercube sampling, meaning they have a fixed, very low correlation. This correlation originates from the fact that the sampling aims at optimizing the design space coverage, not from a meaningful, exploitable source.
+
+Thus, a simple multi-layer perceptron (MLP) architecture is chosen, and the next requirement is to describe the characteristics of that MLP, that are:
+\begin{itemize}
+    \item The number of layers
+    \item The numbers of neurons in each layers
+    \item The activation function at each layer
+\end{itemize}
+
+These hyper-parameters values will be properly set in the following.
+
+In the end, neural networks are opted for. In addition to the abovementioned advantages, neural networks will also:
+\begin{itemize}
+    \item Be more lightweight, in comparison to the K-nearest neighbors methods, that needs to store the entire dataset, and the randomized trees, that need to store its trees structures. Neural networks only needs their weights that are fairly small with this few input variables.
+    \item Grasp non-linear behaviour well.
+\end{itemize}
+
+\subsection{Machine learning aspects}
+
+\subsubsection{Validation and testing\label{ssec:val-testing}}
+
+In machine learning, validation and testing are crucial steps in order to ensure the performance of a model. To implement these, one has to separate the data into three sets.
+
+\begin{itemize}
+    \item The validation set is used to tune the model hyperparameters on. Due to its influence on the model, it is thus susceptible to bias the model.
+    \item The test set is used to evaluate the model's performance, on unseen data.
+    \item The training set is used to train the model.
+\end{itemize}
+
+In most cases, one will simply split available data into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
+
+For the training set, joining different sets drawn with LHS is not expected to improve performance. As the LHS are independent of each other, there is a great chance to draw samples that are really close to each other, or worse, equal, what is exactly what LHS aims at avoiding.
+
+On the other hand, using a set drawn from a different LHS (than the one used for the training set) for testing and validation is interesting. This will provide data that spans the whole input space, but not yet exactly the same as the data used for training. Thanks to the input space coverage, the evaluation made at testing will be more extensive, and thanks to being independent of the training data, this evaluation will keep unbiased.
+
+\subsubsection{Overfitting and underfitting}
+
+An inherent problem to machine learning methods is the overfitting, or its opposite, underfitting. These terms refer to the cases where the training is respectively too specific to the training data, and not enough specific.
+
+Overfitting is thus a symptom of too much learning, leading to learning some noise or some particularities of the dataset, while underfitting means that there is not enough learning, so that the model is not able to represent all the cases, even the one that are well represented in the available data.
+
+These will have to be assessed during training to ensure the validity of the model.
+
+\subsubsection{Bias\label{ssec:bias}}
+
+An other source of imprecision in machine learning is the bias. This relates to the fact that there exist some noise in the data, that cannot be filtered out, or imprecisions in the assumptions, that inevitably conducts to noise in the output.
+
+However, in this setting, there is very little one could do to reduce its significance. First, the data points have been drawn from a latin-hypercube sampling strategy, that precisely aims at spreading the samples equitably all over the input space. Then, the output features were computed from a Dispa-SET run on this sample.
+
+Thus, the main source of bias one may have an influence in is the bias originating from incorrectnesses during the model training, due to a poor model design.
+
+The other plausible source of bias is the simulation made in Dispa-SET. Of course, Dispa-SET is also itself a model, thus relying on some assumptions and subject to its own modelling of the reality. And as such, it may introduce a bias in its computations, that will necessarily be learned by the surrogate model. But there is no way to assess this bias, and obviouly Dispa-SET itself focuses on making that bias as negligible as possible.
+
+This consideration is of interest, as Dispa-SET has multiple formulations, namely LP and MILP, that then have different bias with respect to reality.
+
+\subsection{Training}
+
+\subsubsection{Implementation}
+
+All the files for this section lie in the \texttt{nn} folder.
+
+The implementation of the training process comprises the following files:
+\begin{itemize}
+    \item \texttt{config.py}, that holds all the high-level specifications of the training, such as the names of the outputs, the train-test-validation set ratios, the number of epochs etc.
+    \item \texttt{model.py}, that contains the function building the model, thus the definition of the neural network's architecture.
+    \item \texttt{train.py}, that contains the code for the hyperparameter tuning and model training.
+    \item \texttt{view.py}, that contains the utilities to visualize the results.
+    \item \texttt{data}, \texttt{logs}, \texttt{models} directories, that contain the datasets, the runs' logs, and the trained models respectively.
+\end{itemize}
+
+\subsection{Comparison with MEDEAS state of the art}
+
+Well, requires the surrogate model
+
+\mywarning{TODO}

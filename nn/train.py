@@ -37,7 +37,7 @@ def scale_data(train, test, val, get_denormalizer=False):
         return normalizer(train), normalizer(test), normalizer(val)
 
 
-def fetch_data(dataset_path, train_size, test_size, validation_size):
+def fetch_data(dataset_path, train_ratio, test_ratio, validation_ratio, val_dataset_path=None):
     """
     Fetches the data in `dataset_path`, splits it in train/test/validation sets
     and scales the sets w.r.t. the test set.
@@ -48,22 +48,32 @@ def fetch_data(dataset_path, train_size, test_size, validation_size):
     NB: Splits depend on the `SK_RANDOM_STATE` seed
     """
     data = pd.read_csv(dataset_path)
-    all_x = data.loc[:,FEATURES_NAMES]
-    all_y = data.loc[:,OUTPUT_NAMES]
+    data_x = data.loc[:,FEATURES_NAMES]
+    data_y = data.loc[:,OUTPUT_NAMES]
 
     # all_x.describe()
     # all_y.describe()
 
-    r = validation_size / (train_size + validation_size)
-    x_train2, x_test, y_train2, y_test = train_test_split(all_x, all_y, test_size=test_size, random_state=SK_RANDOM_STATE)
-    x_train, x_val, y_train, y_val   = train_test_split(x_train2, y_train2, test_size=r, random_state=SK_RANDOM_STATE)
+    if val_dataset_path is None:
+        r = test_ratio / (test_ratio + validation_ratio)
+        # x_train2, x_test, y_train2, y_test = train_test_split(data_x, data_y, test_size=test_ratio, random_state=SK_RANDOM_STATE)
+        x_val2, x_train, y_val2, y_train = train_test_split(data_x, data_y, test_size=train_ratio, random_state=SK_RANDOM_STATE)
+    else:
+        val_data = pd.read_csv(val_dataset_path)
+        x_val2 = val_data.loc[:,FEATURES_NAMES]
+        y_val2 = val_data.loc[:,OUTPUT_NAMES]
+        x_train = data_x.to_numpy()
+        y_train = data_y.to_numpy()
+
+    x_val, x_test, y_val, y_test   = train_test_split(x_val2, y_val2, test_size=r, random_state=SK_RANDOM_STATE)
+
 
     x_train, x_test, x_val = scale_data(x_train, x_test, x_val)
     y_train, y_test, y_val, denormalizer = scale_data(y_train, y_test, y_val, get_denormalizer=True)
     
     return x_train, y_train, x_test, y_test, x_val, y_val, denormalizer
 
-def get_tuner(tuner, denormalizer, callbacks):
+def get_tuner(tuner, callbacks):
     """
     Builds a tuner given its name, the normalizer to be inversed as the last step,
     with default configuration from config.py
@@ -85,22 +95,18 @@ def get_tuner(tuner, denormalizer, callbacks):
         args["executions_per_trial"] = TUNER_EXEC_PER_TRIAL
     elif tuner == "hyperband":
         factory = kt.Hyperband
-        args["max_epochs"] = N_EPOCHS + 15
+        args["max_epochs"] = N_TUNER_EPOCHS + 15
         callbacks.append(EarlyStopping(monitor="val_loss", patience=EARLY_STOPPING_PATIENCE))
     else:
         raise ValueError(f"Unknown tuner name {tuner}")
     
-    # Functional love
-    def build_model_with_normalizer(hp):
-        return build_model(hp, denormalizer)
-
-    return factory(build_model_with_normalizer, **args), callbacks
+    return factory(build_model, **args), callbacks
 
 
 
 def main():
     print("==== Loading data ====")
-    x_train, y_train, x_test, y_test, x_val, y_val, denormalizer = fetch_data(DATASET_PATH, TRAIN_SET_RATIO, TEST_SET_RATIO, VALIDATION_SET_RATIO)
+    x_train, y_train, x_test, y_test, x_val, y_val, normalizers = fetch_data(DATASET_PATH, TRAIN_SET_RATIO, TEST_SET_RATIO, VALIDATION_SET_RATIO)
 
     tensorboard = TensorBoard(LOGS_OUTPUT_PATH, histogram_freq=1)
     reduce_lr = ReduceLROnPlateau(monitor="val_loss", factor=0.1, patience=EARLY_STOPPING_PATIENCE, min_lr=1e-6, verbose=1)
@@ -108,12 +114,12 @@ def main():
 
     print("==== Tuning ====")
     tuner: kt.Tuner
-    tuner, callbacks = get_tuner(TUNER, denormalizer, callbacks)
+    tuner, callbacks = get_tuner(TUNER, callbacks)
     tuner.search(x=x_train, y=y_train, 
                  validation_data=(x_val, y_val),
                  batch_size=BATCH_SIZE,
                  callbacks=callbacks,
-                 epochs=N_EPOCHS)
+                 epochs=N_TUNER_EPOCHS)
     
     best_model = tuner.get_best_models(num_models=1)[0]
 
@@ -147,6 +153,12 @@ def main():
 
     print("==== Some displays ====")
     displays(model_path, x_train, y_train, x_test, y_test, history)
+
+    norm_model = tf.keras.Sequential()
+    norm_model.add(normalizers[0])
+    norm_model.add(model)
+    norm_model.add(normalizers[1])
+    norm_model.save(MODEL_OUTPUT_PATH, save_format="tf")
 
 
 if __name__ == "__main__":
