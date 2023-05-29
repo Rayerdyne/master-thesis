@@ -33,7 +33,7 @@ srun python sampling.py --sample-only
 # Due to the limitation of the number of jobs in the queue (500), one cannot launch them all at a time
 # So this master job will launch them 200 at a time and wait for them
 
-echo "Done. Now calling launch-job-series.sh 0, you will have to call it again."
+echo "Done. Now calling launch-job-series.sh 0"
 ./launch-job-series.sh 0
 # inc=200
 # max=$((N_SAMPLES-1))

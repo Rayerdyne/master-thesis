@@ -22,8 +22,9 @@ LAUNCH_DIR=$(pwd)
 
 BASE_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
 DATASET_NAME=$(python -c "from config import DATASET_NAME; print(DATASET_NAME)")
-
-# CUR_DIR=${SIM_DIRS[$SLURM_ARRAY_TASK_ID]}
+series_size=400
+serie_idx=$1
+simulation_idx=$(($series_size * $serie_idx + $SLURM_ARRAY_TASK_ID))
 
 # Load Python 3.9 and environment
 module load Python/3.9.6-GCCcore-11.2.0
@@ -34,19 +35,19 @@ export GAMSPATH=$F_HOME/gams37.1_linux_x64_64_sfx
 
 echo "Job ID: $SLURM_JOBID"
 echo "Job dir: $SLURM_SUBMIT_DIR"
-echo "Running simulation $SLURM_ARRAY_TASK_ID"
+echo "Running simulation serie $serie_idx - $SLURM_ARRAY_TASK_ID, $simulation_idx"
 
 # Prepare simulation files
-srun python sampling.py --prepare-one $SLURM_ARRAY_TASK_ID
+srun python sampling.py --prepare-one $simulation_idx
 
-DIRS=($BASE_DIR/sim-${SLURM_ARRAY_TASK_ID}_*)
+DIRS=($BASE_DIR/sim-${simulation_idx}_*)
 CUR_DIR=${DIRS[0]}
 
 # Run the GAMS simulation
 cd $CUR_DIR
 echo "File prepared, starting simulation..."
 #                                                          from `seff`, one can see the memory used is typically around 4.5
-srun $GAMSPATH/gams UCM_h.gms --threads=4 --asyncThreads=4 --workSpace=4800 > slurm-outputs/$BASE_DIR/gamsrun-$SLURM_ARRAY_TASK_ID.log
+srun $GAMSPATH/gams UCM_h.gms --threads=4 --asyncThreads=4 --workSpace=4800 > slurm-outputs/$BASE_DIR/gamsrun-$simulation_idx.log
 cd $LAUNCH_DIR
 
 # Fetch the results
@@ -57,6 +58,6 @@ srun python read_results.py --single $CUR_DIR
 srun rm -rf $CUR_DIR/
 # srun pwd > "gamsrun$SLURM_SUBMIT_DIR.log"
 
-echo "Simulation $SLURM_ARRAY_TASK_ID is done (job id $SLURM_JOBID)" >> slurm-outputs/$BASE_DIR/finished.txt
+echo "Simulation $simulation_idx is done (job id $SLURM_JOBID)" >> slurm-outputs/$BASE_DIR/finished.txt
 echo "Job ID $SLURM_JOBID n°$SLURM_ARRAY_TASK_ID is finished"
 
