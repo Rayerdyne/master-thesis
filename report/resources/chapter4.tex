@@ -51,7 +51,25 @@ In the end, neural networks are opted for. In addition to the abovementioned adv
     \item Grasp non-linear behaviour well.
 \end{itemize}
 
-\subsection{Overfitting and underfitting}
+\subsection{Machine learning aspects}
+
+\subsubsection{Validation and testing\label{ssec:val-testing}}
+
+In machine learning, validation and testing are crucial steps in order to ensure the performance of a model. To implement these, one has to separate the data into three sets.
+
+\begin{itemize}
+    \item The validation set is used to tune the model hyperparameters on. Due to its influence on the model, it is thus susceptible to bias the model.
+    \item The test set is used to evaluate the model's performance, on unseen data.
+    \item The training set is used to train the model.
+\end{itemize}
+
+In most cases, one will simply split available data into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
+
+For the training set, joining different sets drawn with LHS is not expected to improve performance. As the LHS are independent of each other, there is a great chance to draw samples that are really close to each other, or worse, equal, what is exactly what LHS aims at avoiding.
+
+On the other hand, using a set drawn from a different LHS (than the one used for the training set) for testing and validation is interesting. This will provide data that spans the whole input space, but not yet exactly the same as the data used for training. Thanks to the input space coverage, the evaluation made at testing will be more extensive, and thanks to being independent of the training data, this evaluation will keep unbiased.
+
+\subsubsection{Overfitting and underfitting}
 
 An inherent problem to machine learning methods is the overfitting, or its opposite, underfitting. These terms refer to the cases where the training is respectively too specific to the training data, and not enough specific.
 
@@ -59,7 +77,7 @@ Overfitting is thus a symptom of too much learning, leading to learning some noi
 
 These will have to be assessed during training to ensure the validity of the model.
 
-\subsubsection{Bias}
+\subsubsection{Bias\label{ssec:bias}}
 
 An other source of imprecision in machine learning is the bias. This relates to the fact that there exist some noise in the data, that cannot be filtered out, or imprecisions in the assumptions, that inevitably conducts to noise in the output.
 
@@ -70,6 +88,21 @@ Thus, the main source of bias one may have an influence in is the bias originati
 The other plausible source of bias is the simulation made in Dispa-SET. Of course, Dispa-SET is also itself a model, thus relying on some assumptions and subject to its own modelling of the reality. And as such, it may introduce a bias in its computations, that will necessarily be learned by the surrogate model. But there is no way to assess this bias, and obviouly Dispa-SET itself focuses on making that bias as negligible as possible.
 
 This consideration is of interest, as Dispa-SET has multiple formulations, namely LP and MILP, that then have different bias with respect to reality.
+
+\subsection{Training}
+
+\subsubsection{Implementation}
+
+All the files for this section lie in the \texttt{nn} folder.
+
+The implementation of the training process comprises the following files:
+\begin{itemize}
+    \item \texttt{config.py}, that holds all the high-level specifications of the training, such as the names of the outputs, the train-test-validation set ratios, the number of epochs etc.
+    \item \texttt{model.py}, that contains the function building the model, thus the definition of the neural network's architecture.
+    \item \texttt{train.py}, that contains the code for the hyperparameter tuning and model training.
+    \item \texttt{view.py}, that contains the utilities to visualize the results.
+    \item \texttt{data}, \texttt{logs}, \texttt{models} directories, that contain the datasets, the runs' logs, and the trained models respectively.
+\end{itemize}
 
 \subsection{Comparison with MEDEAS state of the art}
 

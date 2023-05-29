@@ -236,9 +236,9 @@ From these 2-dimensional illustration it is clear that the latin hypercube sampl
 
 With the input samples now obtained, the next step is now to compute the simulations on each of these points.
 
-But this task is not trivial: we don't have the data that corresponds to these exact configuration. It is thus needed to craft some new simulation settings given a reference, that is the year 2019.
+But this task is not trivial since the data that corresponds to these exact configuration is not available. It is thus needed to craft some new simulation settings given a reference, that is the year 2019.
 
-\subsubsection{Adjusting function}
+\subsubsection{Adjusting functions}
 To do so, Dispa-SET disposes of utility functions that do just that, adjusting the capacities, i.e., the power ouputs of the units, in function of some parameters.
 
 These adjusting functions have been specifically developped for this topic by Vidal in her master thesis \cite{carlas-thesis}.
@@ -301,6 +301,12 @@ All the outputs extracted from the simulations are displayed in Table \ref{table
 	\label{table:values-extracted}
 \end{table}
 
+\subsubsection{Dataset creation}
+
+With the help of the adjusting functions, creating a whole dataset now comes down to generate samples from LHS as previously discussed, adjusting the reference simulation setting to each sample, run the simulation and extract the desired features from the outputs.
+
+As this whole process will be completely automated, it is pretty easy to obtain a second dataset, based on a different LHS. In particular, a smaller dataset will be of interest for the validation and testing stages of the surrogate model, as will be elaborated in subsection \ref{ssec:val-testing}.
+
 \subsection{Implementation}
 
 One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
@@ -321,6 +327,8 @@ For a complete experiment to be completed, these steps have to be followed:
 
 \subsubsection{Scripts and code}
 
+All the files for this section lie in the \texttt{data-generation} folder.
+
 The steps presented above almost map to a script or function written. The flow of the dataset generation is as described here.
 
 \begin{enumerate}
@@ -328,7 +336,7 @@ The steps presented above almost map to a script or function written. The flow o
     \item It submits the generation of the reference simulation as another job on the cluster and waits for its completion.
     \item It calls \texttt{sampling.py} with argument \texttt{--sample-only}, that will create the \texttt{samples.csv} file containing all the samples.
     \item It prepares the file \texttt{dataset.csv} by writing its header line.
-    \item It finally runs the bash script \texttt{launch-job-series.sh}, that will submit some fixed number of sample jobs, as an array, through the SLURM script \texttt{launch-simulation-jobs.sh}.
+    \item It finally runs the bash script \texttt{launch-job-series.sh}, with serie index 0, that will submit some fixed number of sample jobs, as an array, through the SLURM script \texttt{launch-simulation-jobs.sh}.
     \item Each sample job runs:
     \begin{enumerate}
         \item The simulation directory is prepared by calling the \texttt{sampling.py} script with argument \texttt{--prepare-one} and the index of this simulation (it reads the corresponding line in \texttt{samples.csv}).
@@ -344,10 +352,13 @@ During the creation of this set of scripts, some technical details require speci
 \begin{itemize}
     \item The GAMS solver spawns threads for efficiency, the number of threads must not exceed the number of CPUs allocated by SLURM for that job, otherwise it will disturb the whole node on which it is running, including unrelated jobs.
     \item The total amount of each prepared simulation directory is too large to fit on the allocated disk memory on the cluster.
-    \item The Dispa-SET ajdusting function do not write adjusted data to a directory if this directory already exists before the function is called
+    \item The Dispa-SET ajdusting function do not write adjusted data to a directory if this directory already exists before the function is called. That is, the directory containing the simulation files should not be created beforehand.
+    \item Due to SLURM limiting the maximum number of jobs a user can have in the submit queue, starting all the simulation jobs at once is not possible. Moreover, the number of simulation appeared to cause issues with the SLURM maximum array size.
+
+    This is the reason why \texttt{launch-job-series.sh} exists. The script takes as an argument the serie index $i$, then starts a [$0:399$] array of \texttt{launch-simulation-jobs.sh} jobs, with $i$ as an argument. As the latter script has also access to its array index via SLURM environment variables, it can compute the intended simulation index, that will cover the [$400i:400i+399$] range. 
 \end{itemize}
 
-\mywarning{Should I write more about the "history" of the scripts ?}
+\mywarning{Should I write about the "history" of the scripts ?}
 
 \subsubsection{Dataset fields}
 
