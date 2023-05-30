@@ -1,3 +1,10 @@
+"""
+Configuration file. Note that other scripts access these variables with
+$ python -c "from config import X; print(X)"
+
+@author: François Straet
+"""
+
 import os
 
 # Wether or not we build test simulations

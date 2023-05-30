@@ -1,3 +1,9 @@
+/**
+ * @file main.cpp
+ * @author François Straet
+ * @brief Test program for cppflow
+ */
+
 #include <iostream>
 
 #include "external.h"

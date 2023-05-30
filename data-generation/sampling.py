@@ -6,6 +6,11 @@ Options:
 - --sample-only: only draw samples and write sample to their folder
 - --prepare-one <dir>: only create files for the directory *dir* containing a sample
 
+If no option is given, does the sampling and prepares all the simulation directories.
+
+Usage:
+    python [--sample-only] [--prepare-one <dir>]
+
 @author: François Straet
 """
 
@@ -93,8 +98,8 @@ def format_folder_name(index, sample):
     """
     Produces a nicely formatted folder name
     
-    - `index`: the index of the sample
-    - `sample`: a python list containing all the values
+    :index:         the index of the sample
+    :sample:        a python list containing all the values
     """
     return f"sim-{index}_" + "-".join([f"{x:.2f}" for x in sample])
     # return f"sim-{i}_" + np.array2string(sample, separator="-", formatter={'float_kind': lambda x: f"{x:.2f}" })[1:-1]
@@ -104,8 +109,8 @@ def build_simulations(samples, sample_only=False):
     """
     Builds the simulations, or only writes samples, based on the samples array
 
-    - `samples`: np.ndarray, all the samples
-    - `sample_only`: bool, if true, only write the samples files.
+    :samples:       np.ndarray, all the samples
+    :sample_only:   bool, if true, only write the samples files.
     """
     nb = len(samples)
     for i, sample in enumerate(samples):
@@ -119,6 +124,9 @@ def build_simulations(samples, sample_only=False):
 def prepare_simulation_files(sample, cur_folder):
     """
     Creates the files needed for the simulation to be run
+
+    :sample:        the sample to create the simulation files for
+    :cur_folder:    the location to write the simulation files in
     """
     print(f"Preparing files in {cur_folder}")
 

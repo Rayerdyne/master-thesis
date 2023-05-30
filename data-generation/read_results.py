@@ -4,9 +4,11 @@ Reads the outputs of the simulations.
 
 Usage: 
     python read_results.py
-            Reads all the results
+            Reads all the results in the SIMULATION_DIR path 
+    python read_results.py --single <path>
+            Reads the results for one simulation directory, at <path>
 
-Copied from the Read_batch_simulation.py script from Carla's work.
+Adapted from the Read_batch_simulation.py script from Carla's work.
 
 @author: François Straet
 """
@@ -69,7 +71,7 @@ def read_data(path):
     # m[0]: entire match, m[1]: first group
     sample_index = int(m[1])
     samples = pd.read_csv(SIMULATIONS_DIR + os.sep + SAMPLES_CSV_NAME, index_col=0)
-    # row = pd.read_csv(path + os.sep + SAMPLE_CSV_NAME, index_col=0).squeeze("columns")
+
     row = samples.loc[sample_index,:]
     print(f"Read single index:  {sample_index}")
 
@@ -98,6 +100,9 @@ def read_data(path):
 
 
 def read_all():
+    """
+    Reads all the simulation results in the parent directory SIMULATIONS_DIR.
+    """
     print(f"Reading simulations in {SIMULATIONS_DIR}")
 
     dirs = get_simulation_dirs(SIMULATIONS_DIR)
@@ -119,6 +124,11 @@ def read_all():
     print(f"Wrote {output_file}")
 
 def read_single(path):
+    """
+    Reads the results for a single simulation, located at given path, and outputs it.
+
+    :path:      path to the simulation to be read
+    """
     row = read_data(path)
     # output via stdout
     # if there were header, it would be:

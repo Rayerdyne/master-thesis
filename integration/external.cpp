@@ -1,5 +1,9 @@
-/*
- * Scheme copied from `vensim_external_functions.c`
+/**
+ * @file external.cpp
+ * @author François Straet
+ * @brief Main file for the external library.
+ * Edited from `vensim_external_functions.c`
+ * 
  */
 #include "external.h"
 
@@ -61,8 +65,7 @@ Note that all the external functions are all upper case.  This is required
 if you want to use compile simulations - since the calls in mdl.c will
 be upper case.  Our apologies to those this offends.
 *********************************************/
-double COMPUTE_A(double x, double y, double z);
-double COMPUTE_DS_APPROX(double CapacityRatio, double ShareFlex, double ShareStorage, double ShareWind, double SharePV, double rNTC, double output_idx);
+// see external.h
 
 /****************************************************
  3 - Grouping of functions in a structure - see venext.h
@@ -264,6 +267,15 @@ static void vext_clearmem() {
 	returns 0 simulation will not proceed.
  ******************************************************************/
 
+/**
+ * @brief Vensim simulation setup function
+ * 
+ * On initializing the simulation, load the model that is expected to be placed in the same
+ * directory than the dll, and be named according to MODEL_DIR_NAME.
+ * 
+ * @param iniflag 
+ * @return CFUNCTION 
+ */
 CFUNCTION int VEFCC simulation_setup(int iniflag) {
     if (iniflag == 1) {
         /*
@@ -293,6 +305,14 @@ CFUNCTION int VEFCC simulation_setup(int iniflag) {
 	return 1;
 }
 
+/**
+ * @brief Vensim simulation shutdown function
+ * 
+ * Frees the model loaded during simulation setup 
+ * 
+ * @param finalflag 
+ * @return CFUNCTION 
+ */
 CFUNCTION int VEFCC simulation_shutdown(int finalflag) {
     if (finalflag == 1) {
         model_ptr.reset(nullptr);

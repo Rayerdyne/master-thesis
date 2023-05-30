@@ -1,8 +1,8 @@
 """
-Temporary file to contain my new version of the adjust utility function in
+Backup file to contain my new version of the adjust utility function in
 Dispa-SET preprocessing.
 
-Function that are copied then updated.
+Function have been copied then modified.
 """
 
 import logging

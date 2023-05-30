@@ -1,3 +1,9 @@
+"""
+Contains the code for the hyperparameter tuning and the model training.
+
+@author: François Straet
+"""
+
 import os
 
 import pandas as pd
@@ -25,6 +31,11 @@ def scale_data(train, test, val, get_denormalizer=False):
     Adapts a tensorflow normalizer to the train set, and applies it to the
     train, test and validation sets, and returns an inverse normalizer if 
     `get_denormalizer` is set to true (else none)
+
+    :train:             Training data
+    :test:              Testing data
+    :val:               Validation data
+    :get_denormalizer:  If true, also return the normalization layer with its inverse
     """
     #                         last axis
     normalizer = Normalization(axis=-1)
@@ -32,7 +43,7 @@ def scale_data(train, test, val, get_denormalizer=False):
     if get_denormalizer:
         denormalizer = Normalization(axis=-1, invert=True)
         denormalizer.adapt(train)
-        return normalizer(train), normalizer(test), normalizer(val), denormalizer
+        return normalizer(train), normalizer(test), normalizer(val), (normalizer, denormalizer)
     else:
         return normalizer(train), normalizer(test), normalizer(val)
 
@@ -46,6 +57,13 @@ def fetch_data(dataset_path, train_ratio, test_ratio, validation_ratio, val_data
     add the inverse transformation at the end of the network)
 
     NB: Splits depend on the `SK_RANDOM_STATE` seed
+
+    :dataset_path:          Path to primary dataset
+    :train_ratio:           Proportion of the dataset to be used for training
+    :test_ratio:            Proportion of the dataset to be used for testing
+    :val_ratio:             Proportion of the dataset to be used for validation
+    :val_dataset_path:      If present, use dataset at this location for testing and 
+                            validation. Split according to rescaled ratios.
     """
     data = pd.read_csv(dataset_path)
     data_x = data.loc[:,FEATURES_NAMES]
@@ -77,6 +95,10 @@ def get_tuner(tuner, callbacks):
     """
     Builds a tuner given its name, the normalizer to be inversed as the last step,
     with default configuration from config.py
+
+    :tuner:         The name of the tuner to be used, in 
+                    ["bayesian", "random", "hyperband"]
+    :callbacks:     The list of callbacks for the model training
     """
     args = {
         "objective": "val_loss",

@@ -11,6 +11,16 @@
 #SBATCH --mem-per-cpu=32 # MB
 #SBATCH --partition=batch
 
+# High-level script to submit all the jobs required to create a dataset, as configured in
+# `config.py` file.
+#
+# 1- Prepare the header line in the future dataset, and various log files
+# 2- Runs the reference simulation
+# 3- Runs the sampling
+# 4- Starts the first series (NB: series automatically submit the next one)
+#
+# Usage: sbatch main.sh
+
 N_SAMPLES=$(python -c "from config import N_SAMPLES; print(N_SAMPLES)")
 SIM_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
 DATASET_NAME=$(python -c "from config import DATASET_NAME; print(DATASET_NAME)")
@@ -35,14 +45,3 @@ srun python sampling.py --sample-only
 
 echo "Done. Now calling launch-job-series.sh 0"
 ./launch-job-series.sh 0
-# inc=200
-# max=$((N_SAMPLES-1))
-# for (( i=0 ; i <= $max ; i += $inc ));
-# do
-#     a=$(( $i + $inc - 1))
-#     up=$(( $a < $max ? $a : $max))
-#     echo "Starting jobs range [$i-$up]"
-#     #                           v-- ensures max 100 jobs simultaneously
-#     sbatch --wait --array=$i-$up%100 --output=$SIM_DIR/logs/res_%A_%a.txt launch-simulation-jobs.sh
-# done
-

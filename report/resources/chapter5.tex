@@ -4,11 +4,23 @@
 
 This section describes the process of integrating the trained surrogate model into the MEDEAS model.
 
-As the MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, this task is therefore splitted in two smaller steps:
+The MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, and is available to the public as a Vensim model file. However, the python library \href{https://pysd.readthedocs.io/en/master/index.html}{\texttt{pysd}} \cite{pysd}, focused on system dynamics simulations, is able to parse such files and run the simulations. The reasons why this will not be taken advantage of is discussed in the first subsection.
+
+The task of integrating the surrogate model into MEDEAS is split in two smaller steps:
 \begin{enumerate}
     \item \textbf{Vensim integration}, that is to make the surrogate model, available as a Tensorflow model, callable from within a Vensim model
     \item \textbf{Variable linking}, Link the input and output features of the surrogate model to the actual variables used in the MEDEAS model
 \end{enumerate}
+
+\subsection{The pysd option}
+
+As previouly introced, the \texttt{pysd} python library can read and run Vensim model files. Of course, as the surrogate model is primarily defined in that language, one would deduce that its integration would be easier that way.
+
+Doing so, while not done in this work, is expected to be simple. Using \texttt{pysd} loading functionality, a python module representing the simulation is obtained. This module is then loaded with \texttt{pysd} for the simulation to be run. The linking can thus be done by editing the module file directly, and inserting the call to the model at the appropriate place. 
+
+This approach is nevertheless not chosen. While it has been thought about late in the work, after the current Vensim integration had been implemented, the main reason is the convenience of the resulting model. If the model combination was made available sa python module, it would be much harder for external people to edit the original MEDEAS model from Vensim, then run the modified version while keeping the surrogate model integrated. The editor would have to manually re-insert the surrogate model into the python module, that also have to be recreated.
+
+Keeping the surrogate model available as a Vensim external function is therefore a significant benefit for the further improvements of the model, as it enables edits to be made to MEDEAS independently of the surrogate model.
 
 \subsection{Vensim integration}
 
@@ -25,7 +37,10 @@ Its most common application areas include \cite{wiki-vensim}:
 
 Vensim also comes in different distribution, such as Vensim PLE that is the free, personal learning edition. In this work, Vensim DSS is used, with an academic license.
 
-Vensim provides a variety of tools to describe models, but at the end every model is an interconnection of variables, the math hiding in the connections between these. \mywarning{Split here into Vensim overview and Vensim models ?}
+
+\subsubsection{Vensim models}
+
+Vensim provides a variety of tools to describe models, but at the end every model is an interconnection of variables, the math hiding in the connections between these. 
 
 Vensim provides the following types of variables:
 \begin{itemize}
@@ -90,6 +105,12 @@ Luckily, %I'm not afraid of the dark
 Vensim DSS ships with an example of such a library. As this file is not publicly disclosed, caution should be paid to keeping the library code private---actually, the external function capability is only available in Vensim DSS.
 
 In the implementation of the library, this file was copied then adapted, as suggested in Vensim's documentation.
+
+\subsubsection{Vensim subscripts}
+
+This feature of Vensim is advertised as one of its most powerful tools. These allow to subscript variables appearing in the equations and perform operations across subscripted values if needed.  
+
+Importantly, MEDEAS use subscripts to run several simulations in parallel called scenarios. Therefore, one needs to edit the subscript properties in order to manage the scenario that will be run and displayed.
 
 \subsubsection{Calling a Tensorflow model}
 

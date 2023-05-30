@@ -18,6 +18,7 @@
 
 \usepackage{biblatex}               % Bibliography
 \addbibresource{resources/bibliography.bib} %Import the bibliography file
+\usepackage[nottoc,numbib]{tocbibind}
 
 \graphicspath{{resources/images}}
 
@@ -116,6 +117,10 @@ integrated assessment models}
 
 \nocite{*}
 
+
+\settocbibname{Bibliography}
 \printbibliography[heading=bibintoc]
+
+\include{resources/appendix}
 
 \end{document}

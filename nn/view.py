@@ -1,3 +1,15 @@
+"""
+Contains the different tools used for visualizing the results of the training and the
+model.
+
+The main function plots a 3d mesh of a chosen output as a function of 2 chosen inputs.
+The value of the other parameter can be set with sliders.
+
+Usage:
+    python view.py --surface <in1> <in2> <out>
+    Where arguments are indexes (refer to the features and outputs lists in `config.py`)
+"""
+
 import os, sys
 
 import matplotlib.pyplot as plt
@@ -15,7 +27,7 @@ capacity_ratio_range = (0.5, 1.8)
 share_flex_range     = (0.01, 0.99)
 share_storate_range  = (0, 0.5)
 share_wind_range     = (0, 0.5)
-share_pv_range       = (0.2, 0.5)
+share_pv_range       = (0.02, 0.5)
 rntc_range           = (0, 0.7)    
 
 ranges = [capacity_ratio_range, share_flex_range,

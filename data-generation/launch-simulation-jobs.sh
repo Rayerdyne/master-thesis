@@ -16,6 +16,20 @@
 # disable SBATCH --array=0-1
 
 # Adapted from LaunchParallelJobs_carla.sh
+#
+# Runs the jobs to make a complete simulation:
+# - preparing the files, 
+# - running GAMS
+# - reading the output and writing it to the dataset file.
+#
+# This script will usually not be submitted manually, but rather through the use of 
+# launch-job-series.sh.
+#
+# The index of the sample to be used for the simulation is computed based on the series index given
+# as argument, and the SLURM $SLURM_ARRAY_TASK_ID environment variable. Therefore, it will not work
+# properly if not submitted with --array=$min-$max to the cluster.
+#
+# Usage: sbatch --array=0-$n launch-simulation-jobs.sh <series_idx>
 
 F_HOME="/home/ulg/thermlab/fstraet"
 LAUNCH_DIR=$(pwd)

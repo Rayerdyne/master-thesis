@@ -11,4 +11,11 @@
 #SBATCH --mem-per-cpu=4800 # megabytes
 #SBATCH --partition=batch
 
+# Starts the reference job on the cluster.
+#
+# Separating this run from the main.sh script allow to optimize resource usage, as
+# main.sh doesn't need to carry out heavy computations.
+#
+# Usage: sbatch launch-reference-job.sh
+
 srun python reference.py

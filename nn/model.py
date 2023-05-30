@@ -1,3 +1,9 @@
+"""
+Holds the `build_model` function that builds the model, hence contains its description.
+
+@author: François Straet
+"""
+
 import numpy as np
 
 from tensorflow import keras

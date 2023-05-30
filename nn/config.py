@@ -1,3 +1,10 @@
+"""
+Configuration file containing high-level specification of the choice to be made for the
+surrogate model. Note that the model architecture still lies in `model.py`.
+
+@author: François Straet
+"""
+
 import os
 
 TUNER = "bayesian"

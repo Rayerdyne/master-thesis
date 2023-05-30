@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Makes the reference simulation
+Makes the reference simulation, and serializes the results needed to prepare the
+simulation files into a JSON file.
 
-@author F. Straet
+Usage: 
+    python reference.py
+
+@author François Straet
 """
 
 import json, os, sys
@@ -16,6 +20,10 @@ import pandas as pd
 from config import REFERENCE_INFO_FILE, REFERENCE_SIMULATION_DIR, START_DATE, STOP_DATE
 
 class ReferenceInfo(object):
+    """
+    Class to help serialize the values extracted from the reference run that will be
+    needed to prepare the simulation files.
+    """
     def __init__(self, data):
         self.__dict__ = data
 

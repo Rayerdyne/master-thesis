@@ -1,0 +1,27 @@
+\section*{Annex A: scripts and code}
+
+This annex documents briefly the roles of each scripts and code files.
+
+\subsection{Data generation}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.21\textwidth}|p{0.75\textwidth}|}
+        \hline
+        File name & Description \\ \hline
+        \texttt{config.py} & Holds high level specification of the dataset to be created, such as the number of samples, the LHS strategy, and output files names. \\
+        \texttt{read\_results.py} & Fetches the results from simulation directories, either one by one or all at once. \\
+        \texttt{reference.py} & Runs the reference simulation and serializes the results in a json file. \\
+        \texttt{sampling.py} & \texttt{--sample-only}: only run the LHS and store the samples in a CSV file. \texttt{--prepare-one idx}: prepares the simulation directory for one sample given its index. With no arguments, runs LHS and prepare all the simulation directories. \\
+        \texttt{utils\_francois.py} & Stores the modified version of the \texttt{adjust\_capacity} function of Dispa-SET. \\ \hline
+        \texttt{launch-job-series} \texttt{.sh} & Submits a series of simulation jobs, and a job that will submit the following series with the current one as a dependency. If the series index given as argument is too high, exits. \\
+        \texttt{launch-reference-} \texttt{job.sh} & Submits the reference job. \\
+        \texttt{launch-simulation-} \texttt{jobs.sh} & Submits the jobs required to run a simulation from a series. It takes the series index as an argument and the number in that series from SLURM environment variables. Uses \texttt{sampling.py --prepare-one}, GAMS and \texttt{read\_results.py} successively. \\
+        \texttt{main.sh} & Starts all the scripts in the right order in order to produce a dataset. Runs the reference simulation, the sampling, prepends the header to the dataset file (as CSV), and starts the first series. \\ \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Neural network}
+
+\subsection{Integration}
+

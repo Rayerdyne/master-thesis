@@ -11,6 +11,19 @@
 #SBATCH --mem-per-cpu=1 # megabytes
 #SBATCH --partition=batch
 
+# Starts a series of jobs given its index and prepares the submission of the following series.
+# To do so, it submits the first series, and itself with the series just submitted as a 
+# dependency, such that the queue size is not exceeded.
+#
+# Usage: ./launch-job-series.sh <idx>    or
+#        sbacth launch-job-series.sh <idx>
+
+if [[ -z "$1" ]]; then
+    echo "No series index provided, stopping"
+    echo "Usage: $0 <idx>"
+    exit
+fi
+
 serie_idx=$1
 N_SAMPLES=$(python -c "from config import N_SAMPLES; print(N_SAMPLES)")
 SIM_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
