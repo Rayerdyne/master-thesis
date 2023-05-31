@@ -10,6 +10,8 @@ import os
 # Wether or not we build test simulations
 TESTING = True
 
+DS_CONFIG_FILE = "ConfigFiles" + os.sep + "Config_Francois.xlsx"
+
 # Latin Hypercube parameters
 CRITERION = "maximin"
 N_SAMPLES = 2000

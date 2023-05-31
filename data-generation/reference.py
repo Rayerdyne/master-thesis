@@ -17,7 +17,7 @@ import dispaset as ds
 import pandas as pd
 
 
-from config import REFERENCE_INFO_FILE, REFERENCE_SIMULATION_DIR, START_DATE, STOP_DATE
+from config import DS_CONFIG_FILE, REFERENCE_INFO_FILE, REFERENCE_SIMULATION_DIR, START_DATE, STOP_DATE
 
 class ReferenceInfo(object):
     """
@@ -65,7 +65,7 @@ def build_reference(refinfo_path):
     Builds the reference simulation (configuration from config.py) and writes
     the info in `refinfo_path`
     """
-    config = ds.load_config_excel("ConfigFiles" + os.sep + "Config_Francois.xlsx")
+    config = ds.load_config_excel(DS_CONFIG_FILE)
     config["SimulationDirectory"] = REFERENCE_SIMULATION_DIR 
 
     config["StartDate"] = START_DATE
