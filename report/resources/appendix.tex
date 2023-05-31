@@ -1,8 +1,11 @@
+\addtocounter{section}{1}
 \section*{Annex A: scripts and code}
 
 This annex documents briefly the roles of each scripts and code files.
 
-\subsection{Data generation}
+\subsection*{Data generation}
+
+See Table \ref{tab:annex-files-datagen}.
 
 \begin{table}[h]
     \centering
@@ -19,9 +22,46 @@ This annex documents briefly the roles of each scripts and code files.
         \texttt{launch-simulation-} \texttt{jobs.sh} & Submits the jobs required to run a simulation from a series. It takes the series index as an argument and the number in that series from SLURM environment variables. Uses \texttt{sampling.py --prepare-one}, GAMS and \texttt{read\_results.py} successively. \\
         \texttt{main.sh} & Starts all the scripts in the right order in order to produce a dataset. Runs the reference simulation, the sampling, prepends the header to the dataset file (as CSV), and starts the first series. \\ \hline
     \end{tabular}
+    \caption{Description of the data-generation files}
+    \label{tab:annex-files-datagen}
 \end{table}
 
-\subsection{Neural network}
+\subsection*{Neural network}
 
-\subsection{Integration}
+See Table \ref{tab:annex-files-nn}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.21\textwidth}|p{0.75\textwidth}|}
+        \hline
+        File name & Description \\ \hline
+        \texttt{config.py} & Holds the configuration of the network to be trained, name, data to use, inputs and outputs. \\
+        \texttt{model.py} & Holds the description of the model to be trained, via the \texttt{build\_model} function. \\
+        \texttt{train.py} & Executes the tuner search for the best model and training of that best model. \\
+        \texttt{view.py} & Holds different utilities to view the results of some model and its performances. Use \texttt{view.py --surface <in1> <in2> <out>} to create a 3d surface of the out-th output depending on the in1 and in2-th inputs. The other inputs are constant and parameterizable with sliders. \\
+        \hline
+    \end{tabular}
+    \caption{Description of the files for the neural network part.}
+    \label{tab:annex-files-nn}
+\end{table}
+
+\subsection*{Integration}
+
+See Table \ref{tab:annex-files-integration}.
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|p{0.21\textwidth}|p{0.75\textwidth}|}
+        \hline
+        File name & Description \\ \hline
+        \texttt{external.h} & Header file for \texttt{external.cpp}. \\
+        \texttt{external.cpp} & Main source file for the library. \\
+        \texttt{main.cpp} & Code for running a test program. \\
+        \texttt{Makefile} & GNU make file for automating compilation. \\
+        \texttt{tensorflow.dll} & Tensorflow library file for Windows, can be downloaded from \href{https://www.tensorflow.org/install/lang_c}{here}. \\
+        \hline
+    \end{tabular}
+    \caption{Description of the integration files.}
+    \label{tab:annex-files-integration}
+\end{table}
 
