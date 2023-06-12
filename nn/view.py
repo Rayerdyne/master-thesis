@@ -15,10 +15,11 @@ import os, sys
 import matplotlib.pyplot as plt
 import numpy as np
 
-from keras.models import load_model
 from matplotlib import cm
 from matplotlib.widgets import Slider, Button
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+
+from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import Normalization
 
 from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES

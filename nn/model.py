@@ -8,8 +8,8 @@ import numpy as np
 
 import tensorflow as tf
 from tensorflow.keras import layers
+from tensorflow.keras.optimizers import Adam, RMSprop
 from keras_tuner import HyperParameter
-from keras.optimizers import Adam, RMSprop
 
 from config import N_INPUT_FEATURES, N_OUTPUTS
 

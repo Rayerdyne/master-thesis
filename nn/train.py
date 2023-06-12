@@ -11,11 +11,10 @@ import numpy as np
 
 import keras_tuner as kt
 import tensorflow as tf
-from keras.callbacks import TensorBoard, EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
-from keras.utils import plot_model
+from tensorflow.keras.callbacks import TensorBoard, EarlyStopping, ModelCheckpoint, ReduceLROnPlateau
+from tensorflow.keras.layers import Normalization
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
-from tensorflow.keras.layers import Normalization
 
 from config import *
 from model import build_model
@@ -224,8 +223,8 @@ def main():
         print("==== Best model summary ====")
         print(best_model.summary())
         print(tuner.results_summary(num_trials=1))
-        plot_model(best_model, to_file=LOGS_OUTPUT_PATH + os.sep + "ANN_regression.png", show_shapes=True, 
-                show_layer_names=True, rankdir='LR', expand_nested=False, dpi=96)
+        # plot_model(best_model, to_file=LOGS_OUTPUT_PATH + os.sep + "ANN_regression.png", show_shapes=True, 
+        #         show_layer_names=True, rankdir='LR', expand_nested=False, dpi=96)
         print(best_hp.values)
 
         norm_model = tf.keras.Sequential()
