@@ -23,10 +23,10 @@ WRITE_POINTS_TO_CSV = True
 SAMPLES_CSV_NAME = "samples.csv"
 
 # Where simulation will actually be written
-SIMULATIONS_DIR = "simulations" + os.sep + "MILP750"
+SIMULATIONS_DIR = "simulations" + os.sep + "ic-2000"
 # Where to write reference simulation
 REFERENCE_SIMULATION_DIR = SIMULATIONS_DIR + os.sep + "reference"
 REFERENCE_INFO_FILE = SIMULATIONS_DIR + os.sep + "reference-info.json"
 
 # Where to write the final data with simulation outputs:
-DATASET_NAME = "dataset.csv"
+DATASET_NAME = "dataset-ic-2000.csv"

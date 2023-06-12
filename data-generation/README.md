@@ -23,6 +23,8 @@ I think the best option is maximin, as it has better coverage of the input space
 - `ConfigFiles/` folder containing the different Dispa-SET configuration files
 - `simulations/` folder containing the simulations outputs
 
+Dispa-SET is expected to be found under the `$HOME` directory.
+
 ### Python code
 - `config.py` holds the data about the simulation to be set up and run, most importantly:
     - the number of simulations (points on the LHS)
@@ -33,6 +35,8 @@ I think the best option is maximin, as it has better coverage of the input space
 - `reference.py` runs the reference simulation and writes necessary info to `$SIMULATION_FOLDER/reference-info.json`
 - `sampling.py` runs the LHS, and scales it to the input ranges, and prepares the GAMS file for the simulation
 - `read_results.py` fetches the outputs of the GAMS run. If called with no arguments, fetches all the results from each simulation, if called with `--single folder` only fetches the results in that folder.
+
+In Dispa-SET, the `dispaset/__init__.py` file has been edited so that the logging only uses the console output (further redirected through a file via SLURM). The log file is named based on time, and therefore mutliple runs may try to write to the same file at once.
 
 ### Scripts
 - `main.sh` sbatch-able script that prepares terrain for running simulations, configured in `config.py`. After executing it, you have to submit the actual simulation jobs with `launch-job-series.sh`

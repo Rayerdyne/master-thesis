@@ -21,7 +21,8 @@ import pandas as pd
 
 from pyDOE import lhs
 
-sys.path.append(os.path.abspath(".." + os.sep + ".."  + os.sep + "Dispa-SET"))
+sys.path.append(os.environ["HOME"] + os.sep + "Dispa-SET")
+CODE_PATH = os.environ["HOME"] + "work" + os.sep + "data-generation"
 
 import dispaset as ds
 
@@ -158,9 +159,11 @@ def prepare_simulation_files(sample, cur_folder):
                             value=peak_load*capacity_ratio*share_wind/CF_wton, singleunit=True)
     
     # In this last iteration, the new gdx file is written to the simulation folder:
+    # tmp = os.environ["LOCALSCRATCH"] + os.sep + "Inputs.gdx"
+    tmp = cur_folder + os.sep + "Inputstmp.gdx"
     data = ds.adjust_capacity(data, ('PHOT','SUN'),
                             value=peak_load*capacity_ratio*share_pv/CF_pv, singleunit=True,
-                            write_gdx=True, dest_path=cur_folder)
+                            write_gdx=True, dest_path=cur_folder, temp_path=tmp)
 
 if __name__ == "__main__":
     main()

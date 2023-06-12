@@ -29,7 +29,7 @@ N_SAMPLES=$(python -c "from config import N_SAMPLES; print(N_SAMPLES)")
 SIM_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
 LOG_FILE="slurm-outputs/$SIM_DIR/series-submitted.txt"
 
-series_size=400
+series_size=4
 
 total=$(( ($N_SAMPLES / $series_size) + 1 ))
 
@@ -52,9 +52,9 @@ fi
 
 echo "Starting jobs serie $serie_idx in [0-$((total-1))]"
 echo "thus $((serie_idx*series_size)) to $((serie_idx*series_size+max))"
-echo "Range [$min-$max] submitted" >> $LOG_FILE
+echo "Range [0-$max] submitted for series idx $serie_idx" >> $LOG_FILE
 #                           v-- ensures max 100 jobs simultaneously
-ID=$(sbatch --array=0-$max%100 --output=slurm-outputs/$SIM_DIR/simulation_%a.log --parsable launch-simulation-jobs.sh $serie_idx)
+ID=$(sbatch --array=0-$max%100 --output=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a.log --error=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a-err.log --parsable launch-simulation-jobs.sh $serie_idx)
 
-echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
-sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
+# echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
+# sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
