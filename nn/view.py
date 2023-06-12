@@ -19,6 +19,7 @@ from keras.models import load_model
 from matplotlib import cm
 from matplotlib.widgets import Slider, Button
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+from tensorflow.keras.layers import Normalization
 
 from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES
 
@@ -43,6 +44,8 @@ def plot_loss(H, path):
     # plot the training history loss
     plt.style.use("ggplot")
     plt.figure()
+    ax = plt.gca()
+    ax.set_ylim([0, 1])
     plt.plot(H.history['loss'], label='Training Loss')
     plt.plot(H.history['val_loss'], label='Validation Loss')
     plt.title("Training Loss")
@@ -82,24 +85,27 @@ def plot_surface(X, Y, Z, xlabel, ylabel, zlabel):
 
     plt.show()
 
-def displays(model_path, x_train, y_train, x_test, y_test, history):
+def displays(model_path, x_test, y_test, history=None):
     model = load_model(model_path)
+
     y_test_pred = model.predict(x_test, batch_size=BATCH_SIZE)
     print("Prediction against truth:")
     print(y_test_pred[:5])
     print(y_test[:5])
 
     # Metrics...
+    print(type(model))
     loss, mae, mse = model.evaluate(x_test, y_test, batch_size=BATCH_SIZE)
     max_difference = np.max(np.abs(y_test - y_test_pred))
-    print("---- Metrics ----")
-    print(f"Loss (scaled) {loss:.5f}")
-    print(f"MAE (scaled) {mae:.5f}")
-    print(f"MSE (scaled) {mse:.5f}")
-    print(f"Maxdif (scaled) {max_difference:.5f}")
+    print(f"---- Metrics for {model_path} ----")
+    print(f"Loss {loss:.5f}")
+    print(f"MAE {mae:.5f}")
+    print(f"MSE {mse:.5f}")
+    print(f"Maxdif {max_difference:.5f}")
 
     plot_graph(y_test, y_test_pred, "Test", LOGS_OUTPUT_PATH + os.sep + "test.png")
-    plot_loss(history, LOGS_OUTPUT_PATH + os.sep + "losses-history.png")
+    if history:
+        plot_loss(history, LOGS_OUTPUT_PATH + os.sep + "losses-history.png")
 
 def compute_surface(model, X, Y, i_sliders, in1, in2, out):
     oldshape = X.shape
@@ -174,6 +180,7 @@ CMD_DICT = {
 
 def main():
     model = load_model(LOGS_OUTPUT_PATH + os.sep + LOGS_MODEL_CKPT)
+    model.compile(optimizer="adam", loss="MSE")
 
     command = sys.argv[1]
     if command not in CMD_DICT:
