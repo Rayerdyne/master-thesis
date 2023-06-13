@@ -10,7 +10,6 @@ import os
 # Wether or not we build test simulations
 TESTING = True
 
-DS_CONFIG_FILE = "ConfigFiles" + os.sep + "Config_Francois.xlsx"
 
 # Latin Hypercube parameters
 CRITERION = "maximin"
@@ -22,8 +21,11 @@ STOP_DATE = (2022, 12, 31, 0, 0, 0)
 WRITE_POINTS_TO_CSV = True
 SAMPLES_CSV_NAME = "samples.csv"
 
+DS_CONFIG_FILE = "ConfigFiles" + os.sep + "Config_Francois.xlsx"
+
 # Where simulation will actually be written
-SIMULATIONS_DIR = "simulations" + os.sep + "ic-2000"
+SIMULATIONS_DIR = "simulations" + os.sep + "MILP750"
+
 # Where to write reference simulation
 REFERENCE_SIMULATION_DIR = SIMULATIONS_DIR + os.sep + "reference"
 REFERENCE_INFO_FILE = SIMULATIONS_DIR + os.sep + "reference-info.json"
