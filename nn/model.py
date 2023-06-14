@@ -21,11 +21,11 @@ def build_model(hp: HyperParameter):
     x = layers.Concatenate()([input, tf.math.exp(input), tf.math.log(tf.math.abs(input) + 0.0001)])
 
     # Tune the number of hidden layers.
-    for i in range(hp.Int("num_layers", 6, 10)):
+    for i in range(hp.Int("num_layers", 2, 10)):
         activation = hp.Choice("activation" + str(i+1), ["relu", "leakyrelu", "tanh"])
         if activation == "leakyrelu":
             activation = tf.keras.layers.LeakyReLU(alpha=0.01)
-        x = layers.Dense(units=hp.Int('units_' + str(i + 1), min_value=32, max_value=128, step=32),
+        x = layers.Dense(units=hp.Int('units_' + str(i + 1), min_value=32, max_value=256, step=32),
                                activation=activation)(x)
                             #    activation="relu"))
 

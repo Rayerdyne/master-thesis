@@ -8,8 +8,8 @@ surrogate model. Note that the model architecture still lies in `model.py`.
 import os
 
 TUNER = "bayesian"
-TUNER_MAX_TRIALS = 16
-TUNER_EXEC_PER_TRIAL = 3
+TUNER_MAX_TRIALS = 64
+TUNER_EXEC_PER_TRIAL = 5
 
 MODEL_NAME = "go-model-go"
 MODEL_OUTPUT_PATH = "models" + os.sep + MODEL_NAME
@@ -22,7 +22,7 @@ VALIDATION_SET_RATIO = 0.1
 TEST_SET_RATIO = 0.2 
 
 N_EPOCHS = 200
-N_TUNER_EPOCHS = 10
+N_TUNER_EPOCHS = 75
 BATCH_SIZE = 32
 EARLY_STOPPING_PATIENCE = 5
 
@@ -33,3 +33,5 @@ N_INPUT_FEATURES = len(FEATURES_NAMES)
 OUTPUT_NAMES = ["Curtailment_[TWh]", "MaxLoadShedding_[MW]"]
 # OUTPUT_NAMES = ["Curtailment_[TWh]"]
 N_OUTPUTS = len(OUTPUT_NAMES)
+
+SHOW_PLOTS = False

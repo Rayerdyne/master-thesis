@@ -22,7 +22,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import Normalization
 
-from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES
+from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES, SHOW_PLOTS
 
 # See ../data-generation/sampling.py
 capacity_ratio_range = (0.5, 1.8)
@@ -44,31 +44,33 @@ ranges_name = ["Capacity ratio", "Share flexible",
 def plot_loss(H, path):
     # plot the training history loss
     plt.style.use("ggplot")
-    plt.figure()
-    ax = plt.gca()
+    fig, ax = plt.subplots()
     ax.set_ylim([0, 1])
-    plt.plot(H.history['loss'], label='Training Loss')
-    plt.plot(H.history['val_loss'], label='Validation Loss')
-    plt.title("Training Loss")
-    plt.xlabel("Epoch")
-    plt.ylabel('Loss function')
-    plt.legend()
-    plt.savefig(path)
-    plt.show()
+    ax.plot(H.history['loss'], label='Training Loss')
+    ax.plot(H.history['val_loss'], label='Validation Loss')
+    ax.title("Training Loss")
+    ax.xlabel("Epoch")
+    ax.ylabel('Loss function')
+    ax.legend()
+    fig.savefig(path)
+    if SHOW_PLOTS:
+        plt.show()
     return
 
 def plot_graph(y_test, y_pred, name, path, output_idx=0):
     if output_idx >= y_test.shape[1]:
         raise IndexError(f"Index {output_idx} out of range (0 to {y_test.shape[0]-1})")
 
-    plt.scatter(range(len(y_test[:,output_idx])), y_test[:,output_idx], color='blue', label="Truth")
-    plt.scatter(range(len(y_pred[:,output_idx])), y_pred[:,output_idx], color='red', label="Prediction")
-    plt.legend()
-    plt.title(name)
-    plt.xlabel("Observation")
-    plt.ylabel("Value")
-    plt.savefig(path)
-    plt.show()
+    fig, ax = plt.subplots()
+    ax.scatter(range(len(y_test[:,output_idx])), y_test[:,output_idx], color='blue', label="Truth")
+    ax.scatter(range(len(y_pred[:,output_idx])), y_pred[:,output_idx], color='red', label="Prediction")
+    ax.legend()
+    ax.title(name)
+    ax.xlabel("Observation")
+    ax.ylabel("Value")
+    fig.savefig(path)
+    if SHOW_PLOTS:
+        plt.show()
     return
 
 def plot_surface(X, Y, Z, xlabel, ylabel, zlabel):
@@ -84,6 +86,8 @@ def plot_surface(X, Y, Z, xlabel, ylabel, zlabel):
 
     fig.colorbar(surface, shrink=0.5, aspect=5)
 
+    if SHOW_PLOTS:
+        plt.show()
     plt.show()
 
 def displays(model_path, x_test, y_test, history=None):
