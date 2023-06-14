@@ -133,6 +133,7 @@ dmypy.json
 
 # forget about tests & simulations
 data-generation/simulations/*
+!data-generation/simulations/notworking
 data-generation/tests/*
 # Slurm output files 
 data-generation/res*

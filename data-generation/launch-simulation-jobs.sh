@@ -6,10 +6,9 @@
 #SBATCH --time=1-05:00:00 # days-hh:mm:ss
 #
 #SBATCH --output=slurm-outputs/res_365_%A_%a.txt
-#SBATCH --error=slurm-outputs/res_365_%A_%a-err.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=6400 # megabytes 6400  = roughly the amount of memory required
+#SBATCH --mem-per-cpu=25600 # megabytes 
 #SBATCH --partition=batch
 #
 # called via main.sh with
@@ -68,9 +67,9 @@ cd $CUR_DIR
 echo "File prepared, starting simulation..."
 
 # make sure the 'threads' option set in input file will not take precedence...
-sed -i "/^option threads=/d" ucm_h.gms
+sed -i "/^Option threads=/d" UCM_h.gms
 
-srun $GAMSPATH/gams UCM_h.gms threads=1 workSpace=6300 > $LAUNCH_DIR/slurm-outputs/$BASE_DIR/gamsrun_$serie_idx-$SLURM_ARRAY_TASK_ID.log
+srun $GAMSPATH/gams UCM_h.gms threads=1 workSpace=25400 > $LAUNCH_DIR/slurm-outputs/$BASE_DIR/gamsrun_$serie_idx-$SLURM_ARRAY_TASK_ID.log
 
 cd $LAUNCH_DIR
 

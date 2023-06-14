@@ -8,15 +8,15 @@
 #SBATCH --output=slurm-outputs/res_icref_%A.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=6400 # megabytes 1600*cpus=6400  = roughly the amount of memory required
+#SBATCH --mem-per-cpu=25600 # megabytes 
 #SBATCH --partition=batch
 #
 
 # export GAMSPATH=~/gams37.1_linux_x64_64_sfx
 export GAMSPATH=~/gams42.5_linux_x64_64_sfx
 
-cd simulations/ic-2000/reference
+cd simulations/LP-test/reference
 
 # make sure the 'threads' option set in input file will not take precedence...
-sed -i "/^option threads=/d" UCM_h.gms
-$GAMSPATH/gams UCM_h.gms threads=1 workSpace=6350 > ~/work/data-generation/slurm-outputs/ic-ref-gamsrun-$SLURM_JOBID.log
+sed -i "/^Option threads=/d" UCM_h.gms
+$GAMSPATH/gams UCM_h.gms threads=1 workSpace=25400 > ~/work/data-generation/slurm-outputs/ic-ref-gamsrun-$SLURM_JOBID.log

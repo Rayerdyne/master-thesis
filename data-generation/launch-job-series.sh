@@ -34,7 +34,7 @@ series_size=4
 total=$(( ($N_SAMPLES / $series_size) + 1 ))
 
 actual_start=$((serie_idx*series_size))
-remaining=$(( $N_SAMPLES - $actual_start))
+remaining=$(( $N_SAMPLES - $actual_start - 1))
 max=$(( $remaining < $series_size ? $remaining : $series_size-1))
 
 echo "max: $max"
@@ -54,7 +54,9 @@ echo "Starting jobs serie $serie_idx in [0-$((total-1))]"
 echo "thus $((serie_idx*series_size)) to $((serie_idx*series_size+max))"
 echo "Range [0-$max] submitted for series idx $serie_idx" >> $LOG_FILE
 #                           v-- ensures max 100 jobs simultaneously
-ID=$(sbatch --array=0-$max%100 --output=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a.log --error=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a-err.log --parsable launch-simulation-jobs.sh $serie_idx)
+ID=$(sbatch --array=0-$max%100 --output=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a.log --parsable launch-simulation-jobs.sh $serie_idx)
+
+echo "ID: $ID"
 
 # echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
 # sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
