@@ -29,8 +29,9 @@ echo "Making a $N_SAMPLES simulation"
 # Write header in dataset
 mkdir -p $SIM_DIR
 rm -rf $SIM_DIR/sim*
-echo "CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun" > $SIM_DIR/$DATASET_NAME
+echo "CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_Error" > $SIM_DIR/$DATASET_NAME
 mkdir -p slurm-outputs/$SIM_DIR/
+mkdir -p slurm-outputs/$SIM_DIR/lst_files/
 touch slurm-outputs/$SIM_DIR/finished.txt
 
 # srun python reference.py

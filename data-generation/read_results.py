@@ -123,24 +123,28 @@ def read_all():
     data.to_csv(output_file, index=False)
     print(f"Wrote {output_file}")
 
-def read_single(path):
+def read_single(path, gams_error=0):
     """
     Reads the results for a single simulation, located at given path, and outputs it.
 
-    :path:      path to the simulation to be read
+    :path:       path to the simulation to be read
+    :gams_error: 1 if not gams log ends with execution error status (division by zero), else 0
     """
     row = read_data(path)
+    row["GAMS_error"] = gams_error
     # output via stdout
     # if there were header, it would be:
-    # CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun
+    # CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_error
     dataset_path = SIMULATIONS_DIR + os.sep + DATASET_NAME
     pd.DataFrame(row).T.to_csv(dataset_path, index=False, header=False, mode="a")
+
 
 def main():
     try:
         #                                 v-- non empty strings truthy
         if sys.argv[1] == "--single" and sys.argv[2]:
-            read_single(sys.argv[2])
+            gams_error = sys.argv[3] if len(sys.argv) >= 4 else 0
+            read_single(sys.argv[2], gams_error)
             return
 
     except IndexError:

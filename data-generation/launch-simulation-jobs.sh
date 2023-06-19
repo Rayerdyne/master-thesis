@@ -8,7 +8,7 @@
 #SBATCH --output=slurm-outputs/res_365_%A_%a.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=25600 # megabytes 
+#SBATCH --mem-per-cpu=10000 # megabytes 
 #SBATCH --partition=batch
 #
 # called via main.sh with
@@ -69,18 +69,25 @@ echo "File prepared, starting simulation..."
 # make sure the 'threads' option set in input file will not take precedence...
 sed -i "/^Option threads=/d" UCM_h.gms
 
-srun $GAMSPATH/gams UCM_h.gms threads=1 workSpace=25400 > $LAUNCH_DIR/slurm-outputs/$BASE_DIR/gamsrun_$serie_idx-$SLURM_ARRAY_TASK_ID.log
+GAMSLOGFILE="$LAUNCH_DIR/slurm-outputs/$BASE_DIR/gamsrun_$serie_idx-$SLURM_ARRAY_TASK_ID.log"
+srun $GAMSPATH/gams UCM_h.gms threads=1 workSpace=10000 > $GAMSLOGFILE
+
+GAMSSTATUS=$(grep "*** Status:" $GAMSLOGFILE)
+gamserror="0"
+if [[ $GAMSSTATUS == *"error"* ]]; then
+    gamserror="1"
+fi
 
 cd $LAUNCH_DIR
 
 # Fetch the results
 echo "Simulation ran, reading results..."
-srun python read_results.py --single $CUR_DIR 
+srun python read_results.py --single $CUR_DIR $gamserror
 
 # do some cleaning...
-# srun rm -rf $CUR_DIR/
-# srun pwd > "gamsrun$SLURM_SUBMIT_DIR.log"
+tar -cvzf slurm-outputs/$BASE_DIR/lst_files/run-$serie_idx-$SLURM_ARRAY_TASK_ID.lst.tar.gz -C $CUR_DIR UCM_h.lst UCM_h.gms
+rm -rf $CUR_DIR/
 
-echo "Simulation $simulation_idx is done (job id $SLURM_JOBID)" >> slurm-outputs/$BASE_DIR/finished.txt
+echo "Simulation $simulation_idx is done (job id $SLURM_JOBID), GAMS error: $gamserror" >> slurm-outputs/$BASE_DIR/finished.txt
 echo "Job ID $SLURM_JOBID n°$SLURM_ARRAY_TASK_ID is finished"
 
