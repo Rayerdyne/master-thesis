@@ -35,7 +35,7 @@
 
 #include <windows.h>
 
-static const std::string MODEL_DIR_NAME = "model2";
+static const std::string MODEL_DIR_NAME = "model";
 static std::unique_ptr<cppflow::model> model_ptr;
 
 std::string exec(const char *);
@@ -368,7 +368,7 @@ double compute_a(double a, double b, double c) {
 
     int aint = static_cast<int>(round(a));
     if (aint == 0) {
-        VENGV->error_message(8, (unsigned char *) "Coucou ma poulette");
+        VENGV->error_message(8, (unsigned char *) "Hem error message");
     }
 
     return a + b + c;
@@ -379,7 +379,7 @@ double compute_ds_approx(double CapacityRatio, double ShareFlex, double ShareSto
     auto input = cppflow::tensor(data, {1, 6});
     // auto output = model_ptr->operator()(input);
 
-    std::vector<cppflow::tensor> output = model_ptr->operator()({{"serving_default_dispaset_6-ins:0", input}}, 
+    std::vector<cppflow::tensor> output = model_ptr->operator()({{"serving_default_normalization_input:0", input}}, 
                                                                 {"StatefulPartitionedCall:0"});
 
     int idx = (int) round(output_idx);
