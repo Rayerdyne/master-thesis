@@ -13,7 +13,7 @@ TESTING = True
 
 # Latin Hypercube parameters
 CRITERION = "maximin"
-N_SAMPLES = 2
+N_SAMPLES = 2400
 
 START_DATE = (2022, 1, 1, 0, 0, 0)
 STOP_DATE = (2022, 12, 31, 0, 0, 0)
@@ -21,14 +21,14 @@ STOP_DATE = (2022, 12, 31, 0, 0, 0)
 WRITE_POINTS_TO_CSV = True
 SAMPLES_CSV_NAME = "samples.csv"
 
-DS_CONFIG_FILE = "ConfigFiles" + os.sep + "Config_Francois-LP.xlsx"
+DS_CONFIG_FILE = "ConfigFiles" + os.sep + "Config_Francois-MILP.xlsx"
 
 # Where simulation will actually be written
-SIMULATIONS_DIR = "simulations" + os.sep + "LP-test"
+SIMULATIONS_DIR = "simulations" + os.sep + "MILP-final"
 
 # Where to write reference simulation
 REFERENCE_SIMULATION_DIR = SIMULATIONS_DIR + os.sep + "reference"
 REFERENCE_INFO_FILE = SIMULATIONS_DIR + os.sep + "reference-info.json"
 
 # Where to write the final data with simulation outputs:
-DATASET_NAME = "dataset-foolp.csv"
+DATASET_NAME = "dataset-milp.csv"

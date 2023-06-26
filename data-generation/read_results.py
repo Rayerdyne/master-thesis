@@ -65,6 +65,9 @@ def read_data(path):
         if key in results:
             lost_load += results[key].sum().sum()
     
+    total_res_generation = ds.filter_by_tech_list(results["OutputPower"], inputs, ["WTON", "PHOT"]).sum().sum()
+    total_generation = results["OutputPower"].sum().sum()
+    
     # read pd.Series from csv
     # then add elements to the row
     m = re.search("/sim-(\d+)_", path)
@@ -83,12 +86,17 @@ def read_data(path):
     row.loc['MaxCurtailment_[MW]'] = zone_results['MaxCurtailment']
     row.loc['MaxLoadShedding_[MW]'] = zone_results['MaxShedLoad']
     
-    row.loc['Demand_[TWh]'] = zone_results['TotalLoad']/1E6
-    row.loc['NetImports_[TWh]']= zone_results['NetImports']/1E6
+    row.loc['Demand_[TWh]'] = zone_results['TotalLoad'] / 1E6
+    row.loc['NetImports_[TWh]']= zone_results['NetImports'] / 1E6
     
-    row.loc['Curtailment_[TWh]'] = zone_results['Curtailment']
-    row.loc['Shedding_[TWh]'] = zone_results['ShedLoad']
+    row.loc['Curtailment_[TWh]'] = zone_results['Curtailment'] / 1E6
+    row.loc['Shedding_[TWh]'] = zone_results['ShedLoad'] / 1E6
     row.loc['LostLoad_[TWh]'] = lost_load / 1E6
+
+    row.loc['TotalRESGeneration_[TWh]'] = total_res_generation / 1E6
+    row.loc['CurtailmentToRESGeneration_[%]'] = 100 * zone_results["Curtailment"] / total_res_generation
+    row.loc['TotalGeneration_[TWh]'] = total_generation / 1E6
+    row.loc['ShareResGeneration_[%]'] = 100 * total_res_generation / total_generation
 
     cf = {}
     for fuel in ["GAS", "NUC", "WAT", "WIN", "SUN"]:
@@ -128,13 +136,20 @@ def read_single(path, gams_error=0):
     Reads the results for a single simulation, located at given path, and outputs it.
 
     :path:       path to the simulation to be read
-    :gams_error: 1 if not gams log ends with execution error status (division by zero), else 0
+    :gams_error: 1 if not gams log ends with execution error status (division by zero), or 2 if the
+                 simulation timed out, else 0
     """
     row = read_data(path)
     row["GAMS_error"] = gams_error
     # output via stdout
     # if there were header, it would be:
     # CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_error
+    s = pd.DataFrame(row).T.to_csv(index=False, mode="a")
+    print("Result: ")
+    print(row)
+    print("Inserting row:")
+    print(s)
+
     dataset_path = SIMULATIONS_DIR + os.sep + DATASET_NAME
     pd.DataFrame(row).T.to_csv(dataset_path, index=False, header=False, mode="a")
 

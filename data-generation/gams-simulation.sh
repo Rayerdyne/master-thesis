@@ -8,7 +8,7 @@
 #SBATCH --output=slurm-outputs/res_icref_%A.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=25600 # megabytes 
+#SBATCH --mem-per-cpu=10000 # megabytes 
 #SBATCH --partition=batch
 #
 
@@ -19,4 +19,4 @@ cd simulations/LP-test/reference
 
 # make sure the 'threads' option set in input file will not take precedence...
 sed -i "/^Option threads=/d" UCM_h.gms
-$GAMSPATH/gams UCM_h.gms threads=1 workSpace=25400 > ~/work/data-generation/slurm-outputs/ic-ref-gamsrun-$SLURM_JOBID.log
+$GAMSPATH/gams UCM_h.gms threads=1 workSpace=10000 > ~/work/data-generation/slurm-outputs/ic-ref-gamsrun-$SLURM_JOBID.log

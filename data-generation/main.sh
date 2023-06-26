@@ -1,14 +1,13 @@
 #!/bin/bash
 #
 #SBATCH --mail-user=f.straet@student.uliege.be
-#SBATCH --mail-type=BEGIN,END
 #SBATCH --job-name=Main-simulation-script
 #SBATCH --time=1-05:00:00 # days-hh:mm:ss
 #
 #SBATCH --output=slurm-outputs/main-%A.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1
-#SBATCH --mem-per-cpu=32 # MB
+#SBATCH --mem-per-cpu=64 # MB
 #SBATCH --partition=batch
 
 # High-level script to submit all the jobs required to create a dataset, as configured in
@@ -29,7 +28,7 @@ echo "Making a $N_SAMPLES simulation"
 # Write header in dataset
 mkdir -p $SIM_DIR
 rm -rf $SIM_DIR/sim*
-echo "CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_Error" > $SIM_DIR/$DATASET_NAME
+echo "Capacity ratio,Share flexible,Share storage,Share wind,Share PV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],TotalRESGeneration_[TWh],CurtailmentToRESGeneration_[%],TotalGeneration_[TWh],ShareResGeneration_[%],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_error" > $SIM_DIR/$DATASET_NAME
 mkdir -p slurm-outputs/$SIM_DIR/
 mkdir -p slurm-outputs/$SIM_DIR/lst_files/
 touch slurm-outputs/$SIM_DIR/finished.txt
@@ -38,7 +37,7 @@ touch slurm-outputs/$SIM_DIR/finished.txt
 # thus avoid allocating resources for this job
 sbatch --wait --output=slurm-outputs/$SIM_DIR/reference_%A.log launch-reference-job.sh
 
-srun python sampling.py --sample-only
+srun --mem-per-cpu=100 python sampling.py --sample-only
 
 ## Jobs on slurm
 # Due to the limitation of the number of jobs in the queue (500), one cannot launch them all at a time

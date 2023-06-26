@@ -5,7 +5,7 @@
 #SBATCH --job-name=Job-launcher
 #SBATCH --time=1-05:00:00 # days-hh:mm:ss
 #
-#SBATCH --output=slurm-outputs/launcher-future_%A.txt
+#SBATCH --output=slurm-outputs/series-launcher_%A.txt
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=1 # make sure it runs when all jobs are completed
 #SBATCH --mem-per-cpu=1 # megabytes
@@ -31,7 +31,10 @@ LOG_FILE="slurm-outputs/$SIM_DIR/series-submitted.txt"
 
 series_size=400
 
-total=$(( ($N_SAMPLES / $series_size) + 1 ))
+total=$(( $N_SAMPLES / $series_size ))
+if (($N_SAMPLES > $total * $series_size)); then
+    total=$(( $total+1 ))
+fi
 
 actual_start=$((serie_idx*series_size))
 remaining=$(( $N_SAMPLES - $actual_start - 1))
@@ -50,13 +53,11 @@ if (($serie_idx > 25)); then
 fi
 
 
-echo "Starting jobs serie $serie_idx in [0-$((total-1))]"
-echo "thus $((serie_idx*series_size)) to $((serie_idx*series_size+max))"
+echo "Starting jobs serie $serie_idx in [0-$((total-1))],  $((serie_idx*series_size)) to $((serie_idx*series_size+max))"
 echo "Range [0-$max] submitted for series idx $serie_idx" >> $LOG_FILE
-#                           v-- ensures max 100 jobs simultaneously
-ID=$(sbatch --array=0-$max%100 --output=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a.log --parsable launch-simulation-jobs.sh $serie_idx)
+#                           v-- ensures max 128 jobs simultaneously (so that we don't exceed 128 * 333 MB per simulation = 42GB, max is 110GB)
+ID=$(sbatch --array=0-$max%128 --output=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a.log --parsable launch-simulation-jobs.sh $serie_idx)
 
-echo "ID: $ID"
+echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
+sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
 
-# echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
-# sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
