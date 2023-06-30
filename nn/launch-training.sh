@@ -14,4 +14,8 @@
 module load Python/3.9.6-GCCcore-11.2.0
 module load TensorFlow/2.7.1-foss-2021b 
 
-srun python train.py
+if [ "$1" = "--baselines" ]; then
+    srun python baselines.py
+else
+    srun python train.py
+fi

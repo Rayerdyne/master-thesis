@@ -22,22 +22,24 @@
 
 N_SAMPLES=$(python -c "from config import N_SAMPLES; print(N_SAMPLES)")
 SIM_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
+SIM_NAME=$(python -c "from config import SIMULATIONS_NAME; print(SIMULATIONS_NAME)")
 DATASET_NAME=$(python -c "from config import DATASET_NAME; print(DATASET_NAME)")
 echo "Making a $N_SAMPLES simulation"
 
 # Write header in dataset
 mkdir -p $SIM_DIR
+mkdir -p $SIM_NAME
 rm -rf $SIM_DIR/sim*
-echo "Capacity ratio,Share flexible,Share storage,Share wind,Share PV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],TotalRESGeneration_[TWh],CurtailmentToRESGeneration_[%],TotalGeneration_[TWh],ShareResGeneration_[%],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_error" > $SIM_DIR/$DATASET_NAME
-mkdir -p slurm-outputs/$SIM_DIR/
-mkdir -p slurm-outputs/$SIM_DIR/lst_files/
-touch slurm-outputs/$SIM_DIR/finished.txt
+echo "CapacityRatio,ShareFlex,ShareStorage,ShareWind,SharePV,rNTC,Cost_[E/MWh],Congestion_[h],PeakLoad_[MW],MaxCurtailment_[MW],MaxLoadShedding_[MW],Demand_[TWh],NetImports_[TWh],Curtailment_[TWh],Shedding_[TWh],LostLoad_[TWh],TotalRESGeneration_[TWh],CurtailmentToRESGeneration_[%],TotalGeneration_[TWh],ShareResGeneration_[%],CF_gas,CF_nuc,CF_wat,CF_win,CF_sun,GAMS_error" > $SIM_DIR/$DATASET_NAME
+mkdir -p slurm-outputs/$SIM_NAME/
+mkdir -p slurm-outputs/$SIM_NAME/lst_files/
+touch slurm-outputs/$SIM_NAME/finished.txt
 
 # srun python reference.py
 # thus avoid allocating resources for this job
-sbatch --wait --output=slurm-outputs/$SIM_DIR/reference_%A.log launch-reference-job.sh
+sbatch --wait --output=slurm-outputs/$SIM_NAME/reference_%A.log launch-reference-job.sh
 
-srun --mem-per-cpu=100 python sampling.py --sample-only
+srun --mem-per-cpu=1000 python sampling.py --sample-only
 
 ## Jobs on slurm
 # Due to the limitation of the number of jobs in the queue (500), one cannot launch them all at a time

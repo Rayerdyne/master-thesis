@@ -65,7 +65,6 @@ def read_data(path):
         if key in results:
             lost_load += results[key].sum().sum()
     
-    total_res_generation = ds.filter_by_tech_list(results["OutputPower"], inputs, ["WTON", "PHOT"]).sum().sum()
     total_generation = results["OutputPower"].sum().sum()
     
     # read pd.Series from csv
@@ -74,6 +73,22 @@ def read_data(path):
     # m[0]: entire match, m[1]: first group
     sample_index = int(m[1])
     samples = pd.read_csv(SIMULATIONS_DIR + os.sep + SAMPLES_CSV_NAME, index_col=0)
+
+    params = inputs["parameters"]
+    afs = params["AvailabilityFactor"]
+    
+    all_af = pd.DataFrame(np.transpose(afs["val"]),
+                          columns=inputs["sets"]["au"], 
+                          index=inputs["sets"]["h"])
+    af = ds.filter_by_tech_list(all_af, inputs, ["HROR", "PHOT", "WTON", "WTOF"])
+
+    all_pc = pd.DataFrame(np.expand_dims(params["PowerCapacity"]["val"], axis=0),
+                          columns=inputs["sets"]["au"],
+                          index=["val"])
+    pc = ds.filter_by_tech_list(all_pc, inputs, ["HROR", "PHOT", "WTON", "WTOF"])
+
+    En = af.mean() * pc
+    tot_vres = En.sum().sum()
 
     row = samples.loc[sample_index,:]
     print(f"Read single index:  {sample_index}")
@@ -93,8 +108,8 @@ def read_data(path):
     row.loc['Shedding_[TWh]'] = zone_results['ShedLoad'] / 1E6
     row.loc['LostLoad_[TWh]'] = lost_load / 1E6
 
-    row.loc['TotalRESGeneration_[TWh]'] = total_res_generation / 1E6
-    row.loc['CurtailmentToRESGeneration_[%]'] = 100 * zone_results["Curtailment"] / total_res_generation
+    row.loc['MaxRESGeneration_[TWh]'] = total_vres
+    row.loc['CurtailmentToRESGeneration_[%]'] = 100 * zone_results["Curtailment"] / total_vres
     row.loc['TotalGeneration_[TWh]'] = total_generation / 1E6
     row.loc['ShareResGeneration_[%]'] = 100 * total_res_generation / total_generation
 

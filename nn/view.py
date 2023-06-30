@@ -48,9 +48,9 @@ def plot_loss(H, path):
     ax.set_ylim([0, 1])
     ax.plot(H.history['loss'], label='Training Loss')
     ax.plot(H.history['val_loss'], label='Validation Loss')
-    ax.title("Training Loss")
-    ax.xlabel("Epoch")
-    ax.ylabel('Loss function')
+    ax.set_title("Training Loss")
+    ax.set_xlabel("Epoch")
+    ax.set_ylabel('Loss function')
     ax.legend()
     fig.savefig(path)
     if SHOW_PLOTS:

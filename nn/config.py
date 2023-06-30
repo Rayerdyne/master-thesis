@@ -16,7 +16,7 @@ MODEL_OUTPUT_PATH = "models" + os.sep + MODEL_NAME
 LOGS_OUTPUT_PATH = "logs" + os.sep + f"{MODEL_NAME}_{TUNER}"
 LOGS_MODEL_CKPT = "model-cp.ckpt"
 
-DATASET_PATH = "data" + os.sep + "dataset-carla.csv"
+DATASET_PATH = "data" + os.sep + "dataset-go-milp.csv"
 TRAIN_SET_RATIO = 0.7 
 VALIDATION_SET_RATIO = 0.1 
 TEST_SET_RATIO = 0.2 
