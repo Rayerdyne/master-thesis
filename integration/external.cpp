@@ -375,6 +375,17 @@ double compute_a(double a, double b, double c) {
 }
 
 double compute_ds_approx(double CapacityRatio, double ShareFlex, double ShareStorage, double ShareWind, double SharePV, double rNTC, double output_idx) {
+
+    if (CapacityRatio <= 0.5 || 1.8 <= CapacityRatio ||
+        ShareFlex <= 0.01    || 0.99 <= ShareFlex    ||
+        ShareStorage <= 0.0  || 0.5 <= ShareStorage  ||
+        ShareWind <= 0.0     || 0.5 <= ShareWind     ||
+        SharePV <= 0.0       || 0.5 <= SharePV       ||
+        rNTC <= 0.0          || 0.7 <= rNTC) {
+        
+        VENGV->error_message(WARNING, (unsigned char *) "Input of Dispa-SET approximator out of range, weird output to be expected");
+    }
+
     std::vector<float> data = { CapacityRatio, ShareFlex, ShareStorage, ShareWind, SharePV, rNTC };
     auto input = cppflow::tensor(data, {1, 6});
     // auto output = model_ptr->operator()(input);
