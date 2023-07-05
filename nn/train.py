@@ -102,6 +102,9 @@ def fetch_data(dataset_path, train_ratio, test_ratio, validation_ratio, val_data
                             validation. Split according to rescaled ratios.
     """
     data = pd.read_csv(dataset_path)
+    if "GAMS_error" in data.columns:
+        data = data.loc[data["GAMS_error"] != 2]
+
     data_x = data.loc[:,FEATURES_NAMES]
     data_y = data.loc[:,OUTPUT_NAMES]
 
