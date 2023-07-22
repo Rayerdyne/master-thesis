@@ -68,8 +68,7 @@ def main():
         sample = samples.loc[n,:]
 
         cur_folder = SIMULATIONS_DIR + os.sep + format_folder_name(n, sample)
-        prepare_simulation_files(sample, cur_folder)
-        return
+        return prepare_simulation_files(sample, cur_folder)
 
     print(f"Writing {'samples' if sample_only else 'simulations'} in {SIMULATIONS_DIR}")
 
@@ -141,6 +140,10 @@ def prepare_simulation_files(sample, cur_folder):
     refinfo = ReferenceInfo.deserialize(REFERENCE_INFO_FILE)
     peak_load, flex_units, slow_units, CF_wton, CF_pv = refinfo.tolist()
     capacity_ratio, share_flex, share_sto, share_wind, share_pv, rNTC = sample
+
+    if share_flex > 0.905:
+        print("Killing stalling simulation at the root")
+        return 1
 
     # in the first iteration, we load the input data from the original simulation directory:
     data = ds.adjust_capacity(REFERENCE_SIMULATION_DIR, ('BATS','OTH'), singleunit=True, 

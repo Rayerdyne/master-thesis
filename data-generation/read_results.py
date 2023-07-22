@@ -15,6 +15,7 @@ Adapted from the Read_batch_simulation.py script from Carla's work.
 
 import os, re, sys
 
+import numpy as np
 import pandas as pd
 
 from config import DATASET_NAME, SIMULATIONS_DIR, SAMPLES_CSV_NAME
@@ -88,7 +89,22 @@ def read_data(path):
     pc = ds.filter_by_tech_list(all_pc, inputs, ["HROR", "PHOT", "WTON", "WTOF"])
 
     En = af.mean() * pc
-    tot_vres = En.sum().sum()
+    total_vres = 365 * 24 * En.sum().sum() / 1E6
+
+    print("af mean desc")
+    print(af.mean().describe())
+    print(af.columns)
+    print(len(af.index))
+
+    print("pc desc")
+    print(pc.describe())
+    print(pc.columns)
+    print(len(pc.index))
+
+    print("En")
+    print(En.describe())
+    print(En.columns)
+    print(len(En.index))
 
     row = samples.loc[sample_index,:]
     print(f"Read single index:  {sample_index}")
@@ -109,15 +125,18 @@ def read_data(path):
     row.loc['LostLoad_[TWh]'] = lost_load / 1E6
 
     row.loc['MaxRESGeneration_[TWh]'] = total_vres
-    row.loc['CurtailmentToRESGeneration_[%]'] = 100 * zone_results["Curtailment"] / total_vres
+    row.loc['CurtailmentToRESGeneration_[%]'] = 100 * row.loc['Curtailment_[TWh]'] / total_vres
     row.loc['TotalGeneration_[TWh]'] = total_generation / 1E6
-    row.loc['ShareResGeneration_[%]'] = 100 * total_res_generation / total_generation
+    row.loc['ShareResGeneration_[%]'] = 100 * total_vres / total_generation
+    row.loc['MaxLoadSheddingShare_[%]'] = 100 * zone_results['MaxShedLoadShare']
 
     cf = {}
     for fuel in ["GAS", "NUC", "WAT", "WIN", "SUN"]:
         cf[fuel] = fuel_power[fuel].sum() / (capacities["PowerCapacity"][fuel].sum() * 8760)
         keyname = "CF_" + fuel.lower()
         row.loc[keyname] = cf[fuel]
+
+    print("Curtailment to RES generation: ", row.loc['CurtailmentToRESGeneration_[%]'])
 
     return row
 
@@ -166,7 +185,7 @@ def read_single(path, gams_error=0):
     print(s)
 
     dataset_path = SIMULATIONS_DIR + os.sep + DATASET_NAME
-    pd.DataFrame(row).T.to_csv(dataset_path, index=False, header=False, mode="a")
+    # pd.DataFrame(row).T.to_csv(dataset_path, index=False, header=False, mode="a")
 
 
 def main():

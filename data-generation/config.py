@@ -24,7 +24,7 @@ SAMPLES_CSV_NAME = "samples.csv"
 DS_CONFIG_FILE = "ConfigFiles" + os.sep + "Config_Francois-MILP.xlsx"
 
 # Where simulation will actually be written
-SIMULATIONS_NAME = "simulations" + os.sep + "MILP-final"
+SIMULATIONS_NAME = "simulations" + os.sep + "MILP-real"
 SIMULATIONS_DIR = os.environ["GLOBALSCRATCH"] + os.sep + SIMULATIONS_NAME 
 
 # Where to write reference simulation

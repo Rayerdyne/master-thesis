@@ -36,7 +36,6 @@ F_HOME="/home/ulg/thermlab/fstraet"
 export GAMSPATH=$F_HOME/gams42.5_linux_x64_64_sfx
 
 BASE_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
-BASE_NAME=$(python -c "from config import SIMULATIONS_NAME; print(SIMULATIONS_NAME)")
 DATASET_NAME=$(python -c "from config import DATASET_NAME; print(DATASET_NAME)")
 series_size=400
 serie_idx=$1
@@ -61,32 +60,11 @@ fi
 
 DIRS=($BASE_DIR/sim-${simulation_idx}_*)
 CUR_DIR=${DIRS[0]}
-cd $CUR_DIR
-
-# Run the GAMS simulation
-echo "File prepared, starting simulation..."
-
-# make sure the 'threads' option set in input file will not take precedence...
-sed -i "/^Option threads=/d" UCM_h.gms
-
-# timeout: 2h20
-GAMSLOGFILE="$LAUNCH_DIR/slurm-outputs/$BASE_NAME/gamsrun_$serie_idx-$SLURM_ARRAY_TASK_ID.log"
-srun --time=02:20:00 $GAMSPATH/gams UCM_h.gms threads=1 workSpace=9000 > $GAMSLOGFILE
-status=$?
-
-GAMSSTATUS=$(grep "*** Status:" $GAMSLOGFILE)
-gamserror="0"
-if [[ $GAMSSTATUS == *"error"* ]]; then
-    gamserror="1"
-elif [[ $status != "0" ]]; then
-    gamserror="2"
-fi
-
-cd $LAUNCH_DIR
 
 # Fetch the results
-echo "Simulation ran, reading results..."
-srun python read_results.py --single $CUR_DIR $gamserror
+echo "File prepared doing stuff..."
+# srun python read_results.py --single $CUR_DIR $gamserror
+srun python truc.py $CUR_DIR
 
 # do some cleaning...
 # if [[ $gamserror == "2" && $serie_idx == "0" ]]; then
@@ -98,6 +76,7 @@ rm -rf $CUR_DIR/
 
 # fi
 
-echo "Simulation $simulation_idx is done (job id $SLURM_JOBID), GAMS error: $gamserror" >> slurm-outputs/$BASE_NAME/finished.txt
-echo "Job ID $SLURM_JOBID n°$SLURM_ARRAY_TASK_ID is finished"
+# echo "Simulation $simulation_idx is done (job id $SLURM_JOBID), GAMS error: $gamserror" >> slurm-outputs/$BASE_DIR/finished.txt
+echo "Did stuff for $simulation_idx"
+echo "Job ID $SLURM_JOBID n°$SLURM_ARRAY_TASK_ID is finished for stuff"
 

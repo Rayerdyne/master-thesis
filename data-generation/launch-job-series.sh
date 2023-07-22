@@ -26,8 +26,10 @@ fi
 
 serie_idx=$1
 N_SAMPLES=$(python -c "from config import N_SAMPLES; print(N_SAMPLES)")
+SIM_NAME=$(python -c "from config import SIMULATIONS_NAME; print(SIMULATIONS_NAME)")
 SIM_DIR=$(python -c "from config import SIMULATIONS_DIR; print(SIMULATIONS_DIR)")
-LOG_FILE="slurm-outputs/$SIM_DIR/series-submitted.txt"
+DATASET_NAME=$(python -c "from config import DATASET_NAME; print(DATASET_NAME)")
+LOG_FILE="slurm-outputs/$SIM_NAME/series-submitted.txt"
 
 series_size=400
 
@@ -43,7 +45,8 @@ max=$(( $remaining < $series_size ? $remaining : $series_size-1))
 echo "max: $max"
 
 if (($serie_idx >= $total)); then
-    echo "Series number $serie_idx exceeds maximum, exitting"
+    cp $SIM_DIR/$DATASET_NAME $SIM_NAME/$DATASET_NAME
+    echo "Series number $serie_idx exceeds maximum, copied $DATASET_NAME and exitting"
     exit
 fi
 
@@ -56,8 +59,9 @@ fi
 echo "Starting jobs serie $serie_idx in [0-$((total-1))],  $((serie_idx*series_size)) to $((serie_idx*series_size+max))"
 echo "Range [0-$max] submitted for series idx $serie_idx" >> $LOG_FILE
 #                           v-- ensures max 128 jobs simultaneously (so that we don't exceed 128 * 333 MB per simulation = 42GB, max is 110GB)
-ID=$(sbatch --array=0-$max%128 --output=slurm-outputs/$SIM_DIR/simulation_$serie_idx-%a.log --parsable launch-simulation-jobs.sh $serie_idx)
+# ID=$(sbatch --array=0-$max%128 --output=slurm-outputs/$SIM_NAME/simulation_$serie_idx-%a.log --parsable one-per-sim.sh $serie_idx)
+ID=$(sbatch --array=180-$max%150 --output=slurm-outputs/$SIM_NAME/simulation_$serie_idx-%a.log --parsable launch-simulation-jobs.sh $serie_idx)
 
-echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
-sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
+# echo "Submitting with ${ID%%;*} as dependency, launch-job-series.sh $((serie_idx+1))"
+# sbatch --dependency=afterok:${ID%%;*} launch-job-series.sh $((serie_idx+1))
 
