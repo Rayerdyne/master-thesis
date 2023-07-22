@@ -4,23 +4,42 @@
 
 This section presents the training process that lead to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
 
-This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and will be tackled as such.
+This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and is be tackled as such.
 
 \subsection{Machine learning methods}
 
-In the following, some machine learning algorithms for regression problems \cite{machine-learning-class} are assessed.
+In the following, some of the most common machine learning algorithms for regression problems \cite{machine-learning-class} are assessed.
 
 \subsubsection{K nearest neighbors}
 
 In this setting, the K-nearest neighbors (k-NN) methods would be one of the easiest to implement\footnote{Using for example \href{https://scikit-learn.org/stable/modules/neighbors.html\#nearest-neighbors-regression}{scikit-learn}\cite{scikit-learn} module in python}. Indeed, these simply require a single parameter value $k$ and output the average value of the output features of the $k$ nearest neighbors, computing a distance on the input features.
 
-This will come with the drawback of not being able to learn quick variations in the outputs. What is considered too problematic, as these critical points would need to be properly modelled for the reliability of the surrogate model.
+This will come with the drawback of not being able to learn quick variations in the outputs, as the averaging over the nearest sample points will filter out high frequency variations.
+
+Results obtained with k-NN for several values of $k$ are shown on Table \mywarning{insert table here}.
 
 \subsubsection{Decision trees}
 
 Decision trees, and extremely randomized trees \cite{extremely-randomized-trees} another category of easy to implement\footnote{Again, using \href{https://scikit-learn.org/stable/modules/ensemble.html\#forests-of-randomized-trees}{scikit-learn}} machine learning methods, as they also come with a limited, fixed number design parameters.
 
 But these also come with the drawback of having a piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic with many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
+
+Results obtained using decision trees are shown on Table \mywarning{instert table}.
+
+\subsubsection{XGBoost}
+
+XGBoost is one of the most popular machine learning technique nowadays \cite{XGBoost}. XGBoost in itself is actually an efficient implementation of a machine learning method, tree boosting.
+
+Boosting aims at building a good predictive model out of so-called weak learners, in this case, trees. Each learner is trained on the error of the output of the previous model, so that the previous output plus the newly trained learner output is a better prediction of the target output. Moreover, the samples are weighted in favor of the ones that were badly predicted by the previous model, in order to make sure we correct past mistakes.
+
+In tree boosting, the main hyper-parameters are:
+\begin{itemize}
+    \item the number $n$ of weak learners stacked
+    \item the \textit{learning rate}, a constant factor applied to the target difference (target output minus previous model output)
+    \item the maximum depth of the weak learners
+\end{itemize}
+
+Resulting performance for some values of the hyper-parameters are reported on Table \mywarning{inset table}.
 
 \subsubsection{Kernel-based methods\label{section:kernel-methods}}
 
@@ -75,6 +94,8 @@ An inherent problem to machine learning methods is the overfitting, or its oppos
 
 Overfitting is thus a symptom of too much learning, leading to learning some noise or some particularities of the dataset, while underfitting means that there is not enough learning, so that the model is not able to represent all the cases, even the one that are well represented in the available data.
 
+The main tool used to prevent it in a neural network is the dropout. During the training phases, each neuron on a layer will have some probability $p$, typically between 0.3 and 0.5, of being set to 0, independently of its value. This methods ensures that the network will not be excessively relying on some neurons in its output. During testing oviously, the dropout is removed and all neurons are functional.
+
 These will have to be assessed during training to ensure the validity of the model.
 
 \subsubsection{Bias\label{ssec:bias}}
@@ -101,6 +122,7 @@ The implementation of the training process comprises the following files:
     \item \texttt{model.py}, that contains the function building the model, thus the definition of the neural network's architecture.
     \item \texttt{train.py}, that contains the code for the hyperparameter tuning and model training.
     \item \texttt{view.py}, that contains the utilities to visualize the results.
+    \item \texttt{tests.py}, that contains the testing of the other machine learning methods (k-NN, trees, XGBoost)
     \item \texttt{data}, \texttt{logs}, \texttt{models} directories, that contain the datasets, the runs' logs, and the trained models respectively.
 \end{itemize}
 

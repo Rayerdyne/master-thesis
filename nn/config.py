@@ -8,15 +8,15 @@ surrogate model. Note that the model architecture still lies in `model.py`.
 import os
 
 TUNER = "bayesian"
-TUNER_MAX_TRIALS = 64
-TUNER_EXEC_PER_TRIAL = 5
+TUNER_MAX_TRIALS = 32
+TUNER_EXEC_PER_TRIAL = 3
 
-MODEL_NAME = "go-model-go"
+MODEL_NAME = "new-outs"
 MODEL_OUTPUT_PATH = "models" + os.sep + MODEL_NAME
 LOGS_OUTPUT_PATH = "logs" + os.sep + f"{MODEL_NAME}_{TUNER}"
 LOGS_MODEL_CKPT = "model-cp.ckpt"
 
-DATASET_PATH = "data" + os.sep + "dataset-go-milp.csv"
+DATASET_PATH = "data" + os.sep + "dataset-real.csv"
 TRAIN_SET_RATIO = 0.7 
 VALIDATION_SET_RATIO = 0.1 
 TEST_SET_RATIO = 0.2 
@@ -30,8 +30,8 @@ EARLY_STOPPING_PATIENCE = 5
 # NB: the order here determines the order in the model !
 FEATURES_NAMES = ["CapacityRatio", "ShareFlex", "ShareStorage", "ShareWind", "SharePV", "rNTC"]
 N_INPUT_FEATURES = len(FEATURES_NAMES)
-OUTPUT_NAMES = ["Curtailment_[TWh]", "MaxLoadShedding_[MW]"]
-# OUTPUT_NAMES = ["Curtailment_[TWh]"]
+# OUTPUT_NAMES = ["CurtailmentToRESGeneration_[%]", "MaxLoadShedding_[MW]"]
+OUTPUT_NAMES = ["CurtailmentToRESGeneration_[%]", "SheddingToDemand_[%]"]
 N_OUTPUTS = len(OUTPUT_NAMES)
 
 SHOW_PLOTS = False

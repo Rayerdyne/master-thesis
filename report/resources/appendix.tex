@@ -9,7 +9,7 @@ See Table \ref{tab:annex-files-datagen}.
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|p{0.21\textwidth}|p{0.75\textwidth}|}
+    \begin{tabular}{|p{0.23\textwidth}|p{0.73\textwidth}|}
         \hline
         File name & Description \\ \hline
         \texttt{config.py} & Holds high level specification of the dataset to be created, such as the number of samples, the LHS strategy, and output files names. \\
@@ -17,10 +17,13 @@ See Table \ref{tab:annex-files-datagen}.
         \texttt{reference.py} & Runs the reference simulation and serializes the results in a json file. \\
         \texttt{sampling.py} & \texttt{--sample-only}: only run the LHS and store the samples in a CSV file. \texttt{--prepare-one idx}: prepares the simulation directory for one sample given its index. With no arguments, runs LHS and prepare all the simulation directories. \\
         \texttt{utils\_francois.py} & Stores the modified version of the \texttt{adjust\_capacity} function of Dispa-SET. \\ \hline
+        \texttt{main.sh} & Starts all the scripts in the right order in order to produce a dataset. Runs the reference simulation, the sampling, prepends the header to the dataset file (as CSV), and starts the first series. \\
         \texttt{launch-job-series} \texttt{.sh} & Submits a series of simulation jobs, and a job that will submit the following series with the current one as a dependency. If the series index given as argument is too high, exits. \\
-        \texttt{launch-reference-} \texttt{job.sh} & Submits the reference job. \\
+        \texttt{launch-reference-} \texttt{job.sh} & Submits a job that runs the reference simulation. \\
         \texttt{launch-simulation-} \texttt{jobs.sh} & Submits the jobs required to run a simulation from a series. It takes the series index as an argument and the number in that series from SLURM environment variables. Uses \texttt{sampling.py --prepare-one}, GAMS and \texttt{read\_results.py} successively. \\
-        \texttt{main.sh} & Starts all the scripts in the right order in order to produce a dataset. Runs the reference simulation, the sampling, prepends the header to the dataset file (as CSV), and starts the first series. \\ \hline
+        \texttt{gams-simulation.sh} & Submits a job running the GAMS simulation of an already prepared simulation, for testing purposes. \\
+        \texttt{read-one.sh} & Submits a job fetcing the results of an arleady ran GAMS simulation, for testing purposes. \\
+        \texttt{get-longest-} \texttt{simulation.sh} & Bash script that calls the \texttt{seff} utility on each of the simulation ran to extract the longest ones. This has mainly be used once to set the simulation timeout that prevent stalling simulation to waste resources. \\ \hline
     \end{tabular}
     \caption{Description of the data-generation files}
     \label{tab:annex-files-datagen}
@@ -37,8 +40,9 @@ See Table \ref{tab:annex-files-nn}.
         File name & Description \\ \hline
         \texttt{config.py} & Holds the configuration of the network to be trained, name, data to use, inputs and outputs. \\
         \texttt{model.py} & Holds the description of the model to be trained, via the \texttt{build\_model} function. \\
+        \texttt{baselines.py} & Builds and trains different, predefined neural network architectures, and stores their performances. This eases the process of looking for a good architecture for the ANN, to guide the bounds in the hyper-parameter tuning. With \texttt{sort -k2 -t '>' -i logs\/baselines-results.txt} one easily sorts the results by increasing order. \\
         \texttt{train.py} & Executes the tuner search for the best model and training of that best model. \\
-        \texttt{view.py} & Holds different utilities to view the results of some model and its performances. Use \texttt{view.py --surface <in1> <in2> <out>} to create a 3d surface of the out-th output depending on the in1 and in2-th inputs. The other inputs are constant and parameterizable with sliders. \\
+        \texttt{view.py} & Holds different utilities to view the results of some model and its performances. Use \texttt{view.py --surface <in1> <in2> <out>} to create a 3D surface of the out-th output depending on the in1 and in2-th inputs. The other inputs are constant and parameterizable with sliders. \\
         \hline
     \end{tabular}
     \caption{Description of the files for the neural network part.}

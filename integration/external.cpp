@@ -377,7 +377,7 @@ double compute_a(double a, double b, double c) {
 double compute_ds_approx(double CapacityRatio, double ShareFlex, double ShareStorage, double ShareWind, double SharePV, double rNTC, double output_idx) {
 
     if (CapacityRatio <= 0.5 || 1.8 <= CapacityRatio ||
-        ShareFlex <= 0.01    || 0.99 <= ShareFlex    ||
+        ShareFlex <= 0.01    || 0.90 <= ShareFlex    ||
         ShareStorage <= 0.0  || 0.5 <= ShareStorage  ||
         ShareWind <= 0.0     || 0.5 <= ShareWind     ||
         SharePV <= 0.0       || 0.5 <= SharePV       ||

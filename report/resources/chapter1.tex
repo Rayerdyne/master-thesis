@@ -31,7 +31,7 @@ The total system costs is splitted as follows:
     \item \textit{Fixed cost}: fixed amount, charged if the unit is on.
     \item \textit{Variable costs}: amount that is a function of the power output the units are operating at.
     \item \textit{Start-up} and \textit{Shutdown costs}: amount charged on start and on shutdown of a unit.
-    \item \textit{Ramp-up} and \textit{Ramp-down costs}: costs due to the fact \mywarning{Needs verification}
+    \item \textit{Ramp-up} and \textit{Ramp-down costs}: costs due to the increase or decrease in power output of a unit.
     \item \textit{Shed load costs}: costs due to necessary load sheddings.
     \item \textit{Loss of load costs}: due to generated either exceeding the demand, or not matching it .
     \item \textit{Transmission costs}: due to the use and wear of the transmission network.
@@ -100,11 +100,22 @@ The Equation \ref{supply-demand-balance-equation} expresses this target equality
 
 \subsection{Rolling horizon}
 
-\mywarning{I'm not sure I understood all}
+The perfect solution would be solving the whole system, for every time step in the complete duration of the simulation in one go. But this would create a system too large to be reasonably solved.
+
+To manage this, the simulation is split into smaller, manageable parts. The simulation is made for a smaller time frame, called the optimization period, over which the simulation can be made easily.
+
+The start of optimization period $j$ overlaps the optimization period $j-1$, to that the simulation $j$ is the correct prolongation of the same setting fixed by the simulations up to $j-1$. The period that overlaps is called the look-ahead, in which the values of the parameters for period $j-1$ is determined during simulation $j-1$, and are used as fixed context for simulation $j$. A depiction of rolling horizon is given on Figure \ref{fig:rolling-horizon}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{resources/images/rolling_horizon.png}
+    \caption{Depiction of the rolling horizon mechanism}
+    \label{fig:rolling-horizon}
+\end{figure}
 
 \subsection{Mid-term scheduling (MTS)}
 
-Witout further constraints, the optimization will most often leave all the storage facilities empty at the end of the simulation horizon (typically a few days). This comes from the fact that the variable operational cost of discharging these storage units is really small in comparison to running another unit, thus charging extra fixed and variable costs.
+Without further constraints, the optimization will most often leave all the storage facilities empty at the end of the simulation horizon (typically a few days). This comes from the fact that the variable operational cost of discharging these storage units is really small in comparison to running another unit, thus charging extra fixed and variable costs.
 
 To take this into account, the minimum storage level at the last optimization step is given as an exogenous input to the model. This input can be computed from the so-called Mid-term hydro-thermal scheduling (MTS), that is a long-term scheduling specification. 
 
@@ -332,7 +343,7 @@ At the end, this differenciation is not done, as it would also require the input
 
 \begin{itemize}
     \item The electricity demand is a time series from year 2019, per zone. It is assumed to be independent of the price.
-    \item The net transfer capacities (NTC) between the different zones are given as inputs as hourly times series over a year. Then the maximum is picked and it is assumed that it remains constant over the year. \mywarning{Needs verification}
+    \item The net transfer capacities (NTC) between the different zones are given as inputs as hourly times series over a year. Then the maximum is picked and it is assumed that it remains constant over the year.
     \item The availability factors (AF) for renewable energy sources, defined as the ratio of the nominal power that is possible to output hourly. It is given as an hourly time series (adimentional).
     
     This variable energy generation is either curtailed or sent to the grid.

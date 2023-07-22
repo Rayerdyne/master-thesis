@@ -20,7 +20,6 @@ from matplotlib.widgets import Slider, Button
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from tensorflow.keras.models import load_model
-from tensorflow.keras.layers import Normalization
 
 from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES, SHOW_PLOTS
 
@@ -127,13 +126,13 @@ def compute_surface(model, X, Y, i_sliders, in1, in2, out):
     return output[:,out].reshape(oldshape)
 
 N_POINTS = 200
-def view_surface(model):
-    if len(sys.argv) < 5:
+def view_surface(model, args):
+    if len(args) < 3:
         raise TypeError(f"Not enough argument given to the script (has {len(sys.argv)-1}, needs 4)")
     
-    in1 = int(sys.argv[2])
-    in2 = int(sys.argv[3])
-    out = int(sys.argv[4])
+    in1 = int(args[0])
+    in2 = int(args[1])
+    out = int(args[2])
 
     range1 = ranges[in1]
     range2 = ranges[in2]
@@ -149,6 +148,7 @@ def view_surface(model):
     ax.set_xlabel(ranges_name[in1])
     ax.set_ylabel(ranges_name[in2])
     ax.set_zlabel(OUTPUT_NAMES[out])
+    ax.set_title(OUTPUT_NAMES[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
 
     fig.colorbar(surface, shrink=0.5, aspect=5)
 
@@ -168,6 +168,10 @@ def view_surface(model):
 
     def update(_event):
         ax.cla()
+        ax.set_xlabel(ranges_name[in1])
+        ax.set_ylabel(ranges_name[in2])
+        ax.set_zlabel(OUTPUT_NAMES[out])
+        ax.set_title(OUTPUT_NAMES[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
         surface = ax.plot_surface(X, Y, compute_surface(model, X, Y, i_sliders, in1, in2, out))
         fig.canvas.draw_idle()
     
@@ -184,15 +188,21 @@ CMD_DICT = {
 }
 
 def main():
-    model = load_model(LOGS_OUTPUT_PATH + os.sep + LOGS_MODEL_CKPT)
+    if len(sys.argv) < 3:
+        print("Need model path as first argument, and command")
+        return
+
+    path = sys.argv[1]
+    # model = load_model(LOGS_OUTPUT_PATH + os.sep + LOGS_MODEL_CKPT)
+    model = load_model(path)
     model.compile(optimizer="adam", loss="MSE")
 
-    command = sys.argv[1]
+    command = sys.argv[2]
     if command not in CMD_DICT:
         raise ValueError(f"Command {command} not found")
     
     action = CMD_DICT[command]
-    action(model)
+    action(model, sys.argv[3:])
 
 
 if __name__ == "__main__":

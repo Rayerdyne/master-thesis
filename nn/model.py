@@ -21,7 +21,7 @@ def build_model(hp: HyperParameter):
     """
 
     layers = []
-    for i in range(hp.Int("num_layers", 2, 10)):
+    for i in range(hp.Int("num_layers", 2, 6)):
         nb = hp.Int('units_' + str(i + 1), min_value=32, max_value=256, step=32)
         activation = hp.Choice("activation" + str(i+1), ["relu", "leakyrelu", "tanh"])
         if activation == "leakyrelu":
