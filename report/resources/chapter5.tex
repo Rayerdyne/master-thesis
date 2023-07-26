@@ -16,11 +16,15 @@ The task of integrating the surrogate model into MEDEAS is split in two smaller 
 
 As previouly introced, the \texttt{pysd} python library can read and run Vensim model files. Of course, as the surrogate model is primarily defined in that language, one would deduce that its integration would be easier that way.
 
-Doing so, while not done in this work, is expected to be simple. Using \texttt{pysd} loading functionality, a python module representing the simulation is obtained. This module is then loaded with \texttt{pysd} for the simulation to be run. The linking can thus be done by editing the module file directly, and inserting the call to the model at the appropriate place. 
+Doing so, while not explored in this work, is actually expected to be simple. Using \texttt{pysd} loading functionality, a python module representing the simulation is obtained. This module is then loaded with \texttt{pysd} for the simulation to be run. The linking can thus be done by editing the module file directly, and inserting the call to the model at the appropriate place. 
 
 This approach is nevertheless not chosen. While it has been thought about late in the work, after the current Vensim integration had been implemented, the main reason is the convenience of the resulting model. If the model combination was made available sa python module, it would be much harder for external people to edit the original MEDEAS model from Vensim, then run the modified version while keeping the surrogate model integrated. The editor would have to manually re-insert the surrogate model into the python module, that also have to be recreated.
 
 Keeping the surrogate model available as a Vensim external function is therefore a significant benefit for the further improvements of the model, as it enables edits to be made to MEDEAS independently of the surrogate model.
+
+Another update has to be mentionned here. In facts, J. Paris had trouble making the MEDEAS model run successfully with the integrated surrogate model had contact with the MEDEAS developping team, that advised to wait for the release of a update of the MEDEAS port to python, making use of \texttt{pysd} and expected to be more stable and convenient. The main issue was that she were to leave before the anticipated release date, such that it was not acheivable.
+
+However, this newer port to python with \texttt{pysd} may at the end make the integration of the model directly in python more portable and convenient, hence obtaining the same advantage of the Vensim external function. But this function was created and finished before learning the future availability of the new python port.
 
 \subsection{Vensim integration}
 
@@ -81,7 +85,7 @@ This specific feature of the Vensim software is evidently of great interest for 
 
 To do so, the user needs to provide a dynamically linked library (DLL), packaged as a \texttt{dll} file, then provide its path in Vensim. These files are Windows specific (as Linux uses \texttt{so} files and macOS \texttt{dylib}), hence they have to be handled as such.
 
-Dynamically linked libraries are typically compiled from the C or C++ programming language. In this work, C++ has been chosen for its easiest way to load and call the models that will be created in Tensorflow.
+Dynamically linked libraries are typically compiled from the C or C++ programming language. In this work, C++ has been chosen, as the library to load and call Tensorflow models that will be used is written in that language.
 
 To be able to integrate the user-defined functions in its simulation environment, the user's library is expected to provide some functions, that are part of some interface that the Vensim software knows and can communicate with. This interface comprises of a set of functions that is described on Table \ref{table:vensim-interface}.
 \begin{table}[h]
@@ -124,7 +128,7 @@ In order to do so, one basically needs two things:
 
 The complicated part being the linking between the two. In order to do so, the \href{https://serizba.github.io/cppflow/}{Cppflow} tool is used. It is an "in-between" layer from the C++ side and the Tensorflow model side.
 
-This tool is not available in C, that's why the library has been written in C++.
+This tool is not available in C, this is the main reason why the library is written in C++.
 
 The main purpose of Cppflow is precisely to run Tensorflow models from C++, and to acheive this it provides easy to use functions to load such a model, and to call it with some given intput data.
 
@@ -138,7 +142,7 @@ At some time in the library developpement process, it was successfully managed t
 
 It has been thought it may not be possible, so a workaround was implemented.
 
-The idea was thus to make the library communicate with another program, that would be launched as a separate process. The library would thus start the other program as an external process, that will be waiting for computation queries, on simulation setup, and end it on simulation shutdown. Then, when the model is called from the library, it sends the input to the worker, the worker calls the model, and sends back the output to the library, that can return.
+The idea was thus to make the library communicate with another program, that would be launched as a separate process. The library would thus start the other program as an external process, that will be waiting for computation queries, on simulation setup, and end it on simulation shutdown. Then, when the model is called from the library, it sends the input to that other process, which calls the model, and sends back the output to the library, that can return.
 
 As previously mentioned, DLL are specific to Windows, so the process management and inter-process commication had to be done in that context.
 
@@ -146,11 +150,11 @@ As previously mentioned, DLL are specific to Windows, so the process management 
 
 But during some more testing, and adapting of \texttt{Makefile}s, the mistake was discovered: the compilation command used to produce the library missed the indication of the path to the DLL.
 
-With that fixed, the library can directly use the Cppflow utilities, what greatly simplifies its architecture and code.
+With that fixed, the library can directly use the Cppflow utilities, what greatly simplifies its architecture and code. The simulation setup loads the model, the model calls use it, and finally the simulation shutdown routine frees it.
 
 \subsection{Variable linking}
 
-In its inner workings, the MEDEAS model does not directly uses all the variables that appear in our surrogate models. What arises the need for some links to be drawn between the two.
+In its inner workings, the MEDEAS model does not directly uses all the variables that appear in our surrogate model. What arises the need for some links to be drawn between the two.
 
 Hopefully, the desired values are often closely related to the other variables that are already present in the MEDEAS energy module, so these connection are expected to be as simple as linear rescalings or combinations, perhaps some more for the rNTC input.
 
@@ -189,17 +193,19 @@ As a consequence, additional parameters of the MEDEAS have been introduced, and 
 The relations drawn from MEDEAS' variables to the surrogate model's are shown on Table \ref{tab:linking-equations}.
 
 \begin{table}[htb]
-      \centering
-      \begin{tabular}{|m{3.6cm}|c|}
-      \hline 
-      Input variable & Linking equation \\ \hline
-       $share_{PV}$ & $share_{PV}=\dfrac{Generation_{PV}}{Demand_{tot}}$ \\ \hline 
-       $share_{wind}$ & $share_{wind}=\dfrac{Generation_{wind-onshore} + Generation_{wind-offshore}}{Demand_{tot}}$ \\ \hline 
-       $share_{flex}$ & $share_{flex}=40\%$ \\ \hline 
-       $share_{storage}$ & $share_{storage}=\dfrac{Storage_{tot}}{Demand_{tot}}\times 365\times 24$ \\ \hline 
-       $Capacity_{ratio}$ & $Capacity_{ratio}=\dfrac{Generation_{tot}}{Demand_{tot}}$ \\ \hline 
-       $rNTC$ & $rNTC= Growth_{capacity}$ \\ \hline 
-      \end{tabular}
-      \caption{Variable linking equations}
-      \label{tab:linking-equations}
-    \end{table}
+    \centering
+    \begin{tabular}{|m{3.6cm}|c|}
+    \hline 
+    Input variable & Linking equation \\ \hline
+    $share_{PV}$ & $share_{PV}=\dfrac{Generation_{PV}}{Demand_{tot}}$ \\ \hline 
+    $share_{wind}$ & $share_{wind}=\dfrac{Generation_{wind-onshore} + Generation_{wind-offshore}}{Demand_{tot}}$ \\ \hline 
+    $share_{flex}$ & $share_{flex}=40\%$ \\ \hline 
+    $share_{storage}$ & $share_{storage}=\dfrac{Storage_{tot}}{Demand_{tot}}\times 365\times 24$ \\ \hline 
+    $Capacity_{ratio}$ & $Capacity_{ratio}=\dfrac{Generation_{tot}}{Demand_{tot}}$ \\ \hline 
+    $rNTC$ & $rNTC= Growth_{capacity}$ \\ \hline 
+    \end{tabular}
+    \caption{Variable linking equations}
+    \label{tab:linking-equations}
+\end{table}
+
+These linkings have then to be drawn inside of the Vensim model, or directly in the computation if we use the python version of MEDEAS.

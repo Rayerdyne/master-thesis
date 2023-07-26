@@ -1,6 +1,6 @@
 import pandas as pd
 
-PATH = "simulations/MILP-real/dataset-milp.csv"
+PATH = "../nn/data/dataset-real.csv"
 
 def main():
     df = pd.read_csv(PATH)

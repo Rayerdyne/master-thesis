@@ -113,13 +113,13 @@ The start of optimization period $j$ overlaps the optimization period $j-1$, to 
     \label{fig:rolling-horizon}
 \end{figure}
 
-\subsection{Mid-term scheduling (MTS)}
+\subsection{Mid-term scheduling}
 
-Without further constraints, the optimization will most often leave all the storage facilities empty at the end of the simulation horizon (typically a few days). This comes from the fact that the variable operational cost of discharging these storage units is really small in comparison to running another unit, thus charging extra fixed and variable costs.
+Without further constraints, the optimization will most often leave all the storage facilities empty at the end of the simulation horizon (typically a few days). This is a consequence of the variable operational cost of discharging these storage units being smaller than the cost of running another unit, thus charging extra fixed and variable costs.
 
-To take this into account, the minimum storage level at the last optimization step is given as an exogenous input to the model. This input can be computed from the so-called Mid-term hydro-thermal scheduling (MTS), that is a long-term scheduling specification. 
+In order to tackle this issue, the Dispa-SET model has to be run in Mid-Term Scheduling (MTS) mode. In this mode, the initial and final levels of the storage units (in particular, pumped hydro storage units) are given as exogenous input to the model. These levels are enforced with additional constraints.
 
-\mywarning{Talk about MTS option}
+In this work, the MTS mode is enabled and the exogenous inputs, for both initial and final levels, are set to half of the storage capacity.
 
 \subsection{Dispa-SET components and representation}
 
@@ -251,7 +251,7 @@ A key feature is the relationship between the price of coal and the price of gas
 		Peat       & 9.36 \\
 		\hline
 	\end{tabular}
-	\caption{Fuel prices considered[€/MWh]}
+	\caption{Fuel prices considered, in €/MWh}
 	\label{table:fuel-prices}
 \end{table}
 
@@ -273,7 +273,7 @@ Some other price values are relevant, such as the price of the load shedding per
 		Curtailment Cost   & 20 \\
 		\hline
 	\end{tabular}
-	\caption{Other relevant prices [€/MWh]}
+	\caption{Other relevant prices, in €/MWh}
 	\label{table:other-prices}
 \end{table}
 

@@ -21,7 +21,32 @@ It is to be mentioned that these variabilities comprise some predictability, for
 
 The larger variability of the power output of VRES causes a problem, because modern electrical system is dictated by consumers' demand. And to do so, electricity generators are dispatched in real-time, so that the production always matches the demand on the network. This technique works because the concerned power plants can be started and shut down on demand, almost at any time. With VRES, this assumption drops, as one cannot start an extra wind turbine if there is no wind, nor use a photovoltaic panel during the night.
 
-\subsection{The first side}
+\subsection{Flexibility assessment in energy system models}
+
+As explained before, higher shares of VRES in the electricity production mix create the additional challenge, that is the handling of the partlially predictable variability of wind and sun energy. 
+
+This handling requires a larger flexibility of the electrical system, that is, a better ability to adapt to changes in the demand and supply, either expected or not \cite{irena}.
+
+To improve the flexibility of an existing power system, some mechanisms already exists.
+
+\begin{itemize}
+    \item Use of the regular dispatchable energy production plants to mitigate the energy not produced from VRES. Depending on the plant characteristics, it may be difficult to address short term drops in production, as there is some start up time required \cite{flexibility-storage-planning}.
+    \item Large interconnected electricity networks, that are able to smooth the VRES power output. There may be not enough sun in some region, creating a deficit, while there is too much in the neighboring country. By connecting them, the overproduction will compensate the unerproduction of the other \cite{flexibility-connection}.
+    \item Energy storage facilities. Of course, storing the produced energy for later use is an easy way to account for the intermittency of the production. Typically, storing solar energy during day time to be used in the night. These technologies include pumped hydro-storage, batteries, compressed air. While pumped hydro-storage units are the most common, their very limited expansion options make them unlikely to grow in the future \cite{flexibility-demdandside-forecasts-storage}.
+    \item Acting on the demand, in the extent that it can change its shape by promoting policies to the end users. Such policies focus on flattening the daily demand curve, facilitating the energy production dispatch. Typically, asking to delay greedy devices like dishwashers until night, where the overall demand is lower. But it may concern other domains, such as electric vehicles charge, heating and cooling etc \cite{flexibility-demdandside-forecasts-storage}.
+\end{itemize}
+
+The two main consequences of insufficiently flexible energy systems are curtailment, when there is too much energy produced, and load shedding, when there is not enough electricity to satisfy the demand. In case of load shedding, parts of the grid may be entirely shut down.
+
+\subsubsection{Literature review}
+
+Similar work has been done by Parrado-Hernando et al. in \cite{Hernando2022}, that aims at "capturing features of hourly-resolution energy models". The methodology used to acquire the data presents two downsides that are adressed in this work.
+
+First, the inputs of the energy model are handled as discrete variable, and simulation have been run using all possible combination for these values. This can be seen in some of their figures, where the data points seem to follow some lines. While it does not invalidate the process, this creates a bias in the repartition of the data. Second, linear approximation are used to fit the data obtained. Admittedly, this is identified as a limitation of the work.
+
+To palliate these, the input space will be tackled as a continuous domain for the design of experiment, and other machine learning technique will be considered as to candidates for the creation of the surrogate model.
+
+\subsection{Short-term dispatch models}
 
 There exists tools built in order to assess the behaviour of large electrical systems, that are subject to higher share of VRES. These tools typically aims at predicting the electricity flows, dispatching available power plants in order to match the production to the demand. And from there on, some higher level metrics can be computed, and in particular, we will be interested by:
 \begin{itemize}
@@ -33,7 +58,7 @@ Among these tools, the Dispa-SET model will be considered in this work. Dispa-SE
 
 This model is formulated in linear programming, that is, a set of linear constraints are defined and an objective function is given. The solver inputs both of these and computes the parameters values that maximize the objective function while matching the constraints.
 
-\subsection{The other side}
+\subsection{Integrated assessment models}
 
 On another level, integrated assessment models (IAM) aim at estimating the evolution of large, intricated systems involving a lot of different interconnected areas and actors. These are most often multidisciplinary and require a lot of modelling choices.
 
@@ -43,11 +68,10 @@ In this subset of IAMs, the MEDEAS model is chosen for this work, being open-sou
 
 MEDEAS is expressed in terms of systems dynamics, that is, the evolution of the state of the simulation is computed as a function of its current state. And this comes down to solving a set of differential equations.
 
-\subsection{The linking}
+\subsection{Model linking}
 
-As MEDEAS does not extensively simulates the dispatch of power plants units for the sake of its estimate of the curtailment and lost load, that are used in the model, its estimations of these values are not as precise as those computed by Dispa-SET. Therefore, MEDEAS would benefit from a linking between the two models.
-
-This linking is made hard by the different formulation of the two considered tools: Dispa-SET in linear programming on one hand, and MEDEAS in system dynamics, or differential equations on the other.
+Due to computational constrain, IAMs often have a pretty low level of temporal, or spacial accuracy \cite{linkings-stuff}. This is not the case for dispatch models, that carry out more extensive simulations. Therefore, it is meaningful to link two of these models together, as the IAM would benefit from the better accuracy of the energy models. 
+% As MEDEAS does not extensively simulates the dispatch of power plants units for the sake of its estimate of the curtailment and lost load, that are used in the model, its estimations of these values are not as precise as those computed by Dispa-SET. Therefore, MEDEAS would benefit from a linking between the two models.
 
 An high-level illustration of the positionw of MEDEAS and Dispa-SET on the timescale is provided on Figure \ref{fig:dispaset-medeas-timescale} \cite{dispaset}.
 
@@ -60,11 +84,11 @@ An high-level illustration of the positionw of MEDEAS and Dispa-SET on the times
 
 \subsubsection{Linking types}
 
-There are several strategies that may be used in order to link two models together.
+There are several strategies that may be used in order to link two models together \cite{linkings-stuff}.
 
 \begin{itemize}
-    \item Soft linking: the models communicate between each other with feedback. Both of the models are run iteratively, thus keeping their separate efficiencies in the same order of magnitude. However, the iteration lead to low overall speed, and there is no guarantee of converging.
-    \item Hard linking: the models are combined into a single, unified mathematical formulation. This newly created model can then be solved all at once. But this comes with a lower chance of computational feasibility.
+    \item Soft linking: the models communicate between each other. This communication may be uni-directional or bi-directional. Both of the models are run iteratively, thus keeping their separate efficiencies in the same order of magnitude. However, the iteration lead to low overall speed, and convergence is not guaranteed.
+    \item Hard linking: the models are combined into a single, unified mathematical formulation. This newly created model can then be solved all at once. This approach is burdened by higher computational costs and lower chance of feasibility.
 \end{itemize}
 
 These linking types are illustrated on Figure \ref{fig:linking-types}.
@@ -84,25 +108,13 @@ We also dismiss the soft linking strategy because of its slowness, and absence o
 
 \subsubsection{Surrogate models}
 
-As there are no good, viable linking options between Dispa-SET and MEDEAS, surrogate models are considered.
+The linking technique explored in this work is the surrogate model. In this case, an approximation of the Dispa-SET dispatch model will be integrated in the MEDEAS IAM. 
 
-The idea behind surrogate models is simple. First, a fast, easy-to use approximation of the model is made, then it its completely integrated in the other model. In this case, the relevant outputs of the Dispa-SET model will be appriximated from relevant inputs regarding MEDEAS, then the approximator will be integrated in the model.
+The idea behind surrogate models is simple. First, a fast, easy-to use approximation of the model is made, then it its completely integrated in the other model. In this case, the relevant outputs of the Dispa-SET model will be approximated from relevant inputs regarding MEDEAS, then the approximator will be integrated in the model.
 
-\subsection{State of the art in flexibility assessment}
+The soft-linking approach has already been explored \cite{Brinkerink2022-softlink}, \cite{DEane2012-softlink}, and the hard-linking remains the hardest to investigate, notably due to incompatible formulations. Surrogate models are still unexplored and are of great interest for this use case.
 
-As explained before, higher shares of VRES in the electricity production mix create the additional challenge, that is the handling of the partlially predictable variability of wind and sun energy. 
-
-This handling requires a larger flexibility of the electrical system, that is, a better ability to adapt to changes in the demand and supply, either expected or not \cite{irena}.
-
-To improve the flexibility of an existing power system, some mechanisms already exists.
-\begin{itemize}
-    \item Use of the regular dispatchable energy production plants to mitigate the energy not produced from VRES. Depending on the plant characteristics, it may be difficult to address short term drops in production, as there is some start up time required.
-    \item Large interconnected electricity networks, that are able to smooth the VRES power output. There may be not enough sun in some region, creating a deficit, while there is too much in the neighboring country. By connecting them, the overproduction will compensate the unerproduction of the other.
-    \item Energy storage facilities. Of course, storing the produced energy for later use is an easy way to account for the intermittency of the production. Typically, storing solar energy during day time to be used in the night. These technologies include pumped hydro-storage, batteries, compressed air. While pumped hydro-storage units are the most common, their very limited expansion options make them unlikely to grow in the future.
-    \item Acting on the demand, in the extent that it can change its shape by promoting policies to the end users. Such policies focus on flattening the daily demand curve, facilitating the energy production dispatch. Typically, asking to delay greedy devices like dishwashers until night, where the overall demand is lower. But it may concern other domains, such as electric vehicles charge, heating and cooling etc.
-\end{itemize}
-
-The two main consequences of insufficiently flexible energy systems are curtailment, when there is too much energy produced, and load shedding, when there is not enough electricity to satisfy the demand. In case of load shedding, parts of the grid may be entirely shut down.
+As the combination of the model will use an approximation, this appriximation being fast will not burden the computations of the IAM, hence keeping it efficient.
 
 \subsection{This work}
 
@@ -110,15 +122,15 @@ The two main consequences of insufficiently flexible energy systems are curtailm
 
 This master's thesis is dedicated to the integration of the flexibility constraints, the Dispa-SET surrogate model, into the MEDEAS model, being less precise on the matter. This includes the creation of a proper dataset, the definition, training and integration of the surrogate model into MEDEAS.
 
-\subsubsection{Methodology}
+% \subsubsection{Methodology}
 
-To do so, adequate design of experiment will be conducted on well-chosen input parameters, that will in fine be the surrogate model input features. This will give us a set of input points where a Dispa-SET run will be made, to create a training sample, and the samples are grouped into a single dataset.
+% To do so, adequate design of experiment will be conducted on well-chosen, continuous, input parameters, that will in fine be the surrogate model input features. This will give us a set of input points where a Dispa-SET run will be made, to create a training sample, and the samples are grouped into a single dataset.
 
-Once this dataset is built, one can then train the surrogate model on it. This surrogate model is chosen after a short assessment of candidate machine learning options. It will be adequately tuned using hyper-parameter tuning.
+% Once this dataset is built, one can then choose and train a model to become the surrogate model on it. The model is chosen after a short assessment of candidate machine learning options.
 
-When the model will be available, it will then be usable from inside MEDEAS, where some connection will have to be drawn between the variables that are already present in the model, and the surrogate model actual input and output features.
+% When the model will be available, it will then be usable from inside MEDEAS, where some connection will have to be drawn between the variables that are already present in the model, and the surrogate model actual input and output features.
 
-Finally, the resulting adapted MEDEAS model will be run, and observations and criticisms will be made.
+% Finally, the resulting adapted MEDEAS model will be run, and observations and criticisms will be made.
 
 \subsubsection{Contributions}
 
@@ -136,7 +148,7 @@ This work constisted in:
     \item Runs and analysis of the improved MEDEAS model
 \end{itemize}
 
-All the produced work, and necessary data is available on the online github repository at the following address: \href{https://github.com/Rayerdyne/master-thesis}{https://github.com/Rayerdyne/master-thesis}\footnote{As it contains licensed file from Vensim, this repository must remain private. One may ask reading permission by email at \href{mailto:f.straet@student.uliege.be}{f.straet@student.uliege.be}.}
+All the produced work, and necessary data is available on the online github repository at the following address: \href{https://github.com/Rayerdyne/master-thesis}{https://github.com/Rayerdyne/master-thesis}.
 
 \subsubsection{Outline}
 

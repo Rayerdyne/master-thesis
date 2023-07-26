@@ -44,7 +44,7 @@ def plot_loss(H, path):
     # plot the training history loss
     plt.style.use("ggplot")
     fig, ax = plt.subplots()
-    ax.set_ylim([0, 1])
+    ax.set_ylim([0, 0.2])
     ax.plot(H.history['loss'], label='Training Loss')
     ax.plot(H.history['val_loss'], label='Validation Loss')
     ax.set_title("Training Loss")
@@ -150,8 +150,6 @@ def view_surface(model, args):
     ax.set_zlabel(OUTPUT_NAMES[out])
     ax.set_title(OUTPUT_NAMES[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
 
-    fig.colorbar(surface, shrink=0.5, aspect=5)
-
     i_sliders = []
     counter = 0
     for i, (interval, name) in enumerate(zip(ranges, ranges_name)):
@@ -172,10 +170,16 @@ def view_surface(model, args):
         ax.set_ylabel(ranges_name[in2])
         ax.set_zlabel(OUTPUT_NAMES[out])
         ax.set_title(OUTPUT_NAMES[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
-        surface = ax.plot_surface(X, Y, compute_surface(model, X, Y, i_sliders, in1, in2, out))
+        surface = ax.plot_surface(X, Y, compute_surface(model, X, Y, i_sliders, in1, in2, out),
+                                  cmap=cm.coolwarm, linewidth=0, antialiased=False)
+        
+        if len(fig.axes) >= 7:
+            fig.delaxes(fig.axes[-1])
+        cax = fig.add_axes([0.7, 0.45, 0.04, 0.5])
+        fig.colorbar(surface, cax=cax, shrink=0.5)
         fig.canvas.draw_idle()
     
-    b_axes = fig.add_axes([0.8, 0.03, 0.1, 0.03])
+    b_axes = fig.add_axes([0.8, 0.03, 0.1, 0.02])
     button = Button(b_axes, "Update", hovercolor="0.975")
     button.on_clicked(update)
 

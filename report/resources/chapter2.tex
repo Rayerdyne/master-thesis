@@ -26,7 +26,7 @@ MEDEAS is built using the Vensim software, and may be used from the Python progr
 
 MEDEAS funds come from the EU for its Horizon 2020 program, under the "Modelling and analysing the snergy system, its transformation and impacts (social, environmental and economic aspects of the energy system)".
 
-And to do so it models the long-term implications of the interactions between the society, that is expected to follow some policy. A choice of policy by the society is also called a scenario.
+And to do so it models the long-term implications of the decisions made by the society. As one cannot predict them, several hypothesis are needed to fix the choices that will be made. Such a set of hypothesis on the evolution of the long-term policy of the society as a whole is called a scenario.
 
 It is formulated using the system dynamics toolset---what Vensim is built for---which is to help the aggregation of the knowledge from different experts from different domains and backgrounds. This will also enable easy modelling of feedback between the different components.
 
@@ -145,11 +145,17 @@ An estimation of the storage needs as a function of the VRES share is depicted o
 
 Here will be describe the evolution of the capacity factor (CF) as the RES share among the electricitym mix changes. The capacity factor is the ratio of the electricity produced by a unit over a period of time $\Delta t$ over the maximum amount of energy that could have been produced. This is represented on Equation \ref{equation:CF-definition}.
 
-The other meaningfull metric in this context is the overcapacity, that is, the ratio of the energy that could have been produced, over the energy actually produced. \mywarning{Where does the CF=1/(1+overcap) comes from in Carla's work ?}
 
 \begin{equation}
     CF = \frac{Energy_{produced}}{\Delta t \times PowerCapacity}
     \label{equation:CF-definition}
+\end{equation}
+
+The other meaningfull metric in this context is the overcapacity, that is, the ratio of the energy that could have been produced, over the energy actually produced. %\mywarning{Where does the CF=1/(1+overcap) comes from in Carla's work ?}
+
+\begin{equation}
+    overcapacity = \frac{\Delta t \times PowerCapacity - Energy_{produced}}{Energy_{produced}}
+    \label{equation:overcapacity}
 \end{equation}
 
 An estimate of the overcapacity of dipachable RES is provided in \cite{NREL}, the resulting capacity factor evolution is depicted as a function of the VRES share on Figure \ref{fig:cfres-vreshare}. It can be observed that capacity factor decreases quadratically in the VRES share in the electricity mix.
@@ -170,7 +176,7 @@ MEDEAS based its estimates of the VRES induced overcapacities on \cite{delarue}.
 
 The two estimate functions used in MEDEAS \cite{medeas-eroi} from \cite{delarue} are presented on Figure \ref{fig:vres-overcapacities}.
 
-The capacity factor is evaluated as a function of the overcapacity, following Equation \ref{equation:CF}, that is actually a consequence of Equations \ref{equation:CF-definition} and \ref{equation:overcapacity}.
+The capacity factor is evaluated as a function of the overcapacity, following Equation \ref{equation:CF}, that can actually be derived from Equations \ref{equation:CF-definition} and \ref{equation:overcapacity}.
 
 \begin{equation}
     CF=\frac{1}{1+overcapacity}
@@ -182,3 +188,28 @@ The capacity factor is evaluated as a function of the overcapacity, following Eq
     \caption{(a) Overcapacity estimate and (b) CF reduction of VRES plants on \cite{medeas-eroi}}
     \label{fig:vres-overcapacities}
 \end{figure}
+
+\subsection{Scenarios} \label{section:medeas-scenarios}
+
+As no model can predict with certainty, neither with significant confidence, the decision that will be made and will rule the society for the future, several sets of hypothesis, called scenarios, are made.
+
+When running the MEDEAS model, these scenarios are run in parallel, as in Vensim these are present as possible values for the \textit{scenario} subscript. These possible value have to be chosen in the dedicated panel in Vensim.
+
+By default, the three following scenarios are available, but it is possible to run user-defined scenarios \cite{medeas-website}.
+
+\begin{itemize}
+    \item \textbf{BAU} (Business As Usual) corresponds to no particular effort being implemented, the transition continues as it is.
+    \item \textbf{OT} (Optimal Transition) where all the resources available are allocated to the best renewable transition possible, that has become a social priority. The only constraints for faster transition are physical limitations.
+    \item \textbf{MLT} (Mid-Level Transition) is a mix of the previous ones, some effort are made but not all. Actions towards renewable transition are delayed.
+\end{itemize}
+
+A depiction of these scenarios in terms of emissions over time is given on Figure \ref{fig:medeas-scenarios}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/medeas-scenarios.png}
+    \caption{Qualitative illustration of the BAU, MLT and OT scenarios for the greenhouse gas emissions in Europe}
+    \label{fig:medeas-scenarios}
+\end{figure}
+
+These scenarios have been defined somewhat arbitrarily, but the custom scenario capability opens the door to anyone willing to use a more precise, more accurate scenario, given for example additional information brought by major events in the future.

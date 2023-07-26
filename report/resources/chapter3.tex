@@ -4,7 +4,7 @@
 
 This section aims at describing the process that lead to the creation of the dataset, required in order to train the neural network model.
 
-First, an input space is defined, on which will properly select points to form the dataset features. Then, computationally expensive simulation will be run on these points to obtain the desired predicted features for this dataset.
+First, an input space is defined, on which will properly select points to form the dataset features. Then, computationally expensive simulation will be run on these points, and meaningful data will be extracted from the simulation results to obtain the desired output features to be predicted by the model.
 
 This dataset will afterwards be used to train the surrogate model on \cite{surrogate_model}.
 
@@ -46,7 +46,7 @@ As for the other groups, they can be simply described with technology-fuel pairs
 
 The availability factors of PHOT and WTON are also required, as well as the peak load. These values are computed from the reference simulation (2019), and are shown in Table \ref{table:param-values}.
 
-\mywarning{needs check}
+% \mywarning{needs check}
 
 \begin{table}[h]
     \centering
@@ -194,7 +194,7 @@ A strategy to choose sampling points from some design space is called a design o
 The main methods to acheive such sampling are \cite{doe} illustrated in the following.
 \begin{enumerate}
     \item The "naïve" sampling: take samples at regular intervals on the design space. Note that one may not choose the same intervals for different dimensions, and we have to set the strategy around the boundaries. It is depicted on Figure \ref{fig:sampling-naive}.
-    \item The Monte-Carlo sapling: pick samples at random all over the design space. It is depicted on Figure \ref{fig:sampling-monte-carlo}.
+    \item The Monte-Carlo sampling: pick samples at random all over the design space. It is depicted on Figure \ref{fig:sampling-monte-carlo}.
     \item The Latin-hypercube sampling \cite{wiki-lhs}, maximizing a criterion that is either \cite{pydoe-docs}:
     \begin{enumerate}
         \item centering samples in sampling intervals
@@ -419,13 +419,13 @@ This issue interpreted as the simulations having too high flexibility are harder
 
 \subsubsection{Divisions by zero}
 
-Another problem that was encountered was a division by zero that happened when reading the simulation results. This error had little to no impact on the final results, so even if it is recorded in the error field (with a different error code than for stalling simulation), it was ignored most of the time. This time, it concerns around 30\% of the simulations (702 of 2400).
+Another problem that was encountered was a division by zero that happened when reading the simulation results. This error had little to no impact on the final results, so even if it is recorded in the error field (with a different error code than for stalling simulation), it was ignored most of the time and the results of concerned simulations settings were used. This time, it concerns around 30\% of the simulations (702 of 2400).
 
 In the same fashion than for the previous error, the cause of the error is investigated, and it appears than in this case the most decisive input is the rNTC. Its value, in the $[0, 0.7]$ range, the average of simulation with division by zero is $0.32$ higher than the average of the other ones. 
 
 However, in this case, there is no fixed boundary, meaning it also depends on other inputs. Still, we can observe that the minimum of the distribution of the rNTC value for the settings producing a division by zero, at 0.39 is still significantly higher than the one of the successful simulation, at 0. 
 
-The distribution of rNTC values are shown on Table \ref{tab:dvzero-simulations}.
+The distribution of rNTC values are shown on Table \ref{tab:divzero-simulations}.
 
 \begin{table}
     \centering
@@ -446,6 +446,8 @@ The distribution of rNTC values are shown on Table \ref{tab:dvzero-simulations}.
 \subsubsection{Dataset fields}
 
 For completeness, all the fields in the created dataset in \texttt{dataset.csv} are shown on Table \ref{table:dataset-fields}.
+
+Only two of these, $SheddingToDemand$ and $CurtailmentToRESGeneration$ are actually used to train the surrogate model, as the marginal cost of including all the other outputs is null, they are saved as well in case someone would find a use for it in the future.
 
 \begin{table}[h]
     \centering
