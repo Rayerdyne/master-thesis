@@ -3,6 +3,8 @@ All work related to my master thesis.
 
 Author: François Straet
 
+Advisor: Sylvain Quoilin
+
 Organisation of my working directory:
 
 - Dispa-SET is in `../Dispa-SET/`
