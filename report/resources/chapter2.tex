@@ -2,13 +2,16 @@
 
 \subsection{Overview}
 
-This sections aims at describing the main components of the MEDEAS model and its components, with a focus on the parts that are the most relevant in this context.
+This sections aims at describing the main components of the MEDEAS IAM and its components, with a focus on the parts that are the most relevant in this context.
 
-The flaw in MEDEAS energy module that will be addressed is its low temporal precision and poor assessment of the flexibility of the energy network. These estimations are based on study \cite{delarue}, that provide general approximations, not accurate prediction deduced from the simulation of the energy network, as done in Dispa-SET. The solution that this work will provide is the integration of the surrogate model for that purpose, that will be in charge of computing better approximation of (mainly) curtailment and lost load.
+The project, named "Modelling the Energy Development under Environmental And Socioeconomic constraints", aims at creating a modern computational model to predict the future of the energy systems in Europe, while integrating a wide range of physical and social constraints.
 
-For contextualisation, the following description of MEDEAS is written.
+First, the IAMs are depicted, then a high-level description of the MEDEAS model is provided. The third subsection will explain more in depth in a key component of MEDEAS, the energy return on investment. In the fourth subsection, the modelling of the RES in MEDEAS is covered. Finally, the principal scenarios in MEDEAS are presented in the fifth subsection.
+% The downside in MEDEAS energy module that will be addressed is its low temporal precision and poor assessment of the flexibility of the energy network. These estimations are based on study \cite{delarue}, that provide general approximations, not accurate prediction deduced from the simulation of the energy network, as done in Dispa-SET. The solution that this work will provide is the integration of the surrogate model for that purpose, that will be in charge of computing better approximation of (mainly) curtailment and lost load.
 
-\subsection{Integrated assessment models}
+% For contextualisation, the following description of MEDEAS is written.
+
+\subsection{The MEDEAS integrated assessment models}
 
 MEDEAS is an open-source integrated assessment model (IAM), built to "guide the transition to a low carbon European socio-economy" \cite{medeas-website}.
 
@@ -22,13 +25,11 @@ As previously quoted from their website, the MEDEAS model has been built with th
 
 MEDEAS is built using the Vensim software, and may be used from the Python programming language through the \href{https://pypi.org/project/pysd/}{\texttt{pySD}} package.
 
-\subsection{MEDEAS Overview}
+\subsection{Model overview}
 
 MEDEAS funds come from the EU for its Horizon 2020 program, under the "Modelling and analysing the snergy system, its transformation and impacts (social, environmental and economic aspects of the energy system)".
 
 And to do so it models the long-term implications of the decisions made by the society. As one cannot predict them, several hypothesis are needed to fix the choices that will be made. Such a set of hypothesis on the evolution of the long-term policy of the society as a whole is called a scenario.
-
-It is formulated using the system dynamics toolset---what Vensim is built for---which is to help the aggregation of the knowledge from different experts from different domains and backgrounds. This will also enable easy modelling of feedback between the different components.
 
 MEDEAS typically sets the simulation horizon between 1995 and 2060, while for longer term analysis it may be raised up to 2100. It also features different settings:
 \begin{itemize}
@@ -47,6 +48,16 @@ The MEDEAS IAM is organized into seven modules, that are economy, energy, energy
 \end{figure}
 
 Quite evidently, in this work, the MEDEAS-EU version will be considered, as this is the chosen setting for Dispa-SET, and with an obvious focus on the energy module. 
+
+\subsubsection{System dynamics}
+
+It is formulated using the system dynamics toolset---what Vensim is built for---which is to help the aggregation of the knowledge from different experts from different domains and backgrounds. This will also enable easy modelling of feedback between the different components.
+
+System dynamics is a modeling language, made to obtain understandings of complex and dynamic systems. It acheives using nodes and arrows, corresponding to values and relations between those respectively. The former can be either a stock, a flow or a constant, while the latter makes the link through equations. It is therefore possible to create feedback loops and complex interconnected networks.
+
+System dynamics have been popularized by the \textit{world3} model, used to predict the consequences of long-term policies applied by the society on the planet in the Limits to Growth report \cite{limits-to-growth}.
+
+Needless to say, this approach is far from the linear programming paradigm, that has a too different approach for both to be combined.
 
 \subsection{Energy return on investment}
 

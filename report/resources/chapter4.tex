@@ -155,7 +155,7 @@ As there are no ready-to-use kernel for this specific case, and that finding suc
 
 Artificial neural networks (ANN) are used in this work to build our surrogate model. These kind of methods provide a large flexibility, due to their entirely customizable architecture, as well as a large learning capacity. This makes them able to modelize with good accuracy some complex, non-linear functions.
 
-In most recent applications of these ANNs, a lot of different strategies are used to process the data efficiently. For example, convolutional layers convey a lot of meaning in the context of image processing, or transformers are well suited to process sequences\cite{deep-learning-class}.
+In most recent applications of these ANNs, a lot of different strategies are used to process the data efficiently. For example, convolutional layers convey a lot of meaning in the context of image processing, or transformers are well suited to process sequences \cite{deep-learning-class}.
 
 In this case, the inputs boils down to the 6 variables values, listed in Table \ref{table:reference-values}. There are no patterns in this data, because even if their actual values were correlated in some way, the simulations dataset we have as an input at this stages has its input features drawn from a latin hypercube sampling, meaning they have a fixed, very low correlation. This correlation originates from the fact that the sampling aims at optimizing the design space coverage, not from a meaningful, exploitable source.
 
@@ -164,14 +164,6 @@ Thus, a simple multi-layer perceptron (MLP) architecture is chosen, and the next
     \item The number of layers
     \item The numbers of neurons in each layers
     \item The activation function at each layer
-\end{itemize}
-
-These hyper-parameters values will be properly set in the following.
-
-In the end, neural networks are opted for. In addition to the abovementioned advantages, neural networks will also:
-\begin{itemize}
-    \item Be more lightweight, in comparison to the K-nearest neighbors methods, that needs to store the entire dataset, and the randomized trees, that need to store its trees structures. Neural networks only needs their weights that are fairly small with this few input variables.
-    \item Grasp non-linear behaviour well.
 \end{itemize}
 
 Some experiments are run to provide some baselines for getting a first approximation of what performs well. These are presented on Table \ref{tab:nn-results}.
@@ -224,11 +216,42 @@ Some experiments are run to provide some baselines for getting a first approxima
     \label{tab:nn-results}
 \end{table}
 
-These result outperform every other method, justifying the choice of ANN as a surrogate model. The fact that different but close architecture show similar performance brings some confidence about the reproducibility: the random initialization of the weights in the network could have led to an exceptionally good model. Moreover, several runs of the same architecture yield similar ouputs, validating this intuition.
+These result outperform every other method. The fact that different but close architecture show similar performance brings some confidence about the reproducibility: the random initialization of the weights in the network could have led to an exceptionally good model. Moreover, several runs of the same architecture yield similar ouputs, validating this intuition.
 
 It is worth mentioning that some larger network architecture, \textit{e.g.} $(300, 'relu', 0), (300, 'relu', 0),$ $(200, 'relu', 0)$ acheived really good results, even slightly better than the best one. However these were not implementing dropout, so that they are high changes of being subject to overfitting. If dropout is added, the observed performance decrease, confirming the overfitting hypothesis.
 
 This is why the relative smallness of the network is a strength, as it will also act against overfitting, as having fewer parameters leaves less room for learning noise.
+
+\subsubsection{Selection of the machine learning technique and parametrization}
+
+In the end, neural networks are opted for. They benefit from the best performance in terms of mean squared error on the validation test, but neural networks MLPs also present the following advantages:
+\begin{itemize}
+    \item They are relatively lightweight, in comparison to the K-nearest neighbors methods, that needs to store the entire dataset, and the randomized trees, that need to store its trees structures. Neural networks only needs their weights that are fairly small with this few input variables.
+    \item Grasp non-linear behaviour with accuracy
+\end{itemize}
+
+Preliminary experiments basically consist in the test undertaken to assess the performance of different architectures (reported on Table \ref{tab:nn-results}). While the firsts steps of testing used another dataset that available at the time, ultimately the generated dataset was the only one in use for this assessments.
+
+The architecture is chosen to be the best of the baselines, and is provided in Table \ref{tab:nn-layers}. While hyper-parameter tuning may have produced another result, the latter could have been subject to overfitting, as described above. 
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \hline
+        Layer index & Layer type & Weights count \\ \hline
+        1 & Fully connected linear layer, 6 inputs to 180 outputs & $6\times 180 = 1080$ \\
+        2 & ReLU activation function & 0 \\
+        3 & Dropout layer, with $p=0.4$ & 0 \\
+        4 & Fully connected linear layer, 180 inputs to 100 inputs & $180\times 100=18000$ \\
+        5 & $\tanh$ activation function & 0 \\
+        6 & Dropout layer, with $p=0.4$ & 0\\
+        7 & Fully connected linear layer, 100 inputs to 2 outputs & $100\times 2$ \\ \hline
+    \end{tabular}
+    \caption{Description of the layers of in the selected model's architecture}
+    \label{tab:nn-layers}
+\end{table}
+
+The final parameterization of the model is therefore the setting of all its weights, that lie in layers 1, 4 and 7. The total count of parameters adds up: $1080 + 18000 + 200 = 19280$.
 
 \subsection{Machine learning aspects}
 

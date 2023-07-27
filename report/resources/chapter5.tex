@@ -12,20 +12,6 @@ The task of integrating the surrogate model into MEDEAS is split in two smaller 
     \item \textbf{Variable linking}, Link the input and output features of the surrogate model to the actual variables used in the MEDEAS model
 \end{enumerate}
 
-\subsection{The pysd option}
-
-As previouly introced, the \texttt{pysd} python library can read and run Vensim model files. Of course, as the surrogate model is primarily defined in that language, one would deduce that its integration would be easier that way.
-
-Doing so, while not explored in this work, is actually expected to be simple. Using \texttt{pysd} loading functionality, a python module representing the simulation is obtained. This module is then loaded with \texttt{pysd} for the simulation to be run. The linking can thus be done by editing the module file directly, and inserting the call to the model at the appropriate place. 
-
-This approach is nevertheless not chosen. While it has been thought about late in the work, after the current Vensim integration had been implemented, the main reason is the convenience of the resulting model. If the model combination was made available sa python module, it would be much harder for external people to edit the original MEDEAS model from Vensim, then run the modified version while keeping the surrogate model integrated. The editor would have to manually re-insert the surrogate model into the python module, that also have to be recreated.
-
-Keeping the surrogate model available as a Vensim external function is therefore a significant benefit for the further improvements of the model, as it enables edits to be made to MEDEAS independently of the surrogate model.
-
-Another update has to be mentionned here. In facts, J. Paris had trouble making the MEDEAS model run successfully with the integrated surrogate model had contact with the MEDEAS developping team, that advised to wait for the release of a update of the MEDEAS port to python, making use of \texttt{pysd} and expected to be more stable and convenient. The main issue was that she were to leave before the anticipated release date, such that it was not acheivable.
-
-However, this newer port to python with \texttt{pysd} may at the end make the integration of the model directly in python more portable and convenient, hence obtaining the same advantage of the Vensim external function. But this function was created and finished before learning the future availability of the new python port.
-
 \subsection{Vensim integration}
 
 \subsubsection{The Vensim software}
@@ -132,25 +118,40 @@ This tool is not available in C, this is the main reason why the library is writ
 
 The main purpose of Cppflow is precisely to run Tensorflow models from C++, and to acheive this it provides easy to use functions to load such a model, and to call it with some given intput data.
 
-To carry out all these operation in a library, it is thus required to link properly the library code to the two tools it uses, that are the Tensorflow DLL and Cppflow. Hence, using the GNU \texttt{make} facility to accomodate the compilation, a few \texttt{Makefile}s were written.
+To carry out all these operation in a library, it is thus required to link properly the library code to the two tools it uses, that are the Tensorflow DLL and Cppflow. Hence, using the GNU \texttt{make} facility to accomodate the compilation, a few \texttt{Makefile}s were written\footnote{At some point creating a program calling a Tensorflow model was managed, but this did not worked from the DLL. Therefore, a workaround was developed using a worker process (a seperate program) and Windows' tools for interprocess communication. But it turned out that the reason why the call could not be made to Tensorflow originated from an error in the linker arguments when compiling the library. With this fixed, it made the worker process workaround useless.}.
 
-On this, one thing is to be remembered: your code may compile and link successfully, but you also have to link properly the path to the DLL you linked to, that is, not only to the compiler.
+On this, one thing is to be remembered: some code may compile and link successfully, but one also has to link properly the path to the DLL you linked to, that is, not only to the compiler.
 
-\subsubsection{A small detour...}
+% \subsubsection{A small detour...}
 
-At some time in the library developpement process, it was successfully managed to produce a standalone program loading the Tensorflow model, and calling it on some inputs, but this was not the case for the library, that was able to compile and link, but not to find the DLL, once called from Vensim.
+% At some time in the library developpement process, it was successfully managed to produce a standalone program loading the Tensorflow model, and calling it on some inputs, but this was not the case for the library, that was able to compile and link, but not to find the DLL, once called from Vensim.
 
-It has been thought it may not be possible, so a workaround was implemented.
+% It has been thought it may not be possible, so a workaround was implemented.
 
-The idea was thus to make the library communicate with another program, that would be launched as a separate process. The library would thus start the other program as an external process, that will be waiting for computation queries, on simulation setup, and end it on simulation shutdown. Then, when the model is called from the library, it sends the input to that other process, which calls the model, and sends back the output to the library, that can return.
+% The idea was thus to make the library communicate with another program, that would be launched as a separate process. The library would thus start the other program as an external process, that will be waiting for computation queries, on simulation setup, and end it on simulation shutdown. Then, when the model is called from the library, it sends the input to that other process, which calls the model, and sends back the output to the library, that can return.
 
-As previously mentioned, DLL are specific to Windows, so the process management and inter-process commication had to be done in that context.
+% As previously mentioned, DLL are specific to Windows, so the process management and inter-process commication had to be done in that context.
 
-\subsubsection{And a fix}
+% \subsubsection{And a fix}
 
-But during some more testing, and adapting of \texttt{Makefile}s, the mistake was discovered: the compilation command used to produce the library missed the indication of the path to the DLL.
+% But during some more testing, and adapting of \texttt{Makefile}s, the mistake was discovered: the compilation command used to produce the library missed the indication of the path to the DLL.
 
-With that fixed, the library can directly use the Cppflow utilities, what greatly simplifies its architecture and code. The simulation setup loads the model, the model calls use it, and finally the simulation shutdown routine frees it.
+% With that fixed, the library can directly use the Cppflow utilities, what greatly simplifies its architecture and code. The simulation setup loads the model, the model calls use it, and finally the simulation shutdown routine frees it.
+
+\subsection{The pysd option}
+
+As previouly introced, the \texttt{pysd} python library can read and run Vensim model files. Of course, as the surrogate model is primarily defined in that language, one would deduce that its integration would be easier that way.
+
+Doing so, while not explored in this work, is actually expected to be simple. Using \texttt{pysd} loading functionality, a python module representing the simulation is obtained. This module is then loaded with \texttt{pysd} for the simulation to be run. The linking can thus be done by editing the module file directly, and inserting the call to the model at the appropriate place. 
+
+This approach is nevertheless not chosen. While it has been thought about late in the work, after the current Vensim integration had been implemented, the main reason is the convenience of the resulting model. If the model combination was made available sa python module, it would be much harder for external people to edit the original MEDEAS model from Vensim, then run the modified version while keeping the surrogate model integrated. The editor would have to manually re-insert the surrogate model into the python module, that also have to be recreated.
+
+Keeping the surrogate model available as a Vensim external function is therefore a significant benefit for the further improvements of the model, as it enables edits to be made to MEDEAS independently of the surrogate model.
+
+Another update has to be mentionned here. In facts, J. Paris had trouble making the MEDEAS model run successfully with the integrated surrogate model had contact with the MEDEAS developping team, that advised to wait for the release of a update of the MEDEAS port to python, making use of \texttt{pysd} and expected to be more stable and convenient. The main issue was that she were to leave before the anticipated release date, such that it was not acheivable.
+
+However, this newer port to python with \texttt{pysd} may at the end make the integration of the model directly in python more portable and convenient, hence obtaining the same advantage of the Vensim external function. But this function was created and finished before learning the future availability of the new python port.
+
 
 \subsection{Variable linking}
 
@@ -178,7 +179,7 @@ These variable are listed on Table \ref{tab:medeas-vars}.
      FE Elec generation from onshore wind TWh & Total yearly production from onshore wind turbines & TWh & $Generation_{wind-onshore}$ \\ \hline 
      Total capacity elec storage TW & Total power output of storage units & TW & $Storage_{tot}$ \\ \hline 
      Total FE Elec genetaion TWh EU & Total yearly electricity production from all units & TWh & $Generation_{tot}$ \\ \hline 
-     new capacity installed growth rate RES elec & Yearly growth rate of the electric network capacity & 1 & $Growth_{capacity}$ \\ \hline
+     new capacity installed growth rate RES elec & Yearly growth rate of the electric network capacity & [$\cdot$] & $Growth_{capacity}$ \\ \hline
     \end{tabular}
     \caption{Relevant variable in MEDEAS}
     \label{tab:medeas-vars}
@@ -192,11 +193,11 @@ As a consequence, additional parameters of the MEDEAS have been introduced, and 
 
 The relations drawn from MEDEAS' variables to the surrogate model's are shown on Table \ref{tab:linking-equations}.
 
-\begin{table}[htb]
+\begin{table}[h]
     \centering
     \begin{tabular}{|m{3.6cm}|c|}
     \hline 
-    Input variable & Linking equation \\ \hline
+    Input variable (from surrogate model) & Linking equation \\ \hline
     $share_{PV}$ & $share_{PV}=\dfrac{Generation_{PV}}{Demand_{tot}}$ \\ \hline 
     $share_{wind}$ & $share_{wind}=\dfrac{Generation_{wind-onshore} + Generation_{wind-offshore}}{Demand_{tot}}$ \\ \hline 
     $share_{flex}$ & $share_{flex}=40\%$ \\ \hline 
@@ -204,7 +205,7 @@ The relations drawn from MEDEAS' variables to the surrogate model's are shown on
     $Capacity_{ratio}$ & $Capacity_{ratio}=\dfrac{Generation_{tot}}{Demand_{tot}}$ \\ \hline 
     $rNTC$ & $rNTC= Growth_{capacity}$ \\ \hline 
     \end{tabular}
-    \caption{Variable linking equations}
+    \caption{Variable linking equations. The left-hand side are Dispa-SET variable, and right-hand side MEDEAS variables.}
     \label{tab:linking-equations}
 \end{table}
 

@@ -1,4 +1,4 @@
-\section{Data generation}
+\section{Dispa-SET simulation and database generation}
 
 \subsection{Overview}
 
@@ -44,7 +44,7 @@ As for the other groups, they can be simply described with technology-fuel pairs
 
 \subsubsection{Parameters estimates}
 
-The availability factors of PHOT and WTON are also required, as well as the peak load. These values are computed from the reference simulation (2019), and are shown in Table \ref{table:param-values}.
+The availability factors of PHOT and WTON are also required, as well as the peak load. These values are given as time-series inputs to the simulations, for the year 2019. To give an order of magnitude, their averages are given in Table \ref{table:param-values}.
 
 % \mywarning{needs check}
 
@@ -53,11 +53,12 @@ The availability factors of PHOT and WTON are also required, as well as the peak
     \begin{tabular}{|l c c|}
         \hline
         Variable     & Value  & Units \\ \hline
-        $AF_{PV}$    & 0.1313 & [$\cdot$]    \\
-        $AF_{WTON}$  & 0.2604 & [$\cdot$]   \\
+        $AF_{PV}$    & 0.1381 & [$\cdot$]    \\
+        $AF_{WTON}$  & 0.2007 & [$\cdot$]    \\
+        $AF_{WTOF}$  & 0.1050 & [$\cdot$]    \\ 
         $PeakLoad$   & 440929 & MW    \\ \hline
     \end{tabular}
-    \caption{Values of availability factors and peak load}
+    \caption{Average values for availability factor over the whole timeseries and all zones, and maximum total demand over the timeserie, i.e. sum of the demand in each country}
     \label{table:param-values}
 \end{table}
 
@@ -151,18 +152,23 @@ The notation $PowerCap_{x}$ refers to the maximum power output of all the units 
 
 The target outputs of the systems are the curtailment and the shedding. In order to make these values more scalable, we normalize them, by the maximum RES generation that could be produced (that is, the sum of the availability factors multiplied by the power capacity for each units), and the total demand respectively.
 
+The following convention is used: $A_f$ refers to the yourly availability factor, while $C_f$ denotes the yearly capacity factor. We have: $C_f = \frac{\sum_{timesteps} A_f }{N_{timesteps}}$.
+
 \begin{enumerate}
-    \item \textbf{CurtailmentToRESGeneration}
+    \item \textbf{Curtailment}
 
     Percentage of the curtailment to the maximum RES generation from all units:
     \begin{equation}
-        CurtailmentToRESGeneration = 100\times \frac{Curtailment}{\sum_{units} A_f * PowerCap_u}
+        Curtailment = 100\times \frac{EnergyCurtailed}{8760\sum_{units} C_f * PowerCap_u}
     \end{equation}
-    \item \textbf{SheddingToDemand}
+
+    Where $EnergyCurtailed$ represents the total amount of energy from VRES in MWh for all zones considered, $C_f$ is the per unit annual capacity factor, and $PowerCap$ is the installed capacity for each unit in MW.
+
+    \item \textbf{LoadShedding}
 
     Percentage of the shedding to the total demand, that is, the part of the demand that has not been satisfied:
     \begin{equation}
-        SheddingToDemand = 100\times \frac{\sum Shedding}{\sum Demand}
+        LoadShedding = 100\times \frac{\sum ShedLoad}{\sum Demand}
     \end{equation}
 \end{enumerate}
 
@@ -251,6 +257,8 @@ The main methods to acheive such sampling are \cite{doe} illustrated in the foll
 
 From these 2-dimensional illustration it is clear that the latin hypercube sampling performs best, the naive sampling featuring too much regularities that is not wanted, as they may introduce some bias, and Monte-Carlo sampling tends to make more clusters of samples, that would be inefficient (indeed, making two times the same simulation is useless).
 
+The number of points will be chosen quite arbitrarily to 2000. This leads to an average of $\sqrt[6]{2000} = 3.550$ points per dimension, if the points had been placed on a 6-dimensional grid in the input space. 
+
 \subsection{Generation of the dataset}
 
 With the input samples now obtained, the next step is now to compute the simulations on each of these points.
@@ -260,17 +268,43 @@ But this task is not trivial since the data that corresponds to these exact conf
 \subsubsection{Adjusting functions}
 To do so, Dispa-SET disposes of utility functions that do just that, adjusting the capacities, i.e., the power ouputs of the units, in function of some parameters.
 
-These adjusting functions have been specifically developped for this topic by Vidal in her master thesis \cite{carlas-thesis}.
+These adjusting functions were specifically developped for this topic by Vidal in her master thesis \cite{carlas-thesis}.
 
 \begin{itemize}
     \item \texttt{adjust\_flexibility} modifies installed capacities to reach the desired $Share_{flex}$.
     
-    To do so, it first computes the target capacity, by multiplying the total capacity by the desired $Share_{flex}$. It then add or subtracts the missing or exceeding flexible unit power capacity to each zone, weighting by their total capacity, following Equation \ref{equation:flex-cap-weight}.
+    To do so, it first computes the target capacity, by multiplying the total capacity by the desired $Share_{flex}$. It then add or subtracts the missing or exceeding flexible unit power capacity to each zone, weighting by their total capacity. Equation \ref{equation:flex-cap-weight} provides a good approximation of the update, but the full algorithm is presented in Algorithm \ref{algo:adjust_flex}.
 
     \begin{equation}
-        capacity_{z,new} = capacity{z,old} + \frac{capacity_{z,new}}{\sum_x capacity_{x,old}} (target-actual)
+        PowerCap_{z,new} = PowerCap_{z,old} + \frac{PowerCap_{z,old}}{\sum_x PowerCap_{x,old}} (target-actual)
         \label{equation:flex-cap-weight}
     \end{equation}
+
+    \begin{algorithm}[h]
+        \caption{Adjust\_flexibility algorithm} \label{algo:adjust_flex}
+        \begin{algorithmic}[1]
+            \If {$\delta \ensuremath{>} 0$}: 
+                \State $remain \gets \delta$
+                \For{$z \in\ zones$}
+                \State $weight \gets \frac{total_{z}}{current\_total\_cap \, - \, cum\_sum_{z}+total_{z}}$
+                \State $added\_cap \gets min (weight \cdot remain, total_{z} - flex_{z}$)
+                \State $new\_flex\_cap_{z} \gets flex_{z} + added\_cap$
+                \State $new\_slow\_cap_{z} \gets slow_{z} - added\_cap$
+                \EndFor
+            \ElsIf{$\delta < 0$}: 
+            \State $remain \gets - \delta$
+            \For{$z \in\ zones$}
+            \State $weight \gets \frac{total_{z}}{current\_total\_cap-cum\_sum_{z}+total_{z}}$
+            \State $removed\_cap \gets min (weight \cdot remain, flex_{z}$)
+            \State $new\_flex\_cap_{z} \gets flex_{z} - removed\_cap$
+            \State $new\_slow\_cap_{z} \gets slow_{z} + removed\_cap$
+            \EndFor
+            \Else
+            \State $new\_flex\_cap_{z} \gets flex_{z}$
+            \State $new\_slow\_cap_{z} \gets slow_{z}$
+            \EndIf
+        \end{algorithmic}
+    \end{algorithm}
 
     \item \texttt{adjust\_capacity} applies a linear scaling to the power output of some given set of units, in particular, it will be called multiples times to adjust the storage, PV and wind capacities.
     
@@ -320,6 +354,8 @@ All the outputs extracted from the simulations are displayed in Table \ref{table
 	\label{table:values-extracted}
 \end{table}
 
+Distinction should be made between the $Shedding$ and the $LostLoad$. The former is a consequence of voluntary action, following set rules between consumers and producers. The latter is a consequence of additional variables added to Dispa-SET to reduce the infeasibilities, assigning a high cost to the capacity the system is not able to generate due to maximum capacity and ramping constraint being reached.
+
 \subsubsection{Dataset creation}
 
 With the help of the adjusting functions, creating a whole dataset now comes down to generate samples from LHS as previously discussed, adjusting the reference simulation setting to each sample, run the simulation and extract the desired features from the outputs.
@@ -328,7 +364,7 @@ As this whole process will be completely automated, it is pretty easy to obtain 
 
 \subsection{Implementation}
 
-One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
+One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targetted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase will also require a lot of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
 
 As the NIC5 cluster provided by CÉCI is obviously shared, one needs to manage the submitted jobs appropriately. In our case, we simply have the same program to be run a bunch of times, that are jobs independent of each other.
 
@@ -381,7 +417,7 @@ During the creation of this set of scripts, some technical details require speci
     This is the reason why \texttt{launch-job-series.sh} exists. The script takes as an argument the serie index $i$, then starts a [$0:399$] array of \texttt{launch-simulation-jobs.sh} jobs, with $i$ as an argument. As the latter script has also access to its array index via SLURM environment variables, it can compute the intended simulation index, that will cover the [$400i:400i+399$] range. The next series is queued with the job array as a dependency, so that it is not launched before the current series terminated.
 \end{itemize}
 
-\subsubsection{Failing simulations}
+\subsubsection{Unsuccessful simulations}
 
 During the execution of the simulation, it appeared that for some of them GAMS was completely stuck at some point, hence wasting resources and preventing the other simulations to start by keeping available CPUs busy.
 
@@ -395,59 +431,76 @@ To further validate our observation, the quantiles of the distribution of the sh
 
 More decisively, the maximum value of a successful simulation is 0.9011, while the minimum value of a stalling simulation is 0.9015, that is, slightly more than the max of valid simulations. Thus, there exists a net boundary between the simulation that run successfully and the other. 
 
-The distribution of values in both part of the dataset for the share of flexible generation is shown on Table \ref{tab:stalling-simulations}
+The distribution of $ShareFlex$ values in both part of the dataset is depicted as boxplots on Figure \ref{fig:stalling-simulations}
 
-\begin{table}[h]
+\begin{figure}[h]
     \centering
-    \begin{tabular}{|l|ll|}
-        \hline
-        & Stalling simulations & Sucessful simulations \\ \hline        
-        mean & 0.9462 & 0.4557 \\
-        min  & 0.9015 & 0.0101 \\
-        25\% & 0.9242 & 0.2328 \\
-        50\% & 0.9451 & 0.4560 \\
-        75\% & 0.9695 & 0.6788 \\
-        max  & 0.9888 & 0.9011 \\ \hline
-    \end{tabular}
-    \caption{Distribution of the share of flexible generation for stalling and successful simulations}
-    \label{tab:stalling-simulations}
-\end{table}
+    \includegraphics[width=0.6\textwidth]{resources/images/share-flex-boxplots.png}
+    \caption{Distributions of the $ShareFlex$ parameter value in the unsuccessful simulations against successful simulation. The distributions of the other parameters are similar.}
+    \label{fig:stalling-simulations}
+\end{figure}
+
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{|l|ll|}
+%         \hline
+%         & Stalling simulations & Sucessful simulations \\ \hline        
+%         mean & 0.9462 & 0.4557 \\
+%         min  & 0.9015 & 0.0101 \\
+%         25\% & 0.9242 & 0.2328 \\
+%         50\% & 0.9451 & 0.4560 \\
+%         75\% & 0.9695 & 0.6788 \\
+%         max  & 0.9888 & 0.9011 \\ \hline
+%     \end{tabular}
+%     \caption{Distribution of the share of flexible generation for stalling and successful simulations}
+%     \label{tab:stalling-simulations}
+% \end{table}
 
 As a consequence, the validity region for the surrogate model has to be updated, as there is no way of producing an estimate of the outputs on a region where no sample was simulated correctly.
 
 This issue interpreted as the simulations having too high flexibility are harder to solve than the other, as the system has a lot of options to choose from when confronted to a change in demand.
 
-\subsubsection{Divisions by zero}
+It is noteworthy that in about 30\% of the simulation, a division by zero error was also stated. Since this happens in the preprocessing, it has no influence on the results and this error is discarded.
 
-Another problem that was encountered was a division by zero that happened when reading the simulation results. This error had little to no impact on the final results, so even if it is recorded in the error field (with a different error code than for stalling simulation), it was ignored most of the time and the results of concerned simulations settings were used. This time, it concerns around 30\% of the simulations (702 of 2400).
+It would also be useful to find in which equation this happens for debugging purposes.
 
-In the same fashion than for the previous error, the cause of the error is investigated, and it appears than in this case the most decisive input is the rNTC. Its value, in the $[0, 0.7]$ range, the average of simulation with division by zero is $0.32$ higher than the average of the other ones. 
+% \subsubsection{Divisions by zero}
 
-However, in this case, there is no fixed boundary, meaning it also depends on other inputs. Still, we can observe that the minimum of the distribution of the rNTC value for the settings producing a division by zero, at 0.39 is still significantly higher than the one of the successful simulation, at 0. 
+% Another problem that was encountered was a division by zero that happened when reading the simulation results. This error had little to no impact on the final results, so even if it is recorded in the error field (with a different error code than for stalling simulation), it was ignored most of the time and the results of concerned simulations settings were used. This time, it concerns around 30\% of the simulations (702 of 2400).
 
-The distribution of rNTC values are shown on Table \ref{tab:divzero-simulations}.
+% In the same fashion than for the previous error, the cause of the error is investigated, and it appears than in this case the most decisive input is the rNTC. Its value, in the $[0, 0.7]$ range, the average of simulation with division by zero is $0.32$ higher than the average of the other ones. 
 
-\begin{table}
-    \centering
-    \begin{tabular}{|l|ll|}
-        \hline
-        & Division by zero & No division by zero \\ \hline
-        mean & 0.5736 & 0.2534 \\
-        min  & 0.3902 & 0.0002 \\
-        25\% & 0.5075 & 0.1216 \\
-        50\% & 0.5794 & 0.2447 \\
-        75\% & 0.6400 & 0.3672 \\
-        max  & 0.6995 & 0.7000 \\ \hline
-    \end{tabular}
-    \caption{Distribution of the rNTC for simulation with and without the division by zero}
-    \label{tab:divzero-simulations}
-\end{table}
+% However, in this case, there is no fixed boundary, meaning it also depends on other inputs. Still, we can observe that the minimum of the distribution of the rNTC value for the settings producing a division by zero, at 0.39 is still significantly higher than the one of the successful simulation, at 0. 
+
+% The distribution of rNTC values are illustrated on Figure \ref{fig:divzero-simulations}.
+
+% \begin{figure}[h]
+%     \centering
+%     \includegraphics[width=0.6\textwidth]{resources/images/rNTC-boxplots.png}
+%     \caption{Distributions of the $rNTC$ parameter value in the simulations with division by zero against the other simulations. The distributions of the other parameters are similar.}
+%     \label{fig:divzero-simulations}
+% \end{figure}
+% \begin{table}
+%     \centering
+%     \begin{tabular}{|l|ll|}
+%         \hline
+%         & Division by zero & No division by zero \\ \hline
+%         mean & 0.5736 & 0.2534 \\
+%         min  & 0.3902 & 0.0002 \\
+%         25\% & 0.5075 & 0.1216 \\
+%         50\% & 0.5794 & 0.2447 \\
+%         75\% & 0.6400 & 0.3672 \\
+%         max  & 0.6995 & 0.7000 \\ \hline
+%     \end{tabular}
+%     \caption{Distribution of the rNTC for simulation with and without the division by zero}
+%     \label{tab:divzero-simulations}
+% \end{table}
 
 \subsubsection{Dataset fields}
 
 For completeness, all the fields in the created dataset in \texttt{dataset.csv} are shown on Table \ref{table:dataset-fields}.
 
-Only two of these, $SheddingToDemand$ and $CurtailmentToRESGeneration$ are actually used to train the surrogate model, as the marginal cost of including all the other outputs is null, they are saved as well in case someone would find a use for it in the future.
+Only two of these, $LoadShedding$ and $Curtailment$ are actually used to train the surrogate model, and six as the model features. As the marginal cost of including all the other outputs is null, they are saved as well in case someone would find a use for it in the future.
 
 \begin{table}[h]
     \centering
@@ -455,22 +508,22 @@ Only two of these, $SheddingToDemand$ and $CurtailmentToRESGeneration$ are actua
 		\hline
 		Parameter & Unit & Parameter & Unit \\
 		\hline
-		Cost             & €/MWh & CurtailmentToRESGeneration & \% \\
-		Congestion       & h     & MaxLoadSheddingShare & \% \\
+		Cost             & €/MWh & Curtailment          & \% \\
+		Congestion       & h     & MaxLoadSheddingShare\tablefootnote{The MaxLoadSheddingShare is taken as a fraction of the demand at the time.} & \% \\
 		PeakLoad         & MW    & CF gas         & [$\cdot$] \\
 		MaxCurtailment   & MW    & CF nuc         & [$\cdot$] \\
 		MaxLoadShedding  & MW    & CF wat         & [$\cdot$] \\
 		Demand           & TWh   & CF win         & [$\cdot$] \\
 		NetImports       & TWh   & CF sun         & [$\cdot$] \\
-		Curtailment      & TWh   & Capacity ratio & [$\cdot$] \\
-		Shedding         & TWh   & Share flex     & [$\cdot$] \\
-		LostLoad         & TWh   & Share sto      & [$\cdot$] \\
-        MaxRESGeneration & TWh   & Share Wind     & [$\cdot$] \\
-        TotalGeneration  & TWh   & Share PV       & [$\cdot$] \\
-        ShareRESGeneration & \%  & rNTC           & [$\cdot$] \\
-        SheddingToDemand & [$\cdot$] & & \\
+		{\color{blue} Curtailment}      & TWh   & {\color{green} Capacity ratio} & [$\cdot$] \\
+		{\color{blue} Shedding}         & TWh   & {\color{green} Share flex}     & [$\cdot$] \\
+		LostLoad         & TWh   & {\color{green} Share sto}   & [$\cdot$] \\
+        MaxRESGeneration & MW    & {\color{green} Share Wind}  & [$\cdot$] \\
+        TotalGeneration  & TWh   & {\color{green} Share PV}    & [$\cdot$] \\
+        ShareRESGeneration & \%  & {\color{green} rNTC}        & [$\cdot$] \\
+        LoadShedding & [$\cdot$] & & \\
 		\hline
 	\end{tabular}
-	\caption{Dataset fields. "\%" as a unit means a unitless ratio multiplied by 100. The MaxLoadSheddingShare is taken as a fraction of the demand at the time.}
+	\caption{Dataset fields. "\%" as a unit means a unitless ratio multiplied by 100. Elements displayed in green correspond to the six features, and elements in blue the two target outputs.}
 	\label{table:dataset-fields} 
 \end{table}

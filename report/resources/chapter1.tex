@@ -2,7 +2,7 @@
 
 \subsection{Overview}
 
-The \href{http://www.dispaset.eu/en/latest/}{online documentation} describes the Dispa-SET \cite{dispaset} model as "an open-source unit commitment and optimal dispatch model focused on the balancing and flexibility problems in European grids".
+The Dispa-SET model \cite{dispaset} is described in \cite{dispaset2} as "an open-source unit commitment and optimal dispatch model focused on the balancing and flexibility problems in European grids".
 
 More precisely, it is focused on simulating large scale power systems, with emphasis on high shares of VRES. It follows that it is used as tool for the analysis of the impacts of VRES on the power systems, thank to its ability to take into account several technical constraints of the power system.
 
@@ -17,7 +17,7 @@ A schematic of the Dispa-SET architecture is given in Figure \ref{dispaset-archi
 Dispa-SET has several option regarding the formulation of the problem:
 \begin{itemize}
     \item Linear programming (LP) optimization problem
-    \item Mixed Integer Linear Programming optimization problem.
+    \item Mixed Integer Linear Programming (MILP) optimization problem.
 \end{itemize}
 
 Its interface is written in the Python programming language, and calls GAMS \cite{GAMS} as the main solver engine.
@@ -350,3 +350,29 @@ At the end, this differenciation is not done, as it would also require the input
 
     Non-renewable technologies have their AF set to 1.
 \end{itemize}
+
+\subsection{Problem formulations}
+
+Dispa-SET features several, different formulations, that have a significant impact on the realism and accuracy of the output.
+
+\subsubsection{Linear programming}
+
+In the LP formulation, every variable is considered to be continuous, and can take values down to zero.
+
+In particular, this constraint applies to the power output of each unit, that is, the ratio of the actual power the unit is operating over its maximum capacity. Therefore, as a unit cannot produce more than its maximum capacity, this value must lie in the $[0, 1]$ interval at every hour of the simulation.
+
+This constrain causes a significant issue, in the extent that each unit cannot specify a minimal level of operation, e.g. $0.5$. This leads to unrealistic situations being considered valid, for example a nuclear unit operating at 10\% of its maximal power.
+
+\subsubsection{Binary formulation}
+
+To mitigate the issue encountered with the LP formulation, it is extended by adding a boolean variable to each unit, which determines wether or not the corresponding unit is started or not. That way, the minimum operating value can be enforced.
+
+This strategy, however acheiving the better accuracy targetted, is unfortunately often intractable for realistic settings, because the large number of binary variables, yields an exploding number of $2^N$ options to be examinated.
+
+\subsubsection{Mixed integer linear programming}
+
+The MILP formulation is created to leverage the computational cost of the simulation while keeping a good level of accuracy. The main idea is to group the units that share similar properties together, and only keep track of the number of units in each group that are currently running.
+
+This permits the number of options to explore reasonnable, without hurting the precision of the output.
+
+In this work, the MILP formulation is chosen, because of its better efficiency to computational cost trade-off.
