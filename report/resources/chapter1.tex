@@ -2,7 +2,7 @@
 
 \subsection{Overview}
 
-The Dispa-SET model \cite{dispaset} is described in \cite{dispaset2} as "an open-source unit commitment and optimal dispatch model focused on the balancing and flexibility problems in European grids".
+The Dispa-SET model \cite{dispaset} is described in the source \cite{dispaset2} as "an open-source unit commitment and optimal dispatch model focused on the balancing and flexibility problems in European grids".
 
 More precisely, it is focused on simulating large scale power systems, with emphasis on high shares of VRES. It follows that it is used as tool for the analysis of the impacts of VRES on the power systems, thank to its ability to take into account several technical constraints of the power system.
 
@@ -38,7 +38,7 @@ The total system costs is splitted as follows:
     \item \textit{Spillage costs}: due to spillage in storage units.
 \end{itemize}
 
-Adding these, Equation \ref{obj-function-sum} is obtained, where $u$ refers to the index on each units, and $i$ is the time index.
+We can formulate, Equation \ref{obj-function-sum} to represent the objective function, where $u$ refers to the index on each units, and $i$ is the time index.
 
 \begin{captionnable}
     $Min_{TotalSystemCost}=$
@@ -81,10 +81,11 @@ Whereas the demand originates from:
     \item The load in that zone
     \item The (eventual) net exportations to neighbouring zones
     \item The power consumed by charging storage units
-    \item The power consumed by P2H units
+    \item The power consumed by P2H (power to heat) units
 \end{itemize}
 
 The Equation \ref{supply-demand-balance-equation} expresses this target equality.
+\mywarning{Mieux détailler les membres de l'équation}
 
 \begin{captionnable}
     \begin{equation}
@@ -119,7 +120,7 @@ Without further constraints, the optimization will most often leave all the stor
 
 In order to tackle this issue, the Dispa-SET model has to be run in Mid-Term Scheduling (MTS) mode. In this mode, the initial and final levels of the storage units (in particular, pumped hydro storage units) are given as exogenous input to the model. These levels are enforced with additional constraints.
 
-In this work, the MTS mode is enabled and the exogenous inputs, for both initial and final levels, are set to half of the storage capacity.
+In this work, the MTS mode is enabled, and the exogenous inputs, for both initial and final levels, are set to half of the storage capacity.
 
 \subsection{Dispa-SET components and representation}
 
@@ -169,7 +170,7 @@ Table \ref{table:technologies-eu} lists all the technologies taken into account 
 
 Due to the intermittency of their resources, and because one cannot dispatch them, VRES are considered inflexible.
 
-Although, hydroelectric units disposing of a reservoir are have some room for flexibility, given their ability to manage their storage level.
+However, hydroelectric units with a reservoir are have some room for flexibility, due their ability to manage their storage level.
 
 Steam turbines, because of their dependency on the fuel used, e.g. nuclear energy would be less flexible than natural gas.
 
@@ -205,7 +206,7 @@ Table \ref{table:fuels-eu} summarizes the fuel types in Dispa-SET.
 
 It is important to highlight that technologies may not always be powered by the same fuel, for instance, the steam turbines can use most of them.
 
-Each unit must specify its technology and fuel. Depending on the optimization problem formulation, units featuring the same (technology-fuel) pair will be grouped together and thereafter be treated as one single unit.
+Each unit must specify its technology and fuel. Depending on the optimization problem formulation, units featuring the same (technology-fuel) pair will be grouped together and thereafter be treated as one single unit. This grouping is of crucial importance, as it will define the behaviour of the simulation when using the MILP formulation (see \ref{subsubection:milp}).
 
 \begin{table}[h]
     \centering
@@ -232,7 +233,7 @@ Each unit must specify its technology and fuel. Depending on the optimization pr
 	\label{table:fuels-eu}
 \end{table}
 
-A major consideration for the optimization problem is the fuel prices, that are summarized in Table \ref{table:fuel-prices}.
+A major consideration for the optimization problem is the fuel prices, which are listed in Table \ref{table:fuel-prices}.
 
 A key feature is the relationship between the price of coal and the price of gas: depending on which one is the cheaper, the optimal behaviour change dramatically. Obviously, the cheapest one will always be preferred over the other when choice arise. 
 
@@ -277,6 +278,10 @@ Some other price values are relevant, such as the price of the load shedding per
 	\label{table:other-prices}
 \end{table}
 
+\mywarning{prix du CO2 en euro/MWh}
+
+These values define the significance of each problem relatively to each other, hence what option is the least costly. For instance, the shedding cost could be so low compared to the carbon emissions that it is preferable not to run any coal unit to produce 1MW than to shed 1MW. This example is extreme, but outlines the fact that these prices impact the simulation outcome via their use in the objective function.
+
 \subsubsection{Power plants}
 
 As a dispatch model, Dispa-SET oviously has to model the units it dispatches, namley the power plants that are present in each of the modelled zones.
@@ -312,7 +317,7 @@ Dispa-SET disposes of utilities to do so, but also needs to craft the new, aggre
     \label{table:plant-db}
 \end{table}
 
-For the storage units, one needs some more parameters, given on Table \ref{table:plant-storage-db}. For the other unit types, these feilds will be left empty.
+For the storage units, one needs some more parameters, given on Table \ref{table:plant-storage-db}. These feilds will remain blank for the other unit types.
 
 \begin{table}[h]
     \centering
@@ -331,15 +336,19 @@ For the storage units, one needs some more parameters, given on Table \ref{table
 
 Their discharge efficiency will be assigned to the common Efficiency field, and the PowerCapacity will be assigned the power output on discharge.
 
-For batteries units, the RampUpRate and RampDownRate fields are set to 1, while the others but efficiency are set to 0. In previous work in this context, the number of hours a unit can run at maximum output capacity is fixed as 4 hours, thus implicitly fixing a storage capacity given a power output.
+For batteries units, the RampUpRate and RampDownRate fields are set to 1, while the others but efficiency are set to 0. 
+
+The crucial capability of storage units is their storage volume. In previous work in this context, the number of hours a unit can run at maximum output capacity is fixed as 4 hours, thus implicitly fixing a storage capacity given a power output.
 
 This choice is arbitrary and leads to a simplification of the reality, where one could find huge differences in this ratio. To remove this, an option is added in Dispa-SET's adjusting function, to be able to filter the adjustments by range, making it now able to discriminate the units based on the storage capacity over maximum output power ratio, enabling its use to adjust storage units with different "longevity" separately.
 
-However in reality, most of the difference comes from the pumped hydro storage, that can typically output their maximum power for a longer time than the other storage technologies, such as batteries.
+However in reality, most of the difference is between the pumped hydro storage, that can typically output their maximum power for a longer time, and the other storage technologies, such as batteries.
 
 At the end, this differenciation is not done, as it would also require the inputs of the surrogate model to be changed, to take into account the share of "high-longevity" storage units with respect to the "low-lengevity" ones.
 
 \subsubsection{Notes on the other inputs}
+
+We can make a few miscellaneous remarks about Dispa-SET input data.
 
 \begin{itemize}
     \item The electricity demand is a time series from year 2019, per zone. It is assumed to be independent of the price.
@@ -349,11 +358,13 @@ At the end, this differenciation is not done, as it would also require the input
     This variable energy generation is either curtailed or sent to the grid.
 
     Non-renewable technologies have their AF set to 1.
+
+    In this work, AF denotes the hourly capacity factor, and CF (Capacity Factor) refers to the annual value. Hence, the capacity factor is the yearly average of the availability factor. 
 \end{itemize}
 
 \subsection{Problem formulations}
 
-Dispa-SET features several, different formulations, that have a significant impact on the realism and accuracy of the output.
+Dispa-SET features several, different formulations, that have a significant impact on the realism and accuracy of the output. These formulation differ in the way the simulation is created and the constraints defined.
 
 \subsubsection{Linear programming}
 
@@ -369,10 +380,10 @@ To mitigate the issue encountered with the LP formulation, it is extended by add
 
 This strategy, however acheiving the better accuracy targetted, is unfortunately often intractable for realistic settings, because the large number of binary variables, yields an exploding number of $2^N$ options to be examinated.
 
-\subsubsection{Mixed integer linear programming}
+\subsubsection{Mixed integer linear programming \label{subsubsection:milp}}
 
 The MILP formulation is created to leverage the computational cost of the simulation while keeping a good level of accuracy. The main idea is to group the units that share similar properties together, and only keep track of the number of units in each group that are currently running.
 
 This permits the number of options to explore reasonnable, without hurting the precision of the output.
 
-In this work, the MILP formulation is chosen, because of its better efficiency to computational cost trade-off.
+In this work, the MILP formulation is chosen due to its better efficiency-to-computational-cost trade-off.

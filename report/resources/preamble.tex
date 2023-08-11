@@ -1,21 +1,3 @@
-\section*{Keywords}
-
-\begin{table}[h!]
-    \begin{tabular}{p{3cm} p{8cm}}
-        CF & Capacity factor \\
-        DLL & Dynamically loaded library \\
-        LP & Linear programming \\
-        LHS & Latin hypercube sampling \\
-        MILP & Mixed integer linear programming \\
-        MTS & Mid-term scheduling \\
-        P2H & Power \\
-        RES & Renewable energy sources \\
-        VRES & Variable renewable energy sources \\
-    \end{tabular}
-\end{table}
-
-\newpage
-
 \section*{Acknowledgements}
 
 I would like to thank professor Quoilin first, for his mentoring during this thesis and his advices. Then Jade, for her collaboration on the linkings between the created model and MEDEAS.
@@ -28,12 +10,14 @@ Thanks should also go to my mother, and everyone to which I talked about my thes
 
 \section*{Abstract}
 
-TODO
+This master thesis explores the use of a surrogate model to acheive the integration of electricity network constraints into integrated assessment models.
 
-\section*{Todo-list}
-\begin{enumerate}
-    \item Check that all Keywords are actually used
-\end{enumerate}
+Tools were developped to run Dispa-SET, a dispatch model for the European electricity network, to build a dataset of simulations on adequate sample points. This dataset is then used to train the surrogate model using appropriate machine learning methods. Finally, this model is integrated into the MEDEAS IAM, connecting their variables in a meaningful way, and the resulting model is run for different scenarios.
+
+Results show that integrating the model in MEDEAS leads to a lower production of variable renewable energy sources compared to the initial MEDEAS prediction.
+
+\vspace{1cm}
+Keywords: surrogate model, Dispa-SET, MEDEAS, machine learning, VRES
 
 \newpage
 
@@ -45,5 +29,26 @@ I have \total{countWarnings} warnings:
 \begin{itemize}
     \mylistwarnings{\item}
 \end{itemize}
+
+\newpage
+
+\section*{Keywords}
+
+\addcontentsline{toc}{section}{Keywords}
+
+\begin{table}[h!]
+    \begin{tabular}{p{3cm} p{8cm}}
+        AF & Availability factor \\
+        CF & Capacity factor \\
+        DLL & Dynamically loaded library \\
+        LP & Linear programming \\
+        LHS & Latin hypercube sampling \\
+        MILP & Mixed integer linear programming \\
+        MTS & Mid-term scheduling \\
+        P2H & Power to heat \\
+        RES & Renewable energy sources \\
+        VRES & Variable renewable energy sources \\
+    \end{tabular}
+\end{table}
 
 \newpage
