@@ -2,11 +2,11 @@
 
 \subsection{Overview}
 
-This section presents the training process that lead to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
+This section presents the training process that have led to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
 
-This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and is be tackled as such.
+This is a straightforward example of a regression problems, that is to predict some output features from the input features, given a number of training example, that is the dataset. This is a typical machine learning problem, and is be addressed accordingly.
 
-First, different methods' performances are measured and the best one is chosen. Then, a model is trained and evaluated, that is the core surrogate model.
+Initially, the performance of different methods are measured and the best one is selected. Then, a model is trained and evaluated, that is the core surrogate model.
 
 \subsection{Machine learning methods}
 
@@ -43,13 +43,15 @@ Results obtained with k-NN for several values of $k$ are shown on Table \ref{tab
     \label{tab:results-knn}
 \end{table}
 
+The best performance is obtained for $k$ equal to 7. Lower values increase the error by overfitting, while larger values suffer from underfitting, causing a larger error.
+
 \subsubsection{Decision trees}
 
-Decision trees, and extremely randomized trees \cite{extremely-randomized-trees} another category of easy to implement\footnote{Again, using \href{https://scikit-learn.org/stable/modules/ensemble.html\#forests-of-randomized-trees}{scikit-learn}} machine learning methods, as they also come with a limited, fixed number design parameters.
+Decision trees, and extremely randomized trees \cite{extremely-randomized-trees} another category of easy to implement\footnote{Again, using \href{https://scikit-learn.org/stable/modules/ensemble.html\#forests-of-randomized-trees}{scikit-learn}} machine learning methods, as they also involve a constrained and fixed number design parameters.
 
-But these also come with the drawback of having a piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic with many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
+ These methods, however, exhibit the limitation of producing piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic using many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
 
-Results obtained using decision trees are shown on Table \ref{tab:trees-results}.
+Results obtained with decision trees are shown on Table \ref{tab:trees-results}.
 
 \begin{table}[h]
     \centering
@@ -74,11 +76,13 @@ Results obtained using decision trees are shown on Table \ref{tab:trees-results}
     \label{tab:trees-results}
 \end{table}
 
+The best accuracy is obtained with 135 trees. However in this case, the results are not as clear as for the k-NN technique, that showed a monotonic decrease, the minimum then an increase. As randomness is involved when choosing the splits when building the trees, the results are subject to a slight variance, inducing less obvious results. However, after 145 trees, the error starts steadily increasing.
+
 These performances are better than the nearest neighbors method, but do not perform as good as the following techniques.
 
 \subsubsection{XGBoost}
 
-XGBoost is one of the most popular machine learning technique nowadays \cite{XGBoost}. XGBoost in itself is actually an efficient implementation of a machine learning method, tree boosting.
+XGBoost is one of the most popular machine learning technique nowadays \cite{XGBoost}. XGBoost is actually an efficient implementation of a machine learning method, tree boosting.
 
 Boosting aims at building a good predictive model out of so-called weak learners, in this case, trees. Each learner is trained on the error of the output of the previous model, so that the previous output plus the newly trained learner output is a better prediction of the target output. Moreover, the samples are weighted in favor of the ones that were badly predicted by the previous model, in order to make sure we correct past mistakes.
 
@@ -91,69 +95,109 @@ In tree boosting, the main hyper-parameters are:
 
 Resulting performance for some values of the hyper-parameters are reported on Table \ref{tab:results-xgboost}.
 
-XGBoost's results are really good, down to 0.01 mean squared error on the validation set. This is not surprising given that this technique is quite popular in the literature. Actually, for the first testing stage where the dataset created in this work was not available, the dataset from C. Vidal's work has been used as a first test. In this setting, the results obtained with XGBoost outperformed, even though by only a little, the best neural network architecture.
+XGBoost's results are really good, acheiving at best around 0.006 mean squared error on the validation set. This is not surprising given that this technique is quite popular in the literature. Actually, for the first testing stage where the dataset created in this work was not available, the dataset from C. Vidal's work has been used as a first test. In this context, the results obtained with XGBoost outperformed the best neural network architecture.
 
 \begin{table}[h!]
     \centering
-    \begin{tabular}{|l|l|l|l||l|l|l|l|}
+    \begin{tabular}{|l|l|l|l||l|l|l|l||l|l|l|l|}
         \hline
-        lr & d & n & err & lr & d & n & err \\ \hline
-        3 & 0.1 &  8  & 0.2446 & 4 & 0.4 &  8  & 0.0215 \\
-        3 & 0.1 &  9  & 0.2141 & 4 & 0.4 &  9  & 0.0198 \\
-        3 & 0.1 &  10 & 0.1886 & 4 & 0.4 &  10 & 0.0181 \\
-        3 & 0.1 &  11 & 0.1672 & 4 & 0.4 &  11 & 0.0170 \\
-        3 & 0.1 &  12 & 0.1484 & 4 & 0.4 &  12 & 0.0163 \\
-        3 & 0.1 &  13 & 0.1307 & 4 & 0.4 &  13 & 0.0156 \\
-        3 & 0.2 &  8  & 0.0865 & 5 & 0.1 &  8  & 0.1984 \\
-        3 & 0.2 &  9  & 0.0707 & 5 & 0.1 &  9  & 0.1681 \\
-        3 & 0.2 &  10 & 0.0594 & 5 & 0.1 &  10 & 0.1425 \\
-        3 & 0.2 &  11 & 0.0509 & 5 & 0.1 &  11 & 0.1212 \\
-        3 & 0.2 &  12 & 0.0434 & 5 & 0.1 &  12 & 0.1035 \\
-        3 & 0.2 &  13 & 0.0388 & 5 & 0.1 &  13 & 0.0889 \\
-        3 & 0.3 &  8  & 0.0430 & 5 & 0.2 &  8  & 0.0530 \\
-        3 & 0.3 &  9  & 0.0373 & 5 & 0.2 &  9  & 0.0414 \\
-        3 & 0.3 &  10 & 0.0315 & 5 & 0.2 &  10 & 0.0330 \\
-        3 & 0.3 &  11 & 0.0276 & 5 & 0.2 &  11 & 0.0272 \\
-        3 & 0.3 &  12 & 0.0249 & 5 & 0.2 &  12 & 0.0228 \\
-        3 & 0.3 &  13 & 0.0229 & 5 & 0.2 &  13 & 0.0199 \\
-        3 & 0.4 &  8  & 0.0313 & 5 & 0.3 &  8  & 0.0221 \\
-        3 & 0.4 &  9  & 0.0279 & 5 & 0.3 &  9  & 0.0185 \\
-        3 & 0.4 &  10 & 0.0254 & 5 & 0.3 &  10 & 0.0157 \\
-        3 & 0.4 &  11 & 0.0234 & 5 & 0.3 &  11 & 0.0140 \\
-        3 & 0.4 &  12 & 0.0221 & 5 & 0.3 &  12 & 0.0125 \\
-        3 & 0.4 &  13 & 0.0205 & 5 & 0.3 &  13 & 0.0114 \\
-        4 & 0.1 &  8  & 0.2133 & 5 & 0.4 &  8  & 0.0155 \\
-        4 & 0.1 &  9  & 0.1822 & 5 & 0.4 &  9  & 0.0138 \\
-        4 & 0.1 &  10 & 0.1564 & 5 & 0.4 &  10 & 0.0128 \\
-        4 & 0.1 &  11 & 0.1359 & 5 & 0.4 &  11 & 0.0119 \\
-        4 & 0.1 &  12 & 0.1178 & 5 & 0.4 &  12 & 0.0113 \\
-        4 & 0.1 &  13 & 0.1030 & 5 & 0.4 &  13 & 0.0109 \\
-        4 & 0.2 &  8  & 0.0626 & 6 & 0.1 &  8  & 0.1938 \\
-        4 & 0.2 &  9  & 0.0498 & 6 & 0.1 &  9  & 0.1620 \\
-        4 & 0.2 &  10 & 0.0405 & 6 & 0.1 &  10 & 0.1368 \\
-        4 & 0.2 &  11 & 0.0344 & 6 & 0.1 &  11 & 0.1163 \\
-        4 & 0.2 &  12 & 0.0292 & 6 & 0.1 &  12 & 0.0990 \\
-        4 & 0.2 &  13 & 0.0253 & 6 & 0.1 &  13 & 0.0848 \\
-        4 & 0.3 &  8  & 0.0281 & 6 & 0.2 &  8  & 0.0494 \\
-        4 & 0.3 &  9  & 0.0239 & 6 & 0.2 &  9  & 0.0379 \\
-        4 & 0.3 &  10 & 0.0207 & 6 & 0.2 &  10 & 0.0302 \\
-        4 & 0.3 &  11 & 0.0183 & 6 & 0.2 &  11 & 0.0248 \\
-        4 & 0.3 &  12 & 0.0161 & 6 & 0.2 &  12 & 0.0211 \\
-        4 & 0.3 &  13 & 0.0146 & 6 & 0.2 &  13 & 0.0181 \\ \hline
+        d & lr   & n    & err      & d  & lr   & n    & err      & d & lr   & n    & err      \\ \hline
+        3 & 0.03 & 10   & 0.5248   &  4 & 0.1  & 10   & 0.1564   & 5 & 0.2  & 10   & 0.03299  \\
+        3 & 0.03 & 20   & 0.3367   &  4 & 0.1  & 20   & 0.04522  & 5 & 0.2  & 20   & 0.01088  \\
+        3 & 0.03 & 50   & 0.1100   &  4 & 0.1  & 50   & 0.01059  & 5 & 0.2  & 50   & 0.007287 \\
+        3 & 0.03 & 100  & 0.033627 &  4 & 0.1  & 100  & 0.007168 & 5 & 0.2  & 100  & 0.006907 \\
+        3 & 0.03 & 200  & 0.01294  &  4 & 0.1  & 200  & 0.006018 & 5 & 0.2  & 200  & 0.006681 \\
+        3 & 0.03 & 500  & 0.007804 &  4 & 0.1  & 500  & 0.005489 & 5 & 0.2  & 500  & 0.006624 \\
+        3 & 0.03 & 1000 & 0.006434 &  4 & 0.1  & 1000 & 0.005325 & 5 & 0.2  & 1000 & 0.006623 \\
+        3 & 0.03 & 2000 & 0.005553 &  4 & 0.1  & 2000 & 0.005294 & 5 & 0.2  & 2000 & 0.006623 \\
+        3 & 0.1  & 10   & 0.1886   &  4 & 0.2  & 10   & 0.04046  & 6 & 0.03 & 10   & 0.4870   \\
+        3 & 0.1  & 20   & 0.06469  &  4 & 0.2  & 20   & 0.01313  & 6 & 0.03 & 20   & 0.2861   \\
+        3 & 0.1  & 50   & 0.01586  &  4 & 0.2  & 50   & 0.007588 & 6 & 0.03 & 50   & 0.06760  \\
+        3 & 0.1  & 100  & 0.009350 &  4 & 0.2  & 100  & 0.006579 & 6 & 0.03 & 100  & 0.01544  \\
+        3 & 0.1  & 200  & 0.007291 &  4 & 0.2  & 200  & 0.006219 & 6 & 0.03 & 200  & 0.007516 \\
+        3 & 0.1  & 500  & 0.005978 &  4 & 0.2  & 500  & 0.006029 & 6 & 0.03 & 500  & 0.006548 \\
+        3 & 0.1  & 1000 & 0.005558 &  4 & 0.2  & 1000 & 0.006007 & 6 & 0.03 & 1000 & 0.006381 \\
+        3 & 0.1  & 2000 & 0.005375 &  4 & 0.2  & 2000 & 0.006007 & 6 & 0.03 & 2000 & 0.006343 \\
+        3 & 0.2  & 10   & 0.059425 &  5 & 0.03 & 10   & 0.4916   & 6 & 0.1  & 10   & 0.1368   \\
+        3 & 0.2  & 20   & 0.02037  &  5 & 0.03 & 20   & 0.2894   & 6 & 0.1  & 20   & 0.03335  \\
+        3 & 0.2  & 50   & 0.009474 &  5 & 0.03 & 50   & 0.07119  & 6 & 0.1  & 50   & 0.008382 \\
+        3 & 0.2  & 100  & 0.007554 &  5 & 0.03 & 100  & 0.01647  & 6 & 0.1  & 100  & 0.006850 \\
+        3 & 0.2  & 200  & 0.006287 &  5 & 0.03 & 200  & 0.006834 & 6 & 0.1  & 200  & 0.006594 \\
+        3 & 0.2  & 500  & 0.005976 &  5 & 0.03 & 500  & 0.005326 & 6 & 0.1  & 500  & 0.006504 \\
+        3 & 0.2  & 1000 & 0.005935 &  5 & 0.03 & 1000 & 0.005069 & 6 & 0.1  & 1000 & 0.006491 \\
+        3 & 0.2  & 2000 & 0.005894 &  5 & 0.03 & 2000 & 0.004952 & 6 & 0.1  & 2000 & 0.006491 \\
+        4 & 0.03 & 10   & 0.5013   &  5 & 0.1  & 10   & 0.1425   & 6 & 0.2  & 10   & 0.0302   \\
+        4 & 0.03 & 20   & 0.3042   &  5 & 0.1  & 20   & 0.03577  & 6 & 0.2  & 20   & 0.01046  \\
+        4 & 0.03 & 50   & 0.08414  &  5 & 0.1  & 50   & 0.008340 & 6 & 0.2  & 50   & 0.007929 \\
+        4 & 0.03 & 100  & 0.02168  &  5 & 0.1  & 100  & 0.006145 & 6 & 0.2  & 100  & 0.007743 \\
+        4 & 0.03 & 200  & 0.008364 &  5 & 0.1  & 200  & 0.005640 & 6 & 0.2  & 200  & 0.007651 \\
+        4 & 0.03 & 500  & 0.005841 &  5 & 0.1  & 500  & 0.005433 & 6 & 0.2  & 500  & 0.007622 \\
+        4 & 0.03 & 1000 & 0.005203 &  5 & 0.1  & 1000 & 0.005371 & 6 & 0.2  & 1000 & 0.007622 \\
+        4 & 0.03 & 2000 & 0.004922 &  5 & 0.1  & 2000 & 0.005371 & 6 & 0.2  & 2000 & 0.007622 \\
     \end{tabular}
+    % \begin{tabular}{|l|l|l|l||l|l|l|l|}
+    %     \hline
+    %     d & lr  & n   & err    & d & lr  & n   & err \\ \hline
+    %     3 & 0.1 &  10 & 0.1886 & 4 & 0.4 &  10 & 0.0181 \\
+    %     3 & 0.1 &  11 & 0.1672 & 4 & 0.4 &  11 & 0.0170 \\
+    %     3 & 0.1 &  12 & 0.1484 & 4 & 0.4 &  12 & 0.0163 \\
+    %     3 & 0.1 &  13 & 0.1307 & 4 & 0.4 &  13 & 0.0156 \\
+    %     3 & 0.1 &  14 & 0.1171 & 4 & 0.4 &  14 & 0.0150 \\
+    %     3 & 0.1 &  15 & 0.1050 & 4 & 0.4 &  15 & 0.0148 \\
+    %     3 & 0.2 &  8  & 0.0865 & 5 & 0.1 &  8  & 0.1984 \\
+    %     3 & 0.2 &  9  & 0.0707 & 5 & 0.1 &  9  & 0.1681 \\
+    %     3 & 0.2 &  10 & 0.0594 & 5 & 0.1 &  10 & 0.1425 \\
+    %     3 & 0.2 &  11 & 0.0509 & 5 & 0.1 &  11 & 0.1212 \\
+    %     3 & 0.2 &  12 & 0.0434 & 5 & 0.1 &  12 & 0.1035 \\
+    %     3 & 0.2 &  13 & 0.0388 & 5 & 0.1 &  13 & 0.0889 \\
+    %     3 & 0.3 &  8  & 0.0430 & 5 & 0.2 &  8  & 0.0530 \\
+    %     3 & 0.3 &  9  & 0.0373 & 5 & 0.2 &  9  & 0.0414 \\
+    %     3 & 0.3 &  10 & 0.0315 & 5 & 0.2 &  10 & 0.0330 \\
+    %     3 & 0.3 &  11 & 0.0276 & 5 & 0.2 &  11 & 0.0272 \\
+    %     3 & 0.3 &  12 & 0.0249 & 5 & 0.2 &  12 & 0.0228 \\
+    %     3 & 0.3 &  13 & 0.0229 & 5 & 0.2 &  13 & 0.0199 \\
+    %     3 & 0.4 &  8  & 0.0313 & 5 & 0.3 &  8  & 0.0221 \\
+    %     3 & 0.4 &  9  & 0.0279 & 5 & 0.3 &  9  & 0.0185 \\
+    %     3 & 0.4 &  10 & 0.0254 & 5 & 0.3 &  10 & 0.0157 \\
+    %     3 & 0.4 &  11 & 0.0234 & 5 & 0.3 &  11 & 0.0140 \\
+    %     3 & 0.4 &  12 & 0.0221 & 5 & 0.3 &  12 & 0.0125 \\
+    %     3 & 0.4 &  13 & 0.0205 & 5 & 0.3 &  13 & 0.0114 \\
+    %     4 & 0.1 &  8  & 0.2133 & 5 & 0.4 &  8  & 0.0155 \\
+    %     4 & 0.1 &  9  & 0.1822 & 5 & 0.4 &  9  & 0.0138 \\
+    %     4 & 0.1 &  10 & 0.1564 & 5 & 0.4 &  10 & 0.0128 \\
+    %     4 & 0.1 &  11 & 0.1359 & 5 & 0.4 &  11 & 0.0119 \\
+    %     4 & 0.1 &  12 & 0.1178 & 5 & 0.4 &  12 & 0.0113 \\
+    %     4 & 0.1 &  13 & 0.1030 & 5 & 0.4 &  13 & 0.0109 \\
+    %     4 & 0.2 &  8  & 0.0626 & 6 & 0.1 &  8  & 0.1938 \\
+    %     4 & 0.2 &  9  & 0.0498 & 6 & 0.1 &  9  & 0.1620 \\
+    %     4 & 0.2 &  10 & 0.0405 & 6 & 0.1 &  10 & 0.1368 \\
+    %     4 & 0.2 &  11 & 0.0344 & 6 & 0.1 &  11 & 0.1163 \\
+    %     4 & 0.2 &  12 & 0.0292 & 6 & 0.1 &  12 & 0.0990 \\
+    %     4 & 0.2 &  13 & 0.0253 & 6 & 0.1 &  13 & 0.0848 \\
+    %     4 & 0.3 &  8  & 0.0281 & 6 & 0.2 &  8  & 0.0494 \\
+    %     4 & 0.3 &  9  & 0.0239 & 6 & 0.2 &  9  & 0.0379 \\
+    %     4 & 0.3 &  10 & 0.0207 & 6 & 0.2 &  10 & 0.0302 \\
+    %     4 & 0.3 &  11 & 0.0183 & 6 & 0.2 &  11 & 0.0248 \\
+    %     4 & 0.3 &  12 & 0.0161 & 6 & 0.2 &  12 & 0.0211 \\
+    %     4 & 0.3 &  13 & 0.0146 & 6 & 0.2 &  13 & 0.0181 \\ \hline
+    % \end{tabular}
     \caption{Results for some values of the XGBoost parameters. The learning rate is labelled "lr", the maximum depth "d" and the number of estimators n, while the validation error is denoted by "err".}
     \label{tab:results-xgboost}
 \end{table}
 
+The best performance is observed with a maximum depth of 4, a learning rate set to 0.03 and 2000 trees. Further fine-tuning may slightly improve this value, in particular reduce the learning rate and increase the number of trees even more, but further investigation showed that the performance stagnate starting from 1800.
+
+% As there are tree dimensions to take into account, we need to find combination of values. Results on Table \ref{tab:results-xgboost} indicate that there is a balance to find between the depth of the approximators and their number. Sh
+
 \subsubsection{Kernel-based methods\label{section:kernel-methods}}
 
-One may consider to apply a kernel method with one of the other method mentioned above. While this may indeed improve the quality of the resulting model, and also solve the issue that was representing fast changes in the output, there is a main, almost trivial issue with them. Obviously, one need a kernel, but what kernel?
+One might consider applying a kernel method with one of the other method mentioned above. While this may indeed improve the quality of the resulting model, and also solve the issue that was representing fast changes in the output, nevertheless, finding a suitable kernel is a difficult.
 
-As there are no ready-to-use kernel for this specific case, and that finding such a kernel would be a hard task, kernel methods are abandonned.
+As there are no ready-to-use kernel for this specific case, and that finding such a kernel would be a hard task, kernel methods are discarded.
 
 \subsubsection{Artificial neural network}
 
-Artificial neural networks (ANN) are used in this work to build our surrogate model. These kind of methods provide a large flexibility, due to their entirely customizable architecture, as well as a large learning capacity. This makes them able to modelize with good accuracy some complex, non-linear functions.
+Artificial neural networks (ANN) are used in this work to build our surrogate model. These types of methods offer a large flexibility, due to their entirely customizable architecture, as well as a large learning capacity. This makes them able to modelize with good accuracy some complex, non-linear functions.
 
 In most recent applications of these ANNs, a lot of different strategies are used to process the data efficiently. For example, convolutional layers convey a lot of meaning in the context of image processing, or transformers are well suited to process sequences \cite{deep-learning-class}.
 
@@ -166,7 +210,7 @@ Thus, a simple multi-layer perceptron (MLP) architecture is chosen, and the next
     \item The activation function at each layer
 \end{itemize}
 
-Some experiments are run to provide some baselines for getting a first approximation of what performs well. These are presented on Table \ref{tab:nn-results}.
+Some experiments are run to provide some baselines for getting a first approximation of what performs well. These results are presented in Table \ref{tab:nn-results}.
 
 \begin{table}[h!]
     \centering
@@ -212,7 +256,7 @@ Some experiments are run to provide some baselines for getting a first approxima
         (200, 'relu', 0.5), (200, 'relu', 0.5), (200, 'relu', 0.5) & 0.07010 \\
         (150, 'relu', 0.5), (150, 'relu', 0.5), (150, 'relu', 0.5), (150, 'relu', 0.5) & 0.13490 \\ \hline
     \end{tabular}
-    \caption{Results for some architecures of neural networks. Architectures are formatted as a list of layers, which are written as ($n$, $a$, $p$) tuples, where $n$ is the number of neurons, $p$ the dropout value and $a$ the activation function}
+    \caption{Results for some architectures of neural networks. Architectures are formatted as a list of layers, which are written as ($n$, $a$, $p$) tuples, where $n$ is the number of neurons, $p$ the dropout value and $a$ the activation function}
     \label{tab:nn-results}
 \end{table}
 
@@ -232,7 +276,7 @@ In the end, neural networks are opted for. They benefit from the best performanc
 
 Preliminary experiments basically consist in the test undertaken to assess the performance of different architectures (reported on Table \ref{tab:nn-results}). While the firsts steps of testing used another dataset that available at the time, ultimately the generated dataset was the only one in use for this assessments.
 
-The architecture is chosen to be the best of the baselines, and is provided in Table \ref{tab:nn-layers}. While hyper-parameter tuning may have produced another result, the latter could have been subject to overfitting, as described above. 
+The architecture is selected as the optimal one among baselines, and is provided in Table \ref{tab:nn-layers}. While hyper-parameter tuning may have produced another result, the latter could potentially suffer from overfitting, as described above. 
 
 \begin{table}[h!]
     \centering
@@ -247,39 +291,39 @@ The architecture is chosen to be the best of the baselines, and is provided in T
         6 & Dropout layer, with $p=0.4$ & 0\\
         7 & Fully connected linear layer, 100 inputs to 2 outputs & $100\times 2$ \\ \hline
     \end{tabular}
-    \caption{Description of the layers of in the selected model's architecture}
+    \caption{Description of the layers of in the selected architecture for the model}
     \label{tab:nn-layers}
 \end{table}
 
-The final parameterization of the model is therefore the setting of all its weights, that lie in layers 1, 4 and 7. The total count of parameters adds up: $1080 + 18000 + 200 = 19280$.
+Consequently, the final parameterization of the model involves the setting of all its weights, that lie in layers 1, 4 and 7. The total count of parameters adds up: $1080 + 18000 + 200 = 19280$.
 
 \subsection{Machine learning aspects}
 
 \subsubsection{Validation and testing\label{ssec:val-testing}}
 
-In machine learning, validation and testing are crucial steps in order to ensure the performance of a model. To implement these, one has to separate the data into three sets.
+In machine learning, validation and testing are crucial steps in order to ensure the performance of a model. To implement these, one must separate the data into three sets.
 
 \begin{itemize}
-    \item The validation set is used to tune the model hyperparameters on. Due to its influence on the model, it is thus susceptible to bias the model.
+    \item The validation set is used for hyperparameters tuning. Given its influence on the model, it can introduce bias into the model.
     \item The test set is used to evaluate the model's performance, on unseen data.
     \item The training set is used to train the model.
 \end{itemize}
 
-In most cases, one will simply split available data into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
+Typically, the data is split into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
 
 For the training set, joining different sets drawn with LHS is not expected to improve performance. As the LHS are independent of each other, there is a great chance to draw samples that are really close to each other, or worse, equal, what is exactly what LHS aims at avoiding.
 
 On the other hand, using a set drawn from a different LHS (than the one used for the training set) for testing and validation is interesting. This will provide data that spans the whole input space, but not yet exactly the same as the data used for training. Thanks to the input space coverage, the evaluation made at testing will be more extensive, and thanks to being independent of the training data, this evaluation should remain unbiased. 
 
-On the other hand, the validation set being sampled from a LHS now providing a guarantee that it spans the whole space could make the work of the learning agent easier, giving it access to each of the LHS sample from the training set.
+Conversely, the validation set being sampled from a LHS now providing a guarantee that it spans the whole space could make the work of the learning agent easier, giving it access to each of the LHS sample from the training set.
 
 However promising, this approach will not be done in this work, to make sure the unbiased property of the trained model persists, and that the term "validation error" keeps the same meaning as everywhere else.
 
 \subsubsection{Overfitting}
 
-An inherent problem to machine learning methods is the overfitting, or its opposite, underfitting. These terms refer to the cases where the training is respectively too specific to the training data, and not enough specific.
+An inherent challenge to machine learning methods is the overfitting, or its opposite, underfitting. These terms refer to the cases where the training is respectively too specific to the training data, and not enough specific.
 
-Overfitting is thus a symptom of too much learning, leading to learning some noise or some particularities of the dataset, while underfitting means that there is not enough learning, so that the model is not able to represent all the cases, even the one that are well represented in the available data.
+Overfitting is a result of excessive learning, leading to learning some noise or some particularities of the dataset, while underfitting means that there is not enough learning, so that the model is not able to represent all the cases, even the one that are well represented in the available data.
 
 The main tool used to prevent it in a neural network is the dropout. During the training phases, each neuron on a layer will have some probability $p$, typically between 0.3 and 0.5, of being set to 0, independently of its value. This methods ensures that the network will not be excessively relying on some neurons in its output. During testing oviously, the dropout is removed and all neurons are functional.
 
@@ -289,7 +333,7 @@ On the other hand, underfitting means there is not enough learning happening. Fo
 
 In this setting, although underfitting is still a shortfall, it is not regarded as bad as the overfitting. The latter introduces errors that come from noise that is completely random, inevitably introducing imprecisions. But we keep in mind that the target to be approximated, that are outputs from the Dispa-SET model, are themselves an approximation, though accurate, of the reality. So if these are subject to some bias or imperfections, the best model would learn them as well.
 
-Because an underfitting model of the dataset created using Dispa-SET would still be a decent estimate of the reality, what is actually the main goal here, underfitting is preferable to overfitting.
+Because an underfitting model of the dataset created using Dispa-SET would still be a decent estimate of the reality, which is the primary objective in this context, underfitting is preferable to overfitting.
 
 These will have to be assessed during training to ensure the validity of the model.
 
@@ -297,9 +341,9 @@ These will have to be assessed during training to ensure the validity of the mod
 
 An other source of imprecision in machine learning is the bias. This relates to the fact that there exist some noise in the data, that cannot be filtered out, or imprecisions in the assumptions, that inevitably conducts to noise in the output.
 
-However, in this setting, there is very little one could do to reduce its significance. First, the data points have been drawn from a latin-hypercube sampling strategy, that precisely aims at spreading the samples equitably all over the input space. Then, the output features were computed from a Dispa-SET run on this sample.
+However, in this setting, there is very little one could implement to reduce its significance. First, the data points have been drawn from a latin-hypercube sampling strategy, that precisely aims at spreading the samples equitably all over the input space. Then, the output features were computed from a Dispa-SET run on this sample.
 
-Thus, the main source of bias one may have an influence in is the bias originating from incorrectnesses during the model training, due to a poor model design.
+Hence, the primary source of bias that can be addressed pertains to model training inaccuracies resulting from suboptimal model design.
 
 The other plausible source of bias is the simulation made in Dispa-SET. Of course, Dispa-SET is also itself a model, thus relying on some assumptions and subject to its own modelling of the reality. And as such, it may introduce a bias in its computations, that will necessarily be learned by the surrogate model. But there is no way to assess this bias, and obviouly Dispa-SET itself focuses on making that bias as negligible as possible.
 
@@ -419,7 +463,7 @@ Several surfaces are depicted on Figure \ref{fig:all-views}. The following obser
     \item Figure \ref{fig:surf-3-4-0} also confirms the intuition, as it outlines the increase in curtailment with an increase of either share solar or share PV.
     \item Figure \ref{fig:surf-3-4-1} is the most intriguing one. First, it is noticed that the scale is the lower here. The most surprising part is that it features local minima, and that when the share PV is close to 0, the load shedding as a function of the share of wind energy is U-shaped. This phenomenon is hard to explain theoretically, the most likely cause remains a weak learning of the model.
     
-    Moreover, the shape of the surface changes rapidly when changing the other constant values (therefore taking other values than disclosed in Table \ref{tab:default-view-values}), validating the hypothesis of a weak learning.
+    Moreover, the shape of the surface changes rapidly when changing the other constant values, therefore taking other values than disclosed in Table \ref{tab:default-view-values}, which validates the hypothesis of a weak learning.
 
     In comparison, the other surfaces do not move that significantly with similar change, coming down to a slight upwards or downwards shift, depending on the direction of the change, occasionnaly with a light amplitude change.
     \item Figure \ref{fig:surf-0-5-0} follows the intuition as well, but also highlights the stronger impact of the capacity ratio on the curtailment compared to the rNTC. This is not surprising, as the share of electricity import is not that huge. However, this may change dramatically depending on the country considered.
