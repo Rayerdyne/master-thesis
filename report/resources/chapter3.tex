@@ -4,7 +4,7 @@
 
 This section aims at describing the process that lead to the creation of the dataset, required in order to train the neural network model.
 
-First, an input space is defined, on which will properly select points to form the dataset features. Then, computationally expensive simulation will be run on these points, and meaningful data will be extracted from the simulation results to obtain the desired output features to be predicted by the model.
+First, an input space is defined, on which will properly select points to form the dataset features. Then, computationally expensive simulation will be run on these points, and we will extract meaningful data from the simulation results to obtain the desired output features to be predicted by the model.
 
 This dataset will afterwards be used to train the surrogate model on \cite{surrogate_model}.
 
@@ -13,9 +13,9 @@ This dataset will afterwards be used to train the surrogate model on \cite{surro
 As stated earlier, this setting only considers the european power system in Dispa-SET, then to create and validate our surrogate model. Each simulation is run over a period of 2019.
 
 \subsubsection{Unit groupings}
-In this context, the precise technology and fuel types of each plant is not relevant, as they won't influence the input features of our dataset. Hence, the units are grouped into five categories: flexible units, slow units, storage units, PV units and wind units.
+In this context, the specific technology and fuel types of each plant are not relevant, as they won't influence the input features of our dataset. There are less input features than technology-fuel pairs, and only the formers matter for the surrogate model training. Hence, the units are grouped into five categories: flexible units, slow units, storage units, PV units and wind units.
 
-IRENA \cite{irena} describes flexible units as "units that can ramp up and down quickly, have a low minimum operating level and fast start-up and shutdown times", what criterion will be used to separate regular units into the slow and flexible units. This criterion is presented in Table \ref{table:flex-vs-slow-unit}.
+IRENA \cite{irena} describes flexible units as "units that can ramp up and down quickly, have a low minimum operating level and fast start-up and shutdown times", what criterion will be used to separate regular units into the slow and flexible units, and their relative shares will dictate the $Share_{flex}$ input. This criterion is presented in Table \ref{table:flex-vs-slow-unit}.
 
 \begin{table}[h!]
     \centering
@@ -31,9 +31,9 @@ IRENA \cite{irena} describes flexible units as "units that can ramp up and down 
 	\label{table:flex-vs-slow-unit}
 \end{table}
 
-Refer to Tables \ref{table:technologies-eu} and \ref{table:fuels-eu} for their names.
+Refer back to Tables \ref{table:technologies-eu} and \ref{table:fuels-eu} for their names.
 
-One also has to consider the limit to the number of hydroelectric units that are possible to build given a geographical area. Given that EU is already almost at saturation, stationary batteries are considered, among other energy storage technology (e.g. compressed air, electric vehicles' battery grid).
+One also has to consider the limit to the number of hydroelectric units that are possible to build given a geographical area. Given that EU is already almost at saturation, stationary batteries, i.e. large scale arrays of batteries, are considered, among other energy storage technology (e.g. compressed air, electric vehicles' battery grid).
 
 As for the other groups, they can be simply described with technology-fuel pairs as follows:
 \begin{itemize}
@@ -44,7 +44,7 @@ As for the other groups, they can be simply described with technology-fuel pairs
 
 \subsubsection{Parameters estimates}
 
-The availability factors of PHOT and WTON are also required, as well as the peak load. These values are given as time-series inputs to the simulations, for the year 2019. To give an order of magnitude, their averages are given in Table \ref{table:param-values}.
+The availability factors of PHOT and WTON are also required, as well as the peak load. These values are given as time-series inputs to the simulations, for the year 2019. To give an order of magnitude, their averages, the derived capacity factor, are given in Table \ref{table:param-values}.
 
 % \mywarning{needs check}
 
@@ -53,16 +53,18 @@ The availability factors of PHOT and WTON are also required, as well as the peak
     \begin{tabular}{|l c c|}
         \hline
         Variable     & Value  & Units \\ \hline
-        $AF_{PV}$    & 0.1381 & [$\cdot$]    \\
-        $AF_{WTON}$  & 0.2007 & [$\cdot$]    \\
-        $AF_{WTOF}$  & 0.1050 & [$\cdot$]    \\ 
+        $CF_{PV}$    & 0.1381 & [$\cdot$]    \\
+        $CF_{WTON}$  & 0.2007 & [$\cdot$]    \\
+        $CF_{WTOF}$  & 0.1050 & [$\cdot$]    \\ 
         $PeakLoad$   & 440929 & MW    \\ \hline
     \end{tabular}
-    \caption{Average values for availability factor over the whole timeseries and all zones, and maximum total demand over the timeserie, i.e. sum of the demand in each country}
+    \caption{Average values of the capacity factor over all zones, and maximum total demand over the timeserie, i.e. sum of the demand in each country}
     \label{table:param-values}
 \end{table}
 
 \subsection{Design space}
+
+For data sampling, the design space is of crucial importance. Its shape and dimensions, as well as the chosen sampling strategy, have a direct impact on the balance of the dataset, that can ultimately introduce some bias in the data. 
 
 \subsubsection{Shape}
 
@@ -70,7 +72,7 @@ The first necessary step in order to select our data points for our dataset, is 
 
 One may argue that some areas of this hypercube, typically around the vertices, will be extremely unlikely to happen in a real setting. More precisely, as this cube will be the input space of the surrogate model that will be connected to another model, it may be suitable to prune the areas of the cube that will never be reached. Indeed, if we know that some areas will never be queried, there is no use covering them.
 
-Furthermore, assuming we would obtain the exact space of possible queries, this space is not likely to be close to some common shape (hypercube, hyperball or combination). Given that most of the design of experiments techniques assume these kinds of space, a mapping would be needed to benefit from the better sampling strategies. Such a mapping would be pretty complex to develop.
+Furthermore, assuming we would obtain the exact space of possible queries, this space is not likely to be close to some common shape (hypercube, hyperball or combination). Given that most of the design of experiments techniques assume these kinds of space, a mapping would be needed to benefit from the better sampling strategies, as the latter assume common shapes. Such a mapping would be pretty complex to develop.
 
 More importantly, the cost of being more general than strictly required is small, mainly consisting of a slightly larger surrogate model (in this specific case, a larger neural network), and a larger dataset.
 
@@ -78,44 +80,44 @@ For these reasons, an hypercube will be used.
 
 \subsubsection{Input variables}
 
-The six adimensional variables, corresponding to a dimension, are described below, with their given range.
+The six adimensional variables are described in the following, alongside with their range. Each of these corresponds to one dimension of the hypercube.
 
-The notation $PowerCap_{x}$ refers to the maximum power output of all the units in $x$. See Table \ref{table:param-values} for the values of the AF and peak load value.
+The notation $PowerCap_{x}$ refers to the maximum power output of all the units in $x$, and $PeakLoad$ stands for the maximum total demand. See Table \ref{table:param-values} for the values of the CF and peak load value.
 
 \begin{enumerate}
     \item \textbf{CapacityRatio [$\cdot$]}
     
     Ratio of the maximum production over the maximum demand.
     \begin{equation}
-        CapacityRatio  = \frac{PowerCap_{flex units}+Power Cap_{slow units}+PowerCap_{storage units}}{Peak Load}
+        CapacityRatio  = \frac{PowerCap_{flex units}+PowerCap_{slow units}+PowerCap_{storage units}}{PeakLoad}
     \end{equation}
 
     \item \textbf{ShareFlexibility [$\cdot$]}
     
     Share of the units that are flexible.
     \begin{equation}
-        {Share_{flex}}=\frac{PowerCap_{flex units}}{Power Cap_{flex units}+PowerCap_{slow units}}	
+        {Share_{flex}}=\frac{PowerCap_{flex units}}{PowerCap_{flex units}+PowerCap_{slow units}}	
     \end{equation}
 
     \item \textbf{ShareStorage [$\cdot$]}
     
     Ratio of the maximum power output of all storage units over the maximum demand.
     \begin{equation}
-        {Share_{storage}}=\frac{PowerCap_{storage units}}{Peak Load}	
+        {Share_{storage}}=\frac{PowerCap_{storage units}}{PeakLoad}	
     \end{equation}
 
     \item \textbf{ShareWind [$\cdot$]}
     
     Ratio of the maximum power output of all wind units over the maximum demand.
     \begin{equation}
-        Share_{wind}=\frac{PowerCap_{wind units}}{Peak Load}\cdot AF_{WTON}
+        Share_{wind}=\frac{PowerCap_{wind units}}{PeakLoad}\cdot CF_{WTON}
     \end{equation}
 
     \item \textbf{SharePV [$\cdot$]}
 
     Ratio of the maximum power output of all PV units over the maximum demand.
     \begin{equation}
-        {Share_{PV}}=\frac{PowerCap_{PV units}}{Peak Load}\cdot AF_{PV}
+        {Share_{PV}}=\frac{PowerCap_{PV units}}{PeakLoad}\cdot CF_{PV}
     \end{equation}
 
     \item \textbf{rNTC [$\cdot$]}
@@ -152,17 +154,17 @@ The notation $PowerCap_{x}$ refers to the maximum power output of all the units 
 
 The target outputs of the systems are the curtailment and the shedding. In order to make these values more scalable, we normalize them, by the maximum RES generation that could be produced (that is, the sum of the availability factors multiplied by the power capacity for each units), and the total demand respectively.
 
-The following convention is used: $A_f$ refers to the yourly availability factor, while $C_f$ denotes the yearly capacity factor. We have: $C_f = \frac{\sum_{timesteps} A_f }{N_{timesteps}}$.
+This normalization makes the output scalable, meaning that it can be used for other systems that have different scales. Without, the curtailment prediction is dependent on our specific training setting, and the resulting model, outputting absolute values, could not be used for any other setting. Scaling the outputs therefore enables easier generalization of the future model.
 
 \begin{enumerate}
     \item \textbf{Curtailment}
 
     Percentage of the curtailment to the maximum RES generation from all units:
     \begin{equation}
-        Curtailment = 100\times \frac{EnergyCurtailed}{8760\sum_{units} C_f * PowerCap_u}
+        Curtailment = 100\times \frac{EnergyCurtailed}{8760\sum_{units} CF * PowerCap_u}
     \end{equation}
 
-    Where $EnergyCurtailed$ represents the total amount of energy from VRES in MWh for all zones considered, $C_f$ is the per unit annual capacity factor, and $PowerCap$ is the installed capacity for each unit in MW.
+    Where $EnergyCurtailed$ represents the total amount of energy from VRES in MWh for all zones considered, $CF$ is the yearly capacity factor and $PowerCap$ is the installed capacity for each unit in MW.
 
     \item \textbf{LoadShedding}
 
@@ -176,6 +178,10 @@ The following convention is used: $A_f$ refers to the yourly availability factor
 \subsubsection{Reference values and ranges}
 
 Given the 2019 input data, a reference simulation is run and one obtains the values presented in table \ref{table:reference-values}.
+
+This simulation is used as the starting point to define all the other simulations. Its inputs and parameters values are adjusted to match the desired input features values for each simulation.
+
+The inputs' ranges are set based on what is plausible at this time, while kept tight to avoid exploring unrealistic settings.
 
 \begin{table}[h]
     \centering
@@ -273,7 +279,7 @@ These adjusting functions were specifically developped for this topic by Vidal i
 \begin{itemize}
     \item \texttt{adjust\_flexibility} modifies installed capacities to reach the desired $Share_{flex}$.
     
-    To do so, it first computes the target capacity, by multiplying the total capacity by the desired $Share_{flex}$. It then add or subtracts the missing or exceeding flexible unit power capacity to each zone, weighting by their total capacity. Equation \ref{equation:flex-cap-weight} provides a good approximation of the update, but the full algorithm is presented in Algorithm \ref{algo:adjust_flex}.
+    To do so, it first computes the target capacity, by multiplying the total capacity by the desired $Share_{flex}$. It then add or subtracts the missing or exceeding flexible unit power capacity to each zone, weighting by their total capacity. Equation \ref{equation:flex-cap-weight} provides an approximation of the update, but the full algorithm is presented in Algorithm \ref{algo:adjust_flex}.
 
     \begin{equation}
         PowerCap_{z,new} = PowerCap_{z,old} + \frac{PowerCap_{z,old}}{\sum_x PowerCap_{x,old}} (target-actual)
@@ -292,13 +298,13 @@ These adjusting functions were specifically developped for this topic by Vidal i
                 \State $new\_slow\_cap_{z} \gets slow_{z} - added\_cap$
                 \EndFor
             \ElsIf{$\delta < 0$}: 
-            \State $remain \gets - \delta$
-            \For{$z \in\ zones$}
-            \State $weight \gets \frac{total_{z}}{current\_total\_cap-cum\_sum_{z}+total_{z}}$
-            \State $removed\_cap \gets min (weight \cdot remain, flex_{z}$)
-            \State $new\_flex\_cap_{z} \gets flex_{z} - removed\_cap$
-            \State $new\_slow\_cap_{z} \gets slow_{z} + removed\_cap$
-            \EndFor
+                \State $remain \gets - \delta$
+                \For{$z \in\ zones$}
+                \State $weight \gets \frac{total_{z}}{current\_total\_cap-cum\_sum_{z}+total_{z}}$
+                \State $removed\_cap \gets min (weight \cdot remain, flex_{z}$)
+                \State $new\_flex\_cap_{z} \gets flex_{z} - removed\_cap$
+                \State $new\_slow\_cap_{z} \gets slow_{z} + removed\_cap$
+                \EndFor
             \Else
             \State $new\_flex\_cap_{z} \gets flex_{z}$
             \State $new\_slow\_cap_{z} \gets slow_{z}$
@@ -306,9 +312,11 @@ These adjusting functions were specifically developped for this topic by Vidal i
         \end{algorithmic}
     \end{algorithm}
 
+    Depending on the sign of the flexibility difference $\delta$, the remainder variable is set and the algorithm loops over each zones, computes a ratio corresponding approximately to how much the considered zone has to contribute to the change. Then the amount of flexible generation capacity is added or removed accordingly.
+
     \item \texttt{adjust\_capacity} applies a linear scaling to the power output of some given set of units, in particular, it will be called multiples times to adjust the storage, PV and wind capacities.
     
-    Scaling factors applied are summarized in Table \ref{table:scaling-factors}.
+    Scaling factors applied to match desired values are summarized in Table \ref{table:scaling-factors}.
 
     \begin{table}[h]
         \centering
@@ -316,8 +324,8 @@ These adjusting functions were specifically developped for this topic by Vidal i
             \hline  
             Units              & Scaling factor    \\ \hline
             $Storage_{units}$  & $Share_{storage}$ \\ 
-            $Wind_{units}$     & $\frac{CapacityRatio \cdot Share_{wind}}{AF_{wton}}$ \\
-            $PV_{units}$       & $\frac{CapacityRatio \cdot Share_{PV}}{AF_{PV}}$ \\ \hline
+            $Wind_{units}$     & $\frac{CapacityRatio \cdot Share_{wind}}{CF_{wton}}$ \\
+            $PV_{units}$       & $\frac{CapacityRatio \cdot Share_{PV}}{CF_{PV}}$ \\ \hline
         \end{tabular}
         \caption{Scaling factors applied to different units}
         \label{table:scaling-factors}
@@ -328,9 +336,9 @@ These adjusting functions were specifically developped for this topic by Vidal i
 
 \subsubsection{Extracted outputs}
 
-As every simulation runs outputs a lot more than only the curtailment and lost load values, some other outputs variables will be extracted from the simulations, while not directly useful for the time being.
+Each simulation generates multiple outputs beyond curtailment and lost load values, some other outputs variables will be extracted from the simulations, although not immediately exploited.
 
-Of course, these may reveal themselves useful for future work.
+Of course, these may prove to be useful for future research.
 
 All the outputs extracted from the simulations are displayed in Table \ref{table:values-extracted}.
 
@@ -343,10 +351,10 @@ All the outputs extracted from the simulations are displayed in Table \ref{table
 		Cost            & €/MWh & Shedding & TWh \\
 		Congestion      & h     & LostLoad & TWh \\
 		PeakLoad        & MW    & CF gas  & [$\cdot$] \\
-		MaxCurtailment  & MW    & CF nuc  & [$\cdot$] \\
-		MaxLoadShedding & MW    & CF wat   & [$\cdot$] \\
-		Demand          & TWh   & CF win   & [$\cdot$] \\
-		NetImports      & TWh   & CF sun   & [$\cdot$] \\
+		MaxCurtailment  & MW    & CF nuc (nuclear)  & [$\cdot$] \\
+		MaxLoadShedding & MW    & CF wat (water)  & [$\cdot$] \\
+		Demand          & TWh   & CF win (wind)  & [$\cdot$] \\
+		NetImports      & TWh   & CF sun  & [$\cdot$] \\
 		Curtailment     & TWh   &  &  \\
 		\hline
 	\end{tabular}
@@ -354,7 +362,7 @@ All the outputs extracted from the simulations are displayed in Table \ref{table
 	\label{table:values-extracted}
 \end{table}
 
-Distinction should be made between the $Shedding$ and the $LostLoad$. The former is a consequence of voluntary action, following set rules between consumers and producers. The latter is a consequence of additional variables added to Dispa-SET to reduce the infeasibilities, assigning a high cost to the capacity the system is not able to generate due to maximum capacity and ramping constraint being reached.
+Distinction should be made between the $Shedding$ and the $LostLoad$. The former is a consequence of voluntary action, following set rules between consumers and producers. The latter is a consequence of additional variables added to Dispa-SET to reduce the infeasibility issues, assigning a high cost to the capacity the system is not able to generate due to maximum capacity and ramping constraint being reached.
 
 \subsubsection{Dataset creation}
 
@@ -364,9 +372,9 @@ As this whole process will be completely automated, it is pretty easy to obtain 
 
 \subsection{Implementation}
 
-One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targetted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase will also require a lot of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
+One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targeted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase will also require a lot of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
 
-As the NIC5 cluster provided by CÉCI is obviously shared, one needs to manage the submitted jobs appropriately. In our case, we simply have the same program to be run a bunch of times, that are jobs independent of each other.
+As the NIC5 cluster, provided by CÉCI, is obviously shared, one needs to manage the submitted jobs appropriately. In our case, we simply have the same program to be run a bunch of times, that are jobs independent of each other, running the linear programming software used by Dispa-SET, GAMS (General Algrbraic Modeling Language) \cite{GAMS}.
 
 \subsubsection{Steps}
 For a complete experiment to be completed, these steps have to be followed:
@@ -387,7 +395,7 @@ All the files for this section lie in the \texttt{data-generation} folder.
 The steps presented above almost map to a script or function written. The flow of the dataset generation is as described here.
 
 \begin{enumerate}
-    \item The SLURM script \texttt{main.sh} is submitted on the cluster. It fetches relevant data in the \texttt{config.py} script.
+    \item The SLURM (Simple Linux Utility for Resource Management) script \texttt{main.sh} is submitted on the cluster. It fetches relevant data in the \texttt{config.py} script.
     \item It submits the generation of the reference simulation as another job on the cluster and waits for its completion.
     \item It calls \texttt{sampling.py} with argument \texttt{--sample-only}, that will create the \texttt{samples.csv} file containing all the samples.
     \item It prepares the file \texttt{dataset.csv} by writing its header line.
@@ -407,7 +415,7 @@ This list is not exhaustive, see the Annex for a complete version.
 
 During the creation of this set of scripts, some technical details require specific attention:
 \begin{itemize}
-    \item The GAMS solver has options to set the number of threads to do the computations, that number of threads must not exceed the number of CPUs allocated by SLURM for that job, otherwise it will disturb the whole node on which it is running, including unrelated jobs.
+    \item The GAMS solver offers options to define the number of threads to do the computations, that number of threads must not exceed the number of allocated CPUs by SLURM for that job, otherwise it will disturb the whole node on which it is running, including unrelated jobs.
     
     The thread setting in the \texttt{UCM\_h.gms} file generated by Dispa-SET is set to 16 by default, this line may be removed if one wants to set it manually through the command line, as the file input will take precedence over the command-line value set.
     \item The total amount of each prepared simulation directory is too large to fit on the allocated disk memory on the \texttt{\$HOME} partition on the cluster. Moreover, for efficiency it is better to use the \texttt{\$GLOBALSCRATCH} file system.
@@ -458,7 +466,7 @@ The distribution of $ShareFlex$ values in both part of the dataset is depicted a
 
 As a consequence, the validity region for the surrogate model has to be updated, as there is no way of producing an estimate of the outputs on a region where no sample was simulated correctly.
 
-This issue interpreted as the simulations having too high flexibility are harder to solve than the other, as the system has a lot of options to choose from when confronted to a change in demand.
+This issue is interpreted as the simulations with too high flexibility are harder to solve than the other, as the system has a lot of options to choose from when confronted to a change in demand, yeilding an exponential growth of the realistic evolutions of the system.
 
 It is noteworthy that in about 30\% of the simulation, a division by zero error was also stated. Since this happens in the preprocessing, it has no influence on the results and this error is discarded.
 
