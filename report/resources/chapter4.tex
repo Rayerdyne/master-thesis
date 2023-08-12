@@ -18,7 +18,7 @@ In this setting, the K-nearest neighbors (k-NN) methods would be one of the easi
 
 This will come with the drawback of not being able to learn quick variations in the outputs, as the averaging over the nearest sample points will filter out high frequency variations.
 
-Results obtained with k-NN for several values of $k$ are shown on Table \ref{tab:results-knn}.
+Results obtained with k-NN for several values of $k$ are shown in Table \ref{tab:results-knn}.
 
 \begin{table}[h]
     \centering
@@ -51,7 +51,7 @@ Decision trees, and extremely randomized trees \cite{extremely-randomized-trees}
 
  These methods, however, exhibit the limitation of producing piecewise constant output, and as stated above, it is required to be able to represent significantly fast variations in the output. Although it is possible to mimic using many successive steps, being peicewise constant will now introduce non linearities in the outputs, that is, unwanted steps in the prediction.
 
-Results obtained with decision trees are shown on Table \ref{tab:trees-results}.
+Results obtained with decision trees are shown in Table \ref{tab:trees-results}.
 
 \begin{table}[h]
     \centering
@@ -93,7 +93,7 @@ In tree boosting, the main hyper-parameters are:
     \item the maximum depth of the weak learners
 \end{itemize}
 
-Resulting performance for some values of the hyper-parameters are reported on Table \ref{tab:results-xgboost}.
+Resulting performance for some values of the hyper-parameters are reported in Table \ref{tab:results-xgboost}.
 
 XGBoost's results are really good, acheiving at best around 0.006 mean squared error on the validation set. This is not surprising given that this technique is quite popular in the literature. Actually, for the first testing stage where the dataset created in this work was not available, the dataset from C. Vidal's work has been used as a first test. In this context, the results obtained with XGBoost outperformed the best neural network architecture.
 
@@ -187,7 +187,7 @@ XGBoost's results are really good, acheiving at best around 0.006 mean squared e
 
 The best performance is observed with a maximum depth of 4, a learning rate set to 0.03 and 2000 trees. Further fine-tuning may slightly improve this value, in particular reduce the learning rate and increase the number of trees even more, but further investigation showed that the performance stagnate starting from 1800.
 
-% As there are tree dimensions to take into account, we need to find combination of values. Results on Table \ref{tab:results-xgboost} indicate that there is a balance to find between the depth of the approximators and their number. Sh
+% As there are tree dimensions to take into account, we need to find combination of values. Results in Table \ref{tab:results-xgboost} indicate that there is a balance to find between the depth of the approximators and their number. Sh
 
 \subsubsection{Kernel-based methods\label{section:kernel-methods}}
 
@@ -274,7 +274,7 @@ In the end, neural networks are opted for. They benefit from the best performanc
     \item Grasp non-linear behaviour with accuracy
 \end{itemize}
 
-Preliminary experiments basically consist in the test undertaken to assess the performance of different architectures (reported on Table \ref{tab:nn-results}). While the firsts steps of testing used another dataset that available at the time, ultimately the generated dataset was the only one in use for this assessments.
+Preliminary experiments basically consist in the test undertaken to assess the performance of different architectures (reported in Table \ref{tab:nn-results}). While the firsts steps of testing used another dataset that available at the time, ultimately the generated dataset was the only one in use for this assessments.
 
 The architecture is selected as the optimal one among baselines, and is provided in Table \ref{tab:nn-layers}. While hyper-parameter tuning may have produced another result, the latter could potentially suffer from overfitting, as described above. 
 
@@ -374,7 +374,7 @@ The chosen architecture is a two-layer network:
     \item 100 neurons, hyperbolic tangent activation, 0.4 chance of dropout
 \end{enumerate}
 
-The mean squared error over the training epochs is shown on Figure \ref{fig:nn-validation-error-curve}.
+The mean squared error over the training epochs is shown in Figure \ref{fig:nn-validation-error-curve}.
 
 \begin{figure}[h]
     \centering
@@ -383,7 +383,7 @@ The mean squared error over the training epochs is shown on Figure \ref{fig:nn-v
     \label{fig:nn-validation-error-curve}
 \end{figure}
 
-Overfitting is not likely, because as can be seen on Figure \ref{fig:nn-validation-error-curve}, the validation error never increases significantly after a given amount of learning epochs, while the training error is still decreasing. An example of such obvious overfitting is shown on Figure \ref{fig:overfitting}.
+Overfitting is not likely, because as can be seen in Figure \ref{fig:nn-validation-error-curve}, the validation error never increases significantly after a given amount of learning epochs, while the training error is still decreasing. An example of such obvious overfitting is shown in Figure \ref{fig:overfitting}.
 
 \begin{figure}[h]
     \centering
@@ -414,7 +414,7 @@ These plots draw one of the outputs against two of the inputs, keeping the four 
     \label{tab:default-view-values}
 \end{table}
 
-Several surfaces are depicted on Figure \ref{fig:all-views}. The following observation are made from the latter illustrations.
+Several surfaces are depicted in Figure \ref{fig:all-views}. The following observation are made from the latter illustrations.
 
 \begin{figure}[h]
     \centering

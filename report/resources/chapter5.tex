@@ -57,7 +57,7 @@ Vensim provides the following types of variables:
 
 The connections between the variables are virtually done by arrows. The only practical use of arrows is to make the variable at the origin appear in the selection of variables in the variable equation screen for the variable pointed by the arrow. But obviously they are of great utility in terms of visualization of the model.
 
-An example of a Vensim model is depicted on Figure \ref{fig:vensim-model-example}.
+An example of a Vensim model is depicted in Figure \ref{fig:vensim-model-example}.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{resources/images/vensim-model-example.png}
@@ -73,7 +73,7 @@ To do so, the user needs to provide a dynamically linked library (DLL), packaged
 
 Dynamically linked libraries are pieces of compiled code that can be loaded at runtime by another program. User-defined functions necessarily need to be loaded at runtime, as the software cannot know them in advance. These are typically compiled from the C or C++ programming language. In this work, C++ has been chosen, as the library to load and call Tensorflow models that will be used is written in that language.
 
-To be able to integrate the user-defined functions in its simulation environment, the user's library is expected to provide some functions, that are part of some interface that the Vensim software knows and can communicate with. This interface comprises of a set of functions that is described on Table \ref{table:vensim-interface}.
+To be able to integrate the user-defined functions in its simulation environment, the user's library is expected to provide some functions, that are part of some interface that the Vensim software knows and can communicate with. This interface comprises of a set of functions that is described in Table \ref{table:vensim-interface}.
 \begin{table}[h]
     \centering
     \begin{tabular}{|m{4.1cm}|m{12cm}|}
@@ -156,7 +156,7 @@ In its underlying workings, the MEDEAS model does not directly employ all the va
 
 Fortunately, many of the desired values bear a close relationship to existing variables within the MEDEAS energy module, so these links are expected to be as simple as linear rescalings or combinations.
 
-The input variables, that are summarized on Table \ref{table:reference-values}, do not map directly to already existing variables in the MEDEAS model. Thus, some mappings have to be made between the inputs and outputs of the surrogate model, the Dispa-SET side, and the MEDEAS side.
+The input variables, that are summarized in Table \ref{table:reference-values}, do not map directly to already existing variables in the MEDEAS model. Thus, some mappings have to be made between the inputs and outputs of the surrogate model, the Dispa-SET side, and the MEDEAS side.
 
 This work has been done with the help of Jade Paris, a student making her master's stage thesis on this specific topic as well.
 
@@ -164,7 +164,7 @@ This work has been done with the help of Jade Paris, a student making her master
 
 The first step in this process is to list relevant variable present in MEDEAS, that will have to be exploited in order to draw the connections.
 
-These variable are listed on Table \ref{tab:medeas-vars}.
+These variable are listed in Table \ref{tab:medeas-vars}.
 
 \begin{table}[h]
     \centering

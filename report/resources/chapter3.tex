@@ -205,8 +205,8 @@ A strategy to choose sampling points from some design space is called a design o
 
 The main methods to acheive such sampling are \cite{doe} illustrated in the following.
 \begin{enumerate}
-    \item The "naïve" sampling: take samples at regular intervals on the design space. Note that one may not choose the same intervals for different dimensions, and we have to set the strategy around the boundaries. It is depicted on Figure \ref{fig:sampling-naive}.
-    \item The Monte-Carlo sampling: pick samples at random all over the design space. It is depicted on Figure \ref{fig:sampling-monte-carlo}.
+    \item The "naïve" sampling: take samples at regular intervals on the design space. Note that one may not choose the same intervals for different dimensions, and we have to set the strategy around the boundaries. It is depicted in Figure \ref{fig:sampling-naive}.
+    \item The Monte-Carlo sampling: pick samples at random all over the design space. It is depicted in Figure \ref{fig:sampling-monte-carlo}.
     \item The Latin-hypercube sampling \cite{wiki-lhs}, maximizing a criterion that is either \cite{pydoe-docs}:
     \begin{enumerate}
         \item centering samples in sampling intervals
@@ -214,7 +214,7 @@ The main methods to acheive such sampling are \cite{doe} illustrated in the foll
         \item maximizing the minimum distance between two samples, but place sample in a random location in its interval
         \item minimizing the maximum correlation between two samples
     \end{enumerate}
-    These are depicted on Figures \ref{fig:sampling-lhs-center}, \ref{fig:sampling-lhs-maximin}, \ref{fig:sampling-lhs-centermaximin} and \ref{fig:sampling-lhs-corr}.
+    These are depicted in Figures \ref{fig:sampling-lhs-center}, \ref{fig:sampling-lhs-maximin}, \ref{fig:sampling-lhs-centermaximin} and \ref{fig:sampling-lhs-corr}.
 \end{enumerate}
 
 \begin{figure}[h!]
@@ -439,7 +439,7 @@ To further validate our observation, the quantiles of the distribution of the sh
 
 More decisively, the maximum value of a successful simulation is 0.9011, while the minimum value of a stalling simulation is 0.9015, that is, slightly more than the max of valid simulations. Thus, there exists a net boundary between the simulation that run successfully and the other. 
 
-The distribution of $ShareFlex$ values in both part of the dataset is depicted as boxplots on Figure \ref{fig:stalling-simulations}
+The distribution of $ShareFlex$ values in both part of the dataset is depicted as boxplots in Figure \ref{fig:stalling-simulations}
 
 \begin{figure}[h]
     \centering
@@ -480,7 +480,7 @@ It would also be useful to find in which equation this happens for debugging pur
 
 % However, in this case, there is no fixed boundary, meaning it also depends on other inputs. Still, we can observe that the minimum of the distribution of the rNTC value for the settings producing a division by zero, at 0.39 is still significantly higher than the one of the successful simulation, at 0. 
 
-% The distribution of rNTC values are illustrated on Figure \ref{fig:divzero-simulations}.
+% The distribution of rNTC values are illustrated in Figure \ref{fig:divzero-simulations}.
 
 % \begin{figure}[h]
 %     \centering
@@ -506,7 +506,7 @@ It would also be useful to find in which equation this happens for debugging pur
 
 \subsubsection{Dataset fields}
 
-For completeness, all the fields in the created dataset in \texttt{dataset.csv} are shown on Table \ref{table:dataset-fields}.
+For completeness, all the fields in the created dataset in \texttt{dataset.csv} are shown in Table \ref{table:dataset-fields}.
 
 Only two of these, $LoadShedding$ and $Curtailment$ are actually used to train the surrogate model, and six as the model features. As the marginal cost of including all the other outputs is null, they are saved as well in case someone would find a use for it in the future.
 

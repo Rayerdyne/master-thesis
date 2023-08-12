@@ -105,7 +105,7 @@ The perfect solution would be solving the whole system, for every time step in t
 
 To manage this, the simulation is split into smaller, manageable parts. The simulation is made for a smaller time frame, called the optimization period, over which the simulation can be made easily.
 
-The start of optimization period $j$ overlaps the optimization period $j-1$, to that the simulation $j$ is the correct prolongation of the same setting fixed by the simulations up to $j-1$. The period that overlaps is called the look-ahead, in which the values of the parameters for period $j-1$ is determined during simulation $j-1$, and are used as fixed context for simulation $j$. A depiction of rolling horizon is given on Figure \ref{fig:rolling-horizon}.
+The start of optimization period $j$ overlaps the optimization period $j-1$, to that the simulation $j$ is the correct prolongation of the same setting fixed by the simulations up to $j-1$. The period that overlaps is called the look-ahead, in which the values of the parameters for period $j-1$ is determined during simulation $j-1$, and are used as fixed context for simulation $j$. A depiction of rolling horizon is given in Figure \ref{fig:rolling-horizon}.
 
 \begin{figure}[h]
     \centering
@@ -130,7 +130,7 @@ In this work, the european setting is used.
 
 \subsubsection{Zones}
 
-Most of the EU contries are represented, for completeness they are reported on Table \ref{table:countries-eu}.
+Most of the EU contries are represented, for completeness they are reported in Table \ref{table:countries-eu}.
 
 \begin{table}[h]
     \centering
@@ -288,7 +288,7 @@ As a dispatch model, Dispa-SET oviously has to model the units it dispatches, na
 
 For performance reasons, some of the units initially described are merged into clustered units at the pre-processing step. Thus, the amount of variable in the simulation is reduced, while the accuracy is not significantly impacted \cite{dispaset}.
 
-Dispa-SET disposes of utilities to do so, but also needs to craft the new, aggregated units properties table. These are defined by the set of feilds that are shown on Table \ref{table:plant-db}.
+Dispa-SET disposes of utilities to do so, but also needs to craft the new, aggregated units properties table. These are defined by the set of feilds that are shown in Table \ref{table:plant-db}.
 
 \begin{table}[h]
     \centering
@@ -317,7 +317,7 @@ Dispa-SET disposes of utilities to do so, but also needs to craft the new, aggre
     \label{table:plant-db}
 \end{table}
 
-For the storage units, one needs some more parameters, given on Table \ref{table:plant-storage-db}. These feilds will remain blank for the other unit types.
+For the storage units, one needs some more parameters, given in Table \ref{table:plant-storage-db}. These feilds will remain blank for the other unit types.
 
 \begin{table}[h]
     \centering
