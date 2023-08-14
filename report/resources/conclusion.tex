@@ -1,0 +1,17 @@
+\section{Conclusion}
+
+The goal of this thesis was to incorporate more precise flexibility constraints, evaluated through the Dispa-SET model, into an IAM, MEDEAS using a surrogate model integration strategy. This approach has been successfully implemented with an adequate choice of input and output variables.
+
+Then, the resulting modified version of MEDEAS has been run and observations have been made. In particular, they predicted lower shares of VRES in both optimal effort and business as usual scenarios.
+
+In the process, a database of simulations has been created on points generated through latin hypercube sampling. The complete workflow has been automated and run on a cluster.
+
+Once the database was available, it served as the starting point to train the surrogate model. The best method was selected after several had been reviewed. Although neural networks showed the best performance, XGBoost, among gradient boosting techniques, is still highly competitive.
+
+Finally, the linking of the model to MEDEAS has been performed, by creating an external function in Vensim, in which it is described. With the contribution of J. Paris, the model was inserted in the python version of MEDEAS, and the connections have been drawn between that surrogate model and the MEDEAS variables.
+
+\subsection{Future work}
+
+In this work, the core mechanisms for the integration have been implemented. Therefore, the most interesting contributions lie in the accuracy of surrogate model and in the quality of choice of variable. Six inputs and two outputs have been employed, however these choices can be refined to enhence the accuracy. For example adding one input to take into account different kinds of storage facilities.
+
+Additionally, certain links between the surrogate model and MEDEAS have not been established, e.g. the share of flexible units and the rNTC inputs were given as constants. Evaluating the impact of their values on the results would bring valueable information. Moreover, relations could be developed and incorporated into the MEDEAS model for these variables.
