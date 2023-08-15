@@ -4,9 +4,9 @@
 
 This section describes the process of integrating the trained surrogate model into the MEDEAS model.
 
-The MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, and is available to the public as a Vensim model file. However, the python library \href{https://pysd.readthedocs.io/en/master/index.html}{\texttt{pysd}} \cite{pysd}, focused on system dynamics simulations, is able to parse such files and run the simulations. The reasons why this will not be taken advantage of is discussed in the first subsection.
+The MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, and is available to the public as a Vensim model file. However, the python library \href{https://pysd.readthedocs.io/en/master/index.html}{\texttt{pysd}} \cite{pysd}, focused on system dynamics simulations, is able to parse such files and run the simulations. The reasons why this is not be taken advantage of is discussed in the first subsection.
 
-The task of integrating the surrogate model into MEDEAS is split in two smaller steps:
+The task of integrating the surrogate model into MEDEAS is divided into two smaller steps:
 \begin{enumerate}
     \item \textbf{Vensim integration}, that is to make the surrogate model, available as a Tensorflow model, callable from within a Vensim model
     \item \textbf{Variable linking}, Link the input and output features of the surrogate model to the actual variables used in the MEDEAS model
@@ -30,7 +30,7 @@ Vensim also comes in different distribution, such as Vensim PLE that is the free
 
 \subsubsection{Vensim models}
 
-Vensim provides a variety of tools to describe models, but at the end every model is an interconnection of variables, the math hiding in the connections between these. 
+Vensim offers a variety of tools to describe models, but at the end every model is an interconnection of variables, the math hiding in the connections between these. 
 
 Vensim provides the following types of variables:
 \begin{itemize}
@@ -57,7 +57,7 @@ Vensim provides the following types of variables:
 
 The connections between the variables are virtually done by arrows. The only practical use of arrows is to make the variable at the origin appear in the selection of variables in the variable equation screen for the variable pointed by the arrow. But obviously they are of great utility in terms of visualization of the model.
 
-An example of a Vensim model is depicted in Figure \ref{fig:vensim-model-example}.
+An illustrative example of a Vensim model is depicted in Figure \ref{fig:vensim-model-example}.
 
 \begin{figure}[h!]
     \includegraphics[width=0.9\textwidth]{resources/images/vensim-model-example.png}
@@ -67,13 +67,13 @@ An example of a Vensim model is depicted in Figure \ref{fig:vensim-model-example
 
 \subsubsection{Vensim external functions}
 
-This specific feature of the Vensim software is evidently of great interest for this work. It enables the user to provide and use any arbitrary function in Vensim models and simulations.
+This specific feature of the Vensim software is evidently of great interest for this work. It enables the user to provide and use custom functions in Vensim models and simulations.
 
 To do so, the user needs to provide a dynamically linked library (DLL), packaged as a \texttt{dll} file, then provide its path in Vensim. These files are Windows specific (as Linux uses \texttt{so} files and macOS \texttt{dylib}), hence they have to be handled as such.
 
-Dynamically linked libraries are pieces of compiled code that can be loaded at runtime by another program. User-defined functions necessarily need to be loaded at runtime, as the software cannot know them in advance. These are typically compiled from the C or C++ programming language. In this work, C++ has been chosen, as the library to load and call Tensorflow models that will be used is written in that language.
+Dynamically linked libraries are pieces of compiled code that can be loaded at runtime by another program. User-defined functions necessarily need to be loaded at runtime, as the software cannot know them in advance. These are typically compiled from the C or C++ programming language. In this work, C++ has been chosen, as the library to load and call Tensorflow models that is used is written in that language.
 
-To be able to integrate the user-defined functions in its simulation environment, the user's library is expected to provide some functions, that are part of some interface that the Vensim software knows and can communicate with. This interface comprises of a set of functions that is described in Table \ref{table:vensim-interface}.
+To integrate user-defined functions in its simulation environment, the library is expected to provide some functions, that follow an interface that the Vensim software knows and can employ. This interface comprises of a set of functions that is described in Table \ref{table:vensim-interface}.
 \begin{table}[h]
     \centering
     \begin{tabular}{|m{4.1cm}|m{12cm}|}
@@ -120,22 +120,6 @@ To ensure proper linkage between the library code and the two tools it utilizesâ
 
 On this, one thing is to be remembered: some code may compile and link successfully, but one also has to link properly the path to the DLL you linked to, that is, not only to the compiler.
 
-% \subsubsection{A small detour...}
-
-% At some time in the library developpement process, it was successfully managed to produce a standalone program loading the Tensorflow model, and calling it on some inputs, but this was not the case for the library, that was able to compile and link, but not to find the DLL, once called from Vensim.
-
-% It has been thought it may not be possible, so a workaround was implemented.
-
-% The idea was thus to make the library communicate with another program, that would be launched as a separate process. The library would thus start the other program as an external process, that will be waiting for computation queries, on simulation setup, and end it on simulation shutdown. Then, when the model is called from the library, it sends the input to that other process, which calls the model, and sends back the output to the library, that can return.
-
-% As previously mentioned, DLL are specific to Windows, so the process management and inter-process commication had to be done in that context.
-
-% \subsubsection{And a fix}
-
-% But during some more testing, and adapting of \texttt{Makefile}s, the mistake was discovered: the compilation command used to produce the library missed the indication of the path to the DLL.
-
-% With that fixed, the library can directly use the Cppflow utilities, what greatly simplifies its architecture and code. The simulation setup loads the model, the model calls use it, and finally the simulation shutdown routine frees it.
-
 \subsection{The pysd option}
 
 As previously introced, the \texttt{pysd} python library can read and run Vensim model files. Of course, as the surrogate model is primarily defined in that language, one would deduce that its integration would be easier that way.
@@ -162,7 +146,7 @@ This work has been done with the help of Jade Paris, a student making her master
 
 \subsubsection{Variables available in MEDEAS}
 
-The first step in this process is to list relevant variable present in MEDEAS, that will have to be exploited in order to draw the connections.
+The first step in this process is to list relevant variable present in MEDEAS, that are exploited in the following when drawing connections between the surrogate model and MEDEAS.
 
 These variable are listed in Table \ref{tab:medeas-vars}.
 
@@ -182,13 +166,13 @@ These variable are listed in Table \ref{tab:medeas-vars}.
     \label{tab:medeas-vars}
 \end{table}
 
-Unfortunately, some values are not present at all in MEDEAS, so that they can't be deduced from the model as is. But as these are mandatory to run the model, a value has to be provided imperatively. In this case, a constant value will be set.
+Unfortunately, some values are not present at all in MEDEAS, so that they can't be deduced from the model as is. But since these are mandatory to run the model, a value needs to be provided. Therefore, a constant value will be set.
 
-These parameters have been introduced into MEDEAS, and their potential impact on the results must be evaluated. That is, as these may have an influence on the results, this influence will have to be assessed.
+These have been introduced as parameters into MEDEAS, and their potential impact on the results should be evaluated. Since these may have an influence on the results, this influence will have to be assessed. This falls out of the scope for this thesis and is a lead for further works.
 
 \subsubsection{Linkings}
 
-The equations linking the input variables from the surrogate model to the MEDEAS variables are provided in Table \ref{tab:linking-equations}.
+The equations that establish links between the input variables from the surrogate model and MEDEAS variables are presented in Table \ref{tab:linking-equations}.
 
 \begin{table}[h]
     \centering

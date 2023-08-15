@@ -1,12 +1,12 @@
 \section{Introduction}
 
-Our societies rely on energy. It is required to power almost every appliance. Fossil fuels provided us with relatively easy to access, store and use energy for decades, bringing a solution to this energy issue.
+Our societies rely on energy. It is required to power almost every appliance. Historically, fossil fuels offered a relatively easy to access, store and use energy for decades, bringing a solution to this energy issue.
 
-Now, the awareness of the climate change, mostly caused by the release of large amounts of greenhouse gases, among them carbon dioxyde, produced by the combustion of these fossil fuels, conducts to a paradigm shift. To meet climatic goals, bounds on carbon emissions have been defined, consequently limiting the prevously endless source of energy that were fossil fuels over the long term.
+Now, the awareness of the climate change, mostly caused by the release of large amounts of greenhouse gases, among them carbon dioxyde, produced by the combustion of these fossil fuels, conducts to a paradigm shift. To meet climatic goals, strict limits on carbon emissions have been established, consequently limiting the prevously endless source of energy that were fossil fuels over the long term.
 
-The solutions to compensate for the lacking energy generation, that from now on should not originate from fossil fuels, are renewable energy sources. These refer to every energy generation technique originating from a renewable source, such as the sun, the wind and the rivers. However, the production of these units may not be entirely sustainable, for example, the photovoltaic cells necessary for the exploitation of the incoming solar energy are pretty difficult to recycle, making them rely on specific materials that are not obtainable renewably. Still, their use on a complete lifetime, and increasing capabilities in recycling, justifies the invesment in their construction.
+The solutions to compensate for the lacking energy generation, that from now on should not derive from fossil fuels, are renewable energy sources. These refer to every energy generation technique originating from a renewable source, such as the sun, the wind and the rivers. However, the production of these units may not be entirely sustainable, for example, the photovoltaic cells necessary for the exploitation of the incoming solar energy are pretty difficult to recycle, making them rely on specific materials that are not obtainable renewably. Still, their use on a complete lifetime, and increasing capabilities in recycling, justifies the investment in their construction.
 
-In this context, a meaningful increase in the energy produced from such energy sources is to be expected, in particular, from the most prominent ones:
+In this context, a meaningful increase in the energy produced from such energy sources is to be expected, particularly from the most prominent ones:
 \begin{itemize}
     \item the sun, through photovoltaic panels,
     \item the wind, through on-shore and off-shore wind turbines, and
@@ -19,18 +19,18 @@ One thus falls back to photovoltaic and wind energy, but both have a major, triv
 
 It is to be mentioned that these variabilities comprise some predictability, for example, there is on average more photovoltaic production potential during summer. On a daily scale as well, with the day night cycle. Weather forecasts can also be taken advantage of in order to predict wind turbines' production.
 
-The larger variability of the power output of VRES causes a problem, because modern electrical system is dictated by consumers' demand. And to do so, electricity generators are dispatched in real-time, so that the production always matches the demand on the network. This technique works because the relevant power plants can be started and shut down on demand, almost at any time. With VRES, this assumption drops, as one cannot start an extra wind turbine if there is no wind, nor use a photovoltaic panel during the night.
+The larger variability of the power output of VRES causes a problem, because modern electrical system is dictated by consumers' demand. And to do so, electricity generators are dispatched in real-time, so that the production always matches the demand on the network. This technique works because the relevant power plants can be started and shut down on demand, almost at any time. With VRES, this assumption drops, as an additional wind turbine cannot be started if there is no wind, nor a photovoltaic panel be turned on during the night.
 
 \subsection{Flexibility assessment in energy system models}
 
 As explained before, higher shares of VRES in the electricity production mix create the additional challenge, that is the handling of the partlially predictable variability of wind and sun energy. 
 
-This handling requires a larger flexibility of the electrical system, that is, a better ability to adapt to changes in the demand and supply, either expected or not \cite{irena}.
+This handling requires a larger flexibility of the electrical system, that is, a better ability to adapt to both anticipated and unforeseen changes in the demand and supply \cite{irena}.
 
 Existing mechanisms to improve the flexibility of a power system include:
 
 \begin{itemize}
-    \item Use of the regular dispatchable energy production plants to compensate for the energy deficit that may arise from VRES. Depending on the plant characteristics, it may be difficult to address short term drops in production, as there is some start up time required \cite{flexibility-storage-planning}.
+    \item Use of the regular dispatchable energy production plants to compensate for the energy deficit that may arise from VRES. Plant characteristics play a role to address short term drops in production, as some start up time may be required \cite{flexibility-storage-planning}.
     \item Large interconnected electricity networks, that are able to smooth the VRES power output. There may be not enough sun in some region, creating a deficit, while there is too much in the neighboring country. By connecting them, the overproduction will compensate the unerproduction of the other \cite{flexibility-connection}.
     \item Energy storage facilities. Of course, storing the produced energy for later use is an easy way to account for the intermittency of the production. Typically, storing solar energy during day time to be used in the night. These technologies include pumped hydro-storage, batteries, compressed air. While pumped hydro-storage units are the most common, their very limited expansion options make them unlikely to grow in the future \cite{flexibility-demdandside-forecasts-storage}.
     \item Acting on the demand, in the extent that it can change its shape by promoting policies to the end users. Such policies focus on flattening the daily demand curve, facilitating the energy production dispatch. Typically, asking to delay greedy devices like dishwashers until night, where the overall demand is lower. But it may extend to other domains, such as electric vehicles charge, heating and cooling etc \cite{flexibility-demdandside-forecasts-storage}.
@@ -64,7 +64,7 @@ On another level, integrated assessment models (IAM) aim at estimating the evolu
 
 In particular, some IAM attempt to model the evolution of the whole society, from a socio-economical perspective, including environmental aspects and energy concerns.
 
-In this subset of IAMs, the MEDEAS model is chosen for this work, being open-source as well and providing a specific european model.
+Within this category of IAMs, the MEDEAS model is chosen for this work, being open-source as well and providing a specific european model.
 
 MEDEAS is expressed in terms of systems dynamics, that is, the evolution of the state of the simulation is computed as a function of its current state. And this involves solving a set of differential equations.
 
@@ -102,7 +102,7 @@ These linking types are illustrated in Figure \ref{fig:linking-types}.
 
 One may also add model integration, consisting in completely embedding a model into the other. But this is not tractable in this setting, and would also requires compatible model formulations, as explained below.
 
-In this case, hard linking is not possible due to the different formulations of Dispa-SET, in linear programming, and MEDEAS, in differential equations.
+In this case, hard linking is not possible owing to the different formulations of Dispa-SET (linear programming), and MEDEAS (system dynamics).
 
 We also dismiss the soft linking strategy because of its slowness, and absence of convergence guarantee.
 
@@ -122,7 +122,7 @@ Surrogate models then provide a promising strategy to tackle this integration pr
 
 \subsubsection{Objective}
 
-This master's thesis is dedicated to the integration of the flexibility constraints, the Dispa-SET surrogate model, into the MEDEAS model, with less precision on this subject. This includes the creation of a proper dataset, the definition, training and integration of the surrogate model into MEDEAS.
+This master's thesis is dedicated to the integration of the flexibility constraints, the Dispa-SET surrogate model, into the MEDEAS model, with reduced details on this aspect. This includes the creation of a proper dataset, the definition, training and integration of the surrogate model into MEDEAS.
 
 % \subsubsection{Methodology}
 
@@ -136,9 +136,9 @@ This master's thesis is dedicated to the integration of the flexibility constrai
 
 \subsubsection{Contributions}
 
-This works follows what was started by another student, Carla Vidal, that went until the surrogate model training, included. Given that improvements where implemented in Dispa-SET since then, the runs had to be re-done. However, there were no easy to use scripts to set up the simulation files etc., so that is has been chosen to write new ones.
+This work follows what was started by another student, Carla Vidal, that went until the surrogate model training, included. Given that improvements where implemented in Dispa-SET since then, the runs had to be re-done. However, there were no easy to use scripts to set up the simulation files etc., so that is has been chosen to write new ones.
 
-Furthermore, the present thesis also considers other machine learning algorithms, although the same choice of neural networks is made, this time based on better performance compared to the other options.
+Additionally, the present thesis also explores other machine learning algorithms, although the same choice of neural networks is made, this time based on better performance compared to the other options.
 
 Another student, Jade Paris, was in responsible of the linking of the surrogate model, given as a functions of some inputs variables into the MEDEAS model, and its actual use and runs of MEDEAS with the surrogate model integrated.
 
@@ -158,7 +158,7 @@ This document is organized into seven main sections. The second section presents
 
 To facilitate the successful integration of models, the fourth section outlines the process of data generation. This encompasses a complete overview of the methodologies employed to produce the necessary training data, the design of experiments and the execution of Dispa-SET runs.
 
-Subsequently, the fifth section characterizes the surrogate model, offering a comprehensive description of its design. The section further expounds on the training and validation processes undertaken to ensure the surrogate model aligns accurately with the main models' outcomes.
+Subsequently, the fifth section describes the surrogate model, offering a comprehensive description of its design. The section further expounds on the training and validation processes undertaken to ensure accurate alignment of the surrogate model with the main models' outcomes.
 
 The sixth section then shifts the focus to the crucial process of integrating the surrogate model into MEDEAS. A step-by-step description is provided, elucidating how the surrogate model becomes an integral component of the broader MEDEAS framework, and how it interacts with the existing models.
 

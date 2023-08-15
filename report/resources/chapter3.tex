@@ -2,20 +2,20 @@
 
 \subsection{Overview}
 
-This section aims at describing the process that lead to the creation of the dataset, required in order to train the neural network model.
+This section describes the process that lead to the creation of the dataset, required in order to train the neural network model.
 
-First, an input space is defined, on which will properly select points to form the dataset features. Then, computationally expensive simulation will be run on these points, and we will extract meaningful data from the simulation results to obtain the desired output features to be predicted by the model.
+First, an input space is defined, on which we properly select points to form the dataset features. Then, computationally expensive simulations are run on these points, and extract meaningful data is extracted from the simulation results to obtain the desired output features predicted by the model.
 
-This dataset will afterwards be used to train the surrogate model on \cite{surrogate_model}.
+Finally, this dataset is used to train the surrogate model on \cite{surrogate_model}.
 
-\subsection{Preparatory work}
+\subsection{Data preparation and initial parameters}
 
 As stated earlier, this setting only considers the european power system in Dispa-SET, then to create and validate our surrogate model. Each simulation is run over a period of 2019.
 
 \subsubsection{Unit groupings}
-In this context, the specific technology and fuel types of each plant are not relevant, as they won't influence the input features of our dataset. There are less input features than technology-fuel pairs, and only the formers matter for the surrogate model training. Hence, the units are grouped into five categories: flexible units, slow units, storage units, PV units and wind units.
+In this context, the specific technology and fuel types of each plant hold no relevance, as they have no influence the input features of our dataset. There are less input features than technology-fuel pairs, and only the formers matter for the surrogate model training. Hence, the units are categorized into five groups: flexible units, slow units, storage units, PV units and wind units.
 
-IRENA \cite{irena} describes flexible units as "units that can ramp up and down quickly, have a low minimum operating level and fast start-up and shutdown times", what criterion will be used to separate regular units into the slow and flexible units, and their relative shares will dictate the $Share_{flex}$ input. This criterion is presented in Table \ref{table:flex-vs-slow-unit}.
+IRENA \cite{irena} describes flexible units as "units that can ramp up and down quickly, have a low minimum operating level and fast start-up and shutdown times". This criterion is be used to separate units into slow and flexible units, and their relative shares dictates the $Share_{flex}$ input. This criterion is presented in Table \ref{table:flex-vs-slow-unit}.
 
 \begin{table}[h!]
     \centering
@@ -27,7 +27,7 @@ IRENA \cite{irena} describes flexible units as "units that can ramp up and down 
 		$Slow_{units}$ &  & $PartLoadMin\geq 0.5$ or $TimeUpMin \geq 5$ or $RampUpRate\leq 0.01$\\
 		\hline
 	\end{tabular}
-	\caption{Flexible and slow units classification criterion}
+	\caption{Classification of flexible and slow units}
 	\label{table:flex-vs-slow-unit}
 \end{table}
 
@@ -68,15 +68,15 @@ For data sampling, the design space is of crucial importance. Its shape and dime
 
 \subsubsection{Shape}
 
-The first necessary step in order to select our data points for our dataset, is to define the space in which we will sample them. In our case, this space will be the product of 6 ranges, that is a 6 dimensional hypercube. 
+The first necessary step in order to select our data points for our dataset, is to define the space in which we sample them. In our case, this space is the product of 6 ranges, that is a 6 dimensional hypercube. 
 
-One may argue that some areas of this hypercube, typically around the vertices, will be extremely unlikely to happen in a real setting. More precisely, as this cube will be the input space of the surrogate model that will be connected to another model, it may be suitable to prune the areas of the cube that will never be reached. Indeed, if we know that some areas will never be queried, there is no use covering them.
+One may argue that some areas of this hypercube, typically around the vertices, will be extremely unlikely to happen in a real setting. More precisely, as this cube is the input space of the surrogate model that will be connected to another model, it may be suitable to prune the areas of the cube that will never be reached. Indeed, if we know that some areas will never be queried, there is no use covering them.
 
-Furthermore, assuming we would obtain the exact space of possible queries, this space is not likely to be close to some common shape (hypercube, hyperball or combination). Given that most of the design of experiments techniques assume these kinds of space, a mapping would be needed to benefit from the better sampling strategies, as the latter assume common shapes. Such a mapping would be pretty complex to develop.
+Furthermore, assuming we would obtain the exact space of possible queries, this space is not likely to resemble some common shape like hypercube, hyperball or their combinations. Given that most of designs of experiments techniques assume these kinds of spaces, a mapping would be needed to benefit from more effective sampling strategies, designed for common shapes. Such a mapping would be pretty complex to develop.
 
 More importantly, the cost of being more general than strictly required is small, mainly consisting of a slightly larger surrogate model (in this specific case, a larger neural network), and a larger dataset.
 
-For these reasons, an hypercube will be used.
+For these reasons, the hypercube is selected.
 
 \subsubsection{Input variables}
 
@@ -154,7 +154,7 @@ The notation $PowerCap_{x}$ refers to the maximum power output of all the units 
 
 The target outputs of the systems are the curtailment and the shedding. In order to make these values more scalable, we normalize them, by the maximum RES generation that could be produced (that is, the sum of the availability factors multiplied by the power capacity for each units), and the total demand respectively.
 
-This normalization makes the output scalable, meaning that it can be used for other systems that have different scales. Without, the curtailment prediction is dependent on our specific training setting, and the resulting model, outputting absolute values, could not be used for any other setting. Scaling the outputs therefore enables easier generalization of the future model.
+This normalization renders the output scalable, enabling its utilization in other systems, that have different scales. Without, the curtailment prediction is dependent on our specific training setting, and the resulting model, outputting absolute values, could not be used for any other setting. Scaling the outputs therefore enables easier generalization of the future model.
 
 \begin{enumerate}
     \item \textbf{Curtailment}
@@ -203,7 +203,7 @@ The inputs' ranges are set based on what is plausible at this time, while kept t
 
 A strategy to choose sampling points from some design space is called a design of experiment (DoE). It aims at producing a set of samples that represent as best as possible the entire design space, a property that is required to obtain a well balanced dataset. 
 
-The main methods to acheive such sampling are \cite{doe} illustrated in the following.
+The main methods to achieve such sampling are \cite{doe} illustrated in the following.
 \begin{enumerate}
     \item The "naïve" sampling: take samples at regular intervals on the design space. Note that one may not choose the same intervals for different dimensions, and we have to set the strategy around the boundaries. It is depicted in Figure \ref{fig:sampling-naive}.
     \item The Monte-Carlo sampling: pick samples at random all over the design space. It is depicted in Figure \ref{fig:sampling-monte-carlo}.
@@ -263,7 +263,7 @@ The main methods to acheive such sampling are \cite{doe} illustrated in the foll
 
 From these 2-dimensional illustration it is clear that the latin hypercube sampling performs best, the naive sampling featuring too much regularities that is not wanted, as they may introduce some bias, and Monte-Carlo sampling tends to make more clusters of samples, that would be inefficient (indeed, making two times the same simulation is useless).
 
-The number of points will be chosen quite arbitrarily to 2000. This leads to an average of $\sqrt[6]{2000} = 3.550$ points per dimension, if the points had been placed on a 6-dimensional grid in the input space. 
+The number of points is set quite arbitrarily to 2000. This leads to an average of $\sqrt[6]{2000} = 3.550$ points per dimension, if the points had been placed on a 6-dimensional grid in the input space. 
 
 \subsection{Generation of the dataset}
 
@@ -272,14 +272,14 @@ With the input samples now obtained, the next step is now to compute the simulat
 But this task is not trivial since the data that corresponds to these exact configuration is not available. It is thus needed to craft some new simulation settings given a reference, that is the year 2019.
 
 \subsubsection{Adjusting functions}
-To do so, Dispa-SET disposes of utility functions that do just that, adjusting the capacities, i.e., the power ouputs of the units, in function of some parameters.
+To address this, Dispa-SET provides utility functions that adjust the capacities (i.e., the power ouputs) of the units, based on parameters.
 
 These adjusting functions were specifically developped for this topic by Vidal in her master thesis \cite{carlas-thesis}.
 
 \begin{itemize}
     \item \texttt{adjust\_flexibility} modifies installed capacities to reach the desired $Share_{flex}$.
     
-    To do so, it first computes the target capacity, by multiplying the total capacity by the desired $Share_{flex}$. It then add or subtracts the missing or exceeding flexible unit power capacity to each zone, weighting by their total capacity. Equation \ref{equation:flex-cap-weight} provides an approximation of the update, but the full algorithm is presented in Algorithm \ref{algo:adjust_flex}.
+    To do so, it first computes the target capacity, by multiplying the total capacity by the desired $Share_{flex}$. It then add or subtracts the missing or exceeding flexible unit power capacity to each zone, weighting by their total capacity. Equation \ref{equation:flex-cap-weight} gives an approximation of the update, but the full algorithm is presented in Algorithm \ref{algo:adjust_flex}.
 
     \begin{equation}
         PowerCap_{z,new} = PowerCap_{z,old} + \frac{PowerCap_{z,old}}{\sum_x PowerCap_{x,old}} (target-actual)
@@ -336,7 +336,7 @@ These adjusting functions were specifically developped for this topic by Vidal i
 
 \subsubsection{Extracted outputs}
 
-Each simulation generates multiple outputs beyond curtailment and lost load values, some other outputs variables will be extracted from the simulations, although not immediately exploited.
+Each simulation generates multiple outputs beyond curtailment and lost load values, some other outputs variables are extracted from the simulations, although not immediately exploited.
 
 Of course, these may prove to be useful for future research.
 
@@ -368,11 +368,11 @@ Distinction should be made between the $Shedding$ and the $LostLoad$. The former
 
 With the help of the adjusting functions, creating a whole dataset now comes down to generate samples from LHS as previously discussed, adjusting the reference simulation setting to each sample, run the simulation and extract the desired features from the outputs.
 
-As this whole process will be completely automated, it is pretty easy to obtain a second dataset, based on a different LHS. In particular, a smaller dataset will be of interest for the validation and testing stages of the surrogate model, as will be elaborated in subsection \ref{ssec:val-testing}.
+As this whole process is be completely automated, it is pretty easy to obtain a second dataset, based on a different LHS. In particular, a smaller dataset is interesting for the validation and testing stages of the surrogate model, as will be elaborated in subsection \ref{ssec:val-testing}.
 
 \subsection{Implementation}
 
-One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targeted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase will also require a lot of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
+One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targeted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase also requires a significant amount of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
 
 As the NIC5 cluster, provided by CÉCI, is obviously shared, one needs to manage the submitted jobs appropriately. In our case, we simply have the same program to be run a bunch of times, that are jobs independent of each other, running the linear programming software used by Dispa-SET, GAMS (General Algrbraic Modeling Language) \cite{GAMS}.
 
@@ -415,14 +415,14 @@ This list is not exhaustive, see the Annex for a complete version.
 
 During the creation of this set of scripts, some technical details require specific attention:
 \begin{itemize}
-    \item The GAMS solver offers options to define the number of threads to do the computations, that number of threads must not exceed the number of allocated CPUs by SLURM for that job, otherwise it will disturb the whole node on which it is running, including unrelated jobs.
+    \item The GAMS solver offers options to define the number of threads to do the computations, that number of threads must not exceed the number of allocated CPUs by SLURM for that job, otherwise it disturbs the whole node on which it is running, including unrelated jobs.
     
-    The thread setting in the \texttt{UCM\_h.gms} file generated by Dispa-SET is set to 16 by default, this line may be removed if one wants to set it manually through the command line, as the file input will take precedence over the command-line value set.
+    The thread setting in the \texttt{UCM\_h.gms} file generated by Dispa-SET is set to 16 by default, this line may be removed if one wants to set it manually through the command line, as the file input takes precedence over the command-line value set.
     \item The total amount of each prepared simulation directory is too large to fit on the allocated disk memory on the \texttt{\$HOME} partition on the cluster. Moreover, for efficiency it is better to use the \texttt{\$GLOBALSCRATCH} file system.
     \item The Dispa-SET ajdusting function do not write adjusted data to a directory if this directory already exists before the function is called. That is, the directory containing the simulation files should not be created beforehand.
     \item Due to SLURM limiting the maximum number of jobs a user can have in the submit queue, queuing all the simulation jobs at once is not possible. Moreover, the number of simulation appeared to cause issues with the SLURM maximum array size.
 
-    This is the reason why \texttt{launch-job-series.sh} exists. The script takes as an argument the serie index $i$, then starts a [$0:399$] array of \texttt{launch-simulation-jobs.sh} jobs, with $i$ as an argument. As the latter script has also access to its array index via SLURM environment variables, it can compute the intended simulation index, that will cover the [$400i:400i+399$] range. The next series is queued with the job array as a dependency, so that it is not launched before the current series terminated.
+    This is the reason why \texttt{launch-job-series.sh} exists. The script takes as an argument the serie index $i$, then starts a [$0:399$] array of \texttt{launch-simulation-jobs.sh} jobs, with $i$ as an argument. As the latter script has also access to its array index via SLURM environment variables, it can compute the intended simulation index, that covers the [$400i:400i+399$] range. The next series is queued with the job array as a dependency, so that it is not launched before the current series terminated.
 \end{itemize}
 
 \subsubsection{Unsuccessful simulations}
@@ -448,22 +448,6 @@ The distribution of $ShareFlex$ values in both part of the dataset is depicted a
     \label{fig:stalling-simulations}
 \end{figure}
 
-% \begin{table}[h]
-%     \centering
-%     \begin{tabular}{|l|ll|}
-%         \hline
-%         & Stalling simulations & Sucessful simulations \\ \hline        
-%         mean & 0.9462 & 0.4557 \\
-%         min  & 0.9015 & 0.0101 \\
-%         25\% & 0.9242 & 0.2328 \\
-%         50\% & 0.9451 & 0.4560 \\
-%         75\% & 0.9695 & 0.6788 \\
-%         max  & 0.9888 & 0.9011 \\ \hline
-%     \end{tabular}
-%     \caption{Distribution of the share of flexible generation for stalling and successful simulations}
-%     \label{tab:stalling-simulations}
-% \end{table}
-
 As a consequence, the validity region for the surrogate model has to be updated, as there is no way of producing an estimate of the outputs on a region where no sample was simulated correctly.
 
 This issue is interpreted as the simulations with too high flexibility are harder to solve than the other, as the system has a lot of options to choose from when confronted to a change in demand, yeilding an exponential growth of the realistic evolutions of the system.
@@ -471,38 +455,6 @@ This issue is interpreted as the simulations with too high flexibility are harde
 It is noteworthy that in about 30\% of the simulation, a division by zero error was also stated. Since this happens in the preprocessing, it has no influence on the results and this error is discarded.
 
 It would also be useful to find in which equation this happens for debugging purposes.
-
-% \subsubsection{Divisions by zero}
-
-% Another problem that was encountered was a division by zero that happened when reading the simulation results. This error had little to no impact on the final results, so even if it is recorded in the error field (with a different error code than for stalling simulation), it was ignored most of the time and the results of concerned simulations settings were used. This time, it concerns around 30\% of the simulations (702 of 2400).
-
-% In the same fashion than for the previous error, the cause of the error is investigated, and it appears than in this case the most decisive input is the rNTC. Its value, in the $[0, 0.7]$ range, the average of simulation with division by zero is $0.32$ higher than the average of the other ones. 
-
-% However, in this case, there is no fixed boundary, meaning it also depends on other inputs. Still, we can observe that the minimum of the distribution of the rNTC value for the settings producing a division by zero, at 0.39 is still significantly higher than the one of the successful simulation, at 0. 
-
-% The distribution of rNTC values are illustrated in Figure \ref{fig:divzero-simulations}.
-
-% \begin{figure}[h]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{resources/images/rNTC-boxplots.png}
-%     \caption{Distributions of the $rNTC$ parameter value in the simulations with division by zero against the other simulations. The distributions of the other parameters are similar.}
-%     \label{fig:divzero-simulations}
-% \end{figure}
-% \begin{table}
-%     \centering
-%     \begin{tabular}{|l|ll|}
-%         \hline
-%         & Division by zero & No division by zero \\ \hline
-%         mean & 0.5736 & 0.2534 \\
-%         min  & 0.3902 & 0.0002 \\
-%         25\% & 0.5075 & 0.1216 \\
-%         50\% & 0.5794 & 0.2447 \\
-%         75\% & 0.6400 & 0.3672 \\
-%         max  & 0.6995 & 0.7000 \\ \hline
-%     \end{tabular}
-%     \caption{Distribution of the rNTC for simulation with and without the division by zero}
-%     \label{tab:divzero-simulations}
-% \end{table}
 
 \subsubsection{Dataset fields}
 

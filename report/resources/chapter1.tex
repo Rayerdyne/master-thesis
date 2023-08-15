@@ -10,7 +10,7 @@ A schematic of the Dispa-SET architecture is given in Figure \ref{dispaset-archi
 
 \begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{dispaset-architecture.png}
-    \caption{Block diagram of Dispa-SET architecture}
+    \caption{Block diagram of the architecture of the Dispa-SET model}
     \label{dispaset-architecture}
 \end{figure}
 
@@ -24,7 +24,7 @@ Its interface is written in the Python programming language, and calls GAMS \cit
 
 \subsection{Objective function}
 
-The Dispa-SET model aims at minimizing the overall operating costs of the grid, that is, its objective function. These costs typically include transportation, power and heating costs required to split efficiently the demand between the available generation units.
+The Dispa-SET model aims at minimizing the overall operating costs of the grid, that is its objective function in this context. These costs typically include transportation, power and heating costs required to split efficiently the demand between the available generation units.
 
 The total system costs is splitted as follows:
 \begin{itemize}
@@ -84,7 +84,7 @@ Whereas the demand originates from:
     \item The power consumed by P2H (power to heat) units
 \end{itemize}
 
-The Equation \ref{supply-demand-balance-equation} expresses this target equality.
+The Equation \ref{supply-demand-balance-equation} expresses this target energy production and consumption balance.
 \mywarning{Mieux détailler les membres de l'équation}
 
 \begin{captionnable}
@@ -101,9 +101,9 @@ The Equation \ref{supply-demand-balance-equation} expresses this target equality
 
 \subsection{Rolling horizon}
 
-The perfect solution would be solving the whole system, for every time step in the complete duration of the simulation in one go. But this would create a system too large to be reasonably solved.
+The perfect solution would be to solve the entire system, for every time step in the complete duration of the simulation in one go. But this would create a system too large to be reasonably solved.
 
-To manage this, the simulation is split into smaller, manageable parts. The simulation is made for a smaller time frame, called the optimization period, over which the simulation can be made easily.
+To address this, the simulation is split into smaller, manageable parts. The simulation is built for smaller time frames, called optimization periods, over which the simulations can be made easily.
 
 The start of optimization period $j$ overlaps the optimization period $j-1$, to that the simulation $j$ is the correct prolongation of the same setting fixed by the simulations up to $j-1$. The period that overlaps is called the look-ahead, in which the values of the parameters for period $j-1$ is determined during simulation $j-1$, and are used as fixed context for simulation $j$. A depiction of rolling horizon is given in Figure \ref{fig:rolling-horizon}.
 
@@ -116,7 +116,7 @@ The start of optimization period $j$ overlaps the optimization period $j-1$, to 
 
 \subsection{Mid-term scheduling}
 
-Without further constraints, the optimization will most often leave all the storage facilities empty at the end of the simulation horizon (typically a few days). This is a consequence of the variable operational cost of discharging these storage units being smaller than the cost of running another unit, thus charging extra fixed and variable costs.
+Without further constraints, the optimization will most often leave all storage facilities empty at the end of the simulation horizon (typically a few days). This is a consequence of the variable operational cost of discharging these storage units being smaller than the cost of running another unit, thus charging extra fixed and variable costs.
 
 In order to tackle this issue, the Dispa-SET model has to be run in Mid-Term Scheduling (MTS) mode. In this mode, the initial and final levels of the storage units (in particular, pumped hydro storage units) are given as exogenous input to the model. These levels are enforced with additional constraints.
 
@@ -126,7 +126,7 @@ In this work, the MTS mode is enabled, and the exogenous inputs, for both initia
 
 Dispa-SET provides us with several predefined configurations, each of these defining the zones and their units of interest, and linking to the relevant data (e.g. times series provided as \texttt{csv} files).
 
-In this work, the european setting is used.
+In this work, the european setting is used, that is, the zones simulated correspond approximately to the European Union.
 
 \subsubsection{Zones}
 
@@ -372,13 +372,13 @@ In the LP formulation, every variable is considered to be continuous, and can ta
 
 In particular, this constraint applies to the power output of each unit, that is, the ratio of the actual power the unit is operating over its maximum capacity. Therefore, as a unit cannot produce more than its maximum capacity, this value must lie in the $[0, 1]$ interval at every hour of the simulation.
 
-This constrain causes a significant issue, in the extent that each unit cannot specify a minimal level of operation, e.g. $0.5$. This leads to unrealistic situations being considered valid, for example a nuclear unit operating at 10\% of its maximal power.
+However, the LP formulation lacks the capacity to enforce minimum operating levels for units effectively, leading to potentially unrealistic scenarios, for example a nuclear unit operating at 10\% of its maximal power, what is not achievable.
 
 \subsubsection{Binary formulation}
 
 To mitigate the issue encountered with the LP formulation, it is extended by adding a boolean variable to each unit, which determines wether or not the corresponding unit is started or not. That way, the minimum operating value can be enforced.
 
-This strategy, however acheiving the better accuracy targetted, is unfortunately often intractable for realistic settings, because the large number of binary variables, yields an exploding number of $2^N$ options to be examinated.
+This strategy, however achieving the better accuracy targetted, is unfortunately often intractable in realistic settings, due the large number of binary variables yielding an exploding number ($2^N$) of options to be examinated.
 
 \subsubsection{Mixed integer linear programming \label{subsubsection:milp}}
 

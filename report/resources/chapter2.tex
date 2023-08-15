@@ -2,9 +2,9 @@
 
 \subsection{Overview}
 
-This sections aims at describing the main components of the MEDEAS IAM and its components, with a focus on the parts that are the most relevant in this context.
+This sections aims to describe the main components of the MEDEAS Integrated Assessment Model (IAM) and its components, with a focus on the parts that are the most relevant in this context.
 
-The project, named "Modelling the Energy Development under Environmental And Socioeconomic constraints", aims at creating a modern computational model to predict the future of the energy systems in Europe, while integrating a wide range of physical and social constraints.
+Named "Modelling the Energy Development under Environmental And Socioeconomic constraints", the project endeavors to construct a modern computational model to predict the future of the energy systems in Europe, while integrating a wide range of physical and social constraints.
 
 First, the IAMs are depicted, then a high-level description of the MEDEAS model is provided. The third subsection will explain more in depth in a key component of MEDEAS, the energy return on investment. In the fourth subsection, the modelling of the RES in MEDEAS is covered. Finally, the principal scenarios in MEDEAS are presented in the fifth subsection.
 % The downside in MEDEAS energy module that will be addressed is its low temporal precision and poor assessment of the flexibility of the energy network. These estimations are based on study \cite{delarue}, that provide general approximations, not accurate prediction deduced from the simulation of the energy network, as done in Dispa-SET. The solution that this work will provide is the integration of the surrogate model for that purpose, that will be in charge of computing better approximation of (mainly) curtailment and lost load.
@@ -13,11 +13,11 @@ First, the IAMs are depicted, then a high-level description of the MEDEAS model 
 
 \subsection{The MEDEAS integrated assessment models}
 
-MEDEAS is an open-source integrated assessment model (IAM), built to "guide the transition to a low carbon European socio-economy" \cite{medeas-website}.
+MEDEAS is an open-source IAM, built to "guide the transition to a low carbon European socio-economy" \cite{medeas-website}.
 
-Integrated assessment models are used to make general purpose analysis, combining aspects from different disciplines, such as economy, environment and energy, land use etc. These kinds of models, once properly defined from a mathematical point of view, can then be simulated by computer, for their result to be analysed.
+Integrated assessment models are used to make general purpose analysis, amalgamating insights from diverse domains, such as economy, environment and energy, land use etc. These kinds of models, once properly defined from a mathematical point of view, can then be simulated by computer, for their result to be analysed.
 
-There is a large variety of IAMs, because there are a lot of ways to model the complex interactions, and the large amount of uncertainties between the different components of a model. Hence, there exist a lot of different approaches to the creation of an IAM.
+Given the considerable uncertainty and intricate interdependencies among model components, there exists a multitude of IAMs with varying methodologies.
 
 As a side note, the model being open-source is probably one strength as an IAM, meaning that any expert in one domain may be able to contribute to the project.
 
@@ -27,7 +27,7 @@ MEDEAS is built using the Vensim software, and may be used from the Python progr
 
 \subsection{Model overview}
 
-MEDEAS funds come from the EU for its Horizon 2020 program, under the "Modelling and analysing the snergy system, its transformation and impacts (social, environmental and economic aspects of the energy system)".
+MEDEAS, funded by the EU's Horizon 2020 program, under the "Modelling and analysing the energy system, its transformation and impacts (social, environmental and economic aspects of the energy system)".
 
 And to do so it models the long-term implications of the decisions made by the society. As one cannot predict them, several hypothesis are needed to fix the choices that will be made. Such a set of hypothesis on the evolution of the long-term policy of the society as a whole is called a scenario.
 
@@ -38,7 +38,7 @@ MEDEAS typically sets the simulation horizon between 1995 and 2060, while for lo
     \item MEDEAS-AU and MEDEAS-BG, targetting Austria and Bulgaria respectively.
 \end{itemize}
 
-The MEDEAS IAM is organized into seven modules, that are economy, energy, energy infrastructures, materials, land use, climate change and socio-environmental impacts indicators. The general structure is illustrated in Figure \ref{fig:medeas-modules}.
+The MEDEAS IAM is organized into seven modules, encompassing economy, energy, energy infrastructures, materials, land use, climate change and socio-environmental impacts indicators. The general structure is illustrated in Figure \ref{fig:medeas-modules}.
 
 \begin{figure}[h]
     \centering
@@ -51,9 +51,9 @@ Quite evidently, in this work, the MEDEAS-EU version will be considered, as this
 
 \subsubsection{System dynamics}
 
-It is formulated using the system dynamics toolset---what Vensim is built for---which is to help the aggregation of the knowledge from different experts from different domains and backgrounds. This will also enable easy modelling of feedback between the different components.
+Formulated using system dynamics, the MEDEAS model leverages Vensim software to aggregate insights from diverse experts and domains. This will also enable easy modelling of feedback between the different components.
 
-System dynamics is a modeling language, made to obtain understandings of complex and dynamic systems. It acheives using nodes and arrows, corresponding to values and relations between those respectively. The former can be either a stock, a flow or a constant, while the latter makes the link through equations. It is therefore possible to create feedback loops and complex interconnected networks.
+System dynamics is a modeling language, made to obtain understandings of complex and dynamic systems. It achieves using nodes and arrows, corresponding to values and relations between those respectively. The former can be either a stock, a flow or a constant, while the latter makes the link through equations. It is therefore possible to create feedback loops and complex interconnected networks.
 
 System dynamics have been popularized by the \textit{world3} model, used to predict the consequences of long-term policies applied by the society on the planet in the Limits to Growth report \cite{limits-to-growth}.
 
@@ -61,13 +61,13 @@ Needless to say, this approach is far from the linear programming paradigm, that
 
 \subsection{Energy return on investment}
 
-When having energy consideration in the long term, the energy return on investment (EROI) becomes a key indicator.
+When having energy consideration in the long term, the energy return on investment (EROI) assumes a crucial role.
 
-It is defined as the ratio of the exploitable energy obtained from some energy resource to the amount of exploitable energy used to get that energy resource \cite{wiki-eroi}.
+EROI signifies the exploitable energy obtained from a resource to the amount of exploitable energy spent to acquire that resource \cite{wiki-eroi}.
 
-The EROI is of great importance for the assessment of the energy sources efficiency, providing a measure of how efficient this energy source is to make use of. On most cases, the EROI of RES is lower, meaning a lower energy gain, than fossil fuels'.
+The EROI serves as a critical metric for the assessment of the energy sources efficiency, providing a measure of how efficient this energy source is to make use of. On most cases, the EROI of RES is lower, meaning a lower energy gain, than fossil fuels'.
 
-It is not to be confused with the net energy gain, that is the difference between the exploitable energy obtained and the exploitable energy invested. The net energy is the amount of energy that has been made exploitable, thus now availible for public consumption. Obviously, its value should be larger than zero for the system to be profitable.
+It's important to differentiate between EROI and net energy gain, where the latter represents the surplus energy available for public use. Obviously, its value should be larger than zero for the operation to be profitable.
 
 Equations \ref{equation:eroi} and \ref{equation:net-energy} summarize their definitions and the relationship between the two.
 
@@ -81,7 +81,7 @@ Equations \ref{equation:eroi} and \ref{equation:net-energy} summarize their defi
     \label{equation:net-energy}
 \end{equation}
 
-However, this also requires to set a definition on what exactly is the energy invested on the aquisition of an other resource. The MEDEAS model thus provides several EROI values relating to different approaches in this matter \cite{medeas-cost-of-transition}.
+However, this also requires to set a definition on what exactly is the energy invested on the aquisition of an other resource. The MEDEAS model thus ovvers several EROI values relating to different approaches \cite{medeas-cost-of-transition}.
 \begin{itemize}
     \item Standard EROI, that "includes the direct (i.e. on site) and indirect (i.e. offsite energy needed to make the products used on site) energy requirements to get the energy (e.g. build, operate and maintain a power plant)" \cite{medeas-cost-of-transition}.
     \item Point of use EROI, that includes the energy cost of obtaining and transporting the fuel to the actual location where it will be used by society.
@@ -126,13 +126,13 @@ Furthermore, MEDEAS \cite{medeas-eroi}:
 
 \subsection{Modelling of RES}
 
-The impacts of the variability of electricity production technologies are tackled in the MEDEAS framework. Indeed, not as extensively as they are in Dispa-SET simulation, what is the whole point of the present work.
+MEDEAS addresses the implications of variability in electricity production technologies, though not as comprehensively as Dispa-SET.
 
 \subsubsection{Limitation}
 
 First, it is recalled that the time step used by MEDEAS is quite significant. Is recommended value is 0.03125, expressed as a fraction of a month. This amounts to approximately a day: $0.03125 \times \frac{365.25}{12} = 0.951$.
 
-This value is obviously too high to model extensively daily variations of the power output of solar photovoltaic units, for example.
+This value is clearly too high to model extensively daily variations of the power output of solar photovoltaic units, for example.
 
 In the following, the mechanisms implemented by MEDEAS in order to incorporate the RES variability are described.
 
@@ -142,7 +142,7 @@ MEDEAS estimates, per MW of VRES, the additional electricity grid extensions req
 
 \subsubsection{Storage units}
 
-In MEDEAS, the first storage technology in use is the pumped hydro-storage (PHS). One will notice that it contrasts with the Dispa-SET setting where batteries are used as the main storage technology to act on, mostly by creating new plants. As already discussed before, that is to account for the fact that the european region is almost saturated in terms of PHS, as one could not find suitable location for new units to be built.
+In MEDEAS, the first storage technology in use is the pumped hydro-storage (PHS). It contrasts with the Dispa-SET setting where batteries are the main storage technology acted on, by creating new plants. As already discussed before, that is to because the european region is almost saturated in terms of PHS, as one could not find suitable location for new units to be built.
 
 An estimation of the storage needs as a function of the VRES share is depicted in Figure \ref{fig:storage-vres} \cite{NREL}.
 
@@ -179,7 +179,7 @@ An estimate of the overcapacity of dipachable RES is provided in \cite{NREL}, th
 
 \subsubsection{VRES plants}
 
-MEDEAS based its estimates of the VRES induced overcapacities on \cite{delarue}. These two main impacts of the VRES share are taken into account:
+MEDEAS relies on estimates of the VRES induced overcapacities from \cite{delarue}. These two main impacts of the VRES share are taken into account:
 \begin{itemize}
     \item The exponential growth of VRES overcapacities and
     \item The decrease of the VRES capacity factor.
@@ -202,16 +202,16 @@ The capacity factor is evaluated as a function of the overcapacity, following Eq
 
 \subsection{Scenarios} \label{section:medeas-scenarios}
 
-As no model can predict with certainty, neither with significant confidence, the decision that will be made and will rule the society for the future, several sets of hypothesis, called scenarios, are made.
+Given inherent uncertainties about the decision that will be made and will rule the society in the future, several sets of hypothesis, called scenarios, are made.
 
 When running the MEDEAS model, these scenarios are run in parallel, as in Vensim these are present as possible values for the \textit{scenario} subscript. These possible value have to be chosen in the dedicated panel in Vensim.
 
 By default, the three following scenarios are available, but it is possible to run user-defined scenarios \cite{medeas-website}.
 
 \begin{itemize}
-    \item \textbf{BAU} (Business As Usual) corresponds to no particular effort being implemented, the transition continues as it is.
-    \item \textbf{OLT} (Optimal Level Transition) where all the resources available are allocated to the best renewable transition possible, that has become a social priority. The only constraints for faster transition are physical limitations.
-    \item \textbf{MLT} (Mid-Level Transition) is a mix of the previous ones, some effort are made but not all. Actions towards renewable transition are delayed.
+    \item Business as usual, \textbf{BAU}: corresponds to no particular effort being implemented, the transition continues as it is.
+    \item Optimal Level Transition, \textbf{OLT}: where all the resources available are allocated to the best renewable transition possible, that has become a social priority. The only constraints for faster transition are physical limitations.
+    \item Mid-Level Transition, \textbf{MLT}: is a mix of the previous ones, some effort are made but not all. Actions towards renewable transition are delayed.
 \end{itemize}
 
 A depiction of these scenarios in terms of emissions over time is given in Figure \ref{fig:medeas-scenarios}.
