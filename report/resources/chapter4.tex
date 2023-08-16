@@ -6,7 +6,7 @@ This section presents the training process that have led to the description and 
 
 This is a straightforward example of a regression problems, aiming to predict some output features from the input features, given a number of training example in a dataset. This is a typical machine learning problem, and is be addressed accordingly.
 
-Initially, the performances of different methods are measured and the best one is selected. Then, a model is trained and evaluated, forming the core surrogate model.
+Initially, the performance of different methods are measured and the best one is selected. Then, a model is trained and evaluated, forming the core surrogate model.
 
 \subsection{Machine learning methods}
 
@@ -78,7 +78,7 @@ Results obtained with decision trees are shown in Table \ref{tab:trees-results}.
 
 The highest accuracy is achieved with 135 trees. However in this case, the results are not as straightforward as for the k-NN technique, that showed a monotonic decrease, the minimum then an increase. As randomness is involved when choosing the splits when building the trees, the results are subject to a slight variance, inducing less obvious results. However, after 145 trees, the error starts steadily increasing.
 
-These performances are better than the nearest neighbors method, but do not perform as good as the following techniques.
+These performance are better than the nearest neighbors method, but do not perform as good as the following techniques.
 
 \subsubsection{XGBoost}
 
@@ -95,7 +95,10 @@ In tree boosting, the main hyper-parameters are:
 
 Resulting performance for some values of the hyper-parameters are reported in Table \ref{tab:results-xgboost}.
 
-XGBoost's results are really good, achieving at best around 0.006 mean squared error on the validation set. This is not surprising given that this technique is quite popular in the literature. Actually, for the first testing stage where the dataset created in this work was not available, the dataset from C. Vidal's work has been used as a first test. In this context, the results obtained with XGBoost outperformed the best neural network architecture.
+XGBoost's results are really good, achieving at best around 0.006 mean squared error on the validation set. This is not surprising given that this technique is quite popular in the literature. 
+
+It is important to note that the method was tested over a previous version of the dataset (the one produced in \cite{carlas-thesis}) and not on the one generated in this thesis because the results were not yet available. The performance metrics should however not very dramatically between the former and the latter version of the dataset.
+% Actually, for the first testing stage where the dataset created in this work was not available, the dataset from C. Vidal's work has been used as a first test. In this context, the results obtained with XGBoost outperformed the best neural network architecture.
 
 \begin{table}[h!]
     \centering
@@ -133,7 +136,7 @@ XGBoost's results are really good, achieving at best around 0.006 mean squared e
         4 & 0.03 & 200  & 0.008364 &  5 & 0.1  & 200  & 0.005640 & 6 & 0.2  & 200  & 0.007651 \\
         4 & 0.03 & 500  & 0.005841 &  5 & 0.1  & 500  & 0.005433 & 6 & 0.2  & 500  & 0.007622 \\
         4 & 0.03 & 1000 & 0.005203 &  5 & 0.1  & 1000 & 0.005371 & 6 & 0.2  & 1000 & 0.007622 \\
-        4 & 0.03 & 2000 & 0.004922 &  5 & 0.1  & 2000 & 0.005371 & 6 & 0.2  & 2000 & 0.007622 \\
+        4 & 0.03 & 2000 & 0.004922 &  5 & 0.1  & 2000 & 0.005371 & 6 & 0.2  & 2000 & 0.007622 \\ \hline
     \end{tabular}
     \caption{Results for some values of the XGBoost parameters. The learning rate is labelled "lr", the maximum depth "d" and the number of estimators n, while the validation error is denoted by "err".}
     \label{tab:results-xgboost}
@@ -263,15 +266,16 @@ In machine learning, validation and testing are crucial steps in order to ensure
     \item The training set is used to train the model.
 \end{itemize}
 
-Typically, the data is split into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
+% Typically, the data is split into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
+Typical machine learning applications dispose of a single, fixed dataset, that has to be split to constitute three desired sets. However, in this context, we can easily run sets of simulations to obtain more data points, from another LHS. It is interesting to consider generating more than a single dataset from a unique LHS.
 
-For the training set, joining different sets drawn with LHS is not expected to improve performance. As the LHS are independent of each other, there is a great chance to draw samples that are really close to each other, or worse, equal, what is exactly what LHS aims at avoiding.
+For the training set, joining different sets drawn with LHS is not expected to improve performance. As the LHS are independent of each other, there is a great chance to draw samples that are really close to each other, or worse, equal, what the LHS aims to avoid.
 
 On the other hand, using a set drawn from a different LHS (than the one used for the training set) for testing and validation is interesting. This will provide data that spans the whole input space, but not yet exactly the same as the data used for training. Thanks to the input space coverage, the evaluation made at testing will be more extensive, and thanks to being independent of the training data, this evaluation should remain unbiased. 
 
 Conversely, the validation set being sampled from a LHS now providing a guarantee that it spans the whole space could make the work of the learning agent easier, giving it access to each of the LHS sample from the training set.
 
-However promising, this approach will not be done in this work, to make sure the unbiased property of the trained model persists, and that the term "validation error" keeps the same meaning as everywhere else.
+However promising, this approach will not be done in this work, to ensure that the unbiased property of the trained model persists, and that the term "validation error" keeps the exact same meaning as in the literature.
 
 \subsubsection{Overfitting}
 
@@ -346,7 +350,7 @@ Overfitting is not likely, because as can be seen in Figure \ref{fig:nn-validati
     \label{fig:overfitting}
 \end{figure}
 
-\subsubsection{Observations}
+\subsubsection{Observations \label{ssec:surrogate-model-surf-observations}}
 
 To further confirm the absence of overfitting in this result, the \texttt{view.py} file is used to browse across the multi-dimensional function, with surface plots.
 

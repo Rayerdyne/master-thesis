@@ -28,42 +28,6 @@ Its most common application areas include \cite{wiki-vensim}:
 Vensim also comes in different distribution, such as Vensim PLE that is the free, personal learning edition. In this work, Vensim DSS is used, with an academic license.
 
 
-\subsubsection{Vensim models}
-
-Vensim offers a variety of tools to describe models, but at the end every model is an interconnection of variables, the math hiding in the connections between these. 
-
-Vensim provides the following types of variables:
-\begin{itemize}
-    \item \textbf{Auxiliary variables}, that are regular variable that have no memory, that is, are independent from their value at the previous time step and are computed from every type of variable.
-
-    For example, a $temperature$ variable that is computed from some $sunshine$ and $latitude$, that is used to compute the birth rate of $rabbits$ and $foxes$.
-
-    \item \textbf{Constant variables}, that hold one value.
-    
-    For example, a mathematical constant like $\pi$.
-
-    \item \textbf{Data variables}, or exogenous variables, whose value evolve over time but is not dependent of the model.
-
-    For example, typical $sunshine$ data over a year.
-
-    \item \textbf{Stock variables}, that change only over time as a function of the incoming rates, i.e., they integrates the rates.
-
-    For example, the population of some species at a given time.
-
-    \item \textbf{Rate variables}, or flows, that directly impact the Stock variables. 
-
-    For example, the birth or death rate of some population at a given time.
-\end{itemize}
-
-The connections between the variables are virtually done by arrows. The only practical use of arrows is to make the variable at the origin appear in the selection of variables in the variable equation screen for the variable pointed by the arrow. But obviously they are of great utility in terms of visualization of the model.
-
-An illustrative example of a Vensim model is depicted in Figure \ref{fig:vensim-model-example}.
-
-\begin{figure}[h!]
-    \includegraphics[width=0.9\textwidth]{resources/images/vensim-model-example.png}
-    \caption{An example model in Vensim: Lotka-Volterra predator-prey model.}
-    \label{fig:vensim-model-example}
-\end{figure}
 
 \subsubsection{Vensim external functions}
 
@@ -96,11 +60,11 @@ Vensim DSS ships with an example of such a library. As this file is not publicly
 
 In the implementation of the library, this file was copied then adapted, as suggested in Vensim's documentation.
 
-\subsubsection{Vensim subscripts}
+% \subsubsection{Vensim subscripts}
 
-This feature of Vensim is advertised as one of its most powerful tools. These allow to subscript variables appearing in the equations and perform operations across subscripted values if needed. For example, it enables to set predators and preys initial populations and reproduction parameters for several environments, and run them all at once. 
+% This feature of Vensim is advertised as one of its most powerful tools. These allow to subscript variables appearing in the equations and perform operations across subscripted values if needed. For example, it enables to set predators and preys initial populations and reproduction parameters for several environments, and run them all at once. 
 
-Importantly, MEDEAS use subscripts to run several simulations in parallel called scenarios. Therefore, one needs to edit the subscript properties in order to manage the scenario that will be run and displayed.
+% Importantly, MEDEAS use subscripts to run several simulations in parallel called scenarios. Therefore, one needs to edit the subscript properties in order to manage the scenario that will be run and displayed.
 
 \subsubsection{Calling a Tensorflow model}
 
@@ -140,7 +104,7 @@ In its underlying workings, the MEDEAS model does not directly employ all the va
 
 Fortunately, many of the desired values bear a close relationship to existing variables within the MEDEAS energy module, so these links are expected to be as simple as linear rescalings or combinations.
 
-The input variables, that are summarized in Table \ref{table:reference-values}, do not map directly to already existing variables in the MEDEAS model. Thus, some mappings have to be made between the inputs and outputs of the surrogate model, the Dispa-SET side, and the MEDEAS side.
+The input variables, that are summarized in Table \ref{table:reference-values}, do not map directly to already existing variables in the MEDEAS model. Thus, some mappings have to be made between the inputs and outputs of the surrogate model, the Dispa-SET side, and the MEDEAS side. For clarity, all the variables in Dispa-SET are displayed in blue, while those from MEDEAS are coloured in red.
 
 This work has been done with the help of Jade Paris, a student making her master's stage thesis on this specific topic as well.
 
@@ -154,13 +118,13 @@ These variable are listed in Table \ref{tab:medeas-vars}.
     \centering
     \begin{tabular}{|p{5cm}|p{5cm}|p{1cm}|p{4cm}|} \hline 
     MEDEAS variable name &  Description & Unit & Notation \\ \hline
-     FE elec generation from solar PV TWh & Total yearly production from solar photovoltaic units & TWh & $Generation_{PV}$\\ \hline 
-     Total FE Elec demand TWh & Yearly total electricity demand & TWh & $Demand_{tot}$ \\ \hline 
-     FE Elec generation from offshore wind TWh & Total yearly production from offshore wind turbines & TWh & $Generation_{wind-offshore}$ \\ \hline 
-     FE Elec generation from onshore wind TWh & Total yearly production from onshore wind turbines & TWh & $Generation_{wind-onshore}$ \\ \hline 
-     Total capacity elec storage TW & Total power output of storage units & TW & $Storage_{tot}$ \\ \hline 
-     Total FE Elec genetaion TWh EU & Total yearly electricity production from all units & TWh & $Generation_{tot}$ \\ \hline 
-     new capacity installed growth rate RES elec & Yearly growth rate of the electric network capacity & [$\cdot$] & $Growth_{capacity}$ \\ \hline
+     {\color{red} FE elec generation from solar PV TWh} & Total yearly production from solar photovoltaic units & TWh & {\color{red}$Generation_{PV}$} \\ \hline 
+     {\color{red} Total FE Elec demand TWh} & Yearly total electricity demand & TWh & {\color{red}$Demand_{tot}$ } \\ \hline 
+     {\color{red} FE Elec generation from offshore wind TWh} & Total yearly production from offshore wind turbines & TWh & {\color{red}$Generation_{wind-offshore}$ } \\ \hline 
+     {\color{red} FE Elec generation from onshore wind TWh} & Total yearly production from onshore wind turbines & TWh & {\color{red}$Generation_{wind-onshore}$ } \\ \hline 
+     {\color{red} Total capacity elec storage TW} & Total power output of storage units & TW & {\color{red}$Storage_{tot}$ } \\ \hline 
+     {\color{red} Total FE Elec genetaion TWh EU} & Total yearly electricity production from all units & TWh & {\color{red}$Generation_{tot}$ } \\ \hline 
+     {\color{red} new capacity installed growth rate RES elec} & Yearly growth rate of the electric network capacity & [$\cdot$] & {\color{red}$Growth_{capacity}$ } \\ \hline
     \end{tabular}
     \caption{Relevant variable in MEDEAS}
     \label{tab:medeas-vars}
@@ -179,12 +143,12 @@ The equations that establish links between the input variables from the surrogat
     \begin{tabular}{|m{3.6cm}|c|}
     \hline 
     Input variable (from surrogate model) & Linking equation \\ \hline
-    $share_{PV}$ & $share_{PV}=\dfrac{Generation_{PV}}{Demand_{tot}}$ \\ \hline 
-    $share_{wind}$ & $share_{wind}=\dfrac{Generation_{wind-onshore} + Generation_{wind-offshore}}{Demand_{tot}}$ \\ \hline 
-    $share_{flex}$ & $share_{flex}=40\%$ \\ \hline 
-    $share_{storage}$ & $share_{storage}=\dfrac{Storage_{tot}}{Demand_{tot}}\times 365\times 24$ \\ \hline 
-    $Capacity_{ratio}$ & $Capacity_{ratio}=\dfrac{Generation_{tot}}{Demand_{tot}}$ \\ \hline 
-    $rNTC$ & $rNTC= Growth_{capacity}$ \\ \hline 
+    {\color{blue} $share_{PV}$} & {\color{blue} $share_{PV}$ = \color{red} $\dfrac{Generation_{PV}}{Demand_{tot}}$ } \\ \hline 
+    {\color{blue} $share_{wind}$} & {\color{blue} $share_{wind}$ = \color{red} $\dfrac{Generation_{wind-onshore} + Generation_{wind-offshore}}{Demand_{tot}}$} \\ \hline 
+    {\color{blue} $share_{flex}$} & {\color{blue} $share_{flex}$} = $40\%$ \\ \hline 
+    {\color{blue} $share_{storage}$} & {\color{blue} $share_{storage}$ = \color{red} $\dfrac{Storage_{tot}}{Demand_{tot}}$} $\times 365\times 24$ \\ \hline 
+    {\color{blue} $Capacity_{ratio}$} & {\color{blue} $Capacity_{ratio}$ = \color{red} $\dfrac{Generation_{tot}}{Demand_{tot}}$} \\ \hline 
+    {\color{blue} $rNTC$} & {\color{blue} $rNTC$ = \color{red} $Growth_{capacity}$} \\ \hline 
     \end{tabular}
     \caption{Variable linking equations. The left-hand side are Dispa-SET variables, and right-hand side MEDEAS variables.}
     \label{tab:linking-equations}

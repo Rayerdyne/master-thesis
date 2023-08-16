@@ -47,7 +47,7 @@ The MEDEAS IAM is organized into seven modules, encompassing economy, energy, en
     \label{fig:medeas-modules}
 \end{figure}
 
-Quite evidently, in this work, the MEDEAS-EU version will be considered, as this is the chosen setting for Dispa-SET, and with an obvious focus on the energy module. 
+In this work, the MEDEAS-EU version will be considered, since it has the same geographical scope than the Dispa-SET model. 
 
 \subsubsection{System dynamics}
 
@@ -130,7 +130,7 @@ MEDEAS addresses the implications of variability in electricity production techn
 
 \subsubsection{Limitation}
 
-First, it is recalled that the time step used by MEDEAS is quite significant. Is recommended value is 0.03125, expressed as a fraction of a month. This amounts to approximately a day: $0.03125 \times \frac{365.25}{12} = 0.951$.
+First, it is recalled that the time step used by MEDEAS is coarse. Its recommended value is 0.03125, expressed as a fraction of a month. This amounts to approximately a day: $0.03125 \times \frac{365.25}{12} = 0.951$.
 
 This value is clearly too high to model extensively daily variations of the power output of solar photovoltaic units, for example.
 
@@ -142,7 +142,7 @@ MEDEAS estimates, per MW of VRES, the additional electricity grid extensions req
 
 \subsubsection{Storage units}
 
-In MEDEAS, the first storage technology in use is the pumped hydro-storage (PHS). It contrasts with the Dispa-SET setting where batteries are the main storage technology acted on, by creating new plants. As already discussed before, that is to because the european region is almost saturated in terms of PHS, as one could not find suitable location for new units to be built.
+In MEDEAS, the first storage technology in use is the pumped hydro-storage (PHS). It contrasts with the Dispa-SET setting where batteries are the main storage technology. As already discussed, that is to because the european region is almost saturated in terms of PHS, as one could not find suitable location for new units to be built.
 
 An estimation of the storage needs as a function of the VRES share is depicted in Figure \ref{fig:storage-vres} \cite{NREL}.
 
@@ -219,7 +219,7 @@ A depiction of these scenarios in terms of emissions over time is given in Figur
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{resources/images/medeas-scenarios.png}
-    \caption{Qualitative illustration of the BAU, MLT and OT scenarios for the greenhouse gas emissions in Europe}
+    \caption{Qualitative illustration of the BAU, MLT and OLT (here, referred to as OT) scenarios for the greenhouse gas emissions in Europe from \cite{medeas-website}}
     \label{fig:medeas-scenarios}
 \end{figure}
 

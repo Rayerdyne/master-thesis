@@ -150,9 +150,9 @@ The notation $PowerCap_{x}$ refers to the maximum power output of all the units 
     \end{equation}
 \end{enumerate}
 
-\subsubsection{Output variable}
+\subsubsection{Output variable \label{ssec:output-variables}}
 
-The target outputs of the systems are the curtailment and the shedding. In order to make these values more scalable, we normalize them, by the maximum RES generation that could be produced (that is, the sum of the availability factors multiplied by the power capacity for each units), and the total demand respectively.
+The target outputs of the systems are the curtailment and the load shedding. In order to make these values more scalable, we normalize them, by the maximum RES generation that could be produced (that is, the sum of the availability factors multiplied by the power capacity for each units), and the total demand respectively.
 
 This normalization renders the output scalable, enabling its utilization in other systems, that have different scales. Without, the curtailment prediction is dependent on our specific training setting, and the resulting model, outputting absolute values, could not be used for any other setting. Scaling the outputs therefore enables easier generalization of the future model.
 
@@ -177,11 +177,14 @@ This normalization renders the output scalable, enabling its utilization in othe
 
 \subsubsection{Reference values and ranges}
 
-Given the 2019 input data, a reference simulation is run and one obtains the values presented in table \ref{table:reference-values}.
+The Dispa-SET simulation presented in Section \ref{section:reference-simulation} is taken as reference, and its main parameters are provided in Table \ref{table:reference-values}.
 
-This simulation is used as the starting point to define all the other simulations. Its inputs and parameters values are adjusted to match the desired input features values for each simulation.
+A reasonable variation range is then defined for the six important inputs (Table \ref{table:reference-values}), covering the possible evolutions of the electricity system up to 2050.
+% Given the 2019 input data, a reference simulation is run and one obtains the values presented in table \ref{table:reference-values}.
 
-The inputs' ranges are set based on what is plausible at this time, while kept tight to avoid exploring unrealistic settings.
+% This simulation is used as the starting point to define all the other simulations. Its inputs and parameters values are adjusted to match the desired input features values for each simulation.
+
+% The inputs' ranges are set based on what is plausible at this time, while kept tight to avoid exploring unrealistic settings.
 
 \begin{table}[h]
     \centering
@@ -272,9 +275,9 @@ With the input samples now obtained, the next step is now to compute the simulat
 But this task is not trivial since the data that corresponds to these exact configuration is not available. It is thus needed to craft some new simulation settings given a reference, that is the year 2019.
 
 \subsubsection{Adjusting functions}
-To address this, Dispa-SET provides utility functions that adjust the capacities (i.e., the power ouputs) of the units, based on parameters.
+To address this, Dispa-SET provides utility functions that adjust the installed capacities within the power generation fleet.
 
-These adjusting functions were specifically developped for this topic by Vidal in her master thesis \cite{carlas-thesis}.
+% These adjusting functions were specifically developped for this topic by Vidal in her master thesis \cite{carlas-thesis}.
 
 \begin{itemize}
     \item \texttt{adjust\_flexibility} modifies installed capacities to reach the desired $Share_{flex}$.
@@ -362,7 +365,7 @@ All the outputs extracted from the simulations are displayed in Table \ref{table
 	\label{table:values-extracted}
 \end{table}
 
-Distinction should be made between the $Shedding$ and the $LostLoad$. The former is a consequence of voluntary action, following set rules between consumers and producers. The latter is a consequence of additional variables added to Dispa-SET to reduce the infeasibility issues, assigning a high cost to the capacity the system is not able to generate due to maximum capacity and ramping constraint being reached.
+Distinction should be made between the $Shedding$ and the $LostLoad$. The former is a consequence of voluntary action, following set rules between consumers and producers. The latter is a consequence of additional variables added to Dispa-SET to reduce the infeasibility issues, assigning a high cost to the capacity the system is not able to generate due to maximum capacity and ramping constraint being reached. The Energy Not Served (ENS), is defined as the sum of $Shedding$ and $LostLoad$, and thus accounts for the actual difference between the demand and the production predicted by Dispa-SET.
 
 \subsubsection{Dataset creation}
 
@@ -372,14 +375,14 @@ As this whole process is be completely automated, it is pretty easy to obtain a 
 
 \subsection{Implementation}
 
-One simple, yet important notice: running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targeted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase also requires a significant amount of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
+Running all of these simulation is not feasible on a basic hardware. A single MILP simulation typically takes around two hours to complete on the cluster, as the latin hypercube sampling targeted 2000 simulations, yielding to 4000 hours or 166.6 days if the simulation are run sequentially. Moreover, the testing phase also requires a significant amount of runs. This arises the need for the cluster use, and thus of submitting these as jobs on the cluster.
 
-As the NIC5 cluster, provided by CÉCI, is obviously shared, one needs to manage the submitted jobs appropriately. In our case, we simply have the same program to be run a bunch of times, that are jobs independent of each other, running the linear programming software used by Dispa-SET, GAMS (General Algrbraic Modeling Language) \cite{GAMS}.
+As the NIC5 cluster, provided by CÉCI, is obviously shared, one needs to manage the submitted jobs appropriately. In our case, we simply have the same program to be run multiple of times, that are jobs independent of each other, running the linear programming software used by Dispa-SET, GAMS (General Algrbraic Modeling Language) \cite{GAMS}.
 
 \subsubsection{Steps}
 For a complete experiment to be completed, these steps have to be followed:
 \begin{enumerate}
-    \item Generating the reference simulation, to extract the data that will be manipulated by the adjusting function
+    \item Generating the reference simulation (cfr Section \ref{section:reference-simulation}), to extract the data that will be manipulated by the adjusting function
     \item For each sample, do:
     \begin{enumerate}
         \item Call the adjusting function and create the simulation directory, with all the simulation input data
@@ -454,7 +457,7 @@ This issue is interpreted as the simulations with too high flexibility are harde
 
 It is noteworthy that in about 30\% of the simulation, a division by zero error was also stated. Since this happens in the preprocessing, it has no influence on the results and this error is discarded.
 
-It would also be useful to find in which equation this happens for debugging purposes.
+% It would also be useful to find in which equation this happens for debugging purposes.
 
 \subsubsection{Dataset fields}
 
@@ -475,8 +478,8 @@ Only two of these, $LoadShedding$ and $Curtailment$ are actually used to train t
 		MaxLoadShedding  & MW    & CF wat         & [$\cdot$] \\
 		Demand           & TWh   & CF win         & [$\cdot$] \\
 		NetImports       & TWh   & CF sun         & [$\cdot$] \\
-		{\color{blue} Curtailment}      & TWh   & {\color{green} Capacity ratio} & [$\cdot$] \\
-		{\color{blue} Shedding}         & TWh   & {\color{green} Share flex}     & [$\cdot$] \\
+		{\color{blue} Curtailment}      & \%   & {\color{green} Capacity ratio} & [$\cdot$] \\
+		{\color{blue} Shedding}         & \%   & {\color{green} Share flex}     & [$\cdot$] \\
 		LostLoad         & TWh   & {\color{green} Share sto}   & [$\cdot$] \\
         MaxRESGeneration & MW    & {\color{green} Share Wind}  & [$\cdot$] \\
         TotalGeneration  & TWh   & {\color{green} Share PV}    & [$\cdot$] \\

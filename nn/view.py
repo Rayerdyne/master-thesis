@@ -21,7 +21,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from tensorflow.keras.models import load_model
 
-from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES, SHOW_PLOTS
+from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, N_INPUT_FEATURES, SHOW_PLOTS
 
 # See ../data-generation/sampling.py
 capacity_ratio_range = (0.5, 1.8)
@@ -38,6 +38,8 @@ ranges = [capacity_ratio_range, share_flex_range,
 ranges_name = ["Capacity ratio", "Share flexible",
                "Share storage",  "Share wind",
                "Share PV",       "rNTC"]
+
+short_output_names = ["Curtailment", "Load shedding"]
 
 
 def plot_loss(H, path):
@@ -147,8 +149,8 @@ def view_surface(model, args):
     fig.subplots_adjust(bottom=0.4, top=1)
     ax.set_xlabel(ranges_name[in1])
     ax.set_ylabel(ranges_name[in2])
-    ax.set_zlabel(OUTPUT_NAMES[out])
-    ax.set_title(OUTPUT_NAMES[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
+    ax.set_zlabel(short_output_names[out])
+    ax.set_title(short_output_names[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
 
     i_sliders = []
     counter = 0
@@ -168,8 +170,8 @@ def view_surface(model, args):
         ax.cla()
         ax.set_xlabel(ranges_name[in1])
         ax.set_ylabel(ranges_name[in2])
-        ax.set_zlabel(OUTPUT_NAMES[out])
-        ax.set_title(OUTPUT_NAMES[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
+        ax.set_zlabel(short_output_names[out])
+        ax.set_title(short_output_names[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
         surface = ax.plot_surface(X, Y, compute_surface(model, X, Y, i_sliders, in1, in2, out),
                                   cmap=cm.coolwarm, linewidth=0, antialiased=False)
         

@@ -16,6 +16,19 @@
 	url = {https://ec.europa.eu/jrc/en/publication/eur-scientific-and-technical-research-reports/modelling-future-eu-power-systems-under-high-shares-renewables-dispa-set-21-open-source}
 }
 
+@article{MEDEAS,
+    author ="Capellán-Pérez, Iñigo and de Blas, Ignacio and Nieto, Jaime and de Castro, Carlos and Miguel, Luis Javier and Carpintero, Óscar and Mediavilla, Margarita and Lobejón, Luis Fernando and Ferreras-Alonso, Noelia and Rodrigo, Paula and Frechoso, Fernando and Álvarez-Antelo, David",
+    title  ="MEDEAS: a new modeling framework integrating global biophysical and socioeconomic constraints",
+    journal  ="Energy Environ. Sci.",
+    year  ="2020",
+    volume  ="13",
+    issue  ="3",
+    pages  ="986-1017",
+    publisher  ="The Royal Society of Chemistry",
+    doi  ="10.1039/C9EE02627D",
+    url  ="http://dx.doi.org/10.1039/C9EE02627D",
+}
+
 @article{medeas-eroi,
 	title = {Dynamic Energy Return on Energy Investment (EROI) and material requirements in scenarios of global transition to renewable energies},
 	journal = {Energy Strategy Reviews},
@@ -40,7 +53,23 @@
 	doi = {10.1016/j.energy.2018.05.005}
 }
 
-@incollection{surrogate_model,
+@incollection{surrogate_model_dev,
+	title = {Developing Surrogate Models via Computer Based Experiments},
+	editor = {Krist V. Gernaey and Jakob K. Huusom and Rafiqul Gani},
+	series = {Computer Aided Chemical Engineering},
+	publisher = {Elsevier},
+	volume = {37},
+	pages = {641-646},
+	year = {2015},
+	booktitle = {12th International Symposium on Process Systems Engineering and 25th European Symposium on Computer Aided Process Engineering},
+	issn = {1570-7946},
+	doi = {https://doi.org/10.1016/B978-0-444-63578-5.50102-X},
+	url = {https://www.sciencedirect.com/science/article/pii/B978044463578550102X},
+	author = {Mandar N. Thombre and Heinz A. Preisig and Misganaw B. Addis}
+}
+
+
+@incollection{surrogate_model_sel,
 	title = {Surrogate Model Selection for Design Space Approximation And Surrogatebased Optimization},
 	editor = {Salvador Garcia Muñoz and Carl D. Laird and Matthew J. Realff},
 	series = {Computer Aided Chemical Engineering},
@@ -55,7 +84,6 @@
 	author = {B.A. Williams and S. Cremaschi},
 	keywords = {surrogate model, optimization, design space approximation, multivariate adaptive regression splines, random forests, artificial neural networks}
 }
-
 
 @report{irena,
 	title = {Power System Flexibility for the Energy Transition, Part 1: Overview for policy makers},
@@ -111,29 +139,6 @@
     url          = {http://hdl.handle.net/2268.2/16566}
 }
 
-@incollection{surrogate_model,
-	title = {Developing Surrogate Models via Computer Based Experiments},
-	editor = {Krist V. Gernaey and Jakob K. Huusom and Rafiqul Gani},
-	series = {Computer Aided Chemical Engineering},
-	publisher = {Elsevier},
-	volume = {37},
-	pages = {641-646},
-	year = {2015},
-	booktitle = {12th International Symposium on Process Systems Engineering and 25th European Symposium on Computer Aided Process Engineering},
-	issn = {1570-7946},
-	doi = {https://doi.org/10.1016/B978-0-444-63578-5.50102-X},
-	url = {https://www.sciencedirect.com/science/article/pii/B978044463578550102X},
-	author = {Mandar N. Thombre and Heinz A. Preisig and Misganaw B. Addis}
-}
-
-@report{irena,
-	title = {Power System Flexibility for the Energy Transition, Part 1: Overview for policy makers},
-	institution = {International Renewable Energy Agency},
-	date = {2018},
-	location = {Abu Dhabi},
-	url = {https://www.irena.org/publications/2018/Nov/Power-system-flexibility-for-the-energy-transition},
-}
-
 @article{scikit-learn,
 	title={Scikit-learn: Machine Learning in {P}ython},
 	author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
@@ -186,6 +191,13 @@
     title     = {MEDEAS home page},
     url       = {https://medeas.eu},
     note      = {Accessed in May 2023}
+}
+
+@misc{medeas-website-model,
+    author    = {medeas.eu},
+    title     = {MEDEAS Model, Structure of MEDEAS-World model},
+    url       = {https://medeas.eu/model/medeas-model},
+    note      = {Accessed in August 2023}
 }
 
 @misc{pydoe-docs,
@@ -358,4 +370,83 @@
   year         = {2022},
   url          = {chat.openai.com/chat},
   version      = {August 2023},
+}
+
+@inbook{ar6-ipcc-wg3,
+  author         = {IPCC},
+  title          = {Climate Change 2022: Impacts, Adaptation and Vulnerability},
+  booktitle      = {Climate Change 2022: Mitigation of Climate Change. Contribution of Working Group III to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change},
+  editor         = {P.R. Shukla and J. Skea and R. Slade and A. Al Khourdajie and R. van Diemen and D. McCollum and M. Pathak and S. Some and P. Vyas and R. Fradera and M. Belkacemi and A. Hasija and G. Lisboa and S. Luz and J. Malley, (eds.)},
+  publisher      = {Cambridge University Press},
+  address        = {Cambridge, UK and New York, USA},
+  year           = {2022},
+  doi            = {10.1017/9781009157926},
+}
+
+@article{short-term-dispatch-1,
+    title = {Energy systems modeling for twenty-first century energy challenges},
+    journal = {Renewable and Sustainable Energy Reviews},
+    volume = {33},
+    pages = {74-86},
+    year = {2014},
+    issn = {1364-0321},
+    doi = {https://doi.org/10.1016/j.rser.2014.02.003},
+    url = {https://www.sciencedirect.com/science/article/pii/S1364032114000872},
+    author = {Stefan Pfenninger and Adam Hawkes and James Keirstead},
+    keywords = {Energy systems modeling, Energy policy, High-resolution modeling, Uncertainty, Complexity},
+}
+
+@article{Antares,
+    author = {Doquet, M. and Gonzalez, R. and Lepy, Sébastien and Momot, E. and Verrier, Frédérique},
+    year = {2008},
+    month = {01},
+    pages = {},
+    title = {A new tool for adequacy reporting of electric systems: ANTARES},
+    journal = {42nd International Conference on Large High Voltage Electric Systems 2008, CIGRE 2008}
+}
+
+@techreport{MESSAGEix,
+   address = {Laxenburg, Austria},
+%    author = {Krey, V. and Havlik, P. and Kishimoto, P. N. and Fricko, O. and Zilliacus, J. and Gidden, M. and Strubegger, M. and Kartasasmita, G. and Ermolieva, T. and Forsell, N. and Gusti, M. and Johnson, N. and Kikstra, J. and Kindermann, G. and Kolp, P. and Lovat, F. and McCollum, D. L. and Min, J. and Pachauri, S. and Parkinson S. C. and Rao, S. and Rogelj, J. and and Ünlü, G. Valin, H. and Wagner, P. and Zakeri, B. and Obersteiner, M. and Riahi, K.},
+   author = {Krey, V. and Havlik, P et al.},
+   doi = {10.22022/iacc/03-2021.17115},
+   institution = {International Institute for Applied Systems Analysis (IIASA)},
+   title = {{MESSAGEix-GLOBIOM Documentation -- 2020 release}},
+   url = {https://pure.iiasa.ac.at/id/eprint/17115},
+   year = {2020},
+}
+
+@article{GCAM,
+    author = {Calvin, K. and Patel, P. and Clarke, L. and Asrar, G. and Bond-Lamberty, B. and Cui, R. Y. and Di Vittorio, A. and Dorheim, K. and Edmonds, J. and Hartin, C. and Hejazi, M. and Horowitz, R. and Iyer, G. and Kyle, P. and Kim, S. and Link, R. and McJeon, H. and Smith, S. J. and Snyder, A. and Waldhoff, S. and Wise, M.},
+    title = {GCAM v5.1: representing the linkages between energy, water, land, climate,
+    and economic systems},
+    journal = {Geoscientific Model Development},
+    volume = {12},
+    year = {2019},
+    number = {2},
+    pages = {677--698},
+    url = {https://gmd.copernicus.org/articles/12/677/2019/},
+    doi = {10.5194/gmd-12-677-2019}
+}
+
+@article{MAgPIE,
+    author = {Dietrich, J. P. and Bodirsky, B. L. and Humpen\"oder, F. and Weindl, I. and Stevanovi\'c, M. and Karstens, K. and Kreidenweis, U. and Wang, X. and Mishra, A. and Klein, D. and Ambr\'osio, G. and Araujo, E. and Yalew, A. W. and Baumstark, L. and Wirth, S. and Giannousakis, A. and Beier, F. and Chen, D. M.-C. and Lotze-Campen, H. and Popp, A.},
+    title = {MAgPIE 4 -- a~modular open-source framework for modeling global land systems},
+    journal = {Geoscientific Model Development},
+    volume = {12},
+    year = {2019},
+    number = {4},
+    pages = {1299--1317},
+    url = {https://gmd.copernicus.org/articles/12/1299/2019/},
+    doi = {10.5194/gmd-12-1299-2019}
+}
+
+@misc{ipcc-thing,
+    author    = {Masson-Delmotte, Valérie and on Climate Change Working Group I, Intergovernmental Panel},
+    title     = {Global warming of 1.5{\textdegree}C : an IPCC special report on the impacts of global warming of 1.5 {\textdegree}C above pre-industrial levels and related global greenhouse gas emission pathways, in the context of strengthening the global response to the threat of climate change, sustainable development, and efforts to eradicate poverty},
+    year      = {2022},
+    publisher = {Cambridge University Press Cambridge, United Kingdom},
+    address   = {Cambridge, United Kingdom},
+    isbn      = {9781009157940; 1009157949},
+    language  = {eng}
 }
