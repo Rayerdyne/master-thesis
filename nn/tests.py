@@ -25,7 +25,7 @@ def main():
         mseloss = mean_squared_error(y_test, y_pred)
         print("mse loss for", n_neigh, "neighbors: ", mseloss)
     
-    for n_trees in range(25, 100, 25):
+    for n_trees in range(25, 150, 10):
         extratrees = RandomForestRegressor(n_trees)
 
         extratrees.fit(x_train, y_train)
@@ -33,9 +33,11 @@ def main():
         mseloss = mean_squared_error(y_test, y_pred)
         print("mse loss for", n_trees, "trees: ", mseloss)
     
+    # for max_depth in [3, 4, 5, 6]:
     for max_depth in [3, 4, 5, 6]:
-        for lr in [0.1, 0.2, 0.3, 0.4]:
-            for n in range(7, 15):
+        # for lr in [0.1, 0.2, 0.3, 0.4]:
+        for lr in [0.03, 0.1, 0.2]:
+            for n in [10, 20, 50, 100, 200, 500, 1000, 2000]:
                 xgb = XGBRegressor(
                     n_estimators=n,
                     learning_rate=lr,
@@ -46,7 +48,8 @@ def main():
                 xgb.fit(x_train, y_train)
                 y_pred = xgb.predict(x_test)
                 mseloss = mean_squared_error(y_test, y_pred)
-                print(f"XGBoost with lr {lr}, max depth {max_depth} and {n} estimators: {mseloss}")
+                # print(f"XGBoost with lr {lr}, max depth {max_depth} and {n} estimators: {round(mseloss, 4)}")
+                print(f"{max_depth} & {lr} & {n} & {mseloss}")
 
     
     # for i in range(2, 20, 2):

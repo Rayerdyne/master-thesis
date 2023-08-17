@@ -166,3 +166,5 @@ report/**
 !report/resources/images/*
 !report/resources/*.tex
 !report/resources/*.bib
+
+nn/models/**

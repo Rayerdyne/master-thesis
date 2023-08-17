@@ -20,9 +20,8 @@ from matplotlib.widgets import Slider, Button
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 from tensorflow.keras.models import load_model
-from tensorflow.keras.layers import Normalization
 
-from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, OUTPUT_NAMES, N_INPUT_FEATURES, SHOW_PLOTS
+from config import BATCH_SIZE, LOGS_MODEL_CKPT, LOGS_OUTPUT_PATH, N_INPUT_FEATURES, SHOW_PLOTS
 
 # See ../data-generation/sampling.py
 capacity_ratio_range = (0.5, 1.8)
@@ -40,12 +39,14 @@ ranges_name = ["Capacity ratio", "Share flexible",
                "Share storage",  "Share wind",
                "Share PV",       "rNTC"]
 
+short_output_names = ["Curtailment", "Load shedding"]
+
 
 def plot_loss(H, path):
     # plot the training history loss
     plt.style.use("ggplot")
     fig, ax = plt.subplots()
-    ax.set_ylim([0, 1])
+    ax.set_ylim([0, 0.2])
     ax.plot(H.history['loss'], label='Training Loss')
     ax.plot(H.history['val_loss'], label='Validation Loss')
     ax.set_title("Training Loss")
@@ -127,13 +128,13 @@ def compute_surface(model, X, Y, i_sliders, in1, in2, out):
     return output[:,out].reshape(oldshape)
 
 N_POINTS = 200
-def view_surface(model):
-    if len(sys.argv) < 5:
+def view_surface(model, args):
+    if len(args) < 3:
         raise TypeError(f"Not enough argument given to the script (has {len(sys.argv)-1}, needs 4)")
     
-    in1 = int(sys.argv[2])
-    in2 = int(sys.argv[3])
-    out = int(sys.argv[4])
+    in1 = int(args[0])
+    in2 = int(args[1])
+    out = int(args[2])
 
     range1 = ranges[in1]
     range2 = ranges[in2]
@@ -148,9 +149,8 @@ def view_surface(model):
     fig.subplots_adjust(bottom=0.4, top=1)
     ax.set_xlabel(ranges_name[in1])
     ax.set_ylabel(ranges_name[in2])
-    ax.set_zlabel(OUTPUT_NAMES[out])
-
-    fig.colorbar(surface, shrink=0.5, aspect=5)
+    ax.set_zlabel(short_output_names[out])
+    ax.set_title(short_output_names[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
 
     i_sliders = []
     counter = 0
@@ -168,10 +168,20 @@ def view_surface(model):
 
     def update(_event):
         ax.cla()
-        surface = ax.plot_surface(X, Y, compute_surface(model, X, Y, i_sliders, in1, in2, out))
+        ax.set_xlabel(ranges_name[in1])
+        ax.set_ylabel(ranges_name[in2])
+        ax.set_zlabel(short_output_names[out])
+        ax.set_title(short_output_names[out] + " vs " + ranges_name[in1] + " (x) and " + ranges_name[in2] + " (y)")
+        surface = ax.plot_surface(X, Y, compute_surface(model, X, Y, i_sliders, in1, in2, out),
+                                  cmap=cm.coolwarm, linewidth=0, antialiased=False)
+        
+        if len(fig.axes) >= 7:
+            fig.delaxes(fig.axes[-1])
+        cax = fig.add_axes([0.7, 0.45, 0.04, 0.5])
+        fig.colorbar(surface, cax=cax, shrink=0.5)
         fig.canvas.draw_idle()
     
-    b_axes = fig.add_axes([0.8, 0.03, 0.1, 0.03])
+    b_axes = fig.add_axes([0.8, 0.03, 0.1, 0.02])
     button = Button(b_axes, "Update", hovercolor="0.975")
     button.on_clicked(update)
 
@@ -184,15 +194,21 @@ CMD_DICT = {
 }
 
 def main():
-    model = load_model(LOGS_OUTPUT_PATH + os.sep + LOGS_MODEL_CKPT)
+    if len(sys.argv) < 3:
+        print("Need model path as first argument, and command")
+        return
+
+    path = sys.argv[1]
+    # model = load_model(LOGS_OUTPUT_PATH + os.sep + LOGS_MODEL_CKPT)
+    model = load_model(path)
     model.compile(optimizer="adam", loss="MSE")
 
-    command = sys.argv[1]
+    command = sys.argv[2]
     if command not in CMD_DICT:
         raise ValueError(f"Command {command} not found")
     
     action = CMD_DICT[command]
-    action(model)
+    action(model, sys.argv[3:])
 
 
 if __name__ == "__main__":

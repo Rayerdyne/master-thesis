@@ -15,9 +15,16 @@
 \usepackage{subcaption}
 \usepackage{multirow}
 \usepackage{array}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage[T1]{fontenc}
+\usepackage{tablefootnote}
+\usepackage[skip=5pt plus1pt, indent=40pt]{parskip}
 
-\usepackage{biblatex}               % Bibliography
-\addbibresource{resources/bibliography.bib} %Import the bibliography file
+\usepackage[sorting=none]{biblatex}               % Bibliography
+\bibliography{resources/bibliography}
+% \addbibresource{resources/bibliography.bib} %Import the bibliography file
 \usepackage[nottoc,numbib]{tocbibind}
 
 \graphicspath{{resources/images}}
@@ -80,8 +87,7 @@
 
     \textsc{\Large MASTER'S THESIS}\\[0.5cm]
 
-    \textbf{\LARGE Improving the simulation of variable renewable energy in
-integrated assessment models}
+    \textbf{\LARGE Improving the simulation of variable renewable energy in the MEDEAS integrated assessment model}
 
         \rule{\linewidth}{0.5mm}\\[2cm]
 
@@ -91,7 +97,7 @@ integrated assessment models}
 
     \textbf{Supervisors:}
 
-    Prof. S. Quoilin, Prof. B. Boigelot\\[2cm]
+    Prof. S. Quoilin\\[2cm]
     
 
     \center
@@ -113,6 +119,8 @@ integrated assessment models}
 \include{resources/chapter3}
 \include{resources/chapter4}
 \include{resources/chapter5}
+\include{resources/chapter6}
+\include{resources/conclusion}
 
 
 \nocite{*}
@@ -120,6 +128,9 @@ integrated assessment models}
 
 \settocbibname{Bibliography}
 \printbibliography[heading=bibintoc]
+
+\setcounter{tocdepth}{0}
+\setcounter{secnumdepth}{0}
 
 \include{resources/appendix}
 

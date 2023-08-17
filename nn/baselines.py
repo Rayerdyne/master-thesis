@@ -17,13 +17,34 @@ easier baselines to work with.
 """
 
 architectures = [
+    # [(200, "relu", 0.0), (200, "relu", 0.0), (100, "relu", 0.0)],
+    # [(200, "relu", 0.3), (200, "relu", 0.3), (100, "relu", 0.3)],
+    # [(300, "relu", 0.0), (300, "relu", 0.0), (200, "relu", 0.0)],
+    # [(300, "relu", 0.3), (300, "relu", 0.3), (200, "relu", 0.3)],
+    # [(400, "relu", 0.0), (400, "relu", 0.0), (200, "tanh", 0.0)],
+    # [(400, "relu", 0.2), (400, "relu", 0.2), (200, "tanh", 0.2)],
     # [(70, "relu", 0.5), (70, "relu", 0.5)],
     # [(100, "relu", 0.4), (100, "relu", 0.4)],
     # [(100, "relu", 0.5), (100, "relu", 0.5)],
     # [(100, "relu", 0.6), (100, "relu", 0.6)],
+    # [(100, "relu", 0.7), (100, "relu", 0.7)],
+    # [(80, "relu", 0.7), (80, "relu", 0.7)],
+    # [(150, "relu", 0.6), (100, "relu", 0.6)],
     # [(250, "relu", 0.4), (125, "relu", 0.4)],
+    # [(200, "relu", 0.5), (125, "relu", 0.5)],
+    # [(200, "relu", 0.5), (125, "tanh", 0.5)],
+    # [(200, "relu", 0.4), (125, "tanh", 0.4)],
+    # [(200, "relu", 0.4), (100, "tanh", 0.4)],
+    # [(180, "relu", 0.4), (100, "tanh", 0.4)],
+            [(180, "relu", 0.4), (100, "tanh", 0.4)],
+    # [(180, "relu", 0.4), (100, "tanh", 0.4)],
+    # [(150, "relu", 0.45), (100, "tanh", 0.45)],
+    # [(150, "relu", 0.5), (100, "tanh", 0.5)],
+    # [(150, "relu", 0.4), (80, "tanh", 0.4)],
+    # [(220, "relu", 0.5), (125, "relu", 0.5)],
+    # [(250, "relu", 0.5), (125, "relu", 0.5)],
     # [(250, "tanh", 0.4), (125, "tanh", 0.4)],
-    [(200, "relu", 0.5), (150, "relu", 0.5), (100, "relu", 0.4)],
+    # [(200, "relu", 0.5), (150, "relu", 0.5), (100, "relu", 0.4)],
     # [(120, "relu", 0.4), (120, "relu", 0.4), (120, "relu", 0.4), (120, "relu", 0.4), (80, "relu", 0.4)],
     # [(50, "relu", 0.3), (50, "relu", 0.3), (50, "relu", 0.3), (50, "relu", 0.3)],
     # [(50, "relu", 0.4), (50, "relu", 0.4), (50, "relu", 0.4), (50, "relu", 0.4)],
@@ -49,7 +70,8 @@ def eval_arch(layers_list, x_train, y_train, x_test, y_test, normalizers, save_p
     reduce_lr = ReduceLROnPlateau(monitor="val_loss", factor=0.1, patience=EARLY_STOPPING_PATIENCE, min_lr=1e-9, verbose=1)
     history = model.fit(x=x_train, y=y_train,
                         validation_data=(x_test, y_test),
-                        batch_size=BATCH_SIZE, epochs=N_EPOCHS,
+                        batch_size=BATCH_SIZE, epochs=200,
+                        # batch_size=BATCH_SIZE, epochs=N_EPOCHS,
                         callbacks=[reduce_lr], verbose=1)
     
     epoch_losses = history.history["val_loss"]
