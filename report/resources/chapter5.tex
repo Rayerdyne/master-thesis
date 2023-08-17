@@ -2,9 +2,9 @@
 
 \subsection{Overview}
 
-This section describes the process of integrating the trained surrogate model into the MEDEAS model.
+This section elucidates the procedure for incorporating the trained surrogate model into the MEDEAS model.
 
-The MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, and is available to the public as a Vensim model file. However, the python library \href{https://pysd.readthedocs.io/en/master/index.html}{\texttt{pysd}} \cite{pysd}, focused on system dynamics simulations, is able to parse such files and run the simulations. The reasons why this is not be taken advantage of is discussed in the first subsection.
+The MEDEAS model is built with the \href{https://vensim.com/}{Vensim} software, and is available to the public as a Vensim model file. However, the python library \href{https://pysd.readthedocs.io/en/master/index.html}{\texttt{pysd}} \cite{pysd}, focused on system dynamics simulations, is able to parse such files and run the simulations. The rationale behind not capitalizing on this opportunity is expounded upon in the initial subsection.
 
 The task of integrating the surrogate model into MEDEAS is divided into two smaller steps:
 \begin{enumerate}
@@ -68,7 +68,7 @@ In the implementation of the library, this file was copied then adapted, as sugg
 
 \subsubsection{Calling a Tensorflow model}
 
-In consequence, it is necessary to invoke our model, presented to as a Tensorflow model, from the C or C++ language.
+As a result, it becomes imperative to invoke our model, which is referred to as a Tensorflow model, utilizing either the C or C++ language."
 
 In order to do so, one basically needs two things:
 \begin{itemize}
@@ -80,7 +80,7 @@ The complicated part being the linking between the two. In order to do so, the \
 
 The main purpose of Cppflow is precisely to run Tensorflow models from C++, and to achieve this it provides user-friendly functions for loading models and making predictions using input data.
 
-To ensure proper linkage between the library code and the two tools it utilizes—Tensorflow DLL and CppFlow—an appropriate linking strategy is necessary. To facilitate this, Makefiles were crafted using the GNU \texttt{make} utility for streamlined compilation\footnote{Previously, a program calling a Tensorflow model was created, but this did not worked from the DLL. Then, a workaround was developed using a worker process (a seperate program) and Windows' tools for interprocess communication. Later, it was discovered that the issue with calling Tensorflow stemmed from errors in linker arguments during library compilation. Once these linker issues were resolved, the need for the worker process workaround became redundant.}.
+For ensuring the correct linkage between the library code and the two employed tools, namely the Tensorflow DLL and CppFlow, an apt linking strategy is imperative. To facilitate this, Makefiles were crafted using the GNU \texttt{make} utility for streamlined compilation\footnote{Previously, a program calling a Tensorflow model was created, but this did not worked from the DLL. Then, a workaround was developed using a worker process (a seperate program) and Windows' tools for interprocess communication. Later, it was discovered that the issue with calling Tensorflow stemmed from errors in linker arguments during library compilation. Once these linker issues were resolved, the need for the worker process workaround became redundant.}.
 
 On this, one thing is to be remembered: some code may compile and link successfully, but one also has to link properly the path to the DLL you linked to, that is, not only to the compiler.
 
@@ -90,7 +90,7 @@ As previously introced, the \texttt{pysd} python library can read and run Vensim
 
 Though not explored in this work, integrating the surrogate model through \texttt{pysd} is expected to be relatively straightforward. Using the library loading functionality, a python module representing the simulation can be obtained. This module is then loaded with \texttt{pysd} to run the simulation. The linking can thus be done by editing the module file directly, and inserting the call to the model at the appropriate place. 
 
-However, this approach was not selected. Although contemplated later in the project, after the integration into Vensim had been implemented, the main argument is the convenience of the resulting model. If the model combination was made available sa python module, it would be much harder for external people to edit the original MEDEAS model from Vensim, then run the modified version while keeping the surrogate model integrated. The editor would have to manually re-insert the surrogate model into the python module, that also have to be recreated.
+However, this approach was not selected. Although contemplated at a subsequent stage of the project, subsequent to the integration into Vensim having been implemented, the principal rationale stems from the convenience afforded by the resultant model. If the model combination was made available sa python module, it would be much harder for external people to edit the original MEDEAS model from Vensim, then run the modified version while keeping the surrogate model integrated. The editor would have to manually re-insert the surrogate model into the python module, that also have to be recreated.
 
 Keeping the surrogate model available as a Vensim external function is therefore a significant benefit for the further improvements of the model, as it enables edits to be made to MEDEAS independently of the surrogate model.
 
@@ -112,7 +112,7 @@ This work has been done with the help of Jade Paris, a student making her master
 
 The first step in this process is to list relevant variable present in MEDEAS, that are exploited in the following when drawing connections between the surrogate model and MEDEAS.
 
-These variable are listed in Table \ref{tab:medeas-vars}.
+These variable are enumerated in Table \ref{tab:medeas-vars}.
 
 \begin{table}[h]
     \centering
@@ -130,13 +130,13 @@ These variable are listed in Table \ref{tab:medeas-vars}.
     \label{tab:medeas-vars}
 \end{table}
 
-Unfortunately, some values are not present at all in MEDEAS, so that they can't be deduced from the model as is. But since these are mandatory to run the model, a value needs to be provided. Therefore, a constant value will be set.
+Regrettably, certain values are entirely absent within MEDEAS, rendering their deduction directly from the extant model unfeasible. But since these are mandatory to run the model, a value needs to be provided. Therefore, a constant value will be set.
 
 These have been introduced as parameters into MEDEAS, and their potential impact on the results should be evaluated. Since these may have an influence on the results, this influence will have to be assessed. This falls out of the scope for this thesis and is a lead for further works.
 
 \subsubsection{Linkings}
 
-The equations that establish links between the input variables from the surrogate model and MEDEAS variables are presented in Table \ref{tab:linking-equations}.
+The equations that establish links between the input variables from the surrogate model and MEDEAS variables are elucidated in Table \ref{tab:linking-equations}.
 
 \begin{table}[h]
     \centering

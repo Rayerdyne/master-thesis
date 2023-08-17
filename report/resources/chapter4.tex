@@ -4,7 +4,7 @@
 
 This section presents the training process that have led to the description and definition of the target surrogate model, given a ready to use dataset, and the desired characteristics.
 
-This is a straightforward example of a regression problems, aiming to predict some output features from the input features, given a number of training example in a dataset. This is a typical machine learning problem, and is be addressed accordingly.
+This is a straightforward example of regression problems, aiming to predict some output features from the input features, given a number of training example in a dataset. This is a typical machine learning problem, and is be addressed accordingly.
 
 Initially, the performance of different methods are measured and the best one is selected. Then, a model is trained and evaluated, forming the core surrogate model.
 
@@ -16,7 +16,7 @@ This subsection assesses some of the most common machine learning algorithms for
 
 In this context, the K-nearest neighbors (k-NN) methods is among one of the easiest to implement, using tools like the \href{https://scikit-learn.org/stable/modules/neighbors.html\#nearest-neighbors-regression}{scikit-learn} \cite{scikit-learn} module in python. Indeed, these simply require a single parameter value $k$ and output the average value of the output features of the $k$ nearest neighbors, computing a distance on the input features.
 
-This will come with the drawback of not being able to learn quick variations in the outputs, as the averaging over the nearest sample points will filter out high frequency variations.
+This features the drawback of not being able to learn quick variations in the outputs, as the averaging over the nearest sample points will filter out high frequency variations.
 
 Results obtained with k-NN for various values of $k$ are shown in Table \ref{tab:results-knn}.
 
@@ -43,7 +43,8 @@ Results obtained with k-NN for various values of $k$ are shown in Table \ref{tab
     \label{tab:results-knn}
 \end{table}
 
-The best performance is obtained for $k$ equal to 7. Smaller values increase the error due to overfitting, while larger values suffer from underfitting, resulting in larger errors.
+The optimal performance is achieved when $k$ is set to 7. Decreasing values of $k$ lead to an increase in error due to overfitting, whereas increasing values of $k$ result in higher errors attributed to underfitting.
+% The best performance is obtained for $k$ equal to 7. Smaller values increase the error due to overfitting, while larger values suffer from underfitting, resulting in larger errors.
 
 \subsubsection{Decision trees}
 
@@ -78,7 +79,7 @@ Results obtained with decision trees are shown in Table \ref{tab:trees-results}.
 
 The highest accuracy is achieved with 135 trees. However in this case, the results are not as straightforward as for the k-NN technique, that showed a monotonic decrease, the minimum then an increase. As randomness is involved when choosing the splits when building the trees, the results are subject to a slight variance, inducing less obvious results. However, after 145 trees, the error starts steadily increasing.
 
-These performance are better than the nearest neighbors method, but do not perform as good as the following techniques.
+These performance are higher than those of the nearest neighbors method, but not as strong as the following techniques.
 
 \subsubsection{XGBoost}
 
@@ -267,7 +268,7 @@ In machine learning, validation and testing are crucial steps in order to ensure
 \end{itemize}
 
 % Typically, the data is split into three subsets. However, in this setting, the training, input data comes from a latin hypercube, and can be generated. Taking this into account, one may then consider the use of different LHS.
-Typical machine learning applications dispose of a single, fixed dataset, that has to be split to constitute three desired sets. However, in this context, we can easily run sets of simulations to obtain more data points, from another LHS. It is interesting to consider generating more than a single dataset from a unique LHS.
+Typical machine learning applications dispose of a single, fixed dataset, that has to be split to constitute three desired sets. However, in this context, we can inexpensively run sets of simulations to obtain more data points, from another LHS. It is interesting to consider generating more than a single dataset from a unique LHS.
 
 For the training set, joining different sets drawn with LHS is not expected to improve performance. As the LHS are independent of each other, there is a great chance to draw samples that are really close to each other, or worse, equal, what the LHS aims to avoid.
 
@@ -326,7 +327,7 @@ The implementation of the training process comprises the following files:
 
 \subsubsection{Results}
 
-The chosen architecture is a two-layer network:
+The selected architecture is a two-layer network:
 \begin{enumerate}
     \item 180 neurons, ReLU activation, 0.4 chance of dropout
     \item 100 neurons, hyperbolic tangent activation, 0.4 chance of dropout
@@ -341,7 +342,8 @@ The mean squared error over the training epochs is shown in Figure \ref{fig:nn-v
     \label{fig:nn-validation-error-curve}
 \end{figure}
 
-Overfitting is not likely, because as can be seen in Figure \ref{fig:nn-validation-error-curve}, the validation error never increases significantly after a given amount of learning epochs, while the training error is still decreasing. An example of such obvious overfitting is shown in Figure \ref{fig:overfitting}.
+The occurrence of overfitting appears unlikely, as evidenced by the trend observed in Figure \ref{fig:nn-validation-error-curve}, wherein the validation error exhibits no notable increase beyond a certain number of training epochs. This pattern contrasts with the ongoing reduction in training error.
+% Overfitting is not likely, because as can be seen in Figure \ref{fig:nn-validation-error-curve}, the validation error never increases significantly after a given amount of learning epochs, while the training error is still decreasing. An example of such obvious overfitting is shown in Figure \ref{fg:overfitting}.
 
 \begin{figure}[h]
     \centering

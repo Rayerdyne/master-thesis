@@ -4,9 +4,9 @@
 
 The Dispa-SET model \cite{dispaset} is described in the source \cite{dispaset2} as "an open-source unit commitment and optimal dispatch model focused on the balancing and flexibility problems in European grids".
 
-More precisely, it is focused on simulating large scale power systems, with emphasis on high shares of VRES. It follows that it is used as tool for the analysis of the impacts of VRES on the power systems, thank to its ability to take into account several technical constraints of the power system.
+More precisely, it is focused on simulating large scale power systems, with emphasis on high shares of VRES. As such, it is used as tool for the analysis of the impacts of VRES on the power systems, thank to its ability to take into account several technical constraints of the power system.
 
-A schematic of the Dispa-SET architecture is given in Figure \ref{dispaset-architecture}.
+A schematic of the Dispa-SET architecture is displayed in Figure \ref{dispaset-architecture}.
 
 \begin{figure}[h]
     \includegraphics[width=0.9\textwidth]{dispaset-architecture.png}
@@ -121,9 +121,9 @@ Equation \ref{supply-demand-balance-equation} expresses this target energy produ
 
 \subsection{Rolling horizon}
 
-The perfect solution would be to solve the entire system, for every time step in the complete duration of the simulation in one go. But this would create a system too large to be reasonably solved.
+The ideal solution would be to solve the entire system, for every time step in the complete duration of the simulation in one go. But this would create a system too large to be efficiently solved.
 
-To address this, the UCM simulation is split into smaller, manageable parts. The simulation is built for smaller time frames, called optimization periods, over which the simulations can be made easily.
+To address this, the UCM simulation is split into smaller, tractable parts. The simulation is built for smaller time frames, called optimization periods, over which the simulations can be made easily.
 
 The start of optimization period $j$ overlaps the optimization period $j-1$, to that the simulation $j$ is the correct prolongation of the same setting fixed by the simulations up to $j-1$. The period that overlaps is called the look-ahead, in which the values of the parameters for period $j-1$ is determined during simulation $j-1$, and are used as fixed context for simulation $j$. A depiction of rolling horizon is given in Figure \ref{fig:rolling-horizon}.
 
@@ -138,15 +138,15 @@ The start of optimization period $j$ overlaps the optimization period $j-1$, to 
 
 Without further constraints, the optimization will most often leave all storage facilities empty at the end of the simulation horizon (typically a few days). This is a consequence of the variable operational cost of discharging these storage units being smaller than the cost of running another unit, thus charging extra fixed and variable costs.
 
-In order to tackle this issue, the Dispa-SET model has to be run in Mid-Term Scheduling (MTS) mode. In this mode, the initial and final levels of the storage units (in particular, pumped hydro storage units) are given as exogenous input to the model. These levels are enforced with additional constraints.
+To address this issue, the Dispa-SET model has to be run in Mid-Term Scheduling (MTS) mode. In this mode, the initial and final levels of the storage units (in particular, pumped hydro storage units) are given as exogenous input to the model. These levels are enforced with additional constraints.
 
-However, this options comes with additional requirements. The formulation has to be set to LP, the rolling horizon is turned off and the time resolution is risen to one day.
+However, this options has additional requirements. The formulation has to be set to LP, the rolling horizon is turned off and the time resolution is risen to one day.
 
 In this work, the MTS mode is enabled, and the exogenous inputs, for both initial and final levels, are set to half of the storage capacity.
 
 \subsection{Problem formulations}
 
-Dispa-SET features several, different formulations, that have a significant impact on the realism and accuracy of the output. These formulation differ in the way the simulation is created and the constraints defined.
+Dispa-SET features several, different formulations, with a significant impact on the realism and accuracy of the output. These formulation differ in the way the simulation is created and the constraints defined.
 
 \subsubsection{Linear programming}
 
@@ -170,3 +170,33 @@ This permits the number of options to explore reasonnable, without hurting the p
 In this work, the MILP formulation is chosen due to its better efficiency-to-computational-cost trade-off.
 
 \subsection{Reference simulation \label{section:reference-simulation}}
+
+This work takes the simulation over the year 2019 as a reference. Accordingly, the several input timeseries, including the demand, the availability factors, and the flows between each zones are used.
+
+Dispa-SET also detects congestion issues. These appear when a link transmits too much power for its capacity. For electric wires, congestion causes a wire to retain heat, what may threaten the wire integrity. While seemingly harmless, this phenomenon is likely to be on the rise, for example when an area produces a lot of renewable energy, and has to transmit it to some neighbour in deficit.
+
+The annual dispatch plot generated by Dispa-SET for the reference simulation in Belgium is displayed in Figure \ref{fig:dispatch-be}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{resources/images/dispatch-BE.png}
+    \caption{Dispa-SET dispatch plot over one year for belgian units for the reference simulation}
+    \label{fig:dispatch-be}
+\end{figure}
+
+The observations drawn from Figure \ref{fig:dispatch-be} are as follows:
+\begin{itemize}
+    \item The units "BE\_STUR\_NUC" and "BE\_STUR\_BIO\_CHP" are almost always on. These correspond to turbines powered by nuclear energy and bio fuels respectively. The latter is a combined heat and power unit.
+    \item Wind turbines, both on-shore and off-shore, have roughly the same availabilities.
+    \item The higher availability in PV energy during summer is apparent, along with the day-night cycle.
+    \item Other units like "BE\_ICEN\_BIO", "BE\_STUR\_BIO", "BE\_GTUR\_GAS\_CHP" and "BE\_ICEN\_GAS\_CHP" seem to be turned on while wind units generate less power, especially during winter.
+\end{itemize}
+
+Figure \ref{fig:dispatch-be-week} presents
+
+\begin{figure}[h]
+    \centering
+    % \includegraphics[width=0.8\textwidth]{}
+    \caption{Dispa-SET dispatch plot over a week for belgian units for the reference simulation}
+    \label{fig:dispatch-be-week}
+\end{figure}

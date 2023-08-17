@@ -2,9 +2,9 @@
 
 \subsection{Overview}
 
-This sections aims to describe the results observed when running the MEDEAS model while integrating the created surrogate model, and comparing them with the results previously obtained with MEDEAS.
+This sections endeavors to describe the results observed when running the MEDEAS model while integrating the created surrogate model, and comparing them with the results previously obtained with MEDEAS.
 
-This comparison has to be conducted across the different scenarios that are defined in MEDEAS, that differ by the evolution of the electricity production mix. These scenarios were detailed in Section \ref{section:medeas-scenarios}. To streamline the analysis, we narrow the focus on two scenarios: Busines As Usual (BAU) and Optimal Level Transision (OLT). The Mid-Level Transition scenario (MLT), falling between the two, does not contribute significantly to gaining valuable insights.
+This comparative assessment is to be conducted across the different scenarios that are defined in MEDEAS, that differ by the evolution of the electricity production mix. These scenarios were detailed in Section \ref{section:medeas-scenarios}. To streamline the analysis, we narrow the focus on two scenarios: Busines As Usual (BAU) and Optimal Level Transision (OLT). The Mid-Level Transition scenario (MLT), falling between the two, does not contribute significantly to gaining valuable insights.
 
 \subsection{Electricity production}
 
@@ -14,7 +14,7 @@ To make this comparison, four runs are needed, default MEDEAS and modified MEDEA
 
 \subsubsection{Photovoltaic units}
 
-The photovoltaic electricity production predictions from the four simulations are displayed in Figure \ref{fig:electricity-production-PV}.
+The photovoltaic electricity production predictions from the four simulations are graphically presented in Figure \ref{fig:electricity-production-PV}.
 
 \begin{figure}[h]
     \centering
@@ -23,7 +23,7 @@ The photovoltaic electricity production predictions from the four simulations ar
     \label{fig:electricity-production-PV}
 \end{figure}
 
-We can observe that the modified MEDEAS predicts a lower amount of PV energy relatively to default MEDEAS, for both scenarios. In OLT, the difference becomes more pronounced as the production level rises, resembling the effect of linear scaling.
+We can observe that the modified MEDEAS prognosticates a diminished amount of PV energy relatively to default MEDEAS, for both scenarios. In OLT, the difference becomes more pronounced as the production level rises, resembling the effect of linear scaling.
 
 \subsubsection{Onshore wind}
 
@@ -36,7 +36,7 @@ Figure \ref{fig:electricity-production-onshore} illustrates the varying predicti
     \label{fig:electricity-production-onshore}
 \end{figure}
 
-In a similar fashion to the PV production, the modified MEDEAS outputs what looks like a scaled version of the default MEDEAS output. Interestingly, a maximum is observed around 2050 in the OLT scenario with default MEDEAS. In contrast, this maximum is slightly shifted to around 2047 when utilizing the modified MEDEAS. 
+In a similar fashion to the PV production, the modified MEDEAS outputs what looks like a scaled version of the default MEDEAS output. Notably, a peak is discerned around the year 2050 within the Optimal Level Transition (OLT) scenario employing the default MEDEAS configuration. In contrast, this maximum is slightly shifted to around 2047 when utilizing the modified MEDEAS. 
 
 \subsubsection{Offshore wind}
 
@@ -66,7 +66,7 @@ Contrary to the previous results, where the results are grouped by scenario, tha
 
 This phenomenon can be attributed to the fact that hydroelectricity is not favored by Dispa-SET, therefore these units are avoided when possible, hence leading to a smaller use. This may be due to the geographical constraints these units are suject to, limiting their growth are there is no spot to build new units.
 
-These are also related to pumped hydro-storage units, as such a unit might be built on a river. On average, the unit produces the amount of electricty dictated by the river's flow, but the total energy produced over a set period is dependent on the specific dispatch of that unit, used as a tool to manoeuvre the electricity network.
+These aspects also pertain to pumped hydro-storage units, as such installations could potentially be erected on rivers. On average, the unit produces the amount of electricty dictated by the river's flow, but the total energy produced over a set period is dependent on the specific dispatch of that unit, used as a tool to manoeuvre the electricity network.
 
 \subsubsection{Electricity mix}
 
@@ -115,15 +115,15 @@ As the surrogate model explicitly outputs the curtailment, this variable can the
     \label{fig:electricity-production-curtailed}
 \end{figure}
 
-We can observe from Figure \ref{fig:electricity-production-curtailed} that the OLT scenarios suffers from higher proportions of curtailment, with an higher growth rate, than in the BAU scenario. However, this increase rate looks stable.
+We can observe from Figure \ref{fig:electricity-production-curtailed} that the OLT scenarios suffers from higher proportions of curtailment, with an higher growth rate, than in the BAU scenario. Nonetheless, this increased rate appears to demonstrate stability.
 
-It may be concluded that curtailment is inevitable, nonetheless every option has not been covered. For example, the distinction between different types of storage units based on the storage capacity to power output ratio has not been made. As storage facilities have a massive influence on curtailment, a more accurate modelling of these may be insightful.
+It might be concluded that curtailment is inevitable, nonetheless every option has not been covered. For instance, the consideration of various categories of storage units, predicated on the ratio of storage capacity to power output, has been notably absent from the analysis. Given that storage facilities wield a substantial impact on curtailment dynamics, the pursuit of a more precise modeling approach for these entities could potentially yield valuable insights.
 
 \subsection{Discussion}
 
 The figures presented consistently conclude that integrating the surrogate model, i.e. taking power systems constraints into account, leads to a lower prediction of electricity production from VRES. This outcome is somewhat counterintuitive, as the consideration of the increasing part of curtailment suggest larger amounts of wasted energy.
 
-A plausible interpretation aligning with the observations is that due to the imposition of more restrictive constraints, the deployment of VRES is more challenging than initially estimated. Consequently, since greater efforts are required to achieve the same share of renewable energy production, e.g. because a storage unit has to be built as well, the same amount of effort yields a lower VRES share.
+A plausible interpretation aligning with the observations is that due to the imposition of more restrictive constraints, the deployment of VRES is more challenging than initially estimated. Consequently, since greater efforts are required to achieve the same share of renewable energy production, e.g. because more storage unit need to be built, equivalent efforts result in a diminished proportion of VRES.
 
 
 % Tools have been made to automate the creation of a dataset, including sampling and running the model; and the training of the surrogate model, using machine learning methods. The integration of the model into Vensim 

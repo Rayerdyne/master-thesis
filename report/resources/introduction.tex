@@ -1,10 +1,10 @@
 \section{Introduction}
 
-Our societies rely on energy. Historically, fossil fuels offered a relatively easy to access, store and use energy for decades, bringing a solution to this energy issue.
+Our societies are fueled by energy. Historically, fossil fuels offered a relatively easy to access, store and use energy for decades, bringing a solution to this energy issue.
 
 The rising awareness of the climate change, mostly caused by the release of large amounts of greenhouse gases conducts to a paradigm shift. To meet climatic goals, strict limits on emissions have been established, consequently limiting the prevously endless source of energy that were fossil fuels over the long term \cite{ar6-ipcc-wg3}. This directly impacts the solutions depending on their combustion, releasing massive amounts of carbon dioxide.
 
-The solutions to compensate for the lacking energy generation, that from now on should not derive from fossil fuels, are renewable energy sources. These refer to every energy generation technique originating from a renewable source, such as the sun, the wind and the rivers. However, the production of these units may not be entirely sustainable. For example, the photovoltaic cells necessary for the exploitation of the incoming solar energy are pretty difficult to recycle, making them rely on specific materials that are not obtainable renewably. Still, their use on a complete lifetime, and increasing capabilities in recycling, justifies the investment in their construction.
+The solutions to compensate for the lacking energy generation, that from now on should not derive from fossil fuels, are renewable energy sources. These refer to every energy generation technique originating from a renewable source, such as the sun, the wind and the rivers. However, the production of these units is not systematically sustainable. For example, the photovoltaic cells necessary for the exploitation of the incoming solar energy are pretty difficult to recycle, making them rely on specific materials that are not obtainable renewably. Still, their use on a complete lifetime, and increasing capabilities in recycling, justifies the investment in their construction.
 
 In this context, a meaningful increase in the electricity produced from such energy sources is to be expected, particularly from the most prominent ones:
 \begin{itemize}
@@ -33,10 +33,10 @@ This handling requires a larger flexibility of the electrical system, that is, a
 Existing mechanisms to improve the flexibility of a power system include:
 
 \begin{itemize}
-    \item Use of the regular dispatchable energy production plants to compensate for the energy deficit that may arise from VRES. Plant characteristics play a role to address short term drops in production, as some start up time may be required \cite{flexibility-storage-planning}.
+    \item Use of the regular dispatchable energy production plants to compensate for the energy deficit that may arise from VRES. Plant characteristics play a role to address short term drops in production, as some start up time might be required \cite{flexibility-storage-planning}.
     \item Large interconnected electricity networks, that are able to smooth the VRES power output. There may be not enough sun in some region, creating a deficit, while there is too much in the neighboring country. By connecting them, the overproduction will compensate the unerproduction of the other \cite{flexibility-connection}.
     \item Energy storage facilities. Of course, storing the produced energy for later use is an easy way to account for the intermittency of the production. Typically, storing solar energy during day time to be used in the night. These technologies include pumped hydro-storage, batteries, compressed air. While pumped hydro-storage units are the most common, their very limited expansion options make them unlikely to grow in the future \cite{flexibility-demdandside-forecasts-storage}.
-    \item Acting on the demand, in the extent that it can change its shape by promoting policies to the end users. Such policies focus on flattening the daily demand curve, facilitating the energy production dispatch. Typically, asking to delay greedy devices like dishwashers until night, where the overall demand is lower. But it may extend to other domains, such as electric vehicles charge, heating and cooling etc \cite{flexibility-demdandside-forecasts-storage}.
+    \item Acting on the demand, in the extent that it can change its shape by promoting policies to the end users. Such policies focus on flattening the daily demand curve, facilitating the energy production dispatch. Typically, asking to delay greedy devices like dishwashers until night, where the overall demand is lower. But this could extend to other domains, such as electric vehicles charge, heating and cooling etc \cite{flexibility-demdandside-forecasts-storage}.
 \end{itemize}
 
 The two main consequences of insufficiently flexible energy systems are curtailment, when there is too much energy produced, and load shedding, when there is not enough electricity to satisfy the demand. In case of load shedding, parts of the grid may be entirely shut down.
@@ -111,7 +111,7 @@ We also dismiss the soft linking strategy because of its slowness, and absence o
 
 Considering the effects of VRES in long-term integrated assessment models is a challenge since they don't have a sufficient time resolution to capture the rapid variations within the system.
 
-Similar work has been done by Parrado-Hernando et al. in \cite{Hernando2022}, that aims at "capturing features of hourly-resolution energy models". The methodology used to acquire the data presents two downsides that are adressed in this work.
+Similar work has been done by Parrado-Hernando et al. in \cite{Hernando2022}, that aims at "capturing features of hourly-resolution energy models". The methodology used to acquire the data presents two downsides that are addressed in this work.
 
 First, the inputs of the energy model are handled as discrete variable, and simulation have been run using all possible combination for these values. This can be seen in some of their figures, where the data points seem to follow some lines. While it does not invalidate the process, this creates a bias in the repartition of the data. Second, linear approximation are used to fit the data obtained. Admittedly, this is identified as a limitation of the work.
 
@@ -121,7 +121,7 @@ To palliate these, the input space will be tackled as a continuous domain for th
 
 The linking technique explored in this work is the surrogate model. In this case, an approximation of the Dispa-SET dispatch model will be integrated into the MEDEAS IAM. 
 
-The idea behind surrogate models is simple. First, a fast, easy-to use approximation of the model is made, then it its completely integrated in the other model. In this case, the relevant outputs of the Dispa-SET model will be approximated from relevant inputs regarding MEDEAS, then the approximator will be integrated in the model.
+The idea behind surrogate models is simple. First, a fast, convenient approximation of the model is made, then it its completely integrated in the other model. In this case, the relevant outputs of the Dispa-SET model will be approximated from relevant inputs regarding MEDEAS, then the approximator will be integrated in the model.
 
 The soft-linking approach has already been explored \cite{Brinkerink2022-softlink}, \cite{DEane2012-softlink}, and the hard-linking remains the hardest to investigate, notably due to incompatible formulations. Surrogate models are still unexplored and are of great interest for this use case.
 
@@ -157,7 +157,7 @@ Another student, Jade Paris, was in responsible of the linking of the surrogate 
 
 This work constisted in:
 \begin{itemize}
-    \item The writing of easy-to-use scripts to run Dispa-SET on those experiments
+    \item The writing of scripts to run Dispa-SET on those experiments
     \item The choice, definition and implementation of an adequate machine learning model, and its training
     \item The integration the model in MEDEAS, by writing a C++ external function library for Vensim, or by inserting it into the PySD model of MEDEAS directly in python
     \item Runs and analysis of the improved MEDEAS model
@@ -172,7 +172,7 @@ The global workflow is depicted in Figure \ref{fig:thesis-workflow}.
     \label{fig:thesis-workflow}
 \end{figure}
 
-All the produced work, and necessary data is available on the online github repository at the following address: \href{https://github.com/Rayerdyne/master-thesis}{https://github.com/Rayerdyne/master-thesis}.
+All the produced work, and necessary data is available in the online github repository at the following address: \href{https://github.com/Rayerdyne/master-thesis}{https://github.com/Rayerdyne/master-thesis}.
 
 \subsubsection{Outline}
 

@@ -1,21 +1,21 @@
 \section{Conclusion}
 
-The goal of this thesis was to incorporate more precise flexibility constraints, evaluated through the Dispa-SET model, into an IAM, MEDEAS by the means of a surrogate model integration strategy. This approach has been successfully implemented with an adequate choice of input and output variables.
+The objective of this thesis was to assimilate refined flexibility constraints, assessed via the Dispa-SET model, into an Integrated Assessment Model (IAM) known as MEDEAS, employing a strategy involving the integration of a surrogate model. This approach has been effectively executed, accompanied by judicious selections of input and output variables.
 
 Then, the resulting modified version of MEDEAS has been run and observations have been made. In particular, they predicted lower shares of VRES in both optimal effort and business as usual scenarios.
 
 In the process, a database of simulations has been created on points generated through latin hypercube sampling. The complete workflow has been automated and run on a cluster.
 
-Once the database was available, it served as the starting point to train the surrogate model. The best method was selected after several had been reviewed. Although neural networks showed the best performance, XGBoost, among gradient boosting techniques, is still highly competitive.
+Once the database was available, it served as the starting point to train the surrogate model. The best method was selected after several had been reviewed. Although neural networks proved superior performance, XGBoost, among gradient boosting techniques, remained highly competitive.
 
-Finally, the linking of the model to MEDEAS has been performed, by creating an external function in Vensim, in which it is described. With the contribution of J. Paris, the model was inserted in the python version of MEDEAS, and the connections have been drawn between that surrogate model and the MEDEAS variables.
+Finally, the linking of the model to MEDEAS has been performed, by creating an external function in Vensim, in which it is described. Collaboratively with J. Paris, the model was incorporated into MEDEAS, establing connections between the surrogate model and MEDEAS variables.
 
 \subsection{Future work}
 
-In this work, the core mechanisms for the integration have been implemented. Therefore, the most interesting contributions lie in the accuracy of surrogate model and in the quality of choice of variable. Six inputs and two outputs have been employed, however these choices can be refined to enhence the accuracy. For example adding one input to take into account different kinds of storage facilities.
+In this work, the core mechanisms for the integration have been implemented. Therefore, the most interesting contributions lie in the accuracy of surrogate model and in the quality of choice of variable. Although six inputs and two outputs have been employed, the potential for enhancing accuracy lies in refining these choices. For example, adding one input to account for different kinds of storage facilities.
 
-Concerning the data generation process, the other LHS parameterizations remain to be examined. Another key parameter whose impact has not been assessed is the number of simulations, that has been arbitrarily set to 2400 in this thesis.
+Concerning the data generation process, there remain a need to explore alternative LHS parameterizations. Another influential parameter whose impact has not been assessed is the number of simulations, that has been arbitrarily set to 2400 in this thesis.
 
-Regarding the surrogate model creation, we discussed in Subsection \ref{ssec:val-testing} the eventual use of multiple LHS to generate multiple datasets. Investigating these options might be valueable to refine the training process. Moreover, we have observed in Subsection \ref{ssec:surrogate-model-surf-observations} that one of the plotted surfaces, in Figure \ref{fig:surf-3-4-1}, was rapidly evolving when varying the other input parameters. This suggests some weakness in the learning of the surrogate model that could be explored.
+Regarding the surrogate model creation, we discussed in Subsection \ref{ssec:val-testing} the eventual use of multiple LHS to generate multiple datasets. Delving into these alternatives could potentially contribute to the refinement of the training process. a notable observation from Subsection \ref{ssec:surrogate-model-surf-observations} pertains to one of the depicted surfaces, specifically Figure \ref{fig:surf-3-4-1}, exhibiting swift transformations when the remaining input parameters are altered. This suggests some weakness in the learning of the surrogate model that could be explored.
 
-Additionally, certain links between the surrogate model and MEDEAS have not been established, e.g. the share of flexible units and the rNTC inputs were given as constants. Evaluating the impact of their values on the results would bring valueable information. Moreover, relations could be developed and incorporated into the MEDEAS model for these variables.
+Additionally, specific links between the surrogate model and MEDEAS have not been established, towards the share of flexible units and the rNTC inputs, given as constants. Evaluating the impact of their values on the results would bring valueable information. Moreover, relationships could be developed and incorporated into the MEDEAS model to account for these variables.

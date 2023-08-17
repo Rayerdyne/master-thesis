@@ -19,11 +19,11 @@ Integrated assessment models are used to make general purpose analysis, amalgama
 
 Given the considerable uncertainty and intricate interdependencies among model components, there exists a multitude of IAMs with varying methodologies.
 
-As a side note, the model being open-source is probably one strength as an IAM, meaning that any expert in one domain may be able to contribute to the project.
+As an additional point of consideration, the model being open-source is probably one strength as an IAM, meaning that any expert in one domain may be able to contribute to the project.
 
 As previously quoted from their website, the MEDEAS model has been built with the purpose of guiding decarbonation in Europe. It has been designed to compensate for the flaws of other available IAMs, in order to inform policy makers towards a transition to more carbon-independent, sustainable energy.
 
-MEDEAS is built using the Vensim software, and may be used from the Python programming language through the \href{https://pypi.org/project/pysd/}{\texttt{pySD}} package.
+MEDEAS is built using the Vensim software, and can be used from the Python programming language through the \href{https://pypi.org/project/pysd/}{\texttt{pySD}} package.
 
 \subsection{Model overview}
 
@@ -31,7 +31,7 @@ MEDEAS, funded by the EU's Horizon 2020 program, under the "Modelling and analys
 
 And to do so it models the long-term implications of the decisions made by the society. As one cannot predict them, several hypothesis are needed to fix the choices that will be made. Such a set of hypothesis on the evolution of the long-term policy of the society as a whole is called a scenario.
 
-MEDEAS typically sets the simulation horizon between 1995 and 2060, while for longer term analysis it may be raised up to 2100. It also features different settings:
+MEDEAS typically sets the simulation horizon between 1995 and 2060, though for longer term analysis it might be raised up to 2100. It also features different settings:
 \begin{itemize}
     \item MEDEAS-W, the global one,
     \item MEDEAS-EU, targeting the European Union,
@@ -47,17 +47,17 @@ The MEDEAS IAM is organized into seven modules, encompassing economy, energy, en
     \label{fig:medeas-modules}
 \end{figure}
 
-In this work, the MEDEAS-EU version will be considered, since it has the same geographical scope than the Dispa-SET model. 
+In this work, the MEDEAS-EU version are considered, since it has the same geographical scope than the Dispa-SET model. 
 
 \subsubsection{System dynamics}
 
-Formulated using system dynamics, the MEDEAS model leverages Vensim software to aggregate insights from diverse experts and domains. This will also enable easy modelling of feedback between the different components.
+Formulated using system dynamics, the MEDEAS model leverages Vensim software to aggregate insights from diverse experts and domains. This also enable easy modelling of feedback between the different components.
 
 System dynamics is a modeling language, made to obtain understandings of complex and dynamic systems. It achieves using nodes and arrows, corresponding to values and relations between those respectively. The former can be either a stock, a flow or a constant, while the latter makes the link through equations. It is therefore possible to create feedback loops and complex interconnected networks.
 
 System dynamics have been popularized by the \textit{world3} model, used to predict the consequences of long-term policies applied by the society on the planet in the Limits to Growth report \cite{limits-to-growth}.
 
-Needless to say, this approach is far from the linear programming paradigm, that has a too different approach for both to be combined.
+This approach is evidently far from the linear programming paradigm, that has a too different mathematical formulation for both to be combined.
 
 \subsection{Energy return on investment}
 
@@ -88,7 +88,7 @@ However, this also requires to set a definition on what exactly is the energy in
     \item Extended EROI, that " considers the energy required to get, deliver and use a unit of energy, i.e. the energy required to produce the machinery and devices used to build, operate and maintain a power plant or a transportation facility (tank truck, pipeline, etc.) as well as the energy required for exploration, investment, communication, labour, etc. in the energy system" \cite{medeas-cost-of-transition}.
 \end{itemize}
 
-In this context, we will focus on the standard EROI.
+In this context, we focus on the standard EROI.
 
 In MEDEAS, the EROI is dynamically computed, meaning it is an endogenous variable, as the ratio of the exploitable energy delivered to consumers, over the sum of the total energy costs required for operating the plant and the energy costs of handling the variability of the power output and the costs of operating the energy transportation network. The total costs for an operating plant include the building, maintenance and disposal costs.
 
@@ -142,7 +142,7 @@ MEDEAS estimates, per MW of VRES, the additional electricity grid extensions req
 
 \subsubsection{Storage units}
 
-In MEDEAS, the first storage technology in use is the pumped hydro-storage (PHS). It contrasts with the Dispa-SET setting where batteries are the main storage technology. As already discussed, that is to because the european region is almost saturated in terms of PHS, as one could not find suitable location for new units to be built.
+In MEDEAS, the foremost storage technology used is the pumped hydro-storage (PHS). It contrasts with the Dispa-SET setting where batteries are the main storage technology. As already discussed, that is to because the european region is almost saturated in terms of PHS, as one could not find suitable location for new units to be built.
 
 An estimation of the storage needs as a function of the VRES share is depicted in Figure \ref{fig:storage-vres} \cite{NREL}.
 
@@ -154,7 +154,7 @@ An estimation of the storage needs as a function of the VRES share is depicted i
 
 \subsubsection{Dispatchable RES pants}
 
-Here will be describe the evolution of the capacity factor (CF) as the RES share among the electricitym mix changes. The capacity factor is the ratio of the electricity produced by a unit over a period of time $\Delta t$ over the maximum amount of energy that could have been produced. This is represented on Equation \ref{equation:CF-definition}.
+The evolution of the capacity factor (CF) as the RES share among the electricity mix evolves is described. The capacity factor is the ratio of the electricity produced by a unit over a period of time $\Delta t$ over the maximum amount of energy that could have been produced. This is represented on Equation \ref{equation:CF-definition}.
 
 
 \begin{equation}
@@ -179,7 +179,7 @@ An estimate of the overcapacity of dipachable RES is provided in \cite{NREL}, th
 
 \subsubsection{VRES plants}
 
-MEDEAS relies on estimates of the VRES induced overcapacities from \cite{delarue}. These two main impacts of the VRES share are taken into account:
+MEDEAS relies on estimates of the VRES induced overcapacities from \cite{delarue}. These two main impacts of the VRES share are accounted for:
 \begin{itemize}
     \item The exponential growth of VRES overcapacities and
     \item The decrease of the VRES capacity factor.
@@ -202,11 +202,12 @@ The capacity factor is evaluated as a function of the overcapacity, following Eq
 
 \subsection{Scenarios} \label{section:medeas-scenarios}
 
-Given inherent uncertainties about the decision that will be made and will rule the society in the future, several sets of hypothesis, called scenarios, are made.
+Given inherent uncertainties about the decision that will be made and will rule the society in the future, several sets of hypothesis, called scenarios, are defined.
 
-When running the MEDEAS model, these scenarios are run in parallel, as in Vensim these are present as possible values for the \textit{scenario} subscript. These possible value have to be chosen in the dedicated panel in Vensim.
+% When running the MEDEAS model, these scenarios are run in parallel, as in Vensim these are present as possible values for the \textit{scenario} subscript. These possible value have to be chosen in the dedicated panel in Vensim.
+When running the MEDEAS model, these scenarios are run in parallel, using Vensim tools for parallelism.
 
-By default, the three following scenarios are available, but it is possible to run user-defined scenarios \cite{medeas-website}.
+By default, the three following scenarios are available, but user-defined scenarios may be added and run \cite{medeas-website}.
 
 \begin{itemize}
     \item Business as usual, \textbf{BAU}: corresponds to no particular effort being implemented, the transition continues as it is.
