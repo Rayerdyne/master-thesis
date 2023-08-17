@@ -28,12 +28,13 @@ class ReferenceInfo(object):
         self.__dict__ = data
 
     @classmethod 
-    def from_values(cls, peak_load, flex_units, slow_units, CF_wton, CF_pv, ref_values):
+    def from_values(cls, peak_load, flex_units, slow_units, CF_wton, CF_wtof, CF_pv, ref_values):
         return cls({
             "peak_load": peak_load,
             "flex_units": flex_units,
             "slow_units": slow_units,
             "CF_wton": CF_wton,
+            "CF_wtof": CF_wtof,
             "CF_pv": CF_pv,
             "ref_values": ref_values
         })
@@ -53,12 +54,13 @@ class ReferenceInfo(object):
                 "flex_units": self.flex_units.tolist(),
                 "slow_units": self.slow_units.tolist(),
                 "CF_wton": self.CF_wton,
+                "CF_wtof": self.CF_wtof,
                 "CF_pv": self.CF_pv,
                 "ref_values": self.ref_values
             }, f, indent=4)
     
     def tolist(self):
-        return [self.peak_load, self.flex_units, self.slow_units, self.CF_wton, self.CF_pv]
+        return [self.peak_load, self.flex_units, self.slow_units, self.CF_wton, CF_wtof, self.CF_pv]
 
 def build_reference(refinfo_path):
     """
@@ -88,6 +90,8 @@ def build_reference(refinfo_path):
     CF_wton_list1 = af_df.filter(like="WTON", axis=0)
     CF_wton_list = pd.concat([CF_wton_list0, CF_wton_list1])
     CF_wton = CF_wton_list.mean().loc["availability_factor_avg"]
+    # CF_wtof = af_df.filter(like="WTOF", axis=0).mean().loc("availability_factor_avg")
+    CF_wtof = 3.14
 
     units = sim_data["units"]
     flex_units = units[ units.Fuel.isin( ['GAS','HRD','OIL','BIO','LIG','PEA','NUC','GEO'] ) & (units.PartLoadMin < 0.5) & (units.TimeUpMinimum <5)  & (units.RampUpRate > 0.01)  ].index
@@ -131,8 +135,26 @@ def build_reference(refinfo_path):
 
     ref['rNTC'] = peak_load_df['weigthed'].sum()     
 
-    refinfo = ReferenceInfo.from_values(peak_load, flex_units, slow_units, CF_wton, CF_pv, ref)
+    refinfo = ReferenceInfo.from_values(peak_load, flex_units, slow_units, CF_wton, CF_wtof, CF_pv, ref)
     refinfo.serialize(refinfo_path)
+
+    print(af_df.filter(like="WTOF", axis=0))
+    print("----------------------------------------------------")
+
+    print("CF WTON: ", CF_wton)
+    print("CF WTOF: ", CF_wtof)
+    print(af_df.filter(like="WTOF", axis=0).mean())
+    print("CF PV: ", CF_pv)
+    print("peak load: ", peak_load)
+
+    CF_pv2_list = af_df.filter(like="PHOT", axis=0)
+    CF_pv2_list[CF_pv2_list["availability_factor_avg"].ne(0)].mean().loc["availability_factor_avg"]
+
+    CF_wton_list = af_df.filter(like="WTON", axis=0)
+    CF_wton_list[CF_wton_list["availability_factor_avg"].ne(0)].mean().loc["availability_factor_avg"]
+
+    CF_wtof_list = af_df.filter(like="WTOF", axis=0)
+    CF_wtof_list[CF_wtof_list["availability_factor_avg"].ne(0)].mean().loc["availability_factor_avg"]
 
 if __name__ == "__main__":
     print("Building reference simulation")
