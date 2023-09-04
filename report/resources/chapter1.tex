@@ -16,9 +16,23 @@ A schematic of the Dispa-SET architecture is displayed in Figure \ref{dispaset-a
 
 Its interface is written in the Python programming language, and calls GAMS \cite{GAMS} as the main solver engine.
 
-\subsection{Objective function}
+\subsection{Unit commitment model}
 
-The Dispa-SET model aims at minimizing the overall operating costs of the grid, that is its objective function in this context. These costs typically include transportation, power and heating costs required to split efficiently the demand between the available generation units.
+Dispa-SET is essentially a tool to instanciate, execute and analyse the results of its Unit Commitment Model (UCM). This is the core modelling of the network, aiming at representing the reality.
+
+The UCM consist of two parts \cite{dispaset2}:
+\begin{enumerate}
+    \item The scheduling of the generation units, i.e. their start-up, operation and shut-down,
+    \item The allocation of the demand to the production, such as to minimize the network costs.
+\end{enumerate}
+
+The former arises the need of binary variables to accurately model start-up and shut-down decisions. The latter is referred to as the economic dispatch problem, and also determines the exact output of each committed unit.
+
+Since featuring both integer (binary) and continuous variables, this problem can most conveniently be expressed as a Mixed-Integer Linear Program (MILP), but can be relaxed to a Linear Program (LP).
+
+\subsubsection{Objective function}
+
+The first component of the UCM is the objective function, whose value is minimized by the simulation. In Dispa-SET, it corresponds to the overall operating costs of the complete network. These costs typically include transportation, power and heating costs required to split efficiently the demand between the available generation units.
 
 The total system costs is split as follows:
 \begin{itemize}
@@ -84,9 +98,9 @@ Table \ref{tab:equations-nomenclature} summarizes all the names appearing in the
     \equationcaption{Objective function of the Dispa-SET model}
 \end{captionnable}
 
-\subsection{Supply and demand balance}
+\subsubsection{Supply and demand balance}
 
-At all time and in each zone, the fundamental constraint that has to be met is the supply-demand balance in terms of energy production (supply) and consumption (demand), in the day-ahead market.
+A key component in the UCM is the fundamental constraint that has to be met, the supply-demand balance in terms of energy production (supply) and consumption (demand), in the day-ahead market.
 
 The supply sources are:
 \begin{itemize}
@@ -119,11 +133,15 @@ Equation \ref{supply-demand-balance-equation} expresses this target energy produ
     \equationcaption{Supply-demand balance in Dispa-SET}
 \end{captionnable}
 
-\subsection{Rolling horizon}
+\subsubsection{Other constraints}
+
+Some other most notable constraints in the UCM are described in the following. Bounds on the power output and on the ramp-up and ramp-down, based on the characteristics of the units are set. Other constraints govern the behaviour of the storage units.
+
+\subsubsection{Rolling horizon}
 
 The ideal solution would be to solve the entire system, for every time step in the complete duration of the simulation in one go. But this would create a system too large to be efficiently solved.
 
-To address this, the UCM simulation is split into smaller, tractable parts. The simulation is built for smaller time frames, called optimization periods, over which the simulations can be made easily.
+To address this, the UCM is split into smaller, tractable parts. The simulation is built for smaller time frames, called optimization periods, over which the simulations can be made easily.
 
 The start of optimization period $j$ overlaps the optimization period $j-1$, to that the simulation $j$ is the correct prolongation of the same setting fixed by the simulations up to $j-1$. The period that overlaps is called the look-ahead, in which the values of the parameters for period $j-1$ is determined during simulation $j-1$, and are used as fixed context for simulation $j$. A depiction of rolling horizon is given in Figure \ref{fig:rolling-horizon}.
 
@@ -134,13 +152,13 @@ The start of optimization period $j$ overlaps the optimization period $j-1$, to 
     \label{fig:rolling-horizon}
 \end{figure}
 
-\subsection{Mid-term scheduling}
+\subsubsection{Mid-term scheduling}
 
 Without further constraints, the optimization will most often leave all storage facilities empty at the end of the simulation horizon (typically a few days). This is a consequence of the variable operational cost of discharging these storage units being smaller than the cost of running another unit, thus charging extra fixed and variable costs.
 
 To address this issue, the Dispa-SET model has to be run in Mid-Term Scheduling (MTS) mode. In this mode, the initial and final levels of the storage units (in particular, pumped hydro storage units) are given as exogenous input to the model. These levels are enforced with additional constraints.
 
-However, this options has additional requirements. The formulation has to be set to LP, the rolling horizon is turned off and the time resolution is risen to one day.
+However, this options has additional requirements. The formulation has to be set to LP, the rolling horizon is turned off and the time resolution is risen to one day. To reconcile these needs with the greater time precision imposed for accuracy, two problems are solved. First, the MTS problem in LP, providing data used by the second one, solving the UCM instance in MILP.
 
 In this work, the MTS mode is enabled, and the exogenous inputs, for both initial and final levels, are set to half of the storage capacity.
 

@@ -49,7 +49,7 @@ For these purposes, such tools typically set low time steps, e.g. 1 hour, and th
 
 Their scope might range from the electrical system only, to the entire energy system, hence encompassing for example heating, transportation, and industry matters. Some also include economical considerations \cite{Antares}.
 
-And from there on, some higher level metrics can be computed, and in particular, we will be interested by:
+And from there on, some higher level metrics can be computed, and in particular, we are interested by:
 \begin{itemize}
     \item the curtailment, that is, the energy produced in excess while the electricty demand was already met, that end up wasted, and
     \item the lost load, that is, the energy that could not be produced, hence some demand could not be served.
@@ -107,27 +107,25 @@ In this case, hard linking is not possible owing to the different formulations o
 
 We also dismiss the soft linking strategy because of its slowness, and absence of convergence guarantee.
 
-\subsubsection{Literature review}
+\subsubsection{Surrogate models}
 
 Considering the effects of VRES in long-term integrated assessment models is a challenge since they don't have a sufficient time resolution to capture the rapid variations within the system.
+
+The linking technique explored in this work is the surrogate model. In this case, an approximation of the Dispa-SET dispatch model is integrated into the MEDEAS IAM. 
+
+The idea behind surrogate models is simple. First, a fast, convenient approximation of the model is made, then it its completely integrated in the other model. For this purpose, the relevant outputs of the Dispa-SET model is approximated from relevant inputs regarding MEDEAS, then the approximator is inserted in the model.
 
 Similar work has been done by Parrado-Hernando et al. in \cite{Hernando2022}, that aims at "capturing features of hourly-resolution energy models". The methodology used to acquire the data presents two downsides that are addressed in this work.
 
 First, the inputs of the energy model are handled as discrete variable, and simulation have been run using all possible combination for these values. This can be seen in some of their figures, where the data points seem to follow some lines. While it does not invalidate the process, this creates a bias in the repartition of the data. Second, linear approximation are used to fit the data obtained. Admittedly, this is identified as a limitation of the work.
 
-To palliate these, the input space will be tackled as a continuous domain for the design of experiment, and other machine learning technique will be considered as to candidates for the creation of the surrogate model.
-
-\subsubsection{Surrogate models}
-
-The linking technique explored in this work is the surrogate model. In this case, an approximation of the Dispa-SET dispatch model will be integrated into the MEDEAS IAM. 
-
-The idea behind surrogate models is simple. First, a fast, convenient approximation of the model is made, then it its completely integrated in the other model. In this case, the relevant outputs of the Dispa-SET model will be approximated from relevant inputs regarding MEDEAS, then the approximator will be integrated in the model.
+To palliate these, the input space is tackled as a continuous domain for the design of experiment, and other machine learning technique are considered as to candidates for the creation of the surrogate model.
 
 The soft-linking approach has already been explored \cite{Brinkerink2022-softlink}, \cite{DEane2012-softlink}, and the hard-linking remains the hardest to investigate, notably due to incompatible formulations. Surrogate models are still unexplored and are of great interest for this use case.
 
-As the combination of the model will use an approximation, this appriximation being fast will not burden the computations of the IAM, hence keeping it efficient.
+As the combination of the two models uses an approximation, this appriximation being fast will not burden the computations of the IAM, hence keeping it efficient.
 
-Surrogate models then provide a promising strategy to tackle this integration problem.
+Surrogate models then provide a promising strategy for the implementation of this integration problem.
 
 \subsection{This work}
 
@@ -136,16 +134,6 @@ Surrogate models then provide a promising strategy to tackle this integration pr
 This master's thesis is dedicated to the integration of the flexibility constraints, the Dispa-SET surrogate model, into the MEDEAS model, with reduced details on this aspect. This includes the creation of a proper dataset, the definition, training and integration of the surrogate model into MEDEAS.
  
 It extends previous work as such an approach, as discussed above, has not yet been implemented in this context.
-
-% \subsubsection{Methodology}
-
-% To do so, adequate design of experiment will be conducted on well-chosen, continuous, input parameters, that will in fine be the surrogate model input features. This will give us a set of input points where a Dispa-SET run will be made, to create a training sample, and the samples are grouped into a single dataset.
-
-% Once this dataset is built, one can then choose and train a model to become the surrogate model on it. The model is chosen after a short assessment of candidate machine learning options.
-
-% When the model will be available, it will then be usable from inside MEDEAS, where some connection will have to be drawn between the variables that are already present in the model, and the surrogate model actual input and output features.
-
-% Finally, the resulting adapted MEDEAS model will be run, and observations and criticisms will be made.
 
 \subsubsection{Contributions}
 
